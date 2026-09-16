@@ -17,8 +17,8 @@ test('only schema-owned role actions and field names enter the result', () => {
     [0, 9, 0],
     [0, 0, 9],
     [9, 0, 0],
-    [0, 9, 0],
-    [0, 0, 9],
+    [0, 9, 0, 0],
+    [0, 0, 0, 9],
   ]);
   assert.deepEqual(result.parsed_json, {
     mira: 'forage_safe',
@@ -78,4 +78,14 @@ test('paused and reset rounds reject stale decisions', () => {
   assert.equal(isCurrentResult({ epoch: 3 }, 4, true), false);
   assert.equal(isCurrentResult({ epoch: 4 }, 4, false), false);
   assert.equal(isCurrentResult({ epoch: 4 }, 4, true), true);
+});
+
+test('builders can heal and physically forced single choices retain the contract', () => {
+  assert.deepEqual(
+    assemble({ nell: ROLE_ACTIONS.builder }, [[0, 0, 9, 0]]).parsed_json,
+    { nell: 'heal' },
+  );
+  assert.deepEqual(assemble({ tomas: ['relax'] }, [[5]]).parsed_json, {
+    tomas: 'relax',
+  });
 });

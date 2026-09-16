@@ -1,6 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DecisionScheduler, DecisionTelemetry } from '../src/controller.js';
+import {
+  DecisionScheduler,
+  DecisionTelemetry,
+  FrameTelemetry,
+} from '../src/controller.js';
 
 test('round robin remains fair when an actor dies in flight', () => {
   const units = ['a', 'b', 'c'].map((id) => ({ id, alive: true }));
@@ -39,4 +43,15 @@ test('dead and duplicate actors cannot complete a roster round', () => {
   meter.begin(500);
   assert.equal(meter.snapshot(500).decisions_per_second, 0);
   assert.equal(meter.total, 3);
+});
+
+test('frame rate uses wall time and retains long stalls', () => {
+  const meter = new FrameTelemetry();
+  meter.record(0, false);
+  for (let n = 1; n <= 30; n++) meter.record(n * 10, true);
+  meter.record(800, true);
+  const result = meter.snapshot(1000);
+  assert.equal(result.fps, 31);
+  assert.equal(result.frame_max_ms, 500);
+  assert.equal(result.slow_frames, 1);
 });

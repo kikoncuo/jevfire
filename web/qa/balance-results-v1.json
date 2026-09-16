@@ -1,0 +1,73 @@
+{
+  "controller": "Explicit scripted reference controller; no model inference",
+  "decision_schedule": "One full living-roster decision per simulated second",
+  "simulation_step_seconds": 1,
+  "maximum_run_seconds": 600,
+  "note": "Deterministic game-balance checks, not AI performance, benchmark latency, or evidence of optimal policies. Wall-clock time is not measured.",
+  "runs": [
+    {
+      "seed": 1,
+      "time": 283.1,
+      "alive": 1,
+      "total": 6,
+      "food": 19,
+      "wave": 9,
+      "kills": 19,
+      "gathered": 45,
+      "ticks": 284,
+      "decisions": 1634,
+      "orcs": 10,
+      "hall_health": 0,
+      "game_over": true,
+      "end_reason": "The hall was destroyed"
+    },
+    {
+      "seed": 2,
+      "time": 301.2,
+      "alive": 1,
+      "total": 6,
+      "food": 20,
+      "wave": 10,
+      "kills": 23,
+      "gathered": 50,
+      "ticks": 302,
+      "decisions": 1730,
+      "orcs": 12,
+      "hall_health": 0,
+      "game_over": true,
+      "end_reason": "The hall was destroyed"
+    },
+    {
+      "seed": 3,
+      "time": 286.1,
+      "alive": 2,
+      "total": 6,
+      "food": 17,
+      "wave": 9,
+      "kills": 21,
+      "gathered": 47,
+      "ticks": 287,
+      "decisions": 1674,
+      "orcs": 8,
+      "hall_health": 0,
+      "game_over": true,
+      "end_reason": "The hall was destroyed"
+    },
+    {
+      "seed": 7341,
+      "time": 286.1,
+      "alive": 2,
+      "total": 6,
+      "food": 18,
+      "wave": 9,
+      "kills": 21,
+      "gathered": 48,
+      "ticks": 287,
+      "decisions": 1684,
+      "orcs": 8,
+      "hall_health": 0,
+      "game_over": true,
+      "end_reason": "The hall was destroyed"
+    }
+  ]
+}

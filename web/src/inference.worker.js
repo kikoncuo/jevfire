@@ -1,7 +1,11 @@
 import { MLCEngine, prebuiltAppConfig } from '@mlc-ai/web-llm';
 import { Tokenizer } from '@mlc-ai/web-tokenizers';
-import { UNIT_DEFINITIONS, schemaFor, assemble } from './contract.js';
-import { buildDecisionPrompt, ROLE_LABELS } from './decision-prompt.js';
+import { UNIT_DEFINITIONS, assemble } from './contract.js';
+import {
+  buildDecisionPrompt,
+  ROLE_LABELS,
+  decisionChoices,
+} from './decision-prompt.js';
 
 const MODEL = 'Qwen3.5-0.8B-q4f16_1-MLC';
 const REVISION = '0ec138972555613c1d7812a821778ad0398c8790';
@@ -21,6 +25,7 @@ class Capture {
     this.row = null;
   }
   processLogits(logits) {
+    if (!this.active) return logits;
     this.row = this.ids.map((id) => Number(logits[id]));
     if (this.inspect) {
       const top = [];
@@ -84,7 +89,8 @@ async function load() {
     ]),
   );
   for (const ids of Object.values(labelIds))
-    if (new Set(ids).size !== 3) throw new Error('Candidate labels collide');
+    if (new Set(ids).size !== ids.length)
+      throw new Error('Candidate labels collide');
   capture = new Capture(labelIds.collector);
   const record = prebuiltAppConfig.model_list.find((m) => m.model_id === MODEL);
   if (!record)
@@ -104,6 +110,9 @@ async function load() {
     await engine.reload(MODEL, {
       context_window_size: 2048,
       max_history_size: 1,
+      temperature: 0,
+      top_p: 1,
+      repetition_penalty: 1,
     });
   } catch (error) {
     await engine.unload().catch(() => {});
@@ -122,44 +131,81 @@ async function decide(message) {
   if (!engine) throw new Error('Load the model first');
   const unit = UNIT_DEFINITIONS.find((unit) => unit.id === message.unitId);
   if (!unit) throw new Error('Unknown villager');
+  const choices = decisionChoices(unit.id, message.actions);
   const prompt = buildDecisionPrompt(
     unit.id,
     message.context,
     message.mission,
     message.rolePrompt,
+    choices,
   );
-  const promptTokens = tokenizer.encode(prompt).length;
+  const tokens = Array.from(tokenizer.encode(prompt));
+  const promptTokens = tokens.length;
   if (promptTokens > 1800)
     throw new Error(
       `Observation and policy exceed the 1,800-token input limit (${promptTokens} tokens). Shorten the role policy.`,
     );
   const start = performance.now();
-  // A fresh local observation is taken for each actor, in a fair round-robin.
-  // One engine scores one output position; generated text is never used.
-  capture.ids = labelIds[unit.role];
+  capture.ids = labelIds[unit.role].slice(0, choices.length);
   capture.row = null;
   capture.inspect = message.testOnly === true;
   capture.diagnostic = null;
-  const response = await engine.completions.create({
-    model: MODEL,
-    prompt,
-    max_tokens: 1,
-    temperature: 0,
-    top_p: 1,
-    repetition_penalty: 1,
-    presence_penalty: 0,
-    frequency_penalty: 0,
-    ignore_eos: true,
-  });
+  // Split prefill into small GPU submissions, yielding between them so the
+  // compositor can draw. The worker alone cannot isolate a shared GPU.
+  // WebLLM's public low-level API updates KV/recurrent state with input tokens
+  // only; intermediate samples are ignored and never fed back into the model.
+  const chunkSize = message.pace === 'fast' ? 128 : 32;
+  const yieldMs = message.pace === 'fast' ? 4 : 16;
+  await engine.resetChat(false, MODEL);
+  let sampled;
+  for (let offset = 0; offset < tokens.length; offset += chunkSize) {
+    const chunk = tokens.slice(offset, offset + chunkSize);
+    capture.active = offset + chunk.length === tokens.length;
+    sampled = await engine.forwardTokensAndSample(chunk, true, MODEL);
+    if (!capture.active)
+      await new Promise((resolve) => setTimeout(resolve, yieldMs));
+  }
   if (!capture.row)
     throw new Error('WebLLM did not expose the requested candidate scores');
+  const row = [...capture.row];
+  const diagnostic = capture.diagnostic;
+  const elapsed = performance.now() - start;
+  let comparison;
+  if (message.testOnly && message.compareWithWhole) {
+    capture.active = true;
+    await engine.resetChat(false, MODEL);
+    await engine.completions.create({
+      model: MODEL,
+      prompt,
+      max_tokens: 1,
+      temperature: 0,
+      top_p: 1,
+      repetition_penalty: 1,
+      presence_penalty: 0,
+      frequency_penalty: 0,
+      ignore_eos: true,
+    });
+    const whole = [...capture.row];
+    comparison = {
+      whole_logits: whole,
+      chunked_logits: row,
+      max_abs_difference: Math.max(
+        ...whole.map((v, i) => Math.abs(v - row[i])),
+      ),
+      same_winner:
+        whole.indexOf(Math.max(...whole)) === row.indexOf(Math.max(...row)),
+    };
+  }
+  const result = assemble({ [unit.id]: choices }, [row]);
+  result.fields[unit.id].options = choices;
   send('decision', {
     ...(capture.inspect
       ? {
           diagnostic: {
-            ...capture.diagnostic,
-            sampled_text: response.choices?.[0]?.text,
-            top: capture.diagnostic.top.map((item) => {
+            ...diagnostic,
+            sampled_text: tokenizer.decode(new Int32Array([sampled])),
+            comparison,
+            top: diagnostic.top.map((item) => {
               let token;
               try {
                 token = tokenizer.decode(new Int32Array([item.id]));
@@ -171,19 +217,22 @@ async function decide(message) {
           },
         }
       : {}),
-    ...assemble(schemaFor([unit]), [capture.row]),
+    ...result,
     model: MODEL,
     model_revision: REVISION,
     id: message.id,
     epoch: message.epoch,
     unitId: unit.id,
     testOnly: message.testOnly === true,
-    elapsed_ms: performance.now() - start,
+    elapsed_ms: elapsed,
+    prefill_chunk_tokens: chunkSize,
+    prefill_chunks: Math.ceil(tokens.length / chunkSize),
     fields_scored: 1,
     backend_requests: 1,
+    forward_calls: Math.ceil(tokens.length / chunkSize),
     prompt_tokens: promptTokens,
     scheduling: 'round-robin',
-    usage: response.usage,
+    usage: { prompt_tokens: promptTokens, scored_positions: 1 },
   });
 }
 

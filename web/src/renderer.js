@@ -29,58 +29,113 @@ function rng(seed = 261) {
   };
 }
 
-function label(text, color = '#344132', width = 256) {
+const ROLE_SYMBOLS = { collector: '◆', fighter: '⚔', builder: '⚒', orc: '!' };
+const ACTIVITY_LABELS = {
+  walking: '→ Travelling',
+  gathering: '◆ Gathering',
+  fighting: '⚔ Fighting',
+  training: '⚔ Training',
+  building: '⚒ Building',
+  repairing: '⚒ Repairing',
+  healing: '+ Healing ally',
+  eating: '● Eating',
+  resting: '☾ Resting',
+  guarding: '◈ Guarding',
+  waiting: '… Waiting',
+  roaming: '→ Roaming',
+  dead: 'Fallen',
+};
+
+function label(text, color = '#344132') {
   const canvas = document.createElement('canvas');
-  canvas.width = width;
-  canvas.height = 64;
+  canvas.width = 256;
+  canvas.height = 128;
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.SRGBColorSpace;
+  texture.generateMipmaps = false;
+  texture.minFilter = THREE.LinearFilter;
   const sprite = new THREE.Sprite(
     new THREE.SpriteMaterial({
       map: texture,
       transparent: true,
       depthTest: false,
+      depthWrite: false,
       toneMapped: false,
     }),
   );
-  sprite.scale.set(2.5, 0.625, 1);
   sprite.renderOrder = 10;
-  sprite.userData = { canvas, texture, text, color, state: '' };
+  sprite.userData = {
+    canvas,
+    texture,
+    state: '',
+    pixels: 92,
+    variant: 'site',
+    ratio: 72 / 256,
+  };
   paintLabel(sprite, text, color);
   return sprite;
 }
 
-function paintLabel(sprite, text, color, health = null, hunger = null) {
-  const state = [
-    text,
-    color,
-    health === null ? '' : Math.ceil(health * 20),
-    hunger === null ? '' : Math.ceil(hunger * 20),
-  ].join('/');
+// Compact names stay in the world; explanations and model reasoning stay in the
+// inspector. Only one selected/hovered NPC gets a small numerical needs line.
+function paintLabel(
+  sprite,
+  text,
+  color,
+  health = null,
+  hunger = null,
+  detail = '',
+  numbers = '',
+) {
+  const variant = sprite.userData.variant;
+  const healthStep = health === null ? '' : Math.round(health * 100);
+  const hungerStep = hunger === null ? '' : Math.round(hunger * 100);
+  const state = `${variant}|${text}|${color}|${healthStep}|${hungerStep}|${detail}|${numbers}`;
   if (state === sprite.userData.state) return;
   sprite.userData.state = state;
   const { canvas, texture } = sprite.userData;
+  const selected = variant === 'selected';
+  const npc = variant === 'npc' || selected;
+  const tag = variant === 'tag';
+  const contentHeight = selected ? 86 : npc ? 58 : tag ? 44 : 72;
+  sprite.userData.ratio = contentHeight / canvas.width;
+  // Keep GPU texture storage fixed; crop UVs instead of resizing an uploaded canvas.
+  texture.repeat.set(1, contentHeight / 128);
+  texture.offset.set(0, 1 - contentHeight / 128);
   const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.font = '600 27px "Barlow Condensed", sans-serif';
+  ctx.clearRect(0, 0, 256, canvas.height);
   ctx.textAlign = 'center';
-  ctx.lineJoin = 'round';
-  ctx.lineWidth = 6;
-  ctx.strokeStyle = 'rgba(243,239,221,.92)';
-  ctx.strokeText(text, canvas.width / 2, 30);
-  ctx.fillStyle = color;
-  ctx.fillText(text, canvas.width / 2, 30);
-  if (health !== null) {
-    ctx.fillStyle = '#3b453bcc';
-    ctx.fillRect(56, 41, canvas.width - 112, 7);
-    ctx.fillStyle = health < 0.35 ? '#bc573b' : '#64855d';
-    ctx.fillRect(57, 42, (canvas.width - 114) * clamp(health, 0, 1), 5);
+  if (!npc) {
+    ctx.fillStyle = 'rgba(247,242,222,.85)';
+    ctx.beginPath();
+    ctx.roundRect(3, 2, 250, contentHeight - 4, 6);
+    ctx.fill();
   }
-  if (hunger !== null) {
-    ctx.fillStyle = '#4b483c99';
-    ctx.fillRect(56, 51, canvas.width - 112, 5);
-    ctx.fillStyle = '#dbb364';
-    ctx.fillRect(57, 52, (canvas.width - 114) * clamp(hunger, 0, 1), 3);
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#f6f0dd';
+  ctx.lineJoin = 'round';
+  ctx.lineWidth = npc ? 7 : 0;
+  ctx.font = `${npc ? 700 : 600} ${npc ? (selected ? 36 : 40) : tag ? 32 : 29}px "Barlow Condensed", sans-serif`;
+  if (npc) ctx.strokeText(text, 128, 34, 246);
+  ctx.fillText(text, 128, tag ? 32 : 34, 246);
+  if (selected) {
+    ctx.font = '600 24px "Barlow Condensed", sans-serif';
+    ctx.strokeText(numbers, 128, 62, 246);
+    ctx.fillText(numbers, 128, 62, 246);
+  } else if (!npc && !tag) {
+    ctx.font = '500 25px "Barlow Condensed", sans-serif';
+    ctx.fillText(numbers || detail, 128, 61, 246);
+  }
+  if (health !== null) {
+    const y = selected ? 71 : npc ? 45 : 65;
+    ctx.fillStyle = '#64705599';
+    ctx.fillRect(35, y, 186, 5);
+    ctx.fillStyle = health < 0.35 ? '#bb5138' : '#577952';
+    ctx.fillRect(35, y, 186 * clamp(health, 0, 1), 5);
+    if (selected && hunger !== null) {
+      ctx.fillStyle = '#aa873c';
+      ctx.fillRect(35, 79, 186 * clamp(hunger, 0, 1), 3);
+    }
   }
   texture.needsUpdate = true;
 }
@@ -118,35 +173,47 @@ function pathMesh(points, width, color = 0xb9b494) {
 
 function berryBush(random) {
   const group = new THREE.Group();
-  const leaves = [material(0x6c8043), material(0x7b9150), material(0x566d39)];
+  const transform = new THREE.Object3D();
+  const leaves = new THREE.InstancedMesh(
+    new THREE.IcosahedronGeometry(0.47, 0),
+    material(0xffffff),
+    5,
+  );
+  const leafColor = new THREE.Color();
   for (let i = 0; i < 5; i++) {
-    const a = i * 2.4;
-    const bush = mesh(
-      new THREE.IcosahedronGeometry(0.47, 0),
-      leaves[i % 3],
-      Math.cos(a) * 0.45,
+    const angle = i * 2.4;
+    transform.position.set(
+      Math.cos(angle) * 0.45,
       0.38 + random() * 0.15,
-      Math.sin(a) * 0.45,
+      Math.sin(angle) * 0.45,
     );
-    bush.scale.set(1, 0.86, 1);
-    group.add(bush);
+    transform.scale.set(1, 0.86, 1);
+    transform.updateMatrix();
+    leaves.setMatrixAt(i, transform.matrix);
+    leaves.setColorAt(
+      i,
+      leafColor.setHex([0x6c8043, 0x7b9150, 0x566d39][i % 3]),
+    );
   }
-  const berries = new THREE.Group(),
-    berryMat = material(0xa54e43);
+  const berries = new THREE.InstancedMesh(
+    new THREE.IcosahedronGeometry(0.09, 0),
+    material(0xa54e43),
+    13,
+  );
+  transform.scale.setScalar(1);
   for (let i = 0; i < 13; i++) {
-    const a = random() * Math.PI * 2,
-      r = 0.35 + random() * 0.44;
-    berries.add(
-      mesh(
-        new THREE.IcosahedronGeometry(0.09, 0),
-        berryMat,
-        Math.cos(a) * r,
-        0.55 + random() * 0.23,
-        Math.sin(a) * r,
-      ),
+    const angle = random() * Math.PI * 2,
+      radius = 0.35 + random() * 0.44;
+    transform.position.set(
+      Math.cos(angle) * radius,
+      0.55 + random() * 0.23,
+      Math.sin(angle) * radius,
     );
+    transform.updateMatrix();
+    berries.setMatrixAt(i, transform.matrix);
   }
-  group.add(berries);
+  leaves.receiveShadow = true;
+  group.add(leaves, berries);
   group.userData.berries = berries;
   return group;
 }
@@ -184,6 +251,21 @@ export class Renderer {
     this.foodNodes = new Map();
     this.assets = new Map();
     this.assetsReady = false;
+    this.assetBounds = new Map();
+    this.worldLabels = [];
+    this.lastSync = -Infinity;
+    this.lastLabels = -Infinity;
+    this.lastShadow = -Infinity;
+    this.shadowDirty = true;
+    this.lastZoom = -1;
+    this.quality = 'normal';
+    this.projected = new THREE.Vector3();
+    this.drawCount = 0;
+    this.hoveredId = null;
+    this.hoveredBuildingId = null;
+    this.labelRight = new THREE.Vector3();
+    this.labelUp = new THREE.Vector3();
+    this.labelBoxes = [];
     this.selectedId = game.units[0]?.id;
     this.disposed = false;
     this.scene = new THREE.Scene();
@@ -195,8 +277,9 @@ export class Renderer {
       powerPreference: 'high-performance',
       alpha: false,
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.25));
     this.renderer.shadowMap.enabled = true;
+    this.renderer.shadowMap.autoUpdate = false;
     this.renderer.shadowMap.type = THREE.PCFShadowMap;
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -244,6 +327,37 @@ export class Renderer {
       );
       if (hits.length) this.select(hits[0].object.userData.unitId, true);
     };
+    this.pointerMove = (event) => {
+      if (event.buttons || event.timeStamp - (this.lastHoverTime || 0) < 80)
+        return;
+      this.lastHoverTime = event.timeStamp;
+      const rect = canvas.getBoundingClientRect();
+      this.pointer.set(
+        ((event.clientX - rect.left) / rect.width) * 2 - 1,
+        -((event.clientY - rect.top) / rect.height) * 2 + 1,
+      );
+      this.raycaster.setFromCamera(this.pointer, this.camera);
+      const targets = [];
+      for (const entity of this.entities.values()) targets.push(entity.hitbox);
+      for (const structure of this.structures.values())
+        targets.push(structure.model);
+      const hit = this.raycaster.intersectObjects(targets, true)[0];
+      this.hoveredId = null;
+      this.hoveredBuildingId = null;
+      let object = hit?.object;
+      while (object) {
+        if (object.userData.unitId) this.hoveredId = object.userData.unitId;
+        if (object.userData.buildingId)
+          this.hoveredBuildingId = object.userData.buildingId;
+        object = object.parent;
+      }
+    };
+    this.pointerLeave = () => {
+      this.hoveredId = null;
+      this.hoveredBuildingId = null;
+    };
+    canvas.addEventListener('pointermove', this.pointerMove);
+    canvas.addEventListener('pointerleave', this.pointerLeave);
     canvas.addEventListener('pointerdown', this.pointerDown);
     canvas.addEventListener('pointerup', this.pointerUp);
     this.resizeObserver = new ResizeObserver(() => this.resize());
@@ -285,7 +399,7 @@ export class Renderer {
     sun.position.set(-12, 36, 12);
     sun.target.position.set(16, 0, 16);
     sun.castShadow = true;
-    sun.shadow.mapSize.set(2048, 2048);
+    sun.shadow.mapSize.set(1024, 1024);
     sun.shadow.camera.left = -29;
     sun.shadow.camera.right = 29;
     sun.shadow.camera.top = 29;
@@ -401,27 +515,31 @@ export class Renderer {
     );
     plaza.castShadow = false;
     this.scene.add(plaza);
-    const flowerMats = [
-      material(0xc7c790),
-      material(0xaa794f),
-      material(0xc9b884),
-    ];
+    const flowerGeometry = new THREE.ConeGeometry(0.075, 0.2, 4);
+    const flowers = new THREE.InstancedMesh(
+      flowerGeometry,
+      material(0xffffff),
+      150,
+    );
+    const flowerTransform = new THREE.Object3D(),
+      flowerColor = new THREE.Color();
+    let flowerCount = 0;
     for (let i = 0; i < 150; i++) {
       const x = random() * 34 - 1,
         z = random() * 34 - 1;
       if (Math.abs(x - 16) < 2 || (z > 15 && z < 25 && x > 9 && x < 23))
         continue;
-      const flower = mesh(
-        new THREE.ConeGeometry(0.075, 0.2, 4),
-        flowerMats[i % 3],
-        x,
-        0.13,
-        z,
+      flowerTransform.position.set(x, 0.13, z);
+      flowerTransform.rotation.z = (random() - 0.5) * 0.6;
+      flowerTransform.updateMatrix();
+      flowers.setMatrixAt(flowerCount, flowerTransform.matrix);
+      flowers.setColorAt(
+        flowerCount++,
+        flowerColor.setHex([0xc7c790, 0xaa794f, 0xc9b884][i % 3]),
       );
-      flower.rotation.z = (random() - 0.5) * 0.6;
-      flower.castShadow = false;
-      this.scene.add(flower);
     }
+    flowers.count = flowerCount;
+    this.scene.add(flowers);
     // The fire is a landmark; food and healing still follow the simulation's hall rules.
     this.fire = new THREE.Group();
     const stone = material(0x747768),
@@ -497,6 +615,46 @@ export class Renderer {
     target.add(mark);
     target.position.set(16, 0, 25.4);
     this.scene.add(target);
+    this.createWorksites();
+    const targetGeometry = new THREE.BufferGeometry();
+    targetGeometry.setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(new Float32Array(6), 3),
+    );
+    targetGeometry.setAttribute(
+      'lineDistance',
+      new THREE.Float32BufferAttribute(new Float32Array(2), 1),
+    );
+    this.targetLine = new THREE.Line(
+      targetGeometry,
+      new THREE.LineDashedMaterial({
+        color: 0xe7c66d,
+        dashSize: 0.3,
+        gapSize: 0.2,
+        transparent: true,
+        opacity: 0.9,
+        depthTest: false,
+      }),
+    );
+    this.targetLine.renderOrder = 8;
+    this.targetLine.visible = false;
+    this.scene.add(this.targetLine);
+    this.nameLeaders = new THREE.LineSegments(
+      new THREE.BufferGeometry(),
+      new THREE.LineBasicMaterial({
+        color: 0xeee7cb,
+        transparent: true,
+        opacity: 0.75,
+        depthTest: false,
+      }),
+    );
+    this.nameLeaders.geometry.setAttribute(
+      'position',
+      new THREE.Float32BufferAttribute(new Float32Array(36), 3),
+    );
+    this.nameLeaders.geometry.setDrawRange(0, 0);
+    this.nameLeaders.renderOrder = 9;
+    this.scene.add(this.nameLeaders);
     this.projectileGeometry = new THREE.BufferGeometry();
     this.projectileGeometry.setAttribute(
       'position',
@@ -508,6 +666,256 @@ export class Renderer {
     );
     this.projectileGeometry.setDrawRange(0, 0);
     this.scene.add(this.projectileLines);
+  }
+
+  createWorksites() {
+    const training = this.game.trainingGround || { x: 16, y: 25.4 };
+    const clinic = this.game.clinic || { x: 22.5, y: 22.8 };
+    const trainingDisc = mesh(
+      new THREE.CircleGeometry(1.65, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0xb28c58,
+        transparent: true,
+        opacity: 0.3,
+        depthWrite: false,
+      }),
+      training.x,
+      0.085,
+      training.y,
+    );
+    trainingDisc.rotation.x = -Math.PI / 2;
+    trainingDisc.castShadow = false;
+    const clinicDisc = mesh(
+      new THREE.CircleGeometry(1.55, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0xb9d1b1,
+        transparent: true,
+        opacity: 0.55,
+        depthWrite: false,
+      }),
+      clinic.x,
+      0.085,
+      clinic.y,
+    );
+    clinicDisc.rotation.x = -Math.PI / 2;
+    clinicDisc.castShadow = false;
+    this.scene.add(trainingDisc, clinicDisc);
+    const wood = material(0x826a46),
+      cloth = material(0xe5dcc1);
+    const clinicProps = new THREE.Group();
+    clinicProps.position.set(clinic.x, 0.07, clinic.y);
+    clinicProps.add(
+      mesh(new THREE.BoxGeometry(1.45, 0.16, 0.64), cloth, 0, 0.55, 0.25),
+    );
+    clinicProps.add(
+      mesh(new THREE.BoxGeometry(0.14, 0.52, 0.54), wood, -0.55, 0.25, 0.25),
+    );
+    clinicProps.add(
+      mesh(new THREE.BoxGeometry(0.14, 0.52, 0.54), wood, 0.55, 0.25, 0.25),
+    );
+    const sign = new THREE.Group();
+    sign.add(
+      mesh(new THREE.CylinderGeometry(0.055, 0.07, 1.55, 6), wood, 0, 0.7, 0),
+    );
+    sign.add(mesh(new THREE.BoxGeometry(0.65, 0.65, 0.08), cloth, 0, 1.32, 0));
+    const crossMat = material(0xa34b39);
+    sign.add(
+      mesh(new THREE.BoxGeometry(0.39, 0.12, 0.095), crossMat, 0, 1.32, 0.01),
+    );
+    sign.add(
+      mesh(new THREE.BoxGeometry(0.12, 0.39, 0.1), crossMat, 0, 1.32, 0.013),
+    );
+    sign.position.set(1.1, 0, 0.15);
+    clinicProps.add(sign);
+    this.scene.add(clinicProps);
+    const trainingLabel = label('⚔ TRAIN', '#765831');
+    trainingLabel.position.set(training.x, 0.35, training.y + 1.5);
+    trainingLabel.userData.pixels = 66;
+    trainingLabel.userData.variant = 'tag';
+    paintLabel(
+      trainingLabel,
+      '⚔ TRAIN',
+      '#765831',
+      null,
+      null,
+      'Fighters gain strength',
+    );
+    const clinicLabel = label('+ MEDIC', '#54704e');
+    clinicLabel.position.set(clinic.x + 0.4, 0.3, clinic.y + 1.35);
+    clinicLabel.userData.pixels = 66;
+    clinicLabel.userData.variant = 'tag';
+    paintLabel(
+      clinicLabel,
+      '+ MEDIC',
+      '#54704e',
+      null,
+      null,
+      'Field treatment · medics travel',
+    );
+    this.worldLabels.push(trainingLabel, clinicLabel);
+    this.scene.add(trainingLabel, clinicLabel);
+  }
+
+  setQuality(quality) {
+    this.quality = quality === 'low' ? 'low' : 'normal';
+    this.renderer.setPixelRatio(
+      Math.min(window.devicePixelRatio || 1, this.quality === 'low' ? 1 : 1.25),
+    );
+    this.renderer.shadowMap.enabled = this.quality !== 'low';
+    this.shadowDirty = true;
+    this.resize();
+  }
+
+  stats() {
+    return {
+      draw_calls: this.renderer.info.render.calls,
+      triangles: this.renderer.info.render.triangles,
+      pixel_ratio: this.renderer.getPixelRatio(),
+      shadow_map_size: this.quality === 'low' ? 0 : 1024,
+      rendered_frames: this.drawCount,
+      geometries: this.renderer.info.memory.geometries,
+      textures: this.renderer.info.memory.textures,
+    };
+  }
+
+  scaleLabels() {
+    // Pixel-sized labels remain legible when the user zooms out. Updating their
+    // scale is cheap; their canvas content is independently limited to 10 Hz.
+    const height = this.canvas.clientHeight || 570;
+    const worldPerPixel =
+      (this.camera.top - this.camera.bottom) / (height * this.camera.zoom);
+    for (const title of this.worldLabels) {
+      const width = title.userData.pixels * worldPerPixel;
+      title.scale.set(width, width * title.userData.ratio, 1);
+    }
+  }
+
+  layoutNpcLabels() {
+    const width = this.canvas.clientWidth || 640,
+      height = this.canvas.clientHeight || 570;
+    const worldPerPixel =
+      (this.camera.top - this.camera.bottom) / (height * this.camera.zoom);
+    this.labelUp.setFromMatrixColumn(this.camera.matrixWorld, 1);
+    this.labelRight.setFromMatrixColumn(this.camera.matrixWorld, 0);
+    const leaderPositions = this.nameLeaders.geometry.attributes.position;
+    let leaderCount = 0;
+    const boxes = this.labelBoxes;
+    boxes.length = 0;
+    // Reserve space for the hall plaque and keep names above, not over, models.
+    for (const view of this.structures.values()) {
+      if (!view.title.visible) continue;
+      view.title.getWorldPosition(this.projected).project(this.camera);
+      const w = view.title.userData.pixels,
+        h = w * view.title.userData.ratio;
+      boxes.push({
+        x: ((this.projected.x + 1) * width) / 2,
+        y: ((1 - this.projected.y) * height) / 2,
+        w,
+        h,
+      });
+    }
+    const ordered = this.game.units
+      .slice()
+      .sort((a, b) =>
+        a.id === this.selectedId
+          ? -1
+          : b.id === this.selectedId
+            ? 1
+            : a.y - b.y,
+      );
+    for (const unit of ordered) {
+      const entity = this.entities.get(unit.id);
+      if (!entity || !entity.title.visible) continue;
+      const title = entity.title;
+      title.position.set(0, entity.height + 0.42, 0);
+      this.projected
+        .set(unit.x, entity.height + 0.465, unit.y)
+        .project(this.camera);
+      const x = ((this.projected.x + 1) * width) / 2,
+        y = ((1 - this.projected.y) * height) / 2;
+      const w =
+        title.userData.pixels *
+        (title.userData.variant === 'selected' ? 0.95 : 0.74);
+      const h = title.userData.pixels * title.userData.ratio;
+      const offsets = [
+        [0, 0],
+        [-38, 0],
+        [38, 0],
+        [-38, 22],
+        [38, 22],
+        [0, 22],
+        [-62, 22],
+        [62, 22],
+        [-38, 43],
+        [38, 43],
+      ];
+      let chosen = offsets[0],
+        least = Infinity;
+      for (const offset of offsets) {
+        const overlaps = boxes.filter(
+          (box) =>
+            Math.abs(x + offset[0] - box.x) < (w + box.w) / 2 + 2 &&
+            Math.abs(y - offset[1] - box.y) < (h + box.h) / 2 + 2,
+        ).length;
+        if (overlaps < least) {
+          chosen = offset;
+          least = overlaps;
+        }
+        if (!overlaps) break;
+      }
+      title.position.addScaledVector(
+        this.labelRight,
+        chosen[0] * worldPerPixel,
+      );
+      title.position.addScaledVector(this.labelUp, chosen[1] * worldPerPixel);
+      boxes.push({ x: x + chosen[0], y: y - chosen[1], w, h });
+      if (chosen[0] || chosen[1]) {
+        leaderPositions.setXYZ(
+          leaderCount++,
+          unit.x,
+          entity.height + 0.23,
+          unit.y,
+        );
+        leaderPositions.setXYZ(
+          leaderCount++,
+          unit.x + title.position.x,
+          title.position.y - 0.14,
+          unit.y + title.position.z,
+        );
+      }
+    }
+    leaderPositions.needsUpdate = true;
+    this.nameLeaders.geometry.setDrawRange(0, leaderCount);
+  }
+
+  updateTargetLine() {
+    const unit = this.game.units.find(
+      (candidate) => candidate.id === this.selectedId,
+    );
+    const id = unit?.autoTargetId || unit?.targetId;
+    let target = null;
+    if (id) {
+      target =
+        this.game.units.find((candidate) => candidate.id === id) ||
+        this.game.orcs.find((candidate) => candidate.id === id) ||
+        this.game.buildings.find((candidate) => candidate.id === id) ||
+        this.game.resources.find((candidate) => candidate.id === id);
+      if (!target && id === 'training') target = this.game.trainingGround;
+      if (!target && id === 'clinic') target = this.game.clinic;
+    }
+    this.targetLine.visible = !!(unit?.alive && target);
+    if (!this.targetLine.visible) return;
+    const positions = this.targetLine.geometry.attributes.position;
+    positions.setXYZ(0, unit.x, 0.16, unit.y);
+    positions.setXYZ(1, target.x, 0.16, target.y);
+    positions.needsUpdate = true;
+    this.targetLine.material.color.setHex(
+      unit.needsOverride ? 0xe4b366 : 0xf6edd1,
+    );
+    const distances = this.targetLine.geometry.attributes.lineDistance;
+    distances.setX(0, 0);
+    distances.setX(1, Math.hypot(unit.x - target.x, unit.y - target.y));
+    distances.needsUpdate = true;
   }
 
   async loadAssets() {
@@ -528,16 +936,27 @@ export class Renderer {
         const gltf = await loader.loadAsync(ASSET(name));
         gltf.scene.traverse((child) => {
           if (child.isMesh) {
-            child.castShadow = true;
+            child.castShadow = ![
+              'knight',
+              'rogue',
+              'barbarian',
+              'orc',
+            ].includes(name);
             child.receiveShadow = true;
-            child.frustumCulled = false;
+            child.frustumCulled = !child.isSkinnedMesh;
           }
         });
         this.assets.set(name, gltf);
+        const box = new THREE.Box3().setFromObject(gltf.scene);
+        this.assetBounds.set(name, {
+          height: Math.max(0.01, box.max.y - box.min.y),
+          bottom: box.min.y,
+        });
       }),
     );
     if (this.disposed) return;
     this.assetsReady = true;
+    this.shadowDirty = true;
     this.plantForest();
     this.syncObjects();
   }
@@ -547,12 +966,11 @@ export class Renderer {
     const model = animated
       ? cloneSkeleton(asset.scene)
       : asset.scene.clone(true);
-    const box = new THREE.Box3().setFromObject(model);
-    const dimensions = box.getSize(new THREE.Vector3());
-    const scale = height / Math.max(0.01, dimensions.y);
+    const bounds = this.assetBounds.get(name);
+    const scale = height / bounds.height;
     const group = new THREE.Group();
     model.scale.setScalar(scale);
-    model.position.y = -box.min.y * scale;
+    model.position.y = -bounds.bottom * scale;
     group.add(model);
     return { group, model, asset, scale };
   }
@@ -576,21 +994,48 @@ export class Renderer {
       [6, 27, 4.6],
       [3, 23, 4.3],
     );
-    for (const [x, z, height] of candidates) {
-      const { group } = this.normalizedModel('tree', height);
-      group.position.set(x, 0.06, z);
-      group.rotation.y = random() * Math.PI * 2;
-      this.scene.add(group);
-    }
+    this.instanceScenery('tree', candidates, random);
+    const rocks = [];
     for (let i = 0; i < 16; i++) {
       const x = random() * 32,
         z = random() * 32;
       if (x > 7 && x < 25 && z > 12 && z < 27) continue;
-      const { group } = this.normalizedModel('rock', 0.3 + random() * 0.55);
-      group.position.set(x, 0.04, z);
-      group.rotation.y = random() * Math.PI;
-      this.scene.add(group);
+      rocks.push([x, z, 0.3 + random() * 0.55]);
     }
+    this.instanceScenery('rock', rocks, random);
+  }
+
+  instanceScenery(name, placements, random) {
+    const asset = this.assets.get(name),
+      bounds = this.assetBounds.get(name);
+    const matrices = [];
+    const transform = new THREE.Object3D();
+    for (const [x, z, height] of placements) {
+      const scale = height / bounds.height;
+      transform.position.set(x, 0.06 - bounds.bottom * scale, z);
+      transform.scale.setScalar(scale);
+      transform.rotation.y = random() * Math.PI * 2;
+      transform.updateMatrix();
+      matrices.push(transform.matrix.clone());
+    }
+    asset.scene.updateMatrixWorld(true);
+    const composed = new THREE.Matrix4();
+    asset.scene.traverse((child) => {
+      if (!child.isMesh) return;
+      const batch = new THREE.InstancedMesh(
+        child.geometry,
+        child.material,
+        placements.length,
+      );
+      for (let i = 0; i < matrices.length; i++) {
+        composed.multiplyMatrices(matrices[i], child.matrixWorld);
+        batch.setMatrixAt(i, composed);
+      }
+      batch.castShadow = name === 'tree';
+      batch.receiveShadow = true;
+      batch.computeBoundingSphere();
+      this.scene.add(batch);
+    });
   }
 
   createCharacter(unit, isOrc = false) {
@@ -619,6 +1064,24 @@ export class Renderer {
       const hand = model.getObjectByName('handslot.r');
       if (hand) hand.add(woodenTool(role));
     }
+    model.traverse((child) => {
+      if (child.isMesh) child.castShadow = false;
+    });
+    const blob = mesh(
+      new THREE.CircleGeometry(0.48, 16),
+      new THREE.MeshBasicMaterial({
+        color: 0x3c4931,
+        transparent: true,
+        opacity: 0.22,
+        depthWrite: false,
+      }),
+      0,
+      0.067,
+      0,
+    );
+    blob.rotation.x = -Math.PI / 2;
+    blob.castShadow = false;
+    meshRoot.add(blob);
     const mixer = new THREE.AnimationMixer(model);
     const clips = new Map(asset.animations.map((clip) => [clip.name, clip]));
     const ring = mesh(
@@ -654,7 +1117,10 @@ export class Renderer {
       isOrc ? `ORC · ${unit.level || 1}` : unit.name,
       isOrc ? '#73404e' : '#35432c',
     );
-    title.position.y = height + 0.42;
+    title.position.y = height + 0.4;
+    title.userData.pixels = isOrc ? 64 : 86;
+    title.userData.variant = 'npc';
+    this.worldLabels.push(title);
     meshRoot.add(title);
     const hitbox = new THREE.Mesh(
       new THREE.BoxGeometry(1.05, 1.8, 1.05),
@@ -687,6 +1153,9 @@ export class Renderer {
       marker,
       hitbox,
       height,
+      lastX: unit.x,
+      lastY: unit.y,
+      moveSpeed: 0,
       animation: null,
       action: null,
     };
@@ -701,6 +1170,7 @@ export class Renderer {
     const height = { hall: 3.1, house: 2.3, wall: 1.05, tower: 2.85 }[type];
     const { group, model } = this.normalizedModel(type, height);
     group.position.set(building.x, 0.04, building.y);
+    model.userData.buildingId = building.id;
     if (type === 'wall') group.rotation.y = Math.PI / 2;
     model.traverse((child) => {
       if (child.isMesh)
@@ -712,7 +1182,9 @@ export class Renderer {
       type === 'hall' ? 'THE HEARTH' : type === 'tower' ? 'DEFENSE' : '',
       '#6a674b',
     );
-    title.position.y = height + 0.35;
+    title.position.y = height + 1.0;
+    title.userData.pixels = type === 'hall' ? 114 : 85;
+    this.worldLabels.push(title);
     group.add(title);
     const plan = mesh(
       new THREE.RingGeometry(0.8, 0.85, 4),
@@ -738,6 +1210,7 @@ export class Renderer {
       state: '',
     };
     this.structures.set(building.id, entry);
+    this.shadowDirty = true;
     return entry;
   }
 
@@ -758,6 +1231,7 @@ export class Renderer {
         this.scene.remove(entity.root);
         entity.title.material.map.dispose();
         entity.title.material.dispose();
+        this.worldLabels.splice(this.worldLabels.indexOf(entity.title), 1);
         this.entities.delete(id);
       }
     }
@@ -767,7 +1241,11 @@ export class Renderer {
     for (const [id, value] of this.structures)
       if (!structureIds.has(id)) {
         this.scene.remove(value.group);
+        this.worldLabels.splice(this.worldLabels.indexOf(value.title), 1);
+        value.title.material.map.dispose();
+        value.title.material.dispose();
         this.structures.delete(id);
+        this.shadowDirty = true;
       }
     for (const node of this.game.resources) {
       if (this.foodNodes.has(node.id)) continue;
@@ -785,8 +1263,10 @@ export class Renderer {
         plants.push(bush);
       }
       const title = label('FOOD', '#4e6645');
-      title.position.y = 1.37;
-      title.scale.set(2.1, 0.525, 1);
+      title.position.y = 1.35;
+      title.userData.pixels = 80;
+      title.userData.variant = 'tag';
+      this.worldLabels.push(title);
       group.add(title);
       group.position.set(node.x, 0.025, node.y);
       this.scene.add(group);
@@ -794,34 +1274,51 @@ export class Renderer {
     }
   }
 
-  animateCharacter(entity, unit, dt, now) {
+  animateCharacter(entity, unit, dt, now, updateLabel) {
+    const dx = unit.x - entity.lastX,
+      dy = unit.y - entity.lastY;
+    const speed = Math.hypot(dx, dy) / Math.max(0.001, dt);
+    entity.moveSpeed += (speed - entity.moveSpeed) * Math.min(1, dt * 12);
+    entity.lastX = unit.x;
+    entity.lastY = unit.y;
     entity.root.position.set(unit.x, 0.045, unit.y);
-    const heading = Number.isFinite(unit.heading) ? unit.heading : 0;
+    const moving = entity.moveSpeed > 0.12;
+    const heading = moving
+      ? Math.atan2(dx, dy)
+      : Number.isFinite(unit.heading)
+        ? unit.heading
+        : 0;
     const difference = Math.atan2(
       Math.sin(heading - entity.model.rotation.y),
       Math.cos(heading - entity.model.rotation.y),
     );
     entity.model.rotation.y += difference * Math.min(1, dt * 11);
+    const activity = unit.activity || 'waiting';
     let animation;
     if (entity.role === 'orc')
       animation = !unit.alive
         ? 'Death'
-        : unit.activity === 'fighting'
-          ? 'Punch'
-          : unit.activity === 'roaming' || unit.activity === 'walking'
-            ? 'Walk'
+        : moving
+          ? 'Walk'
+          : activity === 'fighting'
+            ? 'Punch'
             : 'Idle';
     else
       animation = !unit.alive
         ? 'Death_A'
-        : unit.activity === 'walking'
+        : moving
           ? 'Walking_A'
-          : ['fighting', 'training'].includes(unit.activity)
+          : activity === 'fighting' ||
+              activity === 'training' ||
+              activity === 'building' ||
+              activity === 'repairing'
             ? '1H_Melee_Attack_Chop'
-            : ['building', 'repairing'].includes(unit.activity)
-              ? '1H_Melee_Attack_Chop'
-              : unit.activity === 'gathering'
-                ? 'Interact'
+            : activity === 'gathering' ||
+                activity === 'healing' ||
+                activity === 'eating'
+              ? 'Interact'
+              : activity === 'resting'
+                ? 'Sit_Floor_Idle'
                 : 'Idle';
     if (animation !== entity.animation && entity.clips.has(animation)) {
       const action = entity.mixer.clipAction(entity.clips.get(animation));
@@ -831,43 +1328,87 @@ export class Renderer {
         unit.alive ? Infinity : 1,
       );
       action.clampWhenFinished = !unit.alive;
-      action.fadeIn(0.15).play();
-      entity.action?.fadeOut(0.15);
+      if (entity.action) {
+        action.fadeIn(0.15).play();
+        entity.action.fadeOut(0.15);
+      } else {
+        action.play();
+        entity.mixer.update(0); // Show the initial idle pose even before play.
+      }
       entity.action = action;
       entity.animation = animation;
     }
-    if (this.game.running || !unit.alive)
-      entity.mixer.update(dt * (unit.activity === 'walking' ? 1.2 : 1));
-    // A reset reuses IDs; rewind a finished death clip on its next living action.
+    // Walking follows actual position changes, not a stale high-level action.
+    if (
+      (this.game.running && unit.alive) ||
+      (!unit.alive && entity.action?.isRunning())
+    )
+      entity.mixer.update(
+        dt *
+          (moving
+            ? clamp(entity.moveSpeed / 1.7, 0.6, 1.7)
+            : activity === 'eating'
+              ? 0.8
+              : 1),
+      );
     const selected = unit.id === this.selectedId;
     entity.selection.visible = selected && unit.alive;
     entity.marker.visible = selected && unit.alive;
     entity.marker.position.y =
-      entity.height + 0.96 + Math.sin(now * 0.003) * 0.08;
+      entity.height + 0.3 + Math.sin(now * 0.003) * 0.08;
     entity.ring.visible = unit.alive;
     entity.title.visible = unit.alive || entity.role !== 'orc';
+    entity.title.material.opacity = unit.alive ? 1 : 0.65;
+    const expanded = selected || unit.id === this.hoveredId;
+    entity.title.userData.pixels = expanded
+      ? 102
+      : entity.role === 'orc'
+        ? 64
+        : 86;
+    entity.title.userData.variant = expanded ? 'selected' : 'npc';
+    if (!updateLabel) return;
     const title = !unit.alive
       ? `${unit.name || 'Orc'} †`
       : entity.role === 'orc'
-        ? `ORC · ${unit.level || 1}`
-        : unit.name;
+        ? `Orc ${unit.level || 1}`
+        : `${ROLE_SYMBOLS[entity.role]} ${unit.name}`;
+    const actionText = moving
+      ? '→ Travelling'
+      : ACTIVITY_LABELS[activity] || activity;
+    const detail = unit.needsOverride
+      ? `AUTO · ${actionText.replace(/^[^a-zA-Z]+/, '')}`
+      : actionText;
+    const numbers =
+      entity.role === 'orc'
+        ? `HP ${Math.ceil(unit.health)} / ${unit.maxHealth}`
+        : `${Math.ceil(unit.health)} HP · ${Math.ceil(unit.hunger)} food`;
     paintLabel(
       entity.title,
       title,
-      entity.role === 'orc' ? '#763d43' : '#344331',
+      entity.role === 'orc' ? '#763d43' : selected ? '#253e2a' : '#344331',
       unit.health / unit.maxHealth,
       entity.role === 'orc' ? null : unit.hunger / 100,
+      detail,
+      numbers,
     );
-    entity.title.material.opacity = unit.alive ? 1 : 0.5;
   }
 
   draw(now, dt = 0.016) {
     if (this.disposed) return;
     dt = Math.min(Math.max(dt, 0), 0.1);
-    this.syncObjects();
-    for (const unit of [...this.game.units, ...this.game.orcs]) {
+    const updateLabel = now - this.lastLabels >= 100;
+    if (updateLabel) this.lastLabels = now;
+    if (now - this.lastSync >= 100) {
+      this.syncObjects();
+      this.lastSync = now;
+    }
+    for (const unit of this.game.units) {
       const entity = this.entities.get(unit.id);
-      if (entity) this.animateCharacter(entity, unit, dt, now);
+      if (entity) this.animateCharacter(entity, unit, dt, now, updateLabel);
+    }
+    for (const unit of this.game.orcs) {
+      const entity = this.entities.get(unit.id);
+      if (entity) this.animateCharacter(entity, unit, dt, now, updateLabel);
     }
     for (const building of this.game.buildings) {
       const view = this.structures.get(building.id);
@@ -892,39 +1433,69 @@ export class Renderer {
           child.castShadow = progress >= 1 && !destroyed;
         });
         view.state = state;
+        this.shadowDirty = true;
       }
-      view.model.scale.y =
+      const scaleY =
         view.baseScale *
         (destroyed ? 0.23 : progress < 1 ? 0.35 + progress * 0.65 : 1);
+      if (view.model.scale.y !== scaleY) this.shadowDirty = true;
+      view.model.scale.y = scaleY;
       view.plan.visible = progress < 1 && !destroyed;
-      const injured = building.health < building.maxHealth && progress >= 1;
-      view.title.visible =
-        building.type === 'hall' || injured || (progress > 0 && progress < 1);
-      view.title.position.y =
-        (destroyed ? 0.6 : progress < 1 ? 1.45 : view.height) + 0.45;
-      paintLabel(
-        view.title,
-        destroyed
-          ? 'RUINS'
-          : progress < 1
-            ? `BUILD ${Math.round(progress * 100)}%`
-            : building.type === 'hall'
-              ? 'THE HEARTH'
-              : building.type.toUpperCase(),
-        '#575e42',
-        injured ? building.health / building.maxHealth : null,
+      const selectedUnit = this.game.units.find(
+        (unit) => unit.id === this.selectedId,
       );
+      const targeted =
+        selectedUnit?.targetId === building.id ||
+        selectedUnit?.autoTargetId === building.id;
+      const damaged =
+        progress >= 1 && building.health < building.maxHealth && !destroyed;
+      view.title.visible =
+        building.type === 'hall' ||
+        damaged ||
+        targeted ||
+        this.hoveredBuildingId === building.id;
+      view.title.position.y =
+        (destroyed ? 0.5 : progress < 1 ? 1.45 : view.height) + 0.95;
+      if (updateLabel && view.title.visible) {
+        const name =
+          building.type === 'hall'
+            ? 'HALL · EAT'
+            : building.type === 'tower'
+              ? 'TOWER'
+              : building.type.toUpperCase();
+        paintLabel(
+          view.title,
+          destroyed ? `${name} · RUINS` : name,
+          destroyed ? '#8d5944' : '#575e42',
+          progress >= 1 ? building.health / building.maxHealth : progress,
+          null,
+          destroyed
+            ? 'Repair unavailable'
+            : progress < 1
+              ? `⚒ Build ${Math.round(progress * 100)}%`
+              : building.type === 'hall'
+                ? `● Eat here · ${Math.floor(this.game.food)} food`
+                : '⚒ Builders repair here',
+          progress < 1
+            ? `Build ${Math.round(progress * 100)}%`
+            : `${Math.ceil(building.health)} / ${building.maxHealth} HP`,
+        );
+      }
     }
     for (const node of this.game.resources) {
       const view = this.foodNodes.get(node.id);
       if (!view) continue;
       for (const plant of view.plants)
         plant.userData.berries.visible = node.food > 0;
-      paintLabel(
-        view.title,
-        `FOOD · ${Math.floor(node.food)}`,
-        node.food > 0 ? '#435d34' : '#7a755c',
-      );
+      if (updateLabel)
+        paintLabel(
+          view.title,
+          `◆ ${Math.floor(node.food)} food`,
+          node.food > 0 ? '#435d34' : '#7a755c',
+          null,
+          null,
+          `${Math.floor(node.food)} portions remaining`,
+        );
     }
     const pulse = 1 + Math.sin(now * 0.013) * 0.16;
     this.flame.scale.set(
@@ -944,7 +1515,9 @@ export class Renderer {
     });
     const positions = this.projectileGeometry.attributes.position;
     let count = 0;
-    for (const arrow of (this.game.projectiles || []).slice(0, 32)) {
+    const projectiles = this.game.projectiles || [];
+    for (let i = 0; i < projectiles.length && i < 32; i++) {
+      const arrow = projectiles[i];
       const fraction = clamp(
         (this.game.time - arrow.born) /
           Math.max(0.001, arrow.expires - arrow.born),
@@ -962,10 +1535,20 @@ export class Renderer {
         z - (arrow.targetY - arrow.y) * 0.03,
       );
     }
-    positions.needsUpdate = true;
+    if (count || this.projectileGeometry.drawRange.count)
+      positions.needsUpdate = true;
     this.projectileGeometry.setDrawRange(0, count);
     this.controls.update();
+    this.updateTargetLine();
+    this.scaleLabels();
+    if (updateLabel) this.layoutNpcLabels();
+    if (this.shadowDirty && now - this.lastShadow >= 350) {
+      this.renderer.shadowMap.needsUpdate = true;
+      this.lastShadow = now;
+      this.shadowDirty = false;
+    }
     this.renderer.render(this.scene, this.camera);
+    this.drawCount++;
   }
 
   dispose() {
@@ -973,6 +1556,8 @@ export class Renderer {
     this.resizeObserver.disconnect();
     this.canvas.removeEventListener('pointerdown', this.pointerDown);
     this.canvas.removeEventListener('pointerup', this.pointerUp);
+    this.canvas.removeEventListener('pointermove', this.pointerMove);
+    this.canvas.removeEventListener('pointerleave', this.pointerLeave);
     this.controls.dispose();
     const geometries = new Set(),
       materials = new Set(),

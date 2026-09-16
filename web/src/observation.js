@@ -38,6 +38,10 @@ export function describeObservation(context) {
     `Village: ${number(village.alive)} living villagers. Orc wave: ${number(village.wave)}.`,
     `Orcs targeting you: ${number(self.attacked_by)}. Villagers targeted: ${number(village.threatened_villagers)}. Buildings targeted: ${number(village.threatened_buildings)}.`,
   ];
+  if (Number.isFinite(self.stamina))
+    lines.push(
+      `Stamina: ${self.stamina}/100 (rest restores it). ${context.rest_available_reason || ''}`,
+    );
   if (Number.isFinite(self.strength))
     lines.push(`Your attack strength: ${number(self.strength)}.`);
   const orcs = context.nearest_orcs ?? [];
@@ -77,6 +81,19 @@ export function describeObservation(context) {
       `Unfinished defense sites: ${number(context.defense_sites_left)}. Operating towers: ${number(context.towers_active)}.`,
     );
   }
+  if (Array.isArray(context.wounded_allies)) {
+    lines.push(
+      context.wounded_allies.length
+        ? `Wounded allies: ${context.wounded_allies.map((ally) => `${location(ally)}, ${ally.role}, HP ${number(ally.health)}/${number(ally.max_health)}`).join('; ')}. Healing costs ${number(context.healing_food_cost)} stored food per treatment.`
+        : 'No wounded allies need treatment.',
+    );
+  }
+  if (self.needs_override)
+    lines.push(`Automatic self-care: ${self.needs_override}.`);
+  if (context.available_actions)
+    lines.push(
+      `Currently available jobs: ${context.available_actions.join(', ')}.`,
+    );
   lines.push(`Previous assignment (can be changed): ${self.action}.`);
   return lines.join('\n');
 }

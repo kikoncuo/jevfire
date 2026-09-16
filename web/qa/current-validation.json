@@ -1,0 +1,28 @@
+{
+  "tested_at": "2026-09-16T19:22:44.794563+00:00",
+  "base_commit": "af6d87ca8fd781a4a9d617fb8337106a831a5b2d",
+  "scope": "Current stamina, automatic meals, builder healing, compact labels, and chunked WebLLM prefill; local working source hashes identify the tested implementation.",
+  "source_sha256": {
+    "src/contract.js": "0beb8a87d1235c4ac041b248af9eea0dee81248d50a4c8925f64e271b9870e0f",
+    "src/controller.js": "188cef87e2038b68f53bfb6e7121dd8c2b7e3cc519487a23572b788c09977c6c",
+    "src/decision-prompt.js": "cf8808b2a115dc688497ec9224677f8f1909c70b749c3900ca7f492df4a416ad",
+    "src/game.js": "7cdda2b8ddff489f45d8d23b06e1c9dcbdf9b178374e61fa17cf11db5eef5927",
+    "src/inference.worker.js": "3f272014674c72be01ee74f95529d1da0faab441b672988c839258df0e4f3568",
+    "src/main.js": "7ed82a1a6fc8d290b0a99431c29a9c94410adbd05ec5c6a57eb8535f5b6f7891",
+    "src/observation.js": "1c204b2face3d8c3e82258ffeae31d91d448bfcbcafcc216496744a64303e03b",
+    "src/prompts.js": "63d15cc4b79f6cc5d1a3a16346337132e28004955bc988e0c7f2e289d18b8425",
+    "src/renderer.js": "6268945f54759dfa238003cff749f17719e68b947eb432d163f65dd28d920ba6",
+    "src/style.css": "8ead8569c762d08d9e127dfc119f61595de71bd5704f80ba3e01ccd3bc22b136",
+    "index.html": "224401bbc113534dce997cd4c021834808ec0f83957ca5a95e8714b1410a09d6",
+    "package-lock.json": "058ba863fe4cd4cb8d4372e2b54e28900a2d6d2a730516007f8f0f7eeb1ed819"
+  },
+  "weights": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "weight_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+  "mlc_library_revision": "025bcaf3780fa8254f5e5efd3bfea0a5397248f4",
+  "runtime": "WebLLM 0.2.85",
+  "unit_tests_passed": 41,
+  "mechanics_report": "needs-jobs-result.json",
+  "real_model_smoke_report": "smoke-current.json",
+  "limits": "Structural checks and scripted mechanics do not establish policy optimality or general accuracy. Separate frame-tuning measurements predate final stamina/label edits.",
+  "real_model_survival_report": "survival-current.json"
+}

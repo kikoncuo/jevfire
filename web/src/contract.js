@@ -1,16 +1,64 @@
 export const ROLE_ACTIONS = Object.freeze({
   collector: Object.freeze(['forage_safe', 'forage_bold', 'relax']),
   fighter: Object.freeze(['train', 'defend', 'relax']),
-  builder: Object.freeze(['repair', 'build', 'relax']),
+  builder: Object.freeze(['repair', 'build', 'heal', 'relax']),
 });
 export const UNIT_DEFINITIONS = Object.freeze(
   [
-    { id: 'mira', name: 'Mira', role: 'collector', color: '#dca653' },
-    { id: 'bram', name: 'Bram', role: 'collector', color: '#d8c077' },
-    { id: 'aldric', name: 'Aldric', role: 'fighter', color: '#7eabbc' },
-    { id: 'sable', name: 'Sable', role: 'fighter', color: '#9cb5cb' },
-    { id: 'tomas', name: 'Tomas', role: 'builder', color: '#c08160' },
-    { id: 'nell', name: 'Nell', role: 'builder', color: '#c4a3a0' },
+    {
+      id: 'mira',
+      name: 'Mira',
+      role: 'collector',
+      color: '#dca653',
+      disposition: 'cautious',
+      personality:
+        'A cautious scout who chooses safer food routes and brings supplies home.',
+    },
+    {
+      id: 'bram',
+      name: 'Bram',
+      role: 'collector',
+      color: '#d8c077',
+      disposition: 'leisurely',
+      personality:
+        'A lazy forager who likes short trips, full baskets, and a long lunch once the pantry is stocked.',
+    },
+    {
+      id: 'aldric',
+      name: 'Aldric',
+      role: 'fighter',
+      color: '#7eabbc',
+      disposition: 'protective',
+      personality:
+        'A protective veteran who puts threatened villagers and buildings before personal glory.',
+    },
+    {
+      id: 'sable',
+      name: 'Sable',
+      role: 'fighter',
+      color: '#9cb5cb',
+      disposition: 'ambitious',
+      personality:
+        'An ambitious fighter who loves training for stronger attacks but answers real calls for help.',
+    },
+    {
+      id: 'tomas',
+      name: 'Tomas',
+      role: 'builder',
+      color: '#c08160',
+      disposition: 'industrious',
+      personality:
+        'An industrious architect who repairs the hall and builds a strong ring of defenses.',
+    },
+    {
+      id: 'nell',
+      name: 'Nell',
+      role: 'builder',
+      color: '#c4a3a0',
+      disposition: 'compassionate',
+      personality:
+        'A medic and builder who spends food to heal wounded friends before expanding the settlement.',
+    },
   ].map(Object.freeze),
 );
 export const UNIT_IDS = Object.freeze(UNIT_DEFINITIONS.map((unit) => unit.id));
@@ -59,7 +107,7 @@ export function assemble(schema, rows) {
     const [name, options] = fields[i];
     if (
       !Array.isArray(options) ||
-      options.length < 2 ||
+      options.length < 1 ||
       new Set(options).size !== options.length ||
       !Array.isArray(rows[i]) ||
       rows[i].length !== options.length

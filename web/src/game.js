@@ -1,7 +1,20 @@
-import { UNIT_DEFINITIONS, schemaFor, validateDecision } from './contract.js';
+import {
+  UNIT_DEFINITIONS,
+  ROLE_ACTIONS,
+  schemaFor,
+  validateDecision,
+} from './contract.js';
 
 export const WORLD_SIZE = 32;
 export const COLORS = UNIT_DEFINITIONS.map((unit) => unit.color);
+export const STAMINA_RULES = Object.freeze({
+  mira: Object.freeze({ breakAt: 45, restUntil: 95 }),
+  bram: Object.freeze({ breakAt: 70, restUntil: 90 }),
+  aldric: Object.freeze({ breakAt: 40, restUntil: 95 }),
+  sable: Object.freeze({ breakAt: 35, restUntil: 95 }),
+  tomas: Object.freeze({ breakAt: 30, restUntil: 95 }),
+  nell: Object.freeze({ breakAt: 45, restUntil: 95 }),
+});
 const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
 const round = (n) => Math.round(n * 10) / 10;
@@ -79,6 +92,9 @@ export class Game {
     this.nextOrcId = 1;
     this.base = { x: 16, y: 20 };
     this.trainingGround = { id: 'training', x: 16, y: 25.4 };
+    this.clinic = { id: 'clinic', x: 22.5, y: 22.8 };
+    this.selfCareMeals = 0;
+    this.treatments = 0;
     const placements = [
       [14.5, 19],
       [17.5, 19],
@@ -94,10 +110,22 @@ export class Game {
       health: definition.role === 'fighter' ? 130 : 85,
       maxHealth: definition.role === 'fighter' ? 130 : 85,
       hunger: 100,
+      stamina: 100,
+      ...STAMINA_RULES[definition.id],
+      restingBreak: false,
       alive: true,
       action: 'relax',
       proposed: 'relax',
+      ruleAction: null,
+      ruleReason: null,
       reason: null,
+      needsOverride: null,
+      needsState: null,
+      needsActive: false,
+      autoTargetId: null,
+      eatingUntil: 0,
+      healWork: 0,
+      healCooldown: 0,
       activity: 'resting',
       strength: definition.role === 'fighter' ? 11 : 2,
       carrying: 0,
@@ -114,6 +142,10 @@ export class Game {
         x: 14.6 + (i % 3) * 1.4,
         y: 21.5 + Math.floor(i / 3) * 1.2,
       },
+    }));
+    this.mealSpots = this.units.map((unit) => ({
+      ...unit.home,
+      unitId: unit.id,
     }));
     this.buildings = [
       {
@@ -287,6 +319,11 @@ export class Game {
     validateDecision(decision, schemaFor(selected));
     for (const unit of selected) {
       unit.proposed = decision[unit.id];
+      unit.ruleAction = null;
+      unit.ruleReason = null;
+      unit.restingBreak =
+        unit.proposed === 'relax' &&
+        (unit.restingBreak || unit.stamina <= unit.breakAt);
       if (unit.action !== unit.proposed) {
         unit.action = unit.proposed;
         unit.targetId = null;
@@ -298,6 +335,27 @@ export class Game {
     this.ticks++;
     this.decisions += selected.length;
     return decision;
+  }
+
+  applyRuleAction(id, action, reason = 'Only available action') {
+    const unit = this.units.find(
+      (candidate) => candidate.id === id && candidate.alive,
+    );
+    if (!unit || !this.availableActions(unit).includes(action))
+      throw new Error('Rule action is not currently available');
+    if (unit.action !== action) {
+      unit.action = action;
+      unit.targetId = null;
+      unit.work = 0;
+      unit.path = [];
+    }
+    unit.restingBreak =
+      action === 'relax' && (unit.restingBreak || unit.stamina <= unit.breakAt);
+    unit.ruleAction = action;
+    unit.ruleReason = reason;
+    unit.reason = reason;
+    // Preserve the last proposed choice, and do not manufacture a scored decision.
+    return action;
   }
 
   routeRisk(unit, target) {
@@ -349,6 +407,73 @@ export class Game {
           !building.destroyed,
       )
       .sort((a, b) => distance(unit, a) - distance(unit, b))[0];
+  }
+
+  healTarget(unit) {
+    return this.livingUnits()
+      .filter((ally) => ally.id !== unit.id && ally.health < ally.maxHealth - 4)
+      .sort(
+        (a, b) =>
+          a.health / a.maxHealth - b.health / b.maxHealth ||
+          distance(unit, a) - distance(unit, b),
+      )[0];
+  }
+
+  restReason(unit) {
+    if (unit.health < unit.maxHealth * 0.9) return 'Recovering from injury';
+    if (unit.hunger <= 74) return 'Hungry: a meal is useful';
+    if (unit.restingBreak && unit.stamina < unit.restUntil)
+      return `Finishing a break until ${unit.restUntil} stamina`;
+    if (unit.stamina <= unit.breakAt)
+      return `Fatigue: stamina is below the ${unit.breakAt} break threshold`;
+    return null;
+  }
+
+  availableActions(unitOrId) {
+    const unit =
+      typeof unitOrId === 'string'
+        ? this.units.find((candidate) => candidate.id === unitOrId)
+        : unitOrId;
+    if (
+      !unit ||
+      !UNIT_DEFINITIONS.some(
+        (definition) =>
+          definition.id === unit.id && definition.role === unit.role,
+      )
+    )
+      throw new Error('Unknown villager');
+    if (!unit.alive) return [];
+    const actions = ROLE_ACTIONS[unit.role].filter((action) => {
+      if (action === 'relax') return false;
+      if (action === 'forage_safe' || action === 'forage_bold')
+        return (
+          unit.carrying >= 3 ||
+          this.resources.some((resource) => resource.food > 0)
+        );
+      if (action === 'train') return unit.strength < 40;
+      if (action === 'defend') return this.orcs.some((orc) => orc.alive);
+      if (action === 'repair') return Boolean(this.repairTarget(unit));
+      if (action === 'build') return Boolean(this.buildTarget(unit));
+      if (action === 'heal')
+        return this.food > 0 && Boolean(this.healTarget(unit));
+      return false;
+    });
+    if (this.restReason(unit) || !actions.length) actions.push('relax');
+    return actions;
+  }
+
+  stepStamina(unit, dt) {
+    if (unit.action === 'relax' && distance(unit, unit.home) < 0.9) {
+      unit.stamina = Math.min(100, unit.stamina + dt * 8);
+    } else if (unit.activity === 'eating') {
+      unit.stamina = Math.min(100, unit.stamina + dt * 1.5);
+    } else if (unit.action !== 'relax' || unit.activity === 'walking') {
+      unit.stamina = Math.max(
+        0,
+        unit.stamina - dt * (unit.activity === 'fighting' ? 0.65 : 0.45),
+      );
+    }
+    if (unit.stamina >= unit.restUntil) unit.restingBreak = false;
   }
 
   defendTarget(unit) {
@@ -436,6 +561,8 @@ export class Game {
 
   move(entity, target, speed, dt, safe = false, direct = false) {
     if (!target) return false;
+    if (entity.role && Number.isFinite(entity.stamina))
+      speed *= 0.85 + (0.15 * entity.stamina) / 100;
     if (distance(entity, target) < 0.85) return true;
     let waypoint = target;
     if (!direct) {
@@ -507,6 +634,9 @@ export class Game {
     unit.targetId = null;
     unit.diedAt = this.time;
     unit.reason = cause;
+    unit.needsOverride = null;
+    unit.needsState = null;
+    unit.autoTargetId = null;
     this.log('death', `${unit.name} ${cause}.`, { unitId: unit.id });
   }
 
@@ -526,6 +656,79 @@ export class Game {
     }
   }
 
+  mealSource(unit) {
+    if (unit.carrying > 0)
+      return { kind: 'basket', id: unit.id, x: unit.x, y: unit.y };
+    const sources = this.resources
+      .filter((resource) => resource.food > 0)
+      .map((resource) => ({ ...resource, kind: 'patch' }));
+    if (this.food > 0 && this.hall().health > 0)
+      sources.push({ ...unit.home, id: 'hall', kind: 'hall' });
+    return sources.sort((a, b) => distance(unit, a) - distance(unit, b))[0];
+  }
+
+  consumeMeal(unit, source) {
+    if (this.time < unit.nextMeal) return false;
+    if (source.kind === 'hall') {
+      if (this.food <= 0 || this.hall().health <= 0) return false;
+      this.food--;
+    } else if (source.kind === 'basket') {
+      if (unit.carrying <= 0) return false;
+      unit.carrying--;
+    } else {
+      const patch = this.resources.find(
+        (resource) => resource.id === source.id,
+      );
+      if (!patch || patch.food <= 0) return false;
+      patch.food--;
+    }
+    unit.hunger = Math.min(100, unit.hunger + MEAL_SIZE);
+    unit.nextMeal = this.time + 3;
+    unit.eatingUntil = this.time + 1.2;
+    unit.activity = 'eating';
+    unit.needsState = 'eating';
+    unit.autoTargetId = source.id;
+    unit.needsOverride = `Automatic needs: eating ${source.kind === 'hall' ? 'at the hall' : source.kind === 'basket' ? 'from the basket' : 'at a food patch'}`;
+    unit.reason = unit.needsOverride;
+    this.selfCareMeals++;
+    return true;
+  }
+
+  // Explicit physiology: villagers attend to hunger without manufacturing an AI tick.
+  // The model's action/proposed fields are retained and resume after the meal.
+  stepNeeds(unit, dt) {
+    if (this.time < unit.eatingUntil) {
+      unit.activity = 'eating';
+      unit.reason = unit.needsOverride;
+      return true;
+    }
+    if (unit.hunger <= 28) unit.needsActive = true;
+    if (unit.hunger >= 55) unit.needsActive = false;
+    if (!unit.needsActive) {
+      unit.needsOverride = null;
+      unit.needsState = null;
+      unit.autoTargetId = null;
+      return false;
+    }
+    const source = this.mealSource(unit);
+    if (!source) {
+      unit.needsOverride = 'Automatic needs: no food available';
+      unit.needsState = 'no_food';
+      unit.autoTargetId = null;
+      unit.reason = unit.needsOverride;
+      return false;
+    }
+    unit.autoTargetId = source.id;
+    unit.needsState = 'seeking_food';
+    unit.needsOverride = `Automatic needs: seeking food ${source.kind === 'hall' ? 'at the hall' : source.kind === 'basket' ? 'in the basket' : 'at a food patch'}`;
+    unit.reason = unit.needsOverride;
+    if (!this.move(unit, source, 2.25, dt, true)) return true;
+    if (source.kind === 'hall') this.deposit(unit);
+    unit.activity = 'eating';
+    this.consumeMeal(unit, source);
+    return true;
+  }
+
   stepUnit(unit, dt) {
     if (!unit.alive) return;
     unit.hunger = Math.max(0, unit.hunger - dt * HUNGER_RATE);
@@ -533,8 +736,21 @@ export class Game {
       this.killUnit(unit, 'starved');
       return;
     }
+    this.stepStamina(unit, dt);
     unit.cooldown = Math.max(0, unit.cooldown - dt);
-    unit.reason = null;
+    unit.reason = unit.ruleReason;
+    if (this.stepNeeds(unit, dt)) return;
+    const available = this.availableActions(unit);
+    if (!available.includes(unit.action)) {
+      if (available.length === 1)
+        this.applyRuleAction(unit.id, available[0], 'Only available action');
+      else {
+        unit.activity = 'waiting';
+        unit.reason =
+          'Previous job has no useful effect; waiting for a new decision';
+        return;
+      }
+    }
     const action = unit.action;
     if (action === 'relax') {
       unit.targetId = 'hall';
@@ -546,9 +762,7 @@ export class Game {
       }
       this.deposit(unit);
       if (unit.hunger <= 74 && this.food > 0 && this.time >= unit.nextMeal) {
-        this.food--;
-        unit.hunger = Math.min(100, unit.hunger + MEAL_SIZE);
-        unit.nextMeal = this.time + 3;
+        this.consumeMeal(unit, { kind: 'hall', id: 'hall' });
       }
       if (this.food === 0 && unit.hunger <= 74)
         unit.reason = 'The shared pantry is empty';
@@ -627,6 +841,45 @@ export class Game {
       if (unit.cooldown <= 0) {
         this.damage(target, unit.strength, unit);
         unit.cooldown = 0.85;
+      }
+      return;
+    }
+    if (action === 'heal') {
+      const target = this.healTarget(unit);
+      if (!target || this.food <= 0) {
+        unit.targetId = null;
+        unit.activity = 'waiting';
+        unit.healWork = 0;
+        unit.reason = !target
+          ? 'No wounded allies need treatment'
+          : 'Treatment needs one stored food';
+        return;
+      }
+      if (unit.targetId !== target.id) unit.healWork = 0;
+      unit.targetId = target.id;
+      if (distance(unit, target) > 1.3) {
+        this.move(unit, target, 2.15, dt);
+        return;
+      }
+      unit.activity = 'healing';
+      unit.heading = Math.atan2(target.x - unit.x, target.y - unit.y);
+      unit.healWork += dt;
+      if (
+        unit.healWork >= 2 &&
+        this.time >= unit.healCooldown &&
+        this.food > 0
+      ) {
+        unit.healWork = 0;
+        unit.healCooldown = this.time + 2;
+        this.food--;
+        const restored = Math.min(20, target.maxHealth - target.health);
+        target.health += restored;
+        this.treatments++;
+        this.log(
+          'heal',
+          `${unit.name} treated ${target.name} (+${Math.round(restored)} health, 1 food).`,
+          { unitId: unit.id, targetId: target.id },
+        );
       }
       return;
     }
@@ -800,9 +1053,14 @@ export class Game {
         health: Math.ceil(unit.health),
         max_health: unit.maxHealth,
         hunger: Math.ceil(unit.hunger),
+        stamina: Math.ceil(unit.stamina),
+        break_threshold: unit.breakAt,
+        rest_until: unit.restUntil,
         starves_in_seconds: Math.floor(unit.hunger / HUNGER_RATE),
         home_walk_seconds: Math.ceil(distance(unit, unit.home) / 2.1),
         action: unit.action,
+        personality: unit.personality,
+        needs_override: unit.needsOverride,
         carrying_food: unit.carrying,
         attacked_by: liveOrcs.filter((orc) => orc.targetId === unit.id).length,
       },
@@ -816,6 +1074,12 @@ export class Game {
         threatened_villagers: endangered.length,
         threatened_buildings: buildingThreats.length,
       },
+      available_actions: this.availableActions(unit),
+      rest_available_reason:
+        this.restReason(unit) ||
+        (this.availableActions(unit).includes('relax')
+          ? 'No useful work is currently available'
+          : null),
       nearest_orcs: nearest.slice(0, 2).map((orc) => ({
         ...describe(orc),
         health: Math.ceil(orc.health),
@@ -855,6 +1119,19 @@ export class Game {
         .slice(0, 2)
         .map(describe);
     } else {
+      context.wounded_allies = this.livingUnits()
+        .filter(
+          (ally) => ally.id !== unit.id && ally.health < ally.maxHealth - 4,
+        )
+        .toSorted((a, b) => a.health / a.maxHealth - b.health / b.maxHealth)
+        .slice(0, 3)
+        .map((ally) => ({
+          ...describe(ally),
+          health: Math.ceil(ally.health),
+          max_health: ally.maxHealth,
+          role: ally.role,
+        }));
+      context.healing_food_cost = 1;
       context.repairs = this.buildings
         .filter(
           (building) =>
@@ -902,6 +1179,8 @@ export class Game {
       wave: this.wave,
       kills: this.kills,
       gathered: this.totalGathered,
+      automatic_meals: this.selfCareMeals,
+      treatments: this.treatments,
       ticks: this.ticks,
       decisions: this.decisions,
       orcs: this.livingOrcs().length,
@@ -932,12 +1211,16 @@ export class Game {
               ? 'defend'
               : 'train';
         else
-          action = this.repairTarget(unit)
-            ? 'repair'
-            : this.buildTarget(unit)
-              ? 'build'
-              : 'relax';
-        return [unit.id, action];
+          action =
+            unit.id === 'nell' && this.food > 2 && this.healTarget(unit)
+              ? 'heal'
+              : this.repairTarget(unit)
+                ? 'repair'
+                : this.buildTarget(unit)
+                  ? 'build'
+                  : 'relax';
+        const available = this.availableActions(unit);
+        return [unit.id, available.includes(action) ? action : available[0]];
       }),
     );
   }

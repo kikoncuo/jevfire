@@ -1,5 +1,5 @@
 import { UNIT_DEFINITIONS, ROLE_ACTIONS } from './contract.js';
-import { DEFAULT_PROMPTS } from './prompts.js';
+import { DEFAULT_PROMPTS, CHARACTER_PROMPTS } from './prompts.js';
 import { describeObservation } from './observation.js';
 
 export const ACTION_LABELS = Object.freeze({
@@ -10,12 +10,13 @@ export const ACTION_LABELS = Object.freeze({
   defend: 'Attack & protect',
   repair: 'Repair buildings',
   build: 'Build defenses',
+  heal: 'Heal villagers',
 });
 
 export const ROLE_LABELS = Object.freeze({
   collector: ['A', 'B', 'C'],
   fighter: ['A', 'B', 'C'],
-  builder: ['A', 'B', 'C'],
+  builder: ['A', 'B', 'C', 'D'],
 });
 
 const MEANINGS = {
@@ -30,9 +31,31 @@ const MEANINGS = {
     'Intercept orcs, attack them, and draw their aggression away from villagers and buildings.',
   repair: 'Go to the most urgent damaged building and repair it.',
   build: 'Construct defenses at a planned site; towers attack nearby orcs.',
+  heal: 'Treat a wounded ally; each treatment uses one stored food.',
 };
 
-export function buildDecisionPrompt(unitId, context, mission = '', rolePrompt) {
+export function decisionChoices(unitId, supplied) {
+  const unit = UNIT_DEFINITIONS.find((unit) => unit.id === unitId);
+  if (!unit) throw new Error('Unknown villager');
+  const legal = ROLE_ACTIONS[unit.role];
+  if (supplied === undefined) return [...legal];
+  if (
+    !Array.isArray(supplied) ||
+    !supplied.length ||
+    new Set(supplied).size !== supplied.length ||
+    supplied.some((action) => !legal.includes(action))
+  )
+    throw new Error('Invalid available actions');
+  return legal.filter((action) => supplied.includes(action));
+}
+
+export function buildDecisionPrompt(
+  unitId,
+  context,
+  mission = '',
+  rolePrompt,
+  actions,
+) {
   const unit = UNIT_DEFINITIONS.find((unit) => unit.id === unitId);
   if (!unit) throw new Error('Unknown villager');
   if (typeof mission !== 'string' || mission.length > 500)
@@ -44,9 +67,9 @@ export function buildDecisionPrompt(unitId, context, mission = '', rolePrompt) {
   const observation = describeObservation(context);
   if (!serialized || serialized.length > 16000)
     throw new Error('Invalid observation');
-  const choices = ROLE_ACTIONS[unit.role];
-  const labels = ROLE_LABELS[unit.role];
-  const system = `You control one ${unit.role} in a village survival game. Choose the action that helps the villagers survive longest. Use the observed facts, not invented positions. Return only the option label A, B, or C.\nRole policy: ${policy}`;
-  const user = `Village order: ${mission || 'Keep the villagers and hearth alive.'}\nSelected villager: ${unit.name} (${unit.id}).\nCurrent observations:\n${observation}\nActions:\n${choices.map((action, i) => `${labels[i]}: ${action} — ${MEANINGS[action]}`).join('\n')}\nChoose A, B, or C:`;
+  const choices = decisionChoices(unit.id, actions);
+  const labels = ROLE_LABELS[unit.role].slice(0, choices.length);
+  const system = `You control one ${unit.role} in a village survival game. Choose the action that helps the villagers survive longest. Use the observed facts, not invented positions. Return only one option label: ${labels.join(', ')}.\nPersonality: ${unit.personality || unit.name}.\nRole policy: ${policy}\nCharacter priorities: ${CHARACTER_PROMPTS[unit.id] || ''}`;
+  const user = `Village order: ${mission || 'Keep the villagers and hearth alive.'}\nSelected villager: ${unit.name} (${unit.id}).\nCurrent observations:\n${observation}\nActions:\n${choices.map((action, i) => `${labels[i]}: ${action} — ${MEANINGS[action]}`).join('\n')}\nChoose ${labels.join(', ')}:`;
   return `<|im_start|>system\n${system}<|im_end|>\n<|im_start|>user\n${user}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n`;
 }

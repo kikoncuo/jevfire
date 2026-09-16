@@ -17,7 +17,7 @@ async function browserSmoke(page) {
   const actions = {
     collector: ['forage_safe', 'forage_bold', 'relax'],
     fighter: ['train', 'defend', 'relax'],
-    builder: ['repair', 'build', 'relax'],
+    builder: ['repair', 'build', 'heal', 'relax'],
   };
   const state = () => page.evaluate(() => window.jevfireDiagnostics());
   const wait = (predicate, argument = null) =>
@@ -29,7 +29,7 @@ async function browserSmoke(page) {
           requestAnimationFrame(() => requestAnimationFrame(resolve)),
         ),
     );
-  const valid = (result) => {
+  const valid = (result, { allowSingle = false } = {}) => {
     check(result && typeof result === 'object', 'Missing model result');
     check(Object.hasOwn(roles, result.unitId), 'Unknown result actor');
     check(
@@ -42,12 +42,28 @@ async function browserSmoke(page) {
       'Model returned an action outside this actor’s role contract',
     );
     const field = result.fields[result.unitId];
+    const legal = actions[roles[result.unitId]];
     check(
-      field.logits.length === 3 && field.logits.every(Number.isFinite),
+      Array.isArray(field.options) &&
+        field.options.length >= (allowSingle ? 1 : 2) &&
+        field.options.length <= legal.length &&
+        new Set(field.options).size === field.options.length &&
+        field.options.every((option) => legal.includes(option)),
+      'Missing, duplicate, or out-of-contract dynamic candidate options',
+    );
+    check(
+      field.options.includes(result.parsed_json[result.unitId]) &&
+        field.options.join('|') ===
+          legal.filter((option) => field.options.includes(option)).join('|'),
+      'Chosen action is not in the request subset or candidate ordering changed',
+    );
+    check(
+      field.logits.length === field.options.length &&
+        field.logits.every(Number.isFinite),
       'Missing real candidate logits',
     );
     check(
-      field.probabilities.length === 3 &&
+      field.probabilities.length === field.options.length &&
         field.probabilities.every(
           (value) => Number.isFinite(value) && value >= 0 && value <= 1,
         ) &&
@@ -76,7 +92,9 @@ async function browserSmoke(page) {
     runtime: 'WebLLM 0.2.85',
     model: 'Qwen3.5-0.8B-q4f16_1-MLC',
     scope:
-      'Real inference and structural/UI smoke checks; no policy accuracy claim',
+      'Real inference with current dynamic candidates and structural/UI smoke checks; no policy accuracy claim',
+    rules:
+      'Builders may heal; unavailable work is removed before scoring. Automatic needs and single available actions are game rules, not AI ticks.',
   };
   await page.bringToFront();
   await page.locator('#load').click(); // Select the already-loaded model; no reload.
@@ -103,6 +121,26 @@ async function browserSmoke(page) {
   });
   await page.context().setOffline(true);
   try {
+    // These explicit paused probes exercise real scoring for every actor. A
+    // singleton is permitted here only to test its role contract; gameplay
+    // normally applies such a forced job as a rule and skips inference.
+    report.paused_role_probes = {};
+    for (const unitId of Object.keys(roles)) {
+      const result = await page.evaluate(
+        async (id) => window.jevfireTestDecision({ unitId: id }),
+        unitId,
+      );
+      valid(result, { allowSingle: true });
+      report.paused_role_probes[unitId] = result;
+    }
+    const afterProbes = await state();
+    check(
+      afterProbes.metrics.total_decisions === 0 &&
+        afterProbes.ticks === 0 &&
+        afterProbes.time === 0,
+      'Paused QA probes altered live game counters',
+    );
+    report.all_six_roles_probed_offline = true;
     await page.locator('#run').click();
     await wait(() => {
       const d = window.jevfireDiagnostics();
@@ -112,14 +150,17 @@ async function browserSmoke(page) {
           .map((result) => result.unitId),
       );
       return (
-        d.metrics.completed_rounds >= 1 &&
-        ['mira', 'bram', 'aldric', 'sable', 'tomas', 'nell'].every((id) =>
-          seen.has(id),
+        d.metrics.total_decisions >= 2 &&
+        ['mira', 'bram'].every((id) => seen.has(id)) &&
+        d.units.some((unit) => unit.role === 'fighter' && unit.strength > 11) &&
+        d.buildings.some(
+          (building) =>
+            building.id.startsWith('tower-') && building.progress > 0,
         )
       );
     });
     const live = await state();
-    report.first_round = await page.evaluate(() => {
+    report.live_scored_actors = await page.evaluate(() => {
       const epoch = window.jevfireDiagnostics().epoch;
       const results = {};
       for (const result of window.__jevfireSmokeSamples)
@@ -128,10 +169,41 @@ async function browserSmoke(page) {
       return results;
     });
     check(
-      Object.keys(report.first_round).length === 6,
-      'Not all six NPCs received model decisions',
+      ['mira', 'bram'].every((id) =>
+        Object.hasOwn(report.live_scored_actors, id),
+      ),
+      'The two collectors did not receive real decisions',
     );
-    Object.values(report.first_round).forEach(valid);
+    Object.values(report.live_scored_actors).forEach((result) => valid(result));
+    report.candidate_subsets = Object.fromEntries(
+      Object.entries(report.live_scored_actors).map(([id, result]) => [
+        id,
+        result.fields[id].options,
+      ]),
+    );
+    report.rule_job_progress = {
+      fighters: live.units
+        .filter((unit) => unit.role === 'fighter')
+        .map(({ id, action, proposed, activity, strength }) => ({
+          id,
+          action,
+          proposed,
+          activity,
+          strength,
+        })),
+      builders: live.units
+        .filter((unit) => unit.role === 'builder')
+        .map(({ id, action, proposed, activity }) => ({
+          id,
+          action,
+          proposed,
+          activity,
+        })),
+      defenses: live.buildings
+        .filter((building) => building.id.startsWith('tower-'))
+        .map(({ id, progress }) => ({ id, progress })),
+      note: 'Healthy rested fighters/builders initially have one useful job. Its progression is a game rule, not an AI decision.',
+    };
     check(
       live.mode === 'model' && live.running,
       'Real model controller stopped',
@@ -142,7 +214,7 @@ async function browserSmoke(page) {
     );
     check(
       live.metrics.rounds_per_second > 0,
-      'A full NPC round was not counted',
+      'A round of currently eligible AI actors was not counted',
     );
     report.offline_inference = true;
     report.live_metrics = live.metrics;

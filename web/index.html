@@ -61,6 +61,7 @@
           </div>
           <div><span>FOOD STORE</span><strong id="food">18</strong></div>
           <div><span>ORC WAVE</span><strong id="wave">0</strong></div>
+          <div><span>HALL HP</span><strong id="hall-health">420</strong></div>
         </section>
         <section class="telemetry" aria-label="Runtime measurements">
           <div class="telemetry-heading">
@@ -71,7 +72,7 @@
             <b id="npc-rate">0.00</b><span>AI TICKS / SEC</span>
           </div>
           <div class="telemetry-stat">
-            <b id="decision-rate">0.00</b><span>SQUAD ROUNDS / SEC</span>
+            <b id="decision-rate">0.00</b><span>AI ROUNDS / SEC</span>
           </div>
           <div class="telemetry-stat">
             <b id="latency">—</b><span>LAST INFERENCE</span>
@@ -81,6 +82,9 @@
           </div>
           <div class="telemetry-stat">
             <b id="render-fps">—</b><span>RENDER FPS</span>
+          </div>
+          <div class="telemetry-stat">
+            <b id="frame-p99">—</b><span>FRAME P99, MS</span>
           </div>
         </section>
         <div class="game-workspace">
@@ -114,6 +118,23 @@
               <button id="preview" class="preview-button">
                 Play the scripted baseline <span>NO MODEL DOWNLOAD</span>
               </button>
+              <div class="engine-options">
+                <label for="inference-pace"
+                  >AI pace<select id="inference-pace">
+                    <option value="balanced">Balanced</option>
+                    <option value="fast">Maximum</option>
+                  </select></label
+                ><label for="visual-quality"
+                  >Graphics<select id="visual-quality">
+                    <option value="normal">Standard</option>
+                    <option value="low">Lightweight</option>
+                  </select></label
+                >
+              </div>
+              <p class="fine-print performance-note">
+                Balanced leaves GPU time for the village. Maximum prioritizes AI
+                throughput.
+              </p>
               <p id="error" class="error" role="alert" hidden></p>
             </section>
             <section class="panel-section doctrine-section">
@@ -161,8 +182,9 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
             <section class="panel-section challenge-note">
               <span class="section-caption">THE CHALLENGE</span>
               <p>
-                Food runs out. Orcs get stronger. Relax to eat; reach zero
-                hunger and you die. How long can your orders keep them alive?
+                Food runs out. Orcs get stronger. Villagers seek the canteen
+                when hungry; without food, zero hunger means death. Their
+                personal needs can override an order.
               </p>
             </section>
           </aside>
@@ -187,7 +209,7 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
               </button>
               <div class="map-help">
                 <span>DRAG TO ORBIT · SCROLL TO ZOOM</span
-                ><span>SELECT A VILLAGER TO INSPECT</span>
+                ><span>SELECT TO SEE ITS PLAN · GOLD LINE = DESTINATION</span>
               </div>
               <div class="map-legend">
                 <span><i class="collector-dot"></i> COLLECTOR</span
@@ -253,6 +275,10 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
                   <dd id="selected-hunger">100</dd>
                 </div>
                 <div>
+                  <dt>Stamina</dt>
+                  <dd id="selected-stamina">100</dd>
+                </div>
+                <div>
                   <dt>Strength</dt>
                   <dd id="selected-strength">—</dd>
                 </div>
@@ -261,6 +287,14 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
                   <dd id="selected-action">Relax</dd>
                 </div>
               </dl>
+              <p id="selected-personality" class="selected-personality"></p>
+              <div class="thought-panel">
+                <span>MODEL CHOICE</span
+                ><strong id="selected-thought">Awaiting a decision</strong>
+                <p id="selected-care">
+                  Personal needs are handled by the game.
+                </p>
+              </div>
               <p id="selected-target" class="selected-target">
                 Awaiting an order.
               </p>
@@ -295,9 +329,9 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
             <div class="technical-columns">
               <div>
                 <p>
-                  Each role has exactly three allowed actions. The model scores
-                  those choices; JavaScript selects a value and constructs the
-                  fixed fields. It cannot create a “teleport” field or grant
+                  Each role has a fixed set of allowed actions. The model scores
+                  eligible choices; JavaScript selects a value and constructs
+                  the fixed fields. It cannot create a “teleport” field or grant
                   unlimited food. An allowed choice can still get a villager
                   killed.
                 </p>
@@ -325,12 +359,16 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
             <div class="technical-columns">
               <p>
                 The simulation advances independently of inference. AI ticks/sec
-                counts applied NPC decisions in a rolling ten-second window;
-                squad rounds/sec counts completed rounds in which every living
-                villager received a fresh decision. Render FPS only measures
-                drawing. Pausing, resetting, editing a prompt, or losing the
-                selected villager can make an in-flight decision stale, so the
-                game checks results before applying them.
+                counts applied NPC decisions in a rolling ten-second window; AI
+                rounds/sec counts completed rounds across villagers currently
+                eligible for an AI choice. Automatic meals and jobs with only
+                one valid option do not count as AI decisions. Render FPS only
+                measures drawing; frame P99 shows long frame gaps. Villagers can
+                temporarily interrupt orders to eat or recover; these automatic
+                needs do not count as model decisions. Pausing, resetting,
+                editing a prompt, or losing the selected villager can make an
+                in-flight decision stale, so the game checks results before
+                applying them.
               </p>
               <p>
                 WebLLM runs Qwen 3.5 0.8B on your browser GPU. The model and

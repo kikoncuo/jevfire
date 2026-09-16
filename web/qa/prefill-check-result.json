@@ -1,0 +1,217 @@
+{
+  "tested_at": "2026-09-16T19:10:50.738Z",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "results": [
+    {
+      "unitId": "mira",
+      "context": {
+        "self": {
+          "id": "mira",
+          "alive": true,
+          "role": "collector",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 92,
+          "starves_in_seconds": 131,
+          "home_walk_seconds": 4,
+          "action": "forage_safe",
+          "personality": "A cautious scout who chooses safer food routes and brings supplies home.",
+          "needs_override": null,
+          "carrying_food": 2,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["forage_safe", "forage_bold", "relax"],
+        "nearest_orcs": [],
+        "food_routes": [
+          {
+            "id": "west-garden",
+            "distance": 0.8,
+            "bearing": "NW",
+            "food": 16,
+            "risk": "low",
+            "safe_round_trip_seconds": 13
+          },
+          {
+            "id": "north-grove",
+            "distance": 10.6,
+            "bearing": "N",
+            "food": 40,
+            "risk": "low",
+            "safe_round_trip_seconds": 21
+          },
+          {
+            "id": "east-garden",
+            "distance": 17.4,
+            "bearing": "E",
+            "food": 18,
+            "risk": "low",
+            "safe_round_trip_seconds": 22
+          }
+        ]
+      },
+      "parsed_json": {
+        "mira": "forage_safe"
+      },
+      "elapsed_ms": 1197.800000011921,
+      "prompt_tokens": 578,
+      "prefill_chunks": 19,
+      "comparison": {
+        "whole_logits": [
+          24.130979537963867, 23.663604736328125, 23.402889251708984
+        ],
+        "chunked_logits": [
+          24.183300018310547, 23.63768768310547, 23.420251846313477
+        ],
+        "max_abs_difference": 0.05232048034667969,
+        "same_winner": true
+      }
+    },
+    {
+      "unitId": "aldric",
+      "context": {
+        "self": {
+          "id": "aldric",
+          "alive": true,
+          "role": "fighter",
+          "health": 130,
+          "max_health": 130,
+          "hunger": 92,
+          "starves_in_seconds": 131,
+          "home_walk_seconds": 1,
+          "action": "relax",
+          "personality": "A protective veteran who puts threatened villagers and buildings before personal glory.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0,
+          "strength": 11
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["train", "relax"],
+        "nearest_orcs": [],
+        "allies_under_attack": [],
+        "buildings_under_attack": []
+      },
+      "parsed_json": {
+        "aldric": "relax"
+      },
+      "elapsed_ms": 1051.4000000357628,
+      "prompt_tokens": 451,
+      "prefill_chunks": 15,
+      "comparison": {
+        "whole_logits": [24.31696319580078, 25.194133758544922],
+        "chunked_logits": [24.397354125976562, 25.181636810302734],
+        "max_abs_difference": 0.08039093017578125,
+        "same_winner": true
+      }
+    },
+    {
+      "unitId": "tomas",
+      "context": {
+        "self": {
+          "id": "tomas",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 92,
+          "starves_in_seconds": 131,
+          "home_walk_seconds": 1,
+          "action": "relax",
+          "personality": "An industrious architect who repairs the hall and builds a strong ring of defenses.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "parsed_json": {
+        "tomas": "relax"
+      },
+      "elapsed_ms": 980,
+      "prompt_tokens": 472,
+      "prefill_chunks": 15,
+      "comparison": {
+        "whole_logits": [24.69033432006836, 25.76011848449707],
+        "chunked_logits": [24.684967041015625, 25.902565002441406],
+        "max_abs_difference": 0.14244651794433594,
+        "same_winner": true
+      }
+    },
+    {
+      "unitId": "nell",
+      "context": {
+        "self": {
+          "id": "nell",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 92,
+          "starves_in_seconds": 131,
+          "home_walk_seconds": 1,
+          "action": "relax",
+          "personality": "A medic and builder who spends food to heal wounded friends before expanding the settlement.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "parsed_json": {
+        "nell": "relax"
+      },
+      "elapsed_ms": 960.4000000357628,
+      "prompt_tokens": 474,
+      "prefill_chunks": 15,
+      "comparison": {
+        "whole_logits": [24.12185287475586, 25.638349533081055],
+        "chunked_logits": [24.165390014648438, 25.71004867553711],
+        "max_abs_difference": 0.07169914245605469,
+        "same_winner": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+{
+  "tested_at": "2026-09-16T19:20:40.702Z",
+  "source_url": "http://127.0.0.1:5174/src/game.js",
+  "scope": "Controlled scripted mechanics in isolated real Game instances inside the browser. No LLM requests, model mocks, tactical accuracy claim, or live-stage fixture injection.",
+  "model_requests": 0,
+  "seed": 9137,
+  "cases": [
+    {
+      "name": "automatic-hall-meal-and-resume",
+      "passed": true,
+      "eating": {
+        "id": "aldric",
+        "health": 130,
+        "hunger": 59.965,
+        "action": "train",
+        "proposed": "train",
+        "activity": "eating",
+        "needsOverride": "Automatic needs: eating at the hall",
+        "needsState": "eating",
+        "autoTargetId": "hall",
+        "stamina": 99.9775,
+        "restingBreak": false,
+        "ruleAction": null,
+        "ruleReason": null
+      },
+      "after": {
+        "id": "aldric",
+        "health": 130,
+        "hunger": 58.56500000000014,
+        "action": "train",
+        "proposed": "train",
+        "activity": "walking",
+        "needsOverride": null,
+        "needsState": null,
+        "autoTargetId": null,
+        "stamina": 99.6400000000001,
+        "restingBreak": false,
+        "ruleAction": null,
+        "ruleReason": null
+      },
+      "food_spent": 1,
+      "extra_decision_ticks": 0
+    },
+    {
+      "name": "automatic-patch-meal",
+      "passed": true,
+      "unit": {
+        "id": "mira",
+        "health": 85,
+        "hunger": 57.965,
+        "action": "forage_safe",
+        "proposed": "forage_safe",
+        "activity": "eating",
+        "needsOverride": "Automatic needs: eating at a food patch",
+        "needsState": "eating",
+        "autoTargetId": "west-garden",
+        "stamina": 99.9775,
+        "restingBreak": false,
+        "ruleAction": null,
+        "ruleReason": null
+      },
+      "patch_food_spent": 1
+    },
+    {
+      "name": "no-food-still-means-starvation",
+      "passed": true,
+      "reason": "starved"
+    },
+    {
+      "name": "builder-healing-caps-and-food-cost",
+      "passed": true,
+      "treatment": {
+        "medic": {
+          "id": "nell",
+          "health": 85,
+          "hunger": 98.53000000000014,
+          "action": "heal",
+          "proposed": "heal",
+          "activity": "healing",
+          "needsOverride": null,
+          "needsState": null,
+          "autoTargetId": null,
+          "stamina": 99.05500000000026,
+          "restingBreak": false,
+          "ruleAction": null,
+          "ruleReason": null
+        },
+        "patient": {
+          "id": "mira",
+          "health": 60,
+          "hunger": 98.53000000000014,
+          "action": "forage_safe",
+          "proposed": "forage_safe",
+          "activity": "gathering",
+          "needsOverride": null,
+          "needsState": null,
+          "autoTargetId": null,
+          "stamina": 99.05500000000026,
+          "restingBreak": false,
+          "ruleAction": null,
+          "ruleReason": null
+        },
+        "food": 5
+      },
+      "capped_health": 85
+    },
+    {
+      "name": "dynamic-jobs-and-rule-attribution",
+      "passed": true,
+      "builder_options": ["repair", "build", "heal", "relax"],
+      "fighter": {
+        "id": "aldric",
+        "health": 130,
+        "hunger": 100,
+        "action": "relax",
+        "proposed": "train",
+        "activity": "resting",
+        "needsOverride": null,
+        "needsState": null,
+        "autoTargetId": null,
+        "stamina": 100,
+        "restingBreak": false,
+        "ruleAction": "relax",
+        "ruleReason": "Only available action"
+      },
+      "extra_decision_ticks": 0
+    },
+    {
+      "name": "persistent-individual-personalities",
+      "passed": true,
+      "villagers": [
+        {
+          "id": "mira",
+          "disposition": "cautious",
+          "personality": "A cautious scout who chooses safer food routes and brings supplies home."
+        },
+        {
+          "id": "bram",
+          "disposition": "leisurely",
+          "personality": "A lazy forager who likes short trips, full baskets, and a long lunch once the pantry is stocked."
+        },
+        {
+          "id": "aldric",
+          "disposition": "protective",
+          "personality": "A protective veteran who puts threatened villagers and buildings before personal glory."
+        },
+        {
+          "id": "sable",
+          "disposition": "ambitious",
+          "personality": "An ambitious fighter who loves training for stronger attacks but answers real calls for help."
+        },
+        {
+          "id": "tomas",
+          "disposition": "industrious",
+          "personality": "An industrious architect who repairs the hall and builds a strong ring of defenses."
+        },
+        {
+          "id": "nell",
+          "disposition": "compassionate",
+          "personality": "A medic and builder who spends food to heal wounded friends before expanding the settlement."
+        }
+      ]
+    },
+    {
+      "name": "personal-break-thresholds-and-return-to-work",
+      "passed": true,
+      "during": {
+        "id": "aldric",
+        "health": 130,
+        "hunger": 98.60000000000014,
+        "action": "relax",
+        "proposed": "relax",
+        "activity": "resting",
+        "needsOverride": null,
+        "needsState": null,
+        "autoTargetId": null,
+        "stamina": 45.999999999999936,
+        "restingBreak": true,
+        "ruleAction": null,
+        "ruleReason": null
+      },
+      "after": {
+        "id": "aldric",
+        "health": 130,
+        "hunger": 93.00000000000068,
+        "action": "train",
+        "proposed": "relax",
+        "activity": "walking",
+        "needsOverride": null,
+        "needsState": null,
+        "autoTargetId": null,
+        "stamina": 94.36750000000055,
+        "restingBreak": false,
+        "ruleAction": "train",
+        "ruleReason": "Only available action"
+      },
+      "extra_decision_ticks": 0
+    }
+  ],
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "live_stage_unchanged": true,
+  "live_model_decisions_before": 0,
+  "live_model_decisions_after": 0
+}

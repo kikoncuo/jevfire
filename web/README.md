@@ -4,7 +4,7 @@
 
 Keep a village alive against hunger and increasingly strong orcs. Two collectors
 bring home food, two fighters train and protect them, and two builders repair
-the settlement and construct defenses. Edit the objective and role policies;
+the settlement, construct defenses, and heal wounded allies. Edit the objective and role policies;
 Qwen chooses each person's actions. [3D art credits and licenses](ASSETS.md).
 
 ## Play
@@ -32,19 +32,32 @@ cadence also affect play; identical seeds do not guarantee identical AI runs.
 |:--|:--|:--|
 | Collectors | `forage_safe`, `forage_bold`, `relax` | Safer routing versus faster, riskier food runs |
 | Fighters | `train`, `defend`, `relax` | Future strength versus intercepting current attacks |
-| Builders | `repair`, `build`, `relax` | Preserve buildings or invest in firing towers |
+| Builders | `repair`, `build`, `heal`, `relax` | Preserve buildings, invest in towers, or spend food treating allies |
 
 Foraging includes selecting a patch, walking, harvesting, and returning a full
 basket. Defending selects a threatening orc and taunts it away from villagers.
 Building and repair select legal sites. The model chooses high-level behavior;
 navigation and combat are game code, not a hidden second model.
 
-Hunger declines continuously. **Zero hunger means death.** Relaxing walks home;
-hungry villagers there consume actual shared food and recover health. An empty
-pantry cannot feed them. Training permanently raises fighter damage. Orcs roam,
+Hunger declines continuously. **Zero hunger means death.** At 28 hunger, a visible
+automatic-needs rule interrupts work, finds actual food at the hall, in a carried
+basket, or at a stocked patch, and resumes the chosen job after eating. It does
+not create food or count as an AI decision. Relaxing also walks home to eat and
+recover. Builders travel to wounded allies and spend one stored food per treatment
+to restore up to 20 HP. Training permanently raises fighter damage. Orcs roam,
 acquire nearby villagers/buildings, and attack. New waves become stronger.
 Finished towers shoot orcs. The run ends when everyone dies or the hall falls.
 An allowed but unwise decision can lose the game.
+
+Each villager has a distinct prompt: Mira is cautious, Bram likes short trips
+and leisure, Aldric protects others, Sable prioritizes training, Tomas builds, and
+Nell prioritizes treatment. Personality influences scores; it does not hard-code
+a job. Stamina falls while working and recovers at home. Rest becomes available
+when tired, hungry, wounded, already on a break, or when no useful job remains.
+Bram takes earlier breaks (70 stamina), Tomas later ones (30); other thresholds
+are shown in context. Unavailable work is removed from the candidate set. When only relaxation
+is available, a labeled game rule applies it without invoking the model or
+increasing AI ticks.
 
 ## What the model knows
 
@@ -58,7 +71,8 @@ every world coordinate:
 - The nearest two orcs: distance, bearing, health, level, current attack target,
   and estimated direct approach time.
 - Collectors see food patches, stock, route danger, and trip estimates. Fighters
-  see allies/buildings under attack. Builders see damage and unfinished defenses.
+  see allies/buildings under attack. Builders see damage, unfinished defenses,
+  and wounded allies. Each actor also sees its current available jobs.
 
 These are observations computed from simulation state, not model-generated facts.
 There is no screenshot interpretation in this browser build. A route's estimated
@@ -68,20 +82,23 @@ risk can become stale as orcs move. [Context design](../docs/game-context.md).
 
 **One AI tick = one accepted model decision for one living villager.** One
 WebLLM engine scores actors in a fair round-robin, taking fresh observations
-before each request. It scores three labels at one output position; JavaScript
+before each request. It scores the available labels (up to four) at one final output position; JavaScript
 builds a result such as `{"mira":"forage_safe"}`. Generated text is ignored.
 Missing or nonfinite scores fail explicitly.
 
 | Display | Measurement |
 |:--|:--|
 | AI ticks/sec | Applied NPC decisions per wall-clock second over a rolling 10-second window; shorter during warmup |
-| Squad rounds/sec | Completed rounds where every currently living villager received a fresh decision |
+| AI rounds/sec | Completed rounds covering actors currently eligible for AI (multiple available jobs, no meal break) |
 | Last inference | One actor's scoring time, including prefill |
 | Model decisions | Total applied AI decisions in this run |
-| Render FPS | Drawing frames per second; not model inference |
+| Render FPS | Actual draws per elapsed wall time over 5 seconds; capped near 60 |
+| Frame p99 | 99th percentile of animation-frame gaps over 5 seconds; lower is smoother |
 
 Scripted mode shows no AI rate. Paused rates are zero. Pauses, resets, changed
-orders, and dead actors discard pending results. This browser does not implement
+orders, dead actors, automatic meal breaks, and newly unavailable jobs discard
+pending results. Round counts use the currently eligible actor set; rule-only jobs and meal
+breaks do not add model decisions. This browser does not implement
 vLLM's parallel scheduling or explicit prefix-cache optimization. The repo's
 **10.3× CUDA result is a separate benchmark**, not a claim for this game.
 
@@ -90,10 +107,33 @@ choose badly, misunderstand observations, or follow an injected instruction
 that changes its preference. Scores are not calibrated confidence.
 [Exact structural guarantee](../docs/guarantees.md).
 
-The supplied policies remain experimental: the final handcrafted scene checks
-matched 7/12 development cases and 4/12 additional cases. Missed meals,
-training, and construction still occur. [Full results and limitations](qa/README.md).
-Prompt tuning here did not establish an optimal survival policy.
+The supplied policies remain experimental. The previous release matched only
+7/12 and 4/12 development scenes; those tests predate automatic meals, healing,
+personalities, and available-action filtering. They are historical evidence,
+not scores for this version. [Results and limitations](qa/README.md).
+Prompt tuning here has not established an optimal survival policy.
+
+## Smooth rendering and inference
+
+A Web Worker keeps model orchestration off the main thread, but WebLLM and the
+browser compositor still share a GPU. Large prefill submissions can freeze
+animation even when no long JavaScript task is recorded. The demo therefore
+splits each fresh prompt into small submissions through WebLLM's public
+`forwardTokensAndSample` API, retaining state between chunks within that decision.
+Intermediate sampled tokens are discarded and never fed back as generated text;
+only the final candidate scores select the action.
+
+**Balanced** uses 32-token chunks, 16 ms pauses between chunks, and a 200 ms
+inter-decision pause. **Maximum** uses 128-token chunks, 4 ms pauses, and a 30 ms
+inter-decision pause. Balanced trades decision throughput for smoother animation.
+This is still a complete prompt prefill, with extra per-chunk scoring overhead;
+it is not the server's shared-prefix optimization. Different chunk shapes can
+slightly change floating-point scores and occasionally close decisions.
+
+The scene batches static foliage, caches shadows, limits pixel ratio, caps draws
+near 60 FPS, and updates label content at 10 Hz. Low graphics reduces resolution
+further. [Frame measurements and reproducible scripts](qa/README.md) include cold
+and warm observations; hardware and shader compilation affect the results.
 
 ## Develop and verify
 
@@ -132,7 +172,7 @@ and downloaded model. [QA scripts, fixtures, and results](qa).
 | Library | MLC `v0_2_84/base/Qwen3.5-0.8B-q4f16_1_cs1k-webgpu.wasm` |
 | Library revision | `025bcaf3780fa8254f5e5efd3bfea0a5397248f4` |
 | Context | 2,048 tokens; input capped at 1,800 |
-| Labels | Three verified distinct single tokens, A/B/C |
+| Labels | Up to four verified distinct single tokens, A/B/C/D, mapped to current choices |
 
 Models/tokenizers download from Hugging Face/CDNs, the compiled library from
 GitHub, and fonts from Google Fonts. Mission text and game state stay on-device.

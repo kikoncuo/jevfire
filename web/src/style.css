@@ -1556,3 +1556,183 @@ footer > span:nth-child(2) {
   text-align: right;
   color: var(--muted);
 }
+
+/* Performance and personal needs are visible parts of the experiment. */
+.engine-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin-top: 15px;
+}
+.engine-options label {
+  display: grid;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.engine-options select {
+  width: 100%;
+  font-size: 12px;
+  padding: 6px 4px;
+}
+.performance-note {
+  margin-bottom: 0 !important;
+}
+.selected-personality {
+  font-family: var(--serif);
+  font-size: 12px;
+  font-style: italic;
+  color: var(--muted);
+  margin: 0 0 12px;
+}
+.selected-personality:empty {
+  display: none;
+}
+.thought-panel {
+  background: #e4e8d9;
+  border-left: 2px solid var(--green);
+  padding: 9px 10px;
+  margin-top: 12px;
+}
+.thought-panel > span {
+  display: block;
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.thought-panel > strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.thought-panel > p {
+  font-size: 11px;
+  color: #8d6437;
+  margin: 5px 0 0;
+  line-height: 1.4;
+}
+.village-ledger {
+  grid-template-columns: 1.3fr repeat(5, 1fr);
+}
+.telemetry {
+  grid-template-columns: 1.4fr repeat(6, 1fr);
+}
+@media (max-width: 1190px) {
+  .telemetry {
+    grid-template-columns: 1.25fr repeat(6, 1fr);
+  }
+  .telemetry-stat {
+    padding-left: 9px;
+  }
+  .telemetry-stat b {
+    font-size: 16px;
+  }
+  .village-ledger > div {
+    padding-left: 12px;
+    gap: 7px;
+  }
+}
+@media (max-width: 960px) {
+  .village-ledger {
+    grid-template-columns: 1.2fr repeat(5, 1fr);
+  }
+  .telemetry {
+    grid-template-columns: 1.2fr repeat(6, 1fr);
+  }
+  .telemetry-stat b {
+    font-size: 14px;
+  }
+  .telemetry-stat > span {
+    font-size: 5.5px;
+  }
+}
+@media (max-width: 680px) {
+  .village-ledger {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .village-ledger > div {
+    padding-left: 8px !important;
+  }
+  .village-ledger > div > span:first-child:not(.live-dot) {
+    font-size: 6px;
+  }
+  .village-ledger strong {
+    font-size: 19px;
+  }
+  .telemetry {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .telemetry-stat b {
+    font-size: 19px;
+  }
+  .telemetry-stat > span {
+    font-size: 6.5px;
+  }
+  .telemetry-stat:last-child {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  .selected-personality {
+    clear: both;
+    padding-top: 9px;
+  }
+  .engine-options {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+}
+
+/* Prose stays readable; the condensed face is reserved for compact game chrome. */
+.intro-note,
+.challenge-note p,
+.context-details p,
+.event-log,
+.technical-columns p,
+.download-note,
+.fine-print,
+textarea,
+.mission-status,
+.thought-panel p {
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.intro-note {
+  font-size: 13px;
+  line-height: 1.5;
+}
+textarea {
+  font-size: 12px;
+  line-height: 1.55;
+}
+#role-prompt {
+  font-size: 12px;
+  line-height: 1.55;
+}
+.context-details p,
+.fine-print,
+.thought-panel p {
+  font-size: 11px;
+}
+.event-log {
+  font-size: 12px;
+}
+
+.intro-note,
+.challenge-note p,
+.context-details p,
+.event-log li,
+.technical-columns p,
+textarea,
+#role-prompt {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.fine-print,
+.thought-panel p,
+.mission-status {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.5;
+}

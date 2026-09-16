@@ -1,0 +1,394 @@
+{
+  "tested_at": "2026-09-16T19:11:55.234Z",
+  "policies": {
+    "collector": "Keep the pantry stocked. Choose safe foraging when enemies threaten the routes; choose bold foraging when supplies run low and routes are clear. A full basket returns home automatically. Relax when supplies are plentiful or you need recovery. The visible automatic-needs rule gets food when your hunger is low; your decision controls the longer-term job, not each meal.",
+    "fighter": "Protect the settlement. Defend when orcs threaten villagers or buildings; attacking draws their aggression onto you. Train between attacks to permanently increase strength. Relax when badly injured. Visible automatic-needs behavior handles urgent meals, then resumes your chosen job. Do not keep training through an attack on a friend.",
+    "builder": "Keep buildings and villagers alive. Repair a damaged hall before it falls; repair other damaged defenses as needed. Heal wounded allies when food is available: each treatment spends one food for up to twenty health. Build towers when repairs and healing are not urgent. Relax to recover from serious injury. Visible automatic-needs behavior handles urgent meals; it does not count as a model decision."
+  },
+  "results": [
+    {
+      "unitId": "aldric",
+      "variant": "default",
+      "context": {
+        "self": {
+          "id": "aldric",
+          "alive": true,
+          "role": "fighter",
+          "health": 130,
+          "max_health": 130,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "A protective veteran who puts threatened villagers and buildings before personal glory.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0,
+          "strength": 11
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["train", "relax"],
+        "nearest_orcs": [],
+        "allies_under_attack": [],
+        "buildings_under_attack": []
+      },
+      "policy": null,
+      "result": {
+        "aldric": "relax"
+      },
+      "scores": {
+        "aldric": {
+          "value": "relax",
+          "probabilities": [0.31522563519254976, 0.6847743648074502],
+          "logits": [24.470674514770508, 25.246475219726562],
+          "options": ["train", "relax"]
+        }
+      },
+      "elapsed_ms": 423.0999999642372
+    },
+    {
+      "unitId": "aldric",
+      "variant": "explicit",
+      "context": {
+        "self": {
+          "id": "aldric",
+          "alive": true,
+          "role": "fighter",
+          "health": 130,
+          "max_health": 130,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "A protective veteran who puts threatened villagers and buildings before personal glory.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0,
+          "strength": 11
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["train", "relax"],
+        "nearest_orcs": [],
+        "allies_under_attack": [],
+        "buildings_under_attack": []
+      },
+      "policy": "Choose defend if any villager or building is under attack. Otherwise train. Relax only if your health is below half of maximum. Meals happen automatically.",
+      "result": {
+        "aldric": "relax"
+      },
+      "scores": {
+        "aldric": {
+          "value": "relax",
+          "probabilities": [0.28957765581061434, 0.7104223441893857],
+          "logits": [24.068187713623047, 24.96562385559082],
+          "options": ["train", "relax"]
+        }
+      },
+      "elapsed_ms": 360.7000000476837
+    },
+    {
+      "unitId": "sable",
+      "variant": "default",
+      "context": {
+        "self": {
+          "id": "sable",
+          "alive": true,
+          "role": "fighter",
+          "health": 130,
+          "max_health": 130,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "An ambitious fighter who loves training for stronger attacks but answers real calls for help.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0,
+          "strength": 11
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["train", "relax"],
+        "nearest_orcs": [],
+        "allies_under_attack": [],
+        "buildings_under_attack": []
+      },
+      "policy": null,
+      "result": {
+        "sable": "relax"
+      },
+      "scores": {
+        "sable": {
+          "value": "relax",
+          "probabilities": [0.35360997348896633, 0.6463900265110336],
+          "logits": [24.392311096191406, 24.995519638061523],
+          "options": ["train", "relax"]
+        }
+      },
+      "elapsed_ms": 600.5
+    },
+    {
+      "unitId": "sable",
+      "variant": "explicit",
+      "context": {
+        "self": {
+          "id": "sable",
+          "alive": true,
+          "role": "fighter",
+          "health": 130,
+          "max_health": 130,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "An ambitious fighter who loves training for stronger attacks but answers real calls for help.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0,
+          "strength": 11
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["train", "relax"],
+        "nearest_orcs": [],
+        "allies_under_attack": [],
+        "buildings_under_attack": []
+      },
+      "policy": "You love training. Choose train whenever no villager or building is threatened. Choose defend during an attack. Relax only when badly wounded. Meals happen automatically.",
+      "result": {
+        "sable": "relax"
+      },
+      "scores": {
+        "sable": {
+          "value": "relax",
+          "probabilities": [0.3370104523836022, 0.6629895476163977],
+          "logits": [24.082490921020508, 24.759136199951172],
+          "options": ["train", "relax"]
+        }
+      },
+      "elapsed_ms": 501.5999999642372
+    },
+    {
+      "unitId": "tomas",
+      "variant": "default",
+      "context": {
+        "self": {
+          "id": "tomas",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "An industrious architect who repairs the hall and builds a strong ring of defenses.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "policy": null,
+      "result": {
+        "tomas": "relax"
+      },
+      "scores": {
+        "tomas": {
+          "value": "relax",
+          "probabilities": [0.24930335982613605, 0.7506966401738641],
+          "logits": [24.554908752441406, 25.65723991394043],
+          "options": ["build", "relax"]
+        }
+      },
+      "elapsed_ms": 609.3999999761581
+    },
+    {
+      "unitId": "tomas",
+      "variant": "explicit",
+      "context": {
+        "self": {
+          "id": "tomas",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 3,
+          "action": "relax",
+          "personality": "An industrious architect who repairs the hall and builds a strong ring of defenses.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "policy": "Work priorities: repair the damaged hall; otherwise heal critically wounded allies; otherwise build unfinished towers. Relax only when badly wounded or no useful work remains. Meals happen automatically.",
+      "result": {
+        "tomas": "relax"
+      },
+      "scores": {
+        "tomas": {
+          "value": "relax",
+          "probabilities": [0.2330845693275852, 0.7669154306724147],
+          "logits": [24.33736801147461, 25.528343200683594],
+          "options": ["build", "relax"]
+        }
+      },
+      "elapsed_ms": 422.10000002384186
+    },
+    {
+      "unitId": "nell",
+      "variant": "default",
+      "context": {
+        "self": {
+          "id": "nell",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 2,
+          "action": "relax",
+          "personality": "A medic and builder who spends food to heal wounded friends before expanding the settlement.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "policy": null,
+      "result": {
+        "nell": "relax"
+      },
+      "scores": {
+        "nell": {
+          "value": "relax",
+          "probabilities": [0.1889647742988642, 0.8110352257011357],
+          "logits": [24.150754928588867, 25.607505798339844],
+          "options": ["build", "relax"]
+        }
+      },
+      "elapsed_ms": 542.1999999880791
+    },
+    {
+      "unitId": "nell",
+      "variant": "explicit",
+      "context": {
+        "self": {
+          "id": "nell",
+          "alive": true,
+          "role": "builder",
+          "health": 85,
+          "max_health": 85,
+          "hunger": 100,
+          "starves_in_seconds": 142,
+          "home_walk_seconds": 2,
+          "action": "relax",
+          "personality": "A medic and builder who spends food to heal wounded friends before expanding the settlement.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["build", "relax"],
+        "nearest_orcs": [],
+        "wounded_allies": [],
+        "healing_food_cost": 1,
+        "repairs": [],
+        "defense_sites_left": 4,
+        "towers_active": 0
+      },
+      "policy": "Choose heal if wounded allies and food exist; otherwise repair damaged buildings; otherwise build unfinished towers. Relax only when badly wounded or all work is done. Meals happen automatically.",
+      "result": {
+        "nell": "relax"
+      },
+      "scores": {
+        "nell": {
+          "value": "relax",
+          "probabilities": [0.21755302876410385, 0.7824469712358961],
+          "logits": [24.176057815551758, 25.45604133605957],
+          "options": ["build", "relax"]
+        }
+      },
+      "elapsed_ms": 683.7999999523163
+    }
+  ]
+}

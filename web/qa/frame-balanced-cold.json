@@ -1,0 +1,94 @@
+{
+  "tested_at": "2026-09-16T19:09:41.610Z",
+  "url": "http://127.0.0.1:5173/",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "pace": "balanced",
+  "phases": [
+    {
+      "phase": "idle",
+      "wall_seconds": 12.00030000001192,
+      "frames": 1440,
+      "fps": 119.99700007487893,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 9.299999999999272,
+      "frame_p99_ms": 9.400000000001455,
+      "frame_max_ms": 9.400000000001455,
+      "frames_over_50ms": 0,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 0,
+      "accepted_model_decisions": 0,
+      "rendered_frames": 671,
+      "measured_draw_fps": 55.9152687848915,
+      "renderer": {
+        "draw_calls": 170,
+        "triangles": 55542,
+        "pixel_ratio": 1,
+        "shadow_map_size": 1024,
+        "rendered_frames": 2006,
+        "geometries": 124,
+        "textures": 69
+      }
+    },
+    {
+      "phase": "scripted",
+      "wall_seconds": 12.001099999964238,
+      "frames": 1435,
+      "fps": 119.57237253287417,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 9.200000000004366,
+      "frame_p99_ms": 9.39999999999418,
+      "frame_max_ms": 41.69999999999709,
+      "frames_over_50ms": 0,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 11.999800000000041,
+      "accepted_model_decisions": 0,
+      "rendered_frames": 689,
+      "measured_draw_fps": 57.41140395480857,
+      "renderer": {
+        "draw_calls": 171,
+        "triangles": 55542,
+        "pixel_ratio": 1,
+        "shadow_map_size": 1024,
+        "rendered_frames": 2699,
+        "geometries": 125,
+        "textures": 69
+      }
+    },
+    {
+      "phase": "model",
+      "wall_seconds": 12.001300000011922,
+      "frames": 1282,
+      "fps": 106.82176097578817,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 9.299999999995634,
+      "frame_p99_ms": 9.400000000001455,
+      "frame_max_ms": 524.9000000000015,
+      "frames_over_50ms": 4,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 11.450100000000026,
+      "accepted_model_decisions": 8,
+      "rendered_frames": 606,
+      "measured_draw_fps": 50.49452975922592,
+      "renderer": {
+        "draw_calls": 171,
+        "triangles": 55542,
+        "pixel_ratio": 1,
+        "shadow_map_size": 1024,
+        "rendered_frames": 3310,
+        "geometries": 125,
+        "textures": 69
+      }
+    }
+  ],
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  }
+}

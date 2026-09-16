@@ -135,7 +135,7 @@ test('spatial observations expose distances, bearings, threats and route risks',
   assert.ok(!Object.hasOwn(context, 'repairs'));
   assert.ok(JSON.stringify(context).length < 1600);
 });
-test('legal bad actions remain bad: hunger does not secretly force relaxation', () => {
+test('automatic hunger care preserves the requested model job', () => {
   const game = peaceful(),
     unit = game.units[2];
   unit.hunger = 5;
@@ -143,6 +143,8 @@ test('legal bad actions remain bad: hunger does not secretly force relaxation', 
   game.update(1);
   assert.equal(unit.action, 'train');
   assert.ok(unit.hunger < 5);
+  assert.match(unit.needsOverride, /Automatic needs/);
+  assert.equal(unit.proposed, 'train');
 });
 test('reset preserves or changes numeric and string seeds deterministically', () => {
   const a = new Game({ seed: 'winter' }),
@@ -175,4 +177,215 @@ test('growing waves strengthen enemies and the explicit reference policy survive
     assert.equal(game.over, true);
   }
   assert.ok(new Set(durations).size > 1);
+});
+
+test('automatic meals are visible and never manufacture model ticks', () => {
+  const game = peaceful(),
+    unit = game.units[2];
+  Object.assign(unit, { x: unit.home.x, y: unit.home.y, hunger: 26 });
+  game.apply({ aldric: 'train' });
+  const before = {
+    ticks: game.ticks,
+    decisions: game.decisions,
+    food: game.food,
+  };
+  game.update(0.05);
+  assert.equal(unit.activity, 'eating');
+  assert.equal(unit.needsState, 'eating');
+  assert.match(unit.needsOverride, /Automatic needs: eating/);
+  assert.equal(unit.action, 'train');
+  assert.equal(unit.proposed, 'train');
+  assert.equal(unit.autoTargetId, 'hall');
+  assert.equal(game.food, before.food - 1);
+  assert.ok(unit.hunger > 59);
+  game.update(2);
+  assert.equal(unit.needsOverride, null);
+  assert.equal(game.ticks, before.ticks);
+  assert.equal(game.decisions, before.decisions);
+  assert.equal(game.selfCareMeals, 1);
+});
+test('a hungry villager can eat real food at a patch when the pantry is empty', () => {
+  const game = peaceful(),
+    unit = game.units[0],
+    patch = game.resources[0];
+  Object.assign(unit, { x: patch.x, y: patch.y, hunger: 24 });
+  game.food = 0;
+  game.apply({ mira: 'forage_safe' });
+  game.update(0.05);
+  assert.equal(unit.autoTargetId, patch.id);
+  assert.equal(unit.activity, 'eating');
+  assert.equal(patch.food, 17);
+  assert.equal(game.food, 0);
+  assert.equal(unit.carrying, 0);
+  assert.ok(unit.hunger > 57);
+});
+test('automatic needs cannot invent food or prevent starvation without supplies', () => {
+  const game = peaceful(),
+    unit = game.units[0];
+  game.food = 0;
+  for (const patch of game.resources) patch.food = 0;
+  unit.hunger = 1;
+  game.apply({ mira: 'forage_bold' });
+  advance(game, 2);
+  assert.equal(unit.alive, false);
+  assert.equal(unit.reason, 'starved');
+  assert.equal(game.selfCareMeals, 0);
+});
+test('builders spend shared food to heal living allies without exceeding max health', () => {
+  const game = peaceful(),
+    ally = game.units[0],
+    medic = game.units[5];
+  Object.assign(ally, { x: 7, y: 17, health: 40 });
+  Object.assign(medic, { x: 6.5, y: 17 });
+  game.apply({ mira: 'forage_safe', nell: 'heal' });
+  advance(game, 2.1);
+  assert.equal(ally.health, 60);
+  assert.equal(game.food, 5);
+  assert.equal(game.treatments, 1);
+  assert.equal(medic.activity, 'healing');
+  ally.health = 80;
+  advance(game, 2.1);
+  assert.equal(ally.health, ally.maxHealth);
+  assert.equal(game.food, 4);
+  ally.health = 40;
+  game.food = 0;
+  advance(game, 1);
+  assert.equal(ally.health, 40);
+  assert.equal(game.food, 0);
+});
+test('available actions omit nonexistent work and ineffective rest', () => {
+  const game = peaceful();
+  assert.deepEqual(game.availableActions('tomas'), ['build']);
+  assert.deepEqual(game.availableActions('aldric'), ['train']);
+  game.units[2].strength = 40;
+  assert.deepEqual(game.availableActions('aldric'), ['relax']);
+  const orc = game.spawnOrc(1, 1);
+  assert.deepEqual(game.availableActions('aldric'), ['defend']);
+  orc.alive = false;
+  game.hall().health = 100;
+  game.units[0].health = 30;
+  game.units[5].stamina = 40;
+  assert.deepEqual(game.availableActions('nell'), [
+    'repair',
+    'build',
+    'heal',
+    'relax',
+  ]);
+  game.food = 0;
+  assert.deepEqual(game.availableActions('nell'), ['repair', 'build', 'relax']);
+  for (const patch of game.resources) patch.food = 0;
+  assert.deepEqual(game.availableActions('mira'), ['relax']);
+  game.units[0].carrying = 3;
+  assert.deepEqual(game.availableActions('mira'), [
+    'forage_safe',
+    'forage_bold',
+    'relax',
+  ]);
+});
+test('a visible rule-only action changes work without overwriting a model proposal or counting a tick', () => {
+  const game = peaceful(),
+    unit = game.units[2];
+  game.apply({ aldric: 'train' });
+  unit.strength = 40;
+  const ticks = game.ticks,
+    decisions = game.decisions;
+  game.applyRuleAction(unit.id, 'relax', 'Only available action');
+  assert.equal(unit.action, 'relax');
+  assert.equal(unit.proposed, 'train');
+  assert.equal(unit.ruleAction, 'relax');
+  assert.equal(unit.ruleReason, 'Only available action');
+  assert.equal(game.ticks, ticks);
+  assert.equal(game.decisions, decisions);
+  assert.throws(() => game.applyRuleAction(unit.id, 'defend'));
+});
+test('personalities survive reset and builder observations include actual patients and action availability', () => {
+  const game = peaceful(),
+    personalities = game.units.map((unit) => unit.personality);
+  assert.equal(new Set(personalities).size, 6);
+  game.units[0].health = 30;
+  const context = game.contextFor('nell');
+  assert.equal(context.wounded_allies[0].id, 'mira');
+  assert.equal(context.wounded_allies[0].health, 30);
+  assert.equal(context.healing_food_cost, 1);
+  assert.ok(context.available_actions.includes('heal'));
+  assert.equal(context.self.personality, game.units[5].personality);
+  game.reset();
+  assert.deepEqual(
+    game.units.map((unit) => unit.personality),
+    personalities,
+  );
+});
+
+test('personal stamina thresholds make breaks available at different times', () => {
+  const game = peaceful(),
+    mira = game.units[0],
+    bram = game.units[1],
+    tomas = game.units[4],
+    nell = game.units[5];
+  mira.stamina = bram.stamina = 60;
+  assert.equal(game.availableActions(mira).includes('relax'), false);
+  assert.equal(game.availableActions(bram).includes('relax'), true);
+  tomas.stamina = nell.stamina = 35;
+  assert.equal(game.availableActions(tomas).includes('relax'), false);
+  assert.equal(game.availableActions(nell).includes('relax'), true);
+  const context = game.contextFor('bram');
+  assert.equal(context.self.stamina, 60);
+  assert.equal(context.self.break_threshold, 70);
+  assert.match(context.rest_available_reason, /Fatigue/);
+});
+test('a chosen stamina break persists above its trigger and ends when rested', () => {
+  const game = peaceful(),
+    fighter = game.units[2];
+  Object.assign(fighter, { x: fighter.home.x, y: fighter.home.y, stamina: 30 });
+  game.apply({ aldric: 'relax' });
+  advance(game, 2);
+  assert.ok(
+    fighter.stamina > fighter.breakAt && fighter.stamina < fighter.restUntil,
+  );
+  assert.equal(fighter.restingBreak, true);
+  assert.equal(fighter.action, 'relax');
+  assert.match(game.contextFor('aldric').rest_available_reason, /Finishing/);
+  const ticks = game.ticks;
+  advance(game, 8);
+  assert.equal(fighter.restingBreak, false);
+  assert.equal(fighter.action, 'train');
+  assert.equal(fighter.proposed, 'relax');
+  assert.equal(fighter.ruleReason, 'Only available action');
+  assert.equal(game.ticks, ticks);
+});
+test('healthy rested idle villagers take only a physically forced useful job without AI ticks', () => {
+  const game = peaceful();
+  game.update(0.1);
+  assert.equal(game.units[2].action, 'train');
+  assert.equal(game.units[4].action, 'build');
+  assert.equal(game.units[0].activity, 'waiting');
+  assert.match(game.units[0].reason, /waiting for a new decision/);
+  assert.equal(game.ticks, 0);
+  assert.equal(game.decisions, 0);
+});
+test('working drains stamina and rest remains available for injury, hunger, or no work', () => {
+  const game = peaceful(),
+    fighter = game.units[2],
+    builder = game.units[4];
+  Object.assign(fighter, { x: 15.2, y: 25.4 });
+  game.apply({ aldric: 'train' });
+  advance(game, 5);
+  assert.ok(fighter.stamina < 98 && fighter.stamina > 97);
+  fighter.health = 90;
+  assert.equal(game.availableActions(fighter).includes('relax'), true);
+  fighter.health = fighter.maxHealth;
+  fighter.hunger = 60;
+  assert.equal(game.availableActions(fighter).includes('relax'), true);
+  for (const tower of game.buildings.filter(
+    (building) => building.type === 'tower',
+  )) {
+    tower.progress = 1;
+    tower.health = tower.maxHealth;
+  }
+  fighter.hunger = 100;
+  assert.deepEqual(game.availableActions(builder), ['relax']);
+  assert.equal(
+    game.contextFor(builder.id).rest_available_reason,
+    'No useful work is currently available',
+  );
 });

@@ -5,11 +5,18 @@ structural/UI checks, scripted simulation balance, and real-model policy
 experiments. A passing structural test does not mean a villager chose a useful
 action. A legal action can still leave the village hungry or undefended.
 
-The shipped controller uses the lightweight Qwen 3.5 0.8B build. The prompt
-experiments below did not establish an optimal policy or a reliable survival
-improvement.
-They make no browser inference speedup claim and do not reproduce the CUDA
-sidecar benchmarks.
+The current game uses Qwen 3.5 0.8B with six distinct characters, dynamic job
+availability, personal stamina thresholds, visible automatic hunger care, and food-funded builder healing.
+Builders have four possible role actions; an individual request scores only the
+currently useful subset. Healthy, fed, rested villagers cannot choose ineffective rest while useful work exists. Selected fatigue breaks continue until the character recovers to their rest target. Automatic meals and a rule-only choice when only one
+action remains are not model inference and must not increase AI throughput.
+
+**The policy and survival records below predate these mechanics.** Their old
+hunger scenes required the model to select `relax` to eat; that expectation no
+longer describes automatic hunger care. They remain historical development
+evidence, not current policy validation. The experiments did not establish an
+optimal policy or reliable model-driven survival improvement, and make no
+browser inference speedup claim or comparison with the CUDA sidecar.
 
 ## What each artifact establishes
 
@@ -17,7 +24,7 @@ sidecar benchmarks.
 | :----------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [policy-fixtures.json](policy-fixtures.json)                 | Twelve hand-authored scenes and their expected allowed actions, with reasons. Used during prompt development.                                                                                                                           |
 | [policy-heldout-fixtures.json](policy-heldout-fixtures.json) | Twelve additional hand-authored scenes. Originally set aside; subsequently inspected and used for model/prompt comparisons. The filename is historical: this is now another development/regression set, not untouched holdout evidence. |
-| [make-policy-fixtures.js](make-policy-fixtures.js)           | Generates the first scene set and CPU scripted balance runs from the current game code. Running it rewrites those artifacts; it does not invoke an LLM.                                                                                 |
+| [make-policy-fixtures.js](make-policy-fixtures.js)           | Historical generator for the old policy scenes. Its expected hunger actions predate automatic needs. Do not use it to regenerate current-policy evidence; it also overwrites the balance artifact.                                      |
 | [balance-results.json](balance-results.json)                 | Four seeded runs using an explicit scripted controller. Useful for checking that the simulation can sustain several minutes of play; not model performance.                                                                             |
 | [policy-check.js](policy-check.js)                           | Compares the initial and more explicitly prioritized role instructions through real browser inference while the game is paused.                                                                                                         |
 | [policy-current.js](policy-current.js)                       | Runs the currently loaded model/prompt configuration against both scene sets. Returns aggregate results and failures; its in-page report also contains full rows.                                                                       |
@@ -27,7 +34,23 @@ sidecar benchmarks.
 | [signal-run-smoke-result.json](signal-run-smoke-result.json) | Historical results for the earlier three-unit Signal Run demo. It does not validate the six-villager Last Hearth game.                                                                                                                  |
 | [survival-baseline.json](survival-baseline.json)             | One early real-model game run. It is a development observation, not a controlled model comparison.                                                                                                                                      |
 
-## Recorded exploratory scene results
+Current checks added for the revised mechanics:
+
+- [needs-jobs-check.js](needs-jobs-check.js) runs controlled scripted fixtures
+  inside the browser using isolated instances of the real `Game` module. It
+  checks meal activity and attribution, resuming a requested job, personal stamina breaks, starvation without supplies,
+  healing costs/caps, useful candidate subsets, rule attribution, and persistent
+  personalities. It never substitutes a model response or changes the live stage.
+- [scripted-balance.js](scripted-balance.js) regenerates only the current
+  [balance-results.json](balance-results.json), preserving historical policy
+  fixtures. The previous mechanical results are retained in
+  [balance-results-v1.json](balance-results-v1.json).
+- [browser-smoke.js](browser-smoke.js) now checks each returned candidate subset,
+  including builders' `heal` action, instead of assuming three logits everywhere.
+  It still requires real loaded WebLLM inference. Paused probes score all six characters without touching live counters. Live play requires real collector decisions and visible progression of rule-only training/building jobs; it no longer claims all six characters required an AI decision. The current [execution report](smoke-current.json) records a successful real-model
+  run; [mechanical results](needs-jobs-result.json) record all seven browser fixtures.
+
+## Historical exploratory scene results
 
 A match means the chosen finite action appears in a scene author's `expected`
 list. The choices were scored by the model; expected answers were used only for
@@ -92,9 +115,14 @@ The CPU game test in [game.test.js](../test/game.test.js) requires the explicit
 scripted reference controller to survive **more than three simulated minutes**
 and less than eight across four fixed seeds. The recorded balance runs use
 seeds 1, 2, 3, and 7341, a one-second simulation step, and one full living-roster
-decision per simulated second. Their recorded durations are 283.1, 301.2,
-286.1, and 286.1 simulated seconds. No model inference or wall-clock latency
-measurement is involved.
+decision per simulated second. With the current rules, their recorded durations
+are **294.9, 330.6, 322.6, and 323.1 simulated seconds**. They reached waves 9–11,
+completed 22–31 healing treatments, and consumed 36–39 real meals. No model
+inference or wall-clock latency measurement is involved. The earlier values
+283.1, 301.2, 286.1, and 286.1 are preserved in `balance-results-v1.json`; changes
+to game mechanics prevent interpreting this difference as a model improvement.
+The automatic-needs/healing revision before stamina is separately preserved in
+[balance-results-v2.json](balance-results-v2.json).
 
 The early [real-model baseline](survival-baseline.json), using Qwen 3.5 0.8B,
 initial JSON observations, and the initial role policy, lasted **190.9856
@@ -112,11 +140,15 @@ From `web/`, run the CPU tests:
 npm test
 ```
 
-To regenerate the scripted fixtures and balance artifact explicitly:
+To regenerate current scripted balance without overwriting historical scenes:
 
 ```bash
-node qa/make-policy-fixtures.js
+node qa/scripted-balance.js
 ```
+
+Do not regenerate the old policy fixtures with `make-policy-fixtures.js` and
+interpret the old expected actions as current-policy correctness: urgent eating
+is now an explicit game rule, and builders have a fourth action.
 
 For browser checks, start the dev server, open it in the isolated browser
 session, explicitly load the real model, and pause gameplay before a policy
@@ -127,27 +159,93 @@ any result. Only one test should use the inference worker at a time.
 npm run dev
 # In another terminal, from web/:
 playwright-cli -s=cowork open http://127.0.0.1:5173 --persistent --headed
-# Load the real model in the UI, then pause before running a policy probe.
-playwright-cli -s=cowork run-code --filename=qa/policy-current.js
-# Full-game structural/UI checks are a separate run:
+# Current mechanics: no model download required; dev server only.
+playwright-cli -s=cowork run-code --filename=qa/needs-jobs-check.js
+# Then explicitly load the real model in the UI for structural/UI checks:
 playwright-cli -s=cowork run-code --filename=qa/browser-smoke.js
+# Historical policy probes require revised scenes before current-rule evaluation.
 ```
 
 The policy probe stores its full report in `window.jevfirePolicyCurrent`;
 the smoke script stores a successful report in `window.jevfireSmokeReport`.
+The controlled mechanics script stores its report in
+`window.jevfireNeedsJobsReport`. Its isolated scenarios use scripted commands and
+report zero model requests. It imports the source module from the Vite dev
+server; it is not designed for a production build that omits source modules.
 Save those reports with the actual configuration metadata. The smoke script
 temporarily disables browser networking after assets/model load to check local
 inference and restores networking in `finally`. It also resets and exercises
 the game; use a disposable development session.
 
-## Final configuration and results
+## Historical release configuration and results
 
-The shipped configuration uses Qwen3.5-0.8B-q4f16_1-MLC, the original natural-language role policies, factual prose observations, and A/B/C labels. The [complete policy report](policy-result.json) includes every scenario result, policies, raw scores, GPU/browser details, pinned model/library revisions, and SHA-256 hashes of the prompt, simulator, scorer, and fixture sources.
+The previous release used Qwen3.5-0.8B-q4f16_1-MLC, the original natural-language role policies, factual prose observations, and A/B/C labels. These records predate automatic needs, character policies, healing, dynamic action subsets, and the current inference pacing. The [complete policy report](policy-result.json) includes every scenario result, policies, raw scores, GPU/browser details, pinned model/library revisions, and SHA-256 hashes of the prompt, simulator, scorer, and fixture sources.
 
 It matched **7/12** development scenes and **4/12** additional scenes. This is weak policy performance: missed meals, training, and construction remain real limitations. The extra set was reused during development; neither count estimates general accuracy. The larger 2B download and tested prompt rewrites did not establish a reliable gameplay advantage, so the smaller download remains the default. No policy-optimality claim is made.
 
-The final production [smoke report](smoke-result.json) passed real offline inference for all six NPCs, finite role contracts, injection resistance for unknown fields, stale-result rejection, pause/scripted throughput isolation, and mobile layout. Its first completed roster round measured **1.87 accepted AI decisions/sec**, **0.31 rounds/sec**, and **102 render FPS** on the reported Apple WebGPU adapter. This is a short 3.22-second warmup sample, not a sustained benchmark or a device-independent promise.
+The previous release's production [smoke report](smoke-result.json) passed real offline inference for all six NPCs, finite role contracts, injection resistance for unknown fields, stale-result rejection, pause/scripted throughput isolation, and mobile layout. Its first completed roster round measured **1.87 accepted AI decisions/sec** and **0.31 rounds/sec**; its obsolete FPS estimator displayed 102 FPS on the reported Apple WebGPU adapter. This is a short 3.22-second warmup sample, not a sustained benchmark or a device-independent promise. The old FPS value is not comparable to the corrected wall-clock draw counter.
 
 [The survival recorder](survival-run.js) starts one real-model game at seed 7341 and 2× simulation speed and stores read-only samples in `window.jevfireSurvivalReport`. Keep the tab visible and inspect its `final` property when the game ends. Simulation seconds and wall-clock throughput are separate measurements.
 
-The [recorded release run](survival-result.json) ended when the hall fell at **192.6 simulated seconds**, with **373 accepted model decisions**, six kills, and one villager still alive. It averaged **1.83 accepted decisions per wall-clock second** over **204.0 wall seconds**. Browser frame-time clamping can make the selected 2× speed diverge from twice wall time under load. This one run is similar in duration to the early baseline and does not demonstrate a survival improvement.
+The [historical release run](survival-result.json) ended when the hall fell at **192.6 simulated seconds**, with **373 accepted model decisions**, six kills, and one villager still alive. It averaged **1.83 accepted decisions per wall-clock second** over **204.0 wall seconds**. Browser frame-time clamping can make the selected 2× speed diverge from twice wall time under load. This one run is similar in duration to the early baseline and does not demonstrate a survival improvement.
+
+## Frame pacing experiment (September 16, 2026)
+
+The old FPS readout averaged reciprocal frame times and hid long GPU stalls.
+The new readout divides actual draws by elapsed wall time and reports animation
+frame p99 separately. Renderer draws are capped near 60 FPS.
+
+Same Apple metal-3 adapter, Chrome 152, 1440 × 1000 viewport, 12 seconds per phase:
+
+| Configuration       | Animation callbacks/sec |    Draws/sec | Frame p99 | Max gap | Accepted AI decisions/sec |
+| :------------------ | ----------------------: | -----------: | --------: | ------: | ------------------------: |
+| Previous release    |                    48.7 | Not recorded |    400 ms |  492 ms |                      1.83 |
+| Balanced, first run |                   106.8 |         50.5 |    9.4 ms |  525 ms |                      0.67 |
+| Balanced, warmed    |                   119.9 |         57.8 |    9.3 ms |  9.4 ms |                      0.83 |
+| Maximum             |                    93.2 |         45.1 |     91 ms |  125 ms |                      1.50 |
+
+The first balanced run still had startup stalls; the warmed run had none above
+50 ms. No long main-thread tasks were recorded. This points to GPU contention
+or initialization, rather than a main-thread JavaScript freeze. Balanced trades
+inference throughput for responsiveness. These short development measurements
+precede the final stamina and compact-label adjustments; they are scheduling
+evidence, not a controlled survival or accuracy comparison.
+
+Raw records: [before](frame-before.json), [first balanced](frame-balanced-cold.json),
+[warm balanced](frame-balanced-warm.json), [maximum](frame-fast.json). Re-run
+[frame-profile.js](frame-profile.js) with the real model loaded. Animation callback
+rate may exceed draw rate on a high-refresh display.
+
+[Prefill checks](prefill-check-result.json) compare four actual prompts using
+ordinary versus chunked WebLLM prefill. All four kept the same winning candidate;
+maximum raw-score differences ranged from 0.052 to 0.142. This is agreement for
+four examples, not a promise of identical scores or winners for every prompt.
+[Reproduction script](prefill-check.js).
+
+[Priority probes](priority-probe-result.json) recorded excessive resting under
+both existing and shorter priority instructions. Stamina/availability rules
+address that behavior explicitly; they do not demonstrate improved model
+reasoning. Meals, forced sole jobs, and simulation updates never count as AI ticks.
+
+## Current release checks
+
+[Source hashes and pins](current-validation.json) identify the tested code.
+All **41 CPU tests** passed, along with formatting and a production build.
+The [real-model smoke run](smoke-current.json) passed six paused offline role
+probes, live dynamic candidate scoring, rule-job progression, fixed-field
+injection resistance, stale-result rejection, pause/scripted throughput isolation,
+and mobile overflow checks. Its short first eligible round displayed 58 rendered
+FPS; this is a smoke observation, not a sustained benchmark.
+
+The [browser mechanics run](needs-jobs-result.json) passed seven isolated,
+explicitly scripted cases using the real simulation module. These cover actual
+food consumption, resuming work, starvation without supplies, healing costs and
+caps, legal jobs, personalities, stamina breaks, and zero added AI ticks.
+
+The [current real-model run](survival-current.json) ended when the hall fell at
+**268.3 simulated seconds** (seed 7341, 2× simulation speed, balanced inference).
+It recorded **24 meals, 17 healing treatments, 17 kills, and 86 accepted model
+decisions** over **135.0 wall seconds**. The final five-second window drew 58
+FPS with a 9.3 ms animation-frame p99. These are observed outcomes from one run;
+changed rules and frame cadence prevent treating its duration as an improvement
+in model reasoning over the historical release.

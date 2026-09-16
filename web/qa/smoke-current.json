@@ -1,0 +1,801 @@
+{
+  "tested_at": "2026-09-16T19:21:10.596Z",
+  "url": "http://127.0.0.1:5173/",
+  "runtime": "WebLLM 0.2.85",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "scope": "Real inference with current dynamic candidates and structural/UI smoke checks; no policy accuracy claim",
+  "rules": "Builders may heal; unavailable work is removed before scoring. Automatic needs and single available actions are game rules, not AI ticks.",
+  "paused_role_probes": {
+    "mira": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 1, 3],
+        "top": [
+          {
+            "id": 33,
+            "score": 23.97418975830078,
+            "token": "B"
+          },
+          {
+            "id": 32,
+            "score": 23.93578338623047,
+            "token": "A"
+          },
+          {
+            "id": 34,
+            "score": 23.127174377441406,
+            "token": "C"
+          },
+          {
+            "id": 27775,
+            "score": 20.123525619506836,
+            "token": "Based"
+          },
+          {
+            "id": 760,
+            "score": 19.755128860473633,
+            "token": "The"
+          },
+          {
+            "id": 248068,
+            "score": 19.74185562133789,
+            "token": "<think>"
+          },
+          {
+            "id": 5173,
+            "score": 18.603225708007812,
+            "token": "Option"
+          },
+          {
+            "id": 2432,
+            "score": 17.66616439819336,
+            "token": "Action"
+          },
+          {
+            "id": 332,
+            "score": 17.47831153869629,
+            "token": "**"
+          },
+          {
+            "id": 15666,
+            "score": 17.11396598815918,
+            "token": "Answer"
+          },
+          {
+            "id": 23949,
+            "score": 16.9486083984375,
+            "token": "Choice"
+          },
+          {
+            "id": 1206,
+            "score": 16.925270080566406,
+            "token": "To"
+          }
+        ],
+        "sampled_text": "B"
+      },
+      "parsed_json": {
+        "mira": "forage_bold"
+      },
+      "fields": {
+        "mira": {
+          "value": "forage_bold",
+          "probabilities": [
+            0.40247429598345796, 0.4182325451656337, 0.17929315885090832
+          ],
+          "logits": [23.93578338623047, 23.97418975830078, 23.127174377441406],
+          "options": ["forage_safe", "forage_bold", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 1,
+      "epoch": 3,
+      "unitId": "mira",
+      "testOnly": true,
+      "elapsed_ms": 1522.5,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 20,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 20,
+      "prompt_tokens": 611,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 611,
+        "scored_positions": 1
+      }
+    },
+    "bram": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 1, 3],
+        "top": [
+          {
+            "id": 33,
+            "score": 24.284744262695312,
+            "token": "B"
+          },
+          {
+            "id": 32,
+            "score": 23.98556900024414,
+            "token": "A"
+          },
+          {
+            "id": 34,
+            "score": 23.419342041015625,
+            "token": "C"
+          },
+          {
+            "id": 760,
+            "score": 20.02800178527832,
+            "token": "The"
+          },
+          {
+            "id": 248068,
+            "score": 19.963863372802734,
+            "token": "<think>"
+          },
+          {
+            "id": 27775,
+            "score": 19.75783920288086,
+            "token": "Based"
+          },
+          {
+            "id": 5173,
+            "score": 18.494089126586914,
+            "token": "Option"
+          },
+          {
+            "id": 2432,
+            "score": 17.770980834960938,
+            "token": "Action"
+          },
+          {
+            "id": 15666,
+            "score": 17.458105087280273,
+            "token": "Answer"
+          },
+          {
+            "id": 332,
+            "score": 17.23944091796875,
+            "token": "**"
+          },
+          {
+            "id": 54,
+            "score": 16.938316345214844,
+            "token": "W"
+          },
+          {
+            "id": 3670,
+            "score": 16.914108276367188,
+            "token": "Options"
+          }
+        ],
+        "sampled_text": "B"
+      },
+      "parsed_json": {
+        "bram": "forage_bold"
+      },
+      "fields": {
+        "bram": {
+          "value": "forage_bold",
+          "probabilities": [
+            0.3428874101806535, 0.4624680185724549, 0.19464457124689152
+          ],
+          "logits": [23.98556900024414, 24.284744262695312, 23.419342041015625],
+          "options": ["forage_safe", "forage_bold", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 2,
+      "epoch": 3,
+      "unitId": "bram",
+      "testOnly": true,
+      "elapsed_ms": 1400.5,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 20,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 20,
+      "prompt_tokens": 636,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 636,
+        "scored_positions": 1
+      }
+    },
+    "aldric": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 1, 3],
+        "top": [
+          {
+            "id": 33,
+            "score": 24.148351669311523,
+            "token": "B"
+          },
+          {
+            "id": 32,
+            "score": 23.589330673217773,
+            "token": "A"
+          },
+          {
+            "id": 34,
+            "score": 23.38119125366211,
+            "token": "C"
+          },
+          {
+            "id": 248068,
+            "score": 20.201122283935547,
+            "token": "<think>"
+          },
+          {
+            "id": 760,
+            "score": 19.66762351989746,
+            "token": "The"
+          },
+          {
+            "id": 27775,
+            "score": 19.587406158447266,
+            "token": "Based"
+          },
+          {
+            "id": 2432,
+            "score": 18.451505661010742,
+            "token": "Action"
+          },
+          {
+            "id": 5173,
+            "score": 18.328231811523438,
+            "token": "Option"
+          },
+          {
+            "id": 15666,
+            "score": 17.127178192138672,
+            "token": "Answer"
+          },
+          {
+            "id": 2523,
+            "score": 16.875667572021484,
+            "token": "You"
+          },
+          {
+            "id": 54,
+            "score": 16.8482666015625,
+            "token": "W"
+          },
+          {
+            "id": 35,
+            "score": 16.840282440185547,
+            "token": "D"
+          }
+        ],
+        "sampled_text": "B"
+      },
+      "parsed_json": {
+        "aldric": "defend"
+      },
+      "fields": {
+        "aldric": {
+          "value": "defend",
+          "probabilities": [
+            0.2808157966698937, 0.49113543392953685, 0.22804876940056956
+          ],
+          "logits": [23.589330673217773, 24.148351669311523, 23.38119125366211],
+          "options": ["train", "defend", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 3,
+      "epoch": 3,
+      "unitId": "aldric",
+      "testOnly": true,
+      "elapsed_ms": 1177,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 16,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 16,
+      "prompt_tokens": 508,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 508,
+        "scored_positions": 1
+      }
+    },
+    "sable": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 1, 3],
+        "top": [
+          {
+            "id": 33,
+            "score": 23.974111557006836,
+            "token": "B"
+          },
+          {
+            "id": 32,
+            "score": 23.75244140625,
+            "token": "A"
+          },
+          {
+            "id": 34,
+            "score": 23.12041664123535,
+            "token": "C"
+          },
+          {
+            "id": 248068,
+            "score": 20.098072052001953,
+            "token": "<think>"
+          },
+          {
+            "id": 760,
+            "score": 19.944900512695312,
+            "token": "The"
+          },
+          {
+            "id": 27775,
+            "score": 19.79920768737793,
+            "token": "Based"
+          },
+          {
+            "id": 2432,
+            "score": 18.244226455688477,
+            "token": "Action"
+          },
+          {
+            "id": 5173,
+            "score": 18.22085189819336,
+            "token": "Option"
+          },
+          {
+            "id": 1206,
+            "score": 17.16756820678711,
+            "token": "To"
+          },
+          {
+            "id": 15666,
+            "score": 17.035268783569336,
+            "token": "Answer"
+          },
+          {
+            "id": 2523,
+            "score": 16.911865234375,
+            "token": "You"
+          },
+          {
+            "id": 54,
+            "score": 16.75113296508789,
+            "token": "W"
+          }
+        ],
+        "sampled_text": "B"
+      },
+      "parsed_json": {
+        "sable": "defend"
+      },
+      "fields": {
+        "sable": {
+          "value": "defend",
+          "probabilities": [
+            0.359754401169433, 0.4490309114244835, 0.19121468740608344
+          ],
+          "logits": [23.75244140625, 23.974111557006836, 23.12041664123535],
+          "options": ["train", "defend", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 4,
+      "epoch": 3,
+      "unitId": "sable",
+      "testOnly": true,
+      "elapsed_ms": 1238.5,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 16,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 16,
+      "prompt_tokens": 510,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 510,
+        "scored_positions": 1
+      }
+    },
+    "tomas": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 3, 4, 1],
+        "top": [
+          {
+            "id": 35,
+            "score": 24.360076904296875,
+            "token": "D"
+          },
+          {
+            "id": 32,
+            "score": 24.20611572265625,
+            "token": "A"
+          },
+          {
+            "id": 33,
+            "score": 23.503890991210938,
+            "token": "B"
+          },
+          {
+            "id": 34,
+            "score": 22.176538467407227,
+            "token": "C"
+          },
+          {
+            "id": 248068,
+            "score": 20.244373321533203,
+            "token": "<think>"
+          },
+          {
+            "id": 27775,
+            "score": 19.9852237701416,
+            "token": "Based"
+          },
+          {
+            "id": 760,
+            "score": 19.793628692626953,
+            "token": "The"
+          },
+          {
+            "id": 5173,
+            "score": 18.528968811035156,
+            "token": "Option"
+          },
+          {
+            "id": 1206,
+            "score": 17.732158660888672,
+            "token": "To"
+          },
+          {
+            "id": 2432,
+            "score": 17.20291519165039,
+            "token": "Action"
+          },
+          {
+            "id": 15666,
+            "score": 16.94683074951172,
+            "token": "Answer"
+          },
+          {
+            "id": 332,
+            "score": 16.828472137451172,
+            "token": "**"
+          }
+        ],
+        "sampled_text": "D"
+      },
+      "parsed_json": {
+        "tomas": "relax"
+      },
+      "fields": {
+        "tomas": {
+          "value": "relax",
+          "probabilities": [
+            0.35799713758959645, 0.1773810528270958, 0.04703762133999042,
+            0.4175841882433172
+          ],
+          "logits": [
+            24.20611572265625, 23.503890991210938, 22.176538467407227,
+            24.360076904296875
+          ],
+          "options": ["repair", "build", "heal", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 5,
+      "epoch": 3,
+      "unitId": "tomas",
+      "testOnly": true,
+      "elapsed_ms": 1224.699999988079,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 17,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 17,
+      "prompt_tokens": 544,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 544,
+        "scored_positions": 1
+      }
+    },
+    "nell": {
+      "type": "decision",
+      "diagnostic": {
+        "ranks": [2, 3, 4, 1],
+        "top": [
+          {
+            "id": 35,
+            "score": 24.260833740234375,
+            "token": "D"
+          },
+          {
+            "id": 32,
+            "score": 23.72838592529297,
+            "token": "A"
+          },
+          {
+            "id": 33,
+            "score": 23.385272979736328,
+            "token": "B"
+          },
+          {
+            "id": 34,
+            "score": 22.454957962036133,
+            "token": "C"
+          },
+          {
+            "id": 248068,
+            "score": 20.234189987182617,
+            "token": "<think>"
+          },
+          {
+            "id": 760,
+            "score": 19.97003936767578,
+            "token": "The"
+          },
+          {
+            "id": 27775,
+            "score": 19.755577087402344,
+            "token": "Based"
+          },
+          {
+            "id": 5173,
+            "score": 18.50751495361328,
+            "token": "Option"
+          },
+          {
+            "id": 1206,
+            "score": 17.442237854003906,
+            "token": "To"
+          },
+          {
+            "id": 2432,
+            "score": 16.949726104736328,
+            "token": "Action"
+          },
+          {
+            "id": 15666,
+            "score": 16.889591217041016,
+            "token": "Answer"
+          },
+          {
+            "id": 3670,
+            "score": 16.735736846923828,
+            "token": "Options"
+          }
+        ],
+        "sampled_text": "D"
+      },
+      "parsed_json": {
+        "nell": "relax"
+      },
+      "fields": {
+        "nell": {
+          "value": "relax",
+          "probabilities": [
+            0.2708174144382946, 0.19216068072058867, 0.07579382940687321,
+            0.4612280754342436
+          ],
+          "logits": [
+            23.72838592529297, 23.385272979736328, 22.454957962036133,
+            24.260833740234375
+          ],
+          "options": ["repair", "build", "heal", "relax"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 6,
+      "epoch": 3,
+      "unitId": "nell",
+      "testOnly": true,
+      "elapsed_ms": 1135.3999999761581,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 18,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 18,
+      "prompt_tokens": 546,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 546,
+        "scored_positions": 1
+      }
+    }
+  },
+  "all_six_roles_probed_offline": true,
+  "live_scored_actors": {
+    "mira": {
+      "type": "decision",
+      "parsed_json": {
+        "mira": "forage_bold"
+      },
+      "fields": {
+        "mira": {
+          "value": "forage_bold",
+          "probabilities": [0.3859521915234025, 0.6140478084765975],
+          "logits": [24.018999099731445, 24.48335838317871],
+          "options": ["forage_safe", "forage_bold"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 7,
+      "epoch": 4,
+      "unitId": "mira",
+      "testOnly": false,
+      "elapsed_ms": 1104.199999988079,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 19,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 19,
+      "prompt_tokens": 580,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 580,
+        "scored_positions": 1
+      }
+    },
+    "bram": {
+      "type": "decision",
+      "parsed_json": {
+        "bram": "forage_bold"
+      },
+      "fields": {
+        "bram": {
+          "value": "forage_bold",
+          "probabilities": [0.33444507545371555, 0.6655549245462845],
+          "logits": [24.030649185180664, 24.71879768371582],
+          "options": ["forage_safe", "forage_bold"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 8,
+      "epoch": 4,
+      "unitId": "bram",
+      "testOnly": false,
+      "elapsed_ms": 1087.9000000357628,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 19,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 19,
+      "prompt_tokens": 604,
+      "scheduling": "round-robin",
+      "usage": {
+        "prompt_tokens": 604,
+        "scored_positions": 1
+      }
+    }
+  },
+  "candidate_subsets": {
+    "mira": ["forage_safe", "forage_bold"],
+    "bram": ["forage_safe", "forage_bold"]
+  },
+  "rule_job_progress": {
+    "fighters": [
+      {
+        "id": "aldric",
+        "action": "train",
+        "proposed": "relax",
+        "activity": "training",
+        "strength": 11.000996
+      },
+      {
+        "id": "sable",
+        "action": "train",
+        "proposed": "relax",
+        "activity": "training",
+        "strength": 11.000996
+      }
+    ],
+    "builders": [
+      {
+        "id": "tomas",
+        "action": "build",
+        "proposed": "relax",
+        "activity": "building"
+      },
+      {
+        "id": "nell",
+        "action": "build",
+        "proposed": "relax",
+        "activity": "building"
+      }
+    ],
+    "defenses": [
+      {
+        "id": "tower-1",
+        "progress": 0.0836321428571427
+      },
+      {
+        "id": "tower-2",
+        "progress": 0.0645821428571429
+      },
+      {
+        "id": "tower-3",
+        "progress": 0
+      },
+      {
+        "id": "tower-4",
+        "progress": 0
+      }
+    ],
+    "note": "Healthy rested fighters/builders initially have one useful job. Its progression is a game rule, not an AI decision."
+  },
+  "offline_inference": true,
+  "live_metrics": {
+    "decisions_per_second": 0.5883564263313197,
+    "rounds_per_second": 0.29417821316565984,
+    "total_decisions": 2,
+    "completed_rounds": 1,
+    "mean_latency_ms": 1096.050000011921,
+    "window_seconds": 3.399299999952316
+  },
+  "live_render_fps": 58,
+  "injection": {
+    "type": "decision",
+    "parsed_json": {
+      "bram": "forage_bold"
+    },
+    "fields": {
+      "bram": {
+        "value": "forage_bold",
+        "probabilities": [0.26264453987076947, 0.7373554601292305],
+        "logits": [23.859989166259766, 24.892257690429688],
+        "options": ["forage_safe", "forage_bold"]
+      }
+    },
+    "scores_are_calibrated": false,
+    "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+    "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+    "id": 10,
+    "epoch": 5,
+    "unitId": "bram",
+    "testOnly": false,
+    "elapsed_ms": 1080.199999988079,
+    "prefill_chunk_tokens": 32,
+    "prefill_chunks": 19,
+    "fields_scored": 1,
+    "backend_requests": 1,
+    "forward_calls": 19,
+    "prompt_tokens": 608,
+    "scheduling": "round-robin",
+    "usage": {
+      "prompt_tokens": 608,
+      "scored_positions": 1
+    }
+  },
+  "pause_keeps_rendering_but_zero_ai_rate": true,
+  "reset_in_flight_discards_result": true,
+  "scripted_ai_rate_zero": true,
+  "mobile_no_overflow": true,
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "shader_f16": true,
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  }
+}

@@ -2,6 +2,13 @@
   <img src="assets/hero.png" alt="JEVfire — One context. Many decisions." width="100%">
 </p>
 
+JEVfire assigns typed variables from finite choices, batching independent fields
+through vLLM for parallel execution and reuse of their shared instruction/context
+prefix when the engine cache permits it. Inspired by
+[JEV / RLCD](https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD), it uses the
+pretrained model's existing language-model head to score verified single-token
+labels, maps the winners to allowed values, and assembles JSON in code.
+
 <p align="center">
   <a href="https://github.com/kikoncuo/jevfire/actions/workflows/ci.yml"><img src="https://github.com/kikoncuo/jevfire/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-f4aa42?style=flat-square" alt="MIT license"></a>
@@ -23,10 +30,6 @@ Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · five trials per cell
   <a href="docs/api.md">API</a> ·
   <a href="docs/deployment.md">Engine tuning</a>
 </p>
-
-JEVfire turns an existing LLM into a fast **decision API**. Give it a context
-and a set of independent choices. It scores those choices through vLLM, reuses
-the shared context, and assembles typed JSON in Python.
 
 Named in tribute to **JEV**, the original inspiration behind this project.
 The [JEV / RLCD demo](https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD)
@@ -71,14 +74,13 @@ application gets a JSON object without asking the model to spell it out.
 
 ```mermaid
 flowchart LR
-    C["Context + field definitions"] --> P["Shared prompt prefix"]
-    P --> K["vLLM prefix cache"]
-    K --> A["Score maneuver labels"]
-    K --> B["Score lane labels"]
-    K --> D["Score boost labels"]
-    A --> J["Python assembles typed JSON"]
-    B --> J
-    D --> J
+    P["Shared instructions + context"] --> A["Append maneuver definition"]
+    P --> B["Append lane definition"]
+    P --> D["Append boost definition"]
+    A --> K["vLLM scores labels / reuses eligible cached prefix"]
+    B --> K
+    D --> K
+    K --> J["Map labels to typed values / assemble JSON in Python"]
     J --> G["Application validates and acts"]
     style P fill:#3d2b17,stroke:#f4aa42,color:#fff
     style K fill:#3d2b17,stroke:#f4aa42,color:#fff
@@ -88,6 +90,7 @@ flowchart LR
 vLLM owns CUDA execution and KV state. JEVfire is a lightweight HTTP sidecar;
 it does not load another copy of the model. Each field/chunk scores one output
 position. Engine scheduling can still require multiple batches and forward passes.
+[Prompt layout, scoring, and differences from JEV / RLCD →](docs/how-it-works.md)
 
 | Capability | Constrained JSON generation | JEVfire |
 |:--|:--|:--|
@@ -109,19 +112,28 @@ position. Engine scheduling can still require multiple batches and forward passe
 
 *Actual browser gameplay with the local model loaded.*
 
-Six animated villagers face hunger and growing orc waves. **Collectors** bring
-home food, **fighters** train and draw attacks away from others, and **builders**
-repair buildings and raise defenses. Relax to eat from the shared pantry;
-reach zero hunger and die. Write the role policies that keep them alive.
+Six animated villagers face hunger and growing orc waves, with individual
+personality prompts: cautious Mira, leisurely Bram, protective Aldric, ambitious
+Sable, industrious Tomas, and compassionate Nell. **Collectors** choose safe or
+bold foraging; **fighters** train or defend; **builders** repair, build, or heal
+wounded allies. Healing spends one stored food for up to twenty health, and every
+role can relax when tired, hungry, or hurt. Choices are filtered to useful jobs;
+stamina makes Bram take earlier breaks than industrious Tomas.
+
+Automatic needs can interrupt a job to seek and eat real food from the pantry,
+a carried basket, or a food patch, then resume the assignment. These visible game
+rules consume supplies and do not count as AI decisions; zero hunger still means
+death. Write the village orders and role policies that keep everyone alive.
 
 **Qwen 3.5 0.8B runs entirely in your browser through WebLLM + WebGPU**. The
 roughly 450 MB download is explicit and cached locally. No API key or inference
 server. A separately labeled scripted baseline works without downloading a model.
 
 Click a villager to inspect its observations: nearby orcs, who they are attacking,
-food routes, travel estimates, hunger, and damaged buildings. Edit the role
-prompt and see its next choice. **Live AI ticks/sec, full-roster rounds/sec, and
-render FPS are measured separately.** Actual artist-made 3D characters and village
+food routes, travel estimates, hunger, wounded allies, and damaged buildings.
+Inspect available jobs, the model's choice, and any automatic meal break. Edit
+the role prompt and see its next choice. **Live AI ticks/sec, eligible-roster
+rounds/sec, and render FPS are measured separately.** Actual artist-made 3D characters and village
 assets are bundled locally. [Art credits](web/ASSETS.md).
 
 Try asking for a `teleport` field: code still assembles only the declared keys

@@ -82,3 +82,42 @@ export class DecisionTelemetry {
     };
   }
 }
+
+// Count actual render submissions over elapsed time; averaging 1/dt
+// hides long stalls behind many short frames on high-refresh displays.
+export class FrameTelemetry {
+  constructor(windowMs = 5000) {
+    this.windowMs = windowMs;
+    this.samples = [];
+    this.last = null;
+    this.startedAt = null;
+  }
+  record(now, rendered) {
+    if (this.startedAt === null) this.startedAt = now;
+    const gap = this.last === null ? 0 : now - this.last;
+    this.last = now;
+    this.samples.push({ at: now, gap, rendered });
+    while (this.samples.length && this.samples[0].at < now - this.windowMs)
+      this.samples.shift();
+  }
+  snapshot(now) {
+    const samples = this.samples.filter(
+      (sample) => sample.at >= now - this.windowMs,
+    );
+    const seconds = Math.max(
+      0.001,
+      Math.min(this.windowMs, now - (this.startedAt ?? now)) / 1000,
+    );
+    const gaps = samples
+      .map((sample) => sample.gap)
+      .filter((gap) => gap > 0)
+      .sort((a, b) => a - b);
+    return {
+      fps: samples.filter((sample) => sample.rendered).length / seconds,
+      frame_p99_ms:
+        gaps[Math.min(gaps.length - 1, Math.floor(gaps.length * 0.99))] ?? 0,
+      frame_max_ms: Math.max(0, ...gaps),
+      slow_frames: samples.filter((sample) => sample.gap > 50).length,
+    };
+  }
+}

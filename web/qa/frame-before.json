@@ -1,0 +1,64 @@
+{
+  "tested_at": "2026-09-16T19:00:52.988Z",
+  "url": "http://127.0.0.1:5173/",
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "phases": [
+    {
+      "phase": "idle",
+      "wall_seconds": 12.00119999998808,
+      "frames": 1439,
+      "fps": 119.90467619916586,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 8.900000000008731,
+      "frame_p99_ms": 9.30000000000291,
+      "frame_max_ms": 9.400000000008731,
+      "frames_over_50ms": 0,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 0,
+      "accepted_model_decisions": 0,
+      "renderer": null
+    },
+    {
+      "phase": "scripted",
+      "wall_seconds": 12.001100000023841,
+      "frames": 1439,
+      "fps": 119.9056753128581,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 8.69999999999709,
+      "frame_p99_ms": 9.299999999988358,
+      "frame_max_ms": 9.400000000008731,
+      "frames_over_50ms": 0,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 12.000000000000108,
+      "accepted_model_decisions": 0,
+      "renderer": null
+    },
+    {
+      "phase": "model",
+      "wall_seconds": 12.001600000023842,
+      "frames": 585,
+      "fps": 48.74350086645429,
+      "frame_median_ms": 8.30000000000291,
+      "frame_p95_ms": 9.30000000000291,
+      "frame_p99_ms": 400.09999999999127,
+      "frame_max_ms": 491.6000000000058,
+      "frames_over_50ms": 22,
+      "long_task_count": 0,
+      "long_task_total_ms": 0,
+      "simulation_seconds": 6.926399999999951,
+      "accepted_model_decisions": 22,
+      "renderer": null
+    }
+  ],
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  },
+  "source_commit": "af6d87ca8fd781a4a9d617fb8337106a831a5b2d"
+}
