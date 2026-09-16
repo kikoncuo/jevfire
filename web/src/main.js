@@ -11,6 +11,14 @@ import {
 } from './contract.js';
 import { DEFAULT_PROMPTS } from './prompts.js';
 import { ACTION_LABELS } from './decision-prompt.js';
+import { progressionFor } from './progression.js';
+import {
+  DecisionJournal,
+  SOURCE_LABELS,
+  currentActivity,
+  currentJob,
+  targetName,
+} from './inspector.js';
 import {
   DecisionScheduler,
   DecisionTelemetry,
@@ -48,6 +56,9 @@ let rendererReady = false,
 const roster = new Map();
 let inspectorVersion = null,
   eventVersion = null;
+const journal = new DecisionJournal(),
+  careStates = new Map();
+let historyVersion = null;
 const decisions = new Map(),
   policies = { ...DEFAULT_PROMPTS };
 try {
@@ -90,11 +101,16 @@ function stop(message = 'Paused. Pending decisions are discarded.') {
 function enabled() {
   $('run').disabled = loading || !rendererReady || mode === 'idle';
 }
-function selectUnit(id) {
+function selectUnit(id, reveal = false) {
   if (!game.units.some((unit) => unit.id === id)) return;
   selectedId = id;
   renderer?.select?.(id);
   updateInspector();
+  if (reveal) {
+    $('inspect').classList.add('inspector-open');
+    if (!matchMedia('(max-width: 960px)').matches)
+      $('inspect').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
   for (const card of $('crew').querySelectorAll('[data-unit]')) {
     card.classList.toggle('selected', card.dataset.unit === id);
     card.setAttribute('aria-pressed', String(card.dataset.unit === id));
@@ -112,18 +128,19 @@ function createRoster() {
     button.dataset.unit = unit.id;
     button.setAttribute('aria-pressed', String(unit.id === selectedId));
     // Interpolated names and roles here are application-owned constants.
-    button.innerHTML = `<span class="villager-number">${String(index + 1).padStart(2, '0')}</span><span class="villager-name">${unit.name}</span><span class="villager-role">${unit.role}</span><span class="villager-action"></span><span class="need-bar health-bar" title="Health"><i></i></span><span class="need-bar hunger-bar" title="Hunger"><i></i></span><span class="villager-needs"></span><span class="villager-note"></span>`;
+    button.innerHTML = `<span class="villager-number">${String(index + 1).padStart(2, '0')}</span><span class="villager-name">${unit.name} <small class="villager-level">Lv 1</small></span><span class="villager-role">${unit.role}</span><span class="villager-action"></span><span class="need-bar health-bar" title="Health"><i></i></span><span class="need-bar hunger-bar" title="Hunger"><i></i></span><span class="villager-needs"></span><span class="villager-note"></span>`;
     button.querySelector('.villager-role').textContent =
       `${unit.role} · ${unit.disposition || ''}`;
     roster.set(unit.id, {
       card: button,
+      level: button.querySelector('.villager-level'),
       action: button.querySelector('.villager-action'),
       health: button.querySelector('.health-bar i'),
       hunger: button.querySelector('.hunger-bar i'),
       needs: button.querySelector('.villager-needs'),
       note: button.querySelector('.villager-note'),
     });
-    button.onclick = () => selectUnit(unit.id);
+    button.onclick = () => selectUnit(unit.id, true);
     $('crew').append(button);
   }
   selectUnit(selectedId);
@@ -134,66 +151,134 @@ function timeString(seconds) {
 function updateInspector() {
   const unit = game.units.find((unit) => unit.id === selectedId);
   if (!unit) return;
+  const progress = progressionFor(unit);
+  const result = decisions.get(unit.id);
+  const job = currentJob(unit, journal.command(unit.id), game.time > 0);
   text('selected-name', unit.name);
   text('selected-role', `${unit.role} · ${unit.disposition || ''}`);
+  text('selected-level', `LV ${progress.level}`);
+  text(
+    'selected-xp-label',
+    `${Math.floor(progress.xpWithinLevel)} / ${progress.xpForNextLevel} XP`,
+  );
+  $('selected-xp').value = progress.xpWithinLevel;
+  $('selected-xp').max = progress.xpForNextLevel;
   text('selected-personality', unit.personality || '');
   text('selected-health', `${Math.ceil(unit.health)} / ${unit.maxHealth}`);
   text('selected-hunger', `${Math.ceil(unit.hunger)} / 100`);
   text('selected-stamina', `${Math.ceil(unit.stamina ?? 100)} / 100`);
-  text(
-    'selected-action',
-    unit.alive
-      ? unit.needsOverride
-        ? 'Meal break · automatic needs'
-        : ACTION_LABELS[unit.action] || unit.action
-      : 'Died',
-  );
   text('selected-strength', Number(unit.strength || 1).toFixed(1));
-  text('selected-target', unit.autoTargetId || unit.targetId || '—');
-  const lastChoice = decisions.get(unit.id)?.parsed_json?.[unit.id];
+  text('selected-action', job.label);
+  text('selected-source', SOURCE_LABELS[job.source] || '');
   text(
-    'selected-thought',
-    lastChoice ? ACTION_LABELS[lastChoice] || lastChoice : 'Not scored yet',
+    'selected-activity',
+    game.time > 0 ? currentActivity(game, unit) : 'Ready for the next run',
   );
+  text('selected-care', job.detail);
   text(
-    'selected-care',
-    unit.needsOverride ||
-      unit.ruleReason ||
-      unit.reason ||
-      'Following the selected job.',
+    'selected-target',
+    `Target: ${targetName(game, unit.autoTargetId || unit.targetId)}`,
   );
+  $('model-decision').hidden = !result;
+  $('selected-decision-empty').hidden = Boolean(result);
+  const thinking =
+    pending?.unitId === unit.id && mode === 'model' && game.running;
+  text(
+    'selected-decision-empty',
+    thinking
+      ? 'Qwen is choosing a job…'
+      : mode === 'scripted'
+        ? 'Scripted controller. Its commands are listed below.'
+        : unit.ruleAction
+          ? 'One useful job is available, so the game applies it without an AI call.'
+          : 'No AI choice yet. Applied commands will appear here.',
+  );
+  if (result) {
+    text('selected-thought', ACTION_LABELS[result.parsed_json[unit.id]]);
+    text(
+      'selected-decision-time',
+      `${timeString(result.appliedAt)} · ${Math.max(0, Math.floor(game.time - result.appliedAt))}s ago`,
+    );
+  }
   text('selected-context', describeObservation(game.contextFor(unit.id)));
+  $('decision-observation').hidden = !result?.observedContext;
+  if (result?.observedContext)
+    text(
+      'selected-observed-context',
+      describeObservation(result.observedContext),
+    );
   const scoreBox = $('selected-scores');
-  const version = `${unit.id}:${decisions.get(unit.id)?.id ?? 'none'}`;
-  if (scoreBox && version !== inspectorVersion) {
+  const version = `${unit.id}:${result?.id ?? 'none'}`;
+  if (version !== inspectorVersion) {
     inspectorVersion = version;
     scoreBox.replaceChildren();
-    const scores = decisions.get(unit.id)?.fields?.[unit.id];
-    for (const [i, action] of ROLE_ACTIONS[unit.role].entries()) {
+    const scores = result?.fields?.[unit.id];
+    for (const [index, action] of (scores?.options || []).entries()) {
       const row = document.createElement('div');
       row.className = 'score-row';
+      row.classList.toggle('chosen', action === result.parsed_json[unit.id]);
       const label = document.createElement('span');
       label.textContent = ACTION_LABELS[action];
       const meter = document.createElement('meter');
       meter.min = 0;
       meter.max = 1;
-      const optionIndex = (scores?.options || ROLE_ACTIONS[unit.role]).indexOf(
-        action,
-      );
-      meter.value =
-        optionIndex >= 0 ? (scores?.probabilities[optionIndex] ?? 0) : 0;
+      meter.value = scores.probabilities[index];
       meter.setAttribute(
         'aria-label',
         `${ACTION_LABELS[action]} relative score`,
       );
       const value = document.createElement('b');
-      value.textContent =
-        scores && optionIndex >= 0
-          ? `${Math.round(scores.probabilities[optionIndex] * 100)}%`
-          : '—';
+      value.textContent = `${Math.round(scores.probabilities[index] * 100)}%`;
       row.append(label, meter, value);
       scoreBox.append(row);
     }
+  }
+  const history = journal.history(unit.id);
+  const historyKey = `${unit.id}:${history[0]?.id ?? 'none'}`;
+  if (historyKey !== historyVersion) {
+    historyVersion = historyKey;
+    $('selected-history').replaceChildren();
+    if (!history.length) {
+      const li = document.createElement('li');
+      li.className = 'history-empty';
+      li.textContent = 'No decisions yet.';
+      $('selected-history').append(li);
+    }
+    for (const entry of history) {
+      const li = document.createElement('li'),
+        stamp = document.createElement('time'),
+        body = document.createElement('div'),
+        label = document.createElement('strong'),
+        source = document.createElement('span');
+      stamp.textContent = timeString(entry.at);
+      label.textContent = ACTION_LABELS[entry.action] || entry.action;
+      source.textContent = SOURCE_LABELS[entry.source];
+      if (entry.detail) li.title = entry.detail;
+      body.append(label, source);
+      li.append(stamp, body);
+      $('selected-history').append(li);
+    }
+  }
+}
+function recordRuleChanges() {
+  for (const unit of game.units) {
+    if (unit.ruleAction)
+      journal.record(unit.id, {
+        action: unit.ruleAction,
+        source: 'rule',
+        at: game.time,
+        detail: unit.ruleReason,
+      });
+    const active = Boolean(unit.needsOverride);
+    if (active && !careStates.get(unit.id))
+      journal.record(unit.id, {
+        action:
+          unit.needsState === 'no_food' ? 'No food available' : 'Meal break',
+        source: 'needs',
+        at: game.time,
+        detail: unit.needsOverride,
+      });
+    careStates.set(unit.id, active);
   }
 }
 function updateUI(now = performance.now()) {
@@ -220,6 +305,7 @@ function updateUI(now = performance.now()) {
   for (const unit of game.units) {
     const refs = roster.get(unit.id);
     const card = refs?.card;
+    if (refs) refs.level.textContent = `Lv ${progressionFor(unit).level}`;
     if (!card) continue;
     card.classList.toggle('dead', !unit.alive);
     const shown = unit.alive
@@ -262,7 +348,7 @@ function updateUI(now = performance.now()) {
     );
   updateInspector();
 }
-function applyModelResult(data) {
+function applyModelResult(data, request) {
   const unit = game.units.find((unit) => unit.id === data.unitId);
   if (!unit?.alive || unit.needsOverride) return;
   const choice = data.parsed_json[unit.id];
@@ -270,7 +356,12 @@ function applyModelResult(data) {
   validateDecision(data.parsed_json, schemaFor([unit]));
   game.apply(data.parsed_json);
   lastResult = data;
-  decisions.set(unit.id, data);
+  decisions.set(unit.id, {
+    ...data,
+    appliedAt: game.time,
+    observedContext: request?.context,
+  });
+  journal.record(unit.id, { action: choice, source: 'model', at: game.time });
   const now = performance.now();
   telemetry.record(
     now,
@@ -384,7 +475,7 @@ function createWorker() {
         return;
       roundTripMs = performance.now() - request.sentAt;
       try {
-        applyModelResult(data);
+        applyModelResult(data, request);
       } catch (e) {
         stop();
         error(e.message);
@@ -398,13 +489,18 @@ function createWorker() {
 function requestDecision(unit, testOnly = false, options = {}) {
   const id = ++sequence;
   busy = true;
-  pending = { id, unitId: unit.id, sentAt: performance.now() };
+  pending = {
+    id,
+    unitId: unit.id,
+    sentAt: performance.now(),
+    context: options.context ?? game.contextFor(unit.id),
+  };
   worker.postMessage({
     type: 'decide',
     id,
     epoch,
     unitId: unit.id,
-    context: options.context ?? game.contextFor(unit.id),
+    context: pending.context,
     mission: options.mission ?? $('mission').value,
     rolePrompt: options.rolePrompt ?? policies[unit.role],
     actions:
@@ -494,6 +590,9 @@ function resetGame() {
   scheduler.reset();
   telemetry.reset();
   decisions.clear();
+  journal.reset();
+  careStates.clear();
+  historyVersion = null;
   lastResult = null;
   roundTripMs = null;
   createRoster();
@@ -508,6 +607,11 @@ function resetGame() {
   updateUI();
 }
 $('reset').onclick = resetGame;
+$('close-inspector').onclick = () =>
+  $('inspect').classList.remove('inspector-open');
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') $('inspect').classList.remove('inspector-open');
+});
 $('visual-quality').onchange = () =>
   renderer?.setQuality($('visual-quality').value);
 $('inference-pace').onchange = () =>
@@ -566,7 +670,9 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 try {
-  renderer = new Renderer($('arena'), game, { onSelect: selectUnit });
+  renderer = new Renderer($('arena'), game, {
+    onSelect: (id) => selectUnit(id, true),
+  });
   Promise.resolve(renderer.ready)
     .then(() => {
       rendererReady = true;
@@ -608,6 +714,7 @@ function frame(now) {
   const dt = Math.min(rawDt, 0.25);
   const wasRunning = game.running;
   game.update(dt * Number($('speed')?.value || 1));
+  recordRuleChanges();
   if (wasRunning && (game.over || !game.running))
     stop(game.endReason || 'The village has fallen.');
   const renderDue = now - lastDraw >= 1000 / 60 - 0.5;
@@ -636,6 +743,8 @@ function frame(now) {
       lastScripted = now;
       const choices = game.scripted();
       game.apply(choices);
+      for (const [id, action] of Object.entries(choices))
+        journal.record(id, { action, source: 'scripted', at: game.time });
       text('output', JSON.stringify(choices, null, 2));
       text(
         'output-note',
@@ -647,13 +756,20 @@ function frame(now) {
 }
 requestAnimationFrame(frame);
 // QA uses snapshots and explicit paused-only real-model probes, never a mock controller.
-window.jevfireDiagnostics = () => ({
+window.jevfireDiagnostics = ({ selectionTargets = false } = {}) => ({
   loaded,
   loading,
   busy,
   mode,
   epoch,
   rendererReady,
+  selectedId,
+  selectedHistory: journal.history(selectedId),
+  selectedDecision: decisions.get(selectedId) ?? null,
+  // Visible-body probes perform raycasts; routine telemetry must stay cheap.
+  selectionTargets: selectionTargets
+    ? renderer?.selectionTargets?.()
+    : undefined,
   rendererStats: renderer?.stats?.(),
   frames: frameTelemetry.snapshot(performance.now()),
   running: game.running,
@@ -681,6 +797,7 @@ window.jevfireDiagnostics = () => ({
       needsOverride,
       autoTargetId,
       strength,
+      experience,
       carrying,
       targetId,
       x,
@@ -702,6 +819,7 @@ window.jevfireDiagnostics = () => ({
       needsOverride,
       autoTargetId,
       strength,
+      experience,
       carrying,
       targetId,
       x,

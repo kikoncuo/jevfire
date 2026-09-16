@@ -1,0 +1,131 @@
+{
+  "tested_at": "2026-09-16T19:51:06.337Z",
+  "url": "http://127.0.0.1:5173/",
+  "hits": [
+    {
+      "id": "mira",
+      "kind": "body",
+      "occluded": true
+    },
+    {
+      "id": "bram",
+      "kind": "body",
+      "passed": true
+    },
+    {
+      "id": "aldric",
+      "kind": "body",
+      "occluded": true
+    },
+    {
+      "id": "sable",
+      "kind": "body",
+      "passed": true
+    },
+    {
+      "id": "tomas",
+      "kind": "body",
+      "passed": true
+    },
+    {
+      "id": "nell",
+      "kind": "body",
+      "occluded": true
+    },
+    {
+      "id": "mira",
+      "kind": "nameplate",
+      "passed": true
+    },
+    {
+      "id": "bram",
+      "kind": "nameplate",
+      "passed": true
+    },
+    {
+      "id": "aldric",
+      "kind": "nameplate",
+      "passed": true
+    },
+    {
+      "id": "sable",
+      "kind": "nameplate",
+      "passed": true
+    },
+    {
+      "id": "tomas",
+      "kind": "nameplate",
+      "passed": true
+    },
+    {
+      "id": "nell",
+      "kind": "nameplate",
+      "passed": true
+    }
+  ],
+  "orbit_drag_does_not_select": true,
+  "progression": [
+    {
+      "id": "mira",
+      "experience": 110,
+      "activity": "gathering"
+    },
+    {
+      "id": "bram",
+      "experience": 90,
+      "activity": "walking"
+    },
+    {
+      "id": "aldric",
+      "experience": 100.07960799999644,
+      "activity": "training"
+    },
+    {
+      "id": "sable",
+      "experience": 92.18759199999671,
+      "activity": "training"
+    },
+    {
+      "id": "tomas",
+      "experience": 114.71828571428749,
+      "activity": "building"
+    },
+    {
+      "id": "nell",
+      "experience": 109.78585714285876,
+      "activity": "building"
+    }
+  ],
+  "scripted_history": [
+    {
+      "id": 17,
+      "action": "train",
+      "source": "scripted",
+      "at": 48.233399999999754,
+      "detail": ""
+    },
+    {
+      "id": 11,
+      "action": "defend",
+      "source": "scripted",
+      "at": 44.2017999999998,
+      "detail": ""
+    },
+    {
+      "id": 7,
+      "action": "train",
+      "source": "scripted",
+      "at": 0.018399999999997817,
+      "detail": ""
+    },
+    {
+      "id": 1,
+      "action": "train",
+      "source": "rule",
+      "at": 0.018399999999997817,
+      "detail": "Only available action"
+    }
+  ],
+  "mobile_panel_passed": true,
+  "reset_clears_levels_and_history": true
+}

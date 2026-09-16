@@ -4,6 +4,11 @@ import {
   schemaFor,
   validateDecision,
 } from './contract.js';
+import {
+  awardExperience,
+  EXPERIENCE_RATES,
+  progressionFor,
+} from './progression.js';
 
 export const WORLD_SIZE = 32;
 export const COLORS = UNIT_DEFINITIONS.map((unit) => unit.color);
@@ -110,6 +115,7 @@ export class Game {
       health: definition.role === 'fighter' ? 130 : 85,
       maxHealth: definition.role === 'fighter' ? 130 : 85,
       hunger: 100,
+      experience: 0,
       stamina: 100,
       ...STAMINA_RULES[definition.id],
       restingBreak: false,
@@ -601,7 +607,13 @@ export class Game {
 
   damage(target, amount, attacker) {
     if (target.health <= 0) return;
+    const previousHealth = target.health;
     target.health = Math.max(0, target.health - amount);
+    if (target.id.startsWith('orc-') && attacker?.role === 'fighter')
+      awardExperience(
+        attacker,
+        (previousHealth - target.health) * EXPERIENCE_RATES.orcDamage,
+      );
     if (target.health > 0) return;
     if (Object.hasOwn(target, 'role'))
       this.killUnit(target, `killed by ${attacker?.id ?? 'an orc'}`);
@@ -804,6 +816,7 @@ export class Game {
         unit.work -= duration;
         target.food--;
         unit.carrying++;
+        awardExperience(unit, EXPERIENCE_RATES.harvestedFood);
       }
       return;
     }
@@ -815,7 +828,13 @@ export class Game {
       };
       if (!this.move(unit, position, 2.1, dt)) return;
       unit.activity = 'training';
+      const previousStrength = unit.strength;
       unit.strength = Math.min(40, unit.strength + dt * 0.12);
+      awardExperience(
+        unit,
+        ((unit.strength - previousStrength) / 0.12) *
+          EXPERIENCE_RATES.trainingSecond,
+      );
       return;
     }
     if (action === 'defend') {
@@ -874,6 +893,7 @@ export class Game {
         this.food--;
         const restored = Math.min(20, target.maxHealth - target.health);
         target.health += restored;
+        awardExperience(unit, restored * EXPERIENCE_RATES.healedHealth);
         this.treatments++;
         this.log(
           'heal',
@@ -899,11 +919,20 @@ export class Game {
       if (!this.move(unit, target, 2, dt)) return;
       unit.activity = action === 'repair' ? 'repairing' : 'building';
       unit.heading = Math.atan2(target.x - unit.x, target.y - unit.y);
-      if (action === 'repair')
+      if (action === 'repair') {
+        const previousHealth = target.health;
         target.health = Math.min(target.maxHealth, target.health + dt * 10);
-      else {
+        awardExperience(
+          unit,
+          (target.health - previousHealth) * EXPERIENCE_RATES.repairedHealth,
+        );
+      } else {
         const previous = target.progress;
         target.progress = Math.min(1, target.progress + dt / 28);
+        awardExperience(
+          unit,
+          (target.progress - previous) * EXPERIENCE_RATES.completedTower,
+        );
         target.health = Math.min(
           target.maxHealth,
           target.health + (target.progress - previous) * target.maxHealth,
@@ -1028,6 +1057,7 @@ export class Game {
   contextFor(id) {
     const unit = this.units.find((candidate) => candidate.id === id);
     if (!unit) throw new Error('Unknown villager');
+    const progression = progressionFor(unit);
     const liveOrcs = this.livingOrcs();
     const nearest = liveOrcs.toSorted(
       (a, b) => distance(unit, a) - distance(unit, b),
@@ -1050,6 +1080,8 @@ export class Game {
         id: unit.id,
         alive: unit.alive,
         role: unit.role,
+        level: progression.level,
+        experience: progression.totalXp,
         health: Math.ceil(unit.health),
         max_health: unit.maxHealth,
         hunger: Math.ceil(unit.hunger),

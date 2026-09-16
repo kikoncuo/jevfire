@@ -129,7 +129,11 @@ death. Write the village orders and role policies that keep everyone alive.
 roughly 450 MB download is explicit and cached locally. No API key or inference
 server. A separately labeled scripted baseline works without downloading a model.
 
-Click a villager to inspect its observations: nearby orcs, who they are attacking,
+Click a character or its name to see its **level, XP, current job, and recent
+decisions**. Each history entry identifies Qwen, the scripted controller, a game
+rule, or automatic needs; the last AI choice includes its time and option scores.
+Work earns XP, with one level per 100 XP; levels track experience without extra
+combat bonuses. Inspect its observations: nearby orcs, who they are attacking,
 food routes, travel estimates, hunger, wounded allies, and damaged buildings.
 Inspect available jobs, the model's choice, and any automatic meal break. Edit
 the role prompt and see its next choice. **Live AI ticks/sec, eligible-roster

@@ -1,0 +1,31 @@
+{
+  "tested_at": "2026-09-16T19:52:14.451474+00:00",
+  "base_commit": "ff1d00befbe0842b3a1548f755e8fa31198701e0",
+  "scope": "Character levels, XP, click/hover selection, per-character decision attribution, real Qwen scores and saved observation, mobile inspector, and reset. Source hashes identify the tested release candidate.",
+  "source_sha256": {
+    "src/contract.js": "0beb8a87d1235c4ac041b248af9eea0dee81248d50a4c8925f64e271b9870e0f",
+    "src/controller.js": "188cef87e2038b68f53bfb6e7121dd8c2b7e3cc519487a23572b788c09977c6c",
+    "src/decision-prompt.js": "cf8808b2a115dc688497ec9224677f8f1909c70b749c3900ca7f492df4a416ad",
+    "src/game.js": "d03874de1420c5494703cddf5058ecbfc60eaaf3e1a15265f0d08e4bbd568d13",
+    "src/inference.worker.js": "3f272014674c72be01ee74f95529d1da0faab441b672988c839258df0e4f3568",
+    "src/inspector.js": "e038178a8c3deb4b5624cdd1d78e0679f7f75e913a8d1798119d09a9604f3280",
+    "src/main.js": "3272a76c8abfc104a368d53ead2e4f299de3812752eeaa754603769925bc6622",
+    "src/observation.js": "1c204b2face3d8c3e82258ffeae31d91d448bfcbcafcc216496744a64303e03b",
+    "src/progression.js": "4c89e0da108f3bf2f1a55e48ce608897e9bd1276c46911c9c0fb1f67f57e024a",
+    "src/prompts.js": "63d15cc4b79f6cc5d1a3a16346337132e28004955bc988e0c7f2e289d18b8425",
+    "src/renderer.js": "fdd3eeec549c54aba5d9abe891c30cb3684bb314c4f239341d28efbe76a8e7ad",
+    "src/style.css": "3c4b61ae079fd185d1ec41731178f1e7bfcd0877f35a0d9aede03ce3411b73e5",
+    "index.html": "1bb56344687ea988140735c2982fd91e34dfe8dffbcbc23506c074d88bafd2f2",
+    "package-lock.json": "058ba863fe4cd4cb8d4372e2b54e28900a2d6d2a730516007f8f0f7eeb1ed819",
+    "qa/inspector-check.js": "619e09b60ceb111420f778ceb1b9f2c8b750b8ef1f70f0a8328bb1e022c0b8af",
+    "qa/inspector-model-check.js": "bcac620eed16255a961dc0f4fd5de5b7bedf8e07154db6680fb7abee6e6f4dca"
+  },
+  "weights": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "weight_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+  "mlc_library_revision": "025bcaf3780fa8254f5e5efd3bfea0a5397248f4",
+  "runtime": "WebLLM 0.2.85",
+  "unit_tests_passed": 53,
+  "ui_report": "inspector-result.json",
+  "real_model_report": "inspector-model-result.json",
+  "limits": "UI and structural checks do not establish policy quality, survival improvement, or inference speedup. Body clicks cover exposed model points; bodies occluded by scenery remain selectable by name. Levels track completed work without multiplying stats."
+}

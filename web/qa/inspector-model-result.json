@@ -1,0 +1,241 @@
+{
+  "tested_at": "2026-09-16T19:51:46.363Z",
+  "url": "http://127.0.0.1:5173/",
+  "characters": [
+    {
+      "id": "mira",
+      "shown": "Forage aggressively",
+      "decision": {
+        "type": "decision",
+        "parsed_json": {
+          "mira": "forage_bold"
+        },
+        "fields": {
+          "mira": {
+            "value": "forage_bold",
+            "probabilities": [0.3605594012949649, 0.6394405987050351],
+            "logits": [24.038429260253906, 24.611366271972656],
+            "options": ["forage_safe", "forage_bold"]
+          }
+        },
+        "scores_are_calibrated": false,
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 3,
+        "epoch": 8,
+        "unitId": "mira",
+        "testOnly": false,
+        "elapsed_ms": 1083.6000000238419,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 19,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 19,
+        "prompt_tokens": 578,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 578,
+          "scored_positions": 1
+        },
+        "appliedAt": 4.024999999999989,
+        "observedContext": {
+          "self": {
+            "id": "mira",
+            "alive": true,
+            "role": "collector",
+            "level": 1,
+            "experience": 0,
+            "health": 85,
+            "max_health": 85,
+            "hunger": 98,
+            "stamina": 100,
+            "break_threshold": 45,
+            "rest_until": 95,
+            "starves_in_seconds": 139,
+            "home_walk_seconds": 4,
+            "action": "forage_bold",
+            "personality": "A cautious scout who chooses safer food routes and brings supplies home.",
+            "needs_override": null,
+            "carrying_food": 0,
+            "attacked_by": 0
+          },
+          "village": {
+            "food": 6,
+            "alive": 6,
+            "wave": 0,
+            "hall_health_percent": 100,
+            "threatened_villagers": 0,
+            "threatened_buildings": 0
+          },
+          "available_actions": ["forage_safe", "forage_bold"],
+          "rest_available_reason": null,
+          "nearest_orcs": [],
+          "food_routes": [
+            {
+              "id": "west-garden",
+              "distance": 6.3,
+              "bearing": "W",
+              "food": 18,
+              "risk": "low",
+              "safe_round_trip_seconds": 16
+            },
+            {
+              "id": "north-grove",
+              "distance": 9.1,
+              "bearing": "NW",
+              "food": 40,
+              "risk": "low",
+              "safe_round_trip_seconds": 20
+            },
+            {
+              "id": "east-garden",
+              "distance": 12,
+              "bearing": "E",
+              "food": 18,
+              "risk": "low",
+              "safe_round_trip_seconds": 19
+            }
+          ]
+        }
+      },
+      "history": [
+        {
+          "id": 7,
+          "action": "forage_bold",
+          "source": "model",
+          "at": 4.024999999999989,
+          "detail": ""
+        },
+        {
+          "id": 5,
+          "action": "forage_bold",
+          "source": "model",
+          "at": 1.2167000000000028,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "bram",
+      "shown": "Forage aggressively",
+      "decision": {
+        "type": "decision",
+        "parsed_json": {
+          "bram": "forage_bold"
+        },
+        "fields": {
+          "bram": {
+            "value": "forage_bold",
+            "probabilities": [0.32194903942173514, 0.6780509605782649],
+            "logits": [23.904327392578125, 24.64915657043457],
+            "options": ["forage_safe", "forage_bold"]
+          }
+        },
+        "scores_are_calibrated": false,
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 2,
+        "epoch": 8,
+        "unitId": "bram",
+        "testOnly": false,
+        "elapsed_ms": 1098.0999999642372,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 19,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 19,
+        "prompt_tokens": 605,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 605,
+          "scored_positions": 1
+        },
+        "appliedAt": 2.524999999999994,
+        "observedContext": {
+          "self": {
+            "id": "bram",
+            "alive": true,
+            "role": "collector",
+            "level": 1,
+            "experience": 0,
+            "health": 85,
+            "max_health": 85,
+            "hunger": 100,
+            "stamina": 100,
+            "break_threshold": 70,
+            "rest_until": 90,
+            "starves_in_seconds": 141,
+            "home_walk_seconds": 2,
+            "action": "relax",
+            "personality": "A lazy forager who likes short trips, full baskets, and a long lunch once the pantry is stocked.",
+            "needs_override": null,
+            "carrying_food": 0,
+            "attacked_by": 0
+          },
+          "village": {
+            "food": 6,
+            "alive": 6,
+            "wave": 0,
+            "hall_health_percent": 100,
+            "threatened_villagers": 0,
+            "threatened_buildings": 0
+          },
+          "available_actions": ["forage_safe", "forage_bold"],
+          "rest_available_reason": null,
+          "nearest_orcs": [],
+          "food_routes": [
+            {
+              "id": "east-garden",
+              "distance": 8.1,
+              "bearing": "E",
+              "food": 18,
+              "risk": "low",
+              "safe_round_trip_seconds": 17
+            },
+            {
+              "id": "west-garden",
+              "distance": 10.7,
+              "bearing": "W",
+              "food": 18,
+              "risk": "low",
+              "safe_round_trip_seconds": 18
+            },
+            {
+              "id": "north-grove",
+              "distance": 14.7,
+              "bearing": "NW",
+              "food": 40,
+              "risk": "low",
+              "safe_round_trip_seconds": 23
+            }
+          ]
+        }
+      },
+      "history": [
+        {
+          "id": 6,
+          "action": "forage_bold",
+          "source": "model",
+          "at": 2.524999999999994,
+          "detail": ""
+        }
+      ]
+    }
+  ],
+  "configuration": {
+    "mission": "Keep everyone alive. Keep food in reserve, protect threatened villagers, and maintain the village defenses.",
+    "policies": {
+      "collector": "Keep the pantry stocked. Choose safe foraging when enemies threaten the routes; choose bold foraging when supplies run low and routes are clear. A full basket returns home automatically. Take a break when stamina is low or you need recovery; a fully rested healthy villager has no useful reason to relax. The visible automatic-needs rule gets food when your hunger is low; your decision controls the longer-term job, not each meal.",
+      "fighter": "Protect the settlement. Defend when orcs threaten villagers or buildings; attacking draws their aggression onto you. Train between attacks to permanently increase strength. Relax when badly injured or low on stamina, then return to the available work. Visible automatic-needs behavior handles urgent meals, then resumes your chosen job. Do not keep training through an attack on a friend.",
+      "builder": "Keep buildings and villagers alive. Repair a damaged hall before it falls; repair other damaged defenses as needed. Heal wounded allies when food is available: each treatment spends one food for up to twenty health. Build towers when repairs and healing are not urgent. Relax to recover from serious injury or low stamina; once rested, return to available work. Visible automatic-needs behavior handles urgent meals; it does not count as a model decision."
+    },
+    "inference_pace": "balanced",
+    "simulation_speed": "1"
+  },
+  "rule_only_inspector_passed": true,
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  }
+}

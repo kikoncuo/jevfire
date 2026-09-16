@@ -253,17 +253,32 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
             ></section>
           </section>
           <aside class="inspector-panel" id="inspect">
-            <section class="panel-section selected-section">
-              <div class="section-caption">
-                <span>03 / THE VILLAGER</span
-                ><span class="selection-hint">CLICK TO SELECT</span>
+            <section
+              class="panel-section selected-section"
+              aria-label="Selected character"
+            >
+              <div class="section-caption inspector-caption">
+                <span>CHARACTER DETAILS</span
+                ><button
+                  id="close-inspector"
+                  class="inspector-close"
+                  aria-label="Close character details"
+                >
+                  ×
+                </button>
               </div>
               <div class="selected-heading">
-                <span class="selected-crest" aria-hidden="true">✦</span>
+                <span id="selected-level" class="level-badge">LV 1</span>
                 <div>
                   <h2 id="selected-name">Mira</h2>
                   <span id="selected-role">Collector</span>
                 </div>
+              </div>
+              <div class="experience-track">
+                <label for="selected-xp"
+                  >Experience
+                  <span id="selected-xp-label">0 / 100 XP</span></label
+                ><progress id="selected-xp" max="100" value="0"></progress>
               </div>
               <dl class="selected-stats">
                 <div>
@@ -279,34 +294,49 @@ Keep everyone alive. Keep food in reserve, protect threatened villagers, and mai
                   <dd id="selected-stamina">100</dd>
                 </div>
                 <div>
-                  <dt>Strength</dt>
+                  <dt>Attack</dt>
                   <dd id="selected-strength">—</dd>
                 </div>
-                <div>
-                  <dt>Action</dt>
-                  <dd id="selected-action">Relax</dd>
-                </div>
               </dl>
-              <p id="selected-personality" class="selected-personality"></p>
-              <div class="thought-panel">
-                <span>MODEL CHOICE</span
-                ><strong id="selected-thought">Awaiting a decision</strong>
-                <p id="selected-care">
-                  Personal needs are handled by the game.
+              <div class="current-job">
+                <div class="job-heading">
+                  <span>CURRENT JOB</span><b id="selected-source"></b>
+                </div>
+                <strong id="selected-action">Awaiting orders</strong>
+                <p id="selected-activity">Awaiting orders</p>
+                <p id="selected-care">Start the village to see decisions.</p>
+                <p id="selected-target"></p>
+              </div>
+              <div id="model-decision" class="model-decision" hidden>
+                <div class="job-heading">
+                  <span>LATEST QWEN DECISION</span
+                  ><time id="selected-decision-time"></time>
+                </div>
+                <strong id="selected-thought"></strong>
+                <div id="selected-scores" class="selected-scores"></div>
+                <p class="score-note">
+                  Relative scores for that decision, not certainty.
                 </p>
               </div>
-              <p id="selected-target" class="selected-target">
-                Awaiting an order.
+              <p id="selected-decision-empty" class="decision-empty">
+                No AI decision yet.
               </p>
-              <div id="selected-scores" class="selected-scores"></div>
-              <details class="context-details" open>
-                <summary>What this villager knows <span>⌄</span></summary>
+              <div class="decision-history">
+                <h3>Recent decisions</h3>
+                <ol id="selected-history"></ol>
+              </div>
+              <details class="context-details">
+                <summary>Personality &amp; observations <span>⌄</span></summary>
+                <p id="selected-personality" class="selected-personality"></p>
                 <p>
-                  Nearby threats, reachable food, allies in trouble, and the
-                  state of home. This is the exact symbolic context sent to
-                  Qwen.
+                  Current observations. Each decision uses a snapshot taken when
+                  it starts.
                 </p>
                 <pre id="selected-context">Select a villager.</pre>
+                <details id="decision-observation" hidden>
+                  <summary>What Qwen saw last time</summary>
+                  <pre id="selected-observed-context"></pre>
+                </details>
               </details>
             </section>
             <section class="panel-section events-section">

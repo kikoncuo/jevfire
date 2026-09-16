@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { clone as cloneSkeleton } from 'three/addons/utils/SkeletonUtils.js';
+import { progressionFor } from './progression.js';
 
 const ROLE_COLORS = {
   collector: 0x789b5a,
@@ -77,7 +78,7 @@ function label(text, color = '#344132') {
 }
 
 // Compact names stay in the world; explanations and model reasoning stay in the
-// inspector. Only one selected/hovered NPC gets a small numerical needs line.
+// inspector. Only the selected NPC gets a small numerical needs line.
 function paintLabel(
   sprite,
   text,
@@ -105,21 +106,39 @@ function paintLabel(
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, 256, canvas.height);
   ctx.textAlign = 'center';
+  const hitRegions = [];
+  const textRegion = (value, baseline) => {
+    const measured = ctx.measureText(value);
+    const width = Math.min(246, measured.width);
+    const ascent = measured.actualBoundingBoxAscent || 28;
+    const descent = measured.actualBoundingBoxDescent || 4;
+    const region = {
+      x: 128 - width / 2 - 4,
+      y: baseline - ascent - 4,
+      width: width + 8,
+      height: ascent + descent + 8,
+    };
+    hitRegions.push(region);
+    return region;
+  };
   if (!npc) {
     ctx.fillStyle = 'rgba(247,242,222,.85)';
     ctx.beginPath();
     ctx.roundRect(3, 2, 250, contentHeight - 4, 6);
     ctx.fill();
+    hitRegions.push({ x: 3, y: 2, width: 250, height: contentHeight - 4 });
   }
   ctx.fillStyle = color;
   ctx.strokeStyle = '#f6f0dd';
   ctx.lineJoin = 'round';
   ctx.lineWidth = npc ? 7 : 0;
   ctx.font = `${npc ? 700 : 600} ${npc ? (selected ? 36 : 40) : tag ? 32 : 29}px "Barlow Condensed", sans-serif`;
+  if (npc) sprite.userData.nameRegion = textRegion(text, 34);
   if (npc) ctx.strokeText(text, 128, 34, 246);
   ctx.fillText(text, 128, tag ? 32 : 34, 246);
   if (selected) {
     ctx.font = '600 24px "Barlow Condensed", sans-serif';
+    textRegion(numbers, 62);
     ctx.strokeText(numbers, 128, 62, 246);
     ctx.fillText(numbers, 128, 62, 246);
   } else if (!npc && !tag) {
@@ -128,6 +147,7 @@ function paintLabel(
   }
   if (health !== null) {
     const y = selected ? 71 : npc ? 45 : 65;
+    if (npc) hitRegions.push({ x: 35, y, width: 186, height: 5 });
     ctx.fillStyle = '#64705599';
     ctx.fillRect(35, y, 186, 5);
     ctx.fillStyle = health < 0.35 ? '#bb5138' : '#577952';
@@ -135,8 +155,11 @@ function paintLabel(
     if (selected && hunger !== null) {
       ctx.fillStyle = '#aa873c';
       ctx.fillRect(35, 79, 186 * clamp(hunger, 0, 1), 3);
+      hitRegions.push({ x: 35, y: 79, width: 186, height: 3 });
     }
   }
+  sprite.userData.hitRegions = hitRegions;
+  sprite.userData.contentHeight = contentHeight;
   texture.needsUpdate = true;
 }
 
@@ -305,32 +328,48 @@ export class Renderer {
     this.raycaster = new THREE.Raycaster();
     this.pointer = new THREE.Vector2();
     this.pointerDown = (event) => {
-      this.down = { x: event.clientX, y: event.clientY };
+      // A second touch or a non-primary mouse button belongs to camera controls.
+      this.down =
+        event.isPrimary === false || event.button !== 0
+          ? null
+          : {
+              id: event.pointerId,
+              x: event.clientX,
+              y: event.clientY,
+              dragged: false,
+              unitId: this.pickUnit(event.clientX, event.clientY),
+            };
     };
     this.pointerUp = (event) => {
+      const down = this.down;
+      this.down = null;
       if (
-        !this.down ||
-        Math.hypot(event.clientX - this.down.x, event.clientY - this.down.y) > 6
+        !down ||
+        down.id !== event.pointerId ||
+        down.dragged ||
+        event.button !== 0 ||
+        Math.hypot(event.clientX - down.x, event.clientY - down.y) > 6
       )
         return;
-      const rect = this.canvas.getBoundingClientRect();
-      this.pointer.set(
-        ((event.clientX - rect.left) / rect.width) * 2 - 1,
-        -((event.clientY - rect.top) / rect.height) * 2 + 1,
-      );
-      this.raycaster.setFromCamera(this.pointer, this.camera);
-      const hits = this.raycaster.intersectObjects(
-        [...this.entities.values()]
-          .filter((e) => e.role !== 'orc')
-          .map((e) => e.hitbox),
-        false,
-      );
-      if (hits.length) this.select(hits[0].object.userData.unitId, true);
+      // A walking unit or its hover label may move between press and release.
+      const id = down.unitId || this.pickUnit(event.clientX, event.clientY);
+      if (id) this.select(id, true);
+    };
+    this.pointerCancel = () => {
+      this.down = null;
     };
     this.pointerMove = (event) => {
+      if (
+        this.down?.id === event.pointerId &&
+        Math.hypot(event.clientX - this.down.x, event.clientY - this.down.y) > 6
+      )
+        this.down.dragged = true;
       if (event.buttons || event.timeStamp - (this.lastHoverTime || 0) < 80)
         return;
       this.lastHoverTime = event.timeStamp;
+      this.hoveredId = this.pickUnit(event.clientX, event.clientY, true);
+      this.hoveredBuildingId = null;
+      if (this.hoveredId) return;
       const rect = canvas.getBoundingClientRect();
       this.pointer.set(
         ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -338,21 +377,18 @@ export class Renderer {
       );
       this.raycaster.setFromCamera(this.pointer, this.camera);
       const targets = [];
-      for (const entity of this.entities.values()) targets.push(entity.hitbox);
       for (const structure of this.structures.values())
         targets.push(structure.model);
       const hit = this.raycaster.intersectObjects(targets, true)[0];
-      this.hoveredId = null;
-      this.hoveredBuildingId = null;
       let object = hit?.object;
       while (object) {
-        if (object.userData.unitId) this.hoveredId = object.userData.unitId;
         if (object.userData.buildingId)
           this.hoveredBuildingId = object.userData.buildingId;
         object = object.parent;
       }
     };
     this.pointerLeave = () => {
+      this.down = null;
       this.hoveredId = null;
       this.hoveredBuildingId = null;
     };
@@ -360,6 +396,7 @@ export class Renderer {
     canvas.addEventListener('pointerleave', this.pointerLeave);
     canvas.addEventListener('pointerdown', this.pointerDown);
     canvas.addEventListener('pointerup', this.pointerUp);
+    canvas.addEventListener('pointercancel', this.pointerCancel);
     this.resizeObserver = new ResizeObserver(() => this.resize());
     this.resizeObserver.observe(canvas.parentElement);
     this.resize();
@@ -376,7 +413,160 @@ export class Renderer {
 
   select(id, notify = false) {
     this.selectedId = id;
+    this.lastLabels = -Infinity;
     if (notify) this.onSelect?.(id);
+  }
+
+  pickUnit(clientX, clientY, includeOrcs = false) {
+    const rect = this.canvas.getBoundingClientRect();
+    if (
+      !rect.width ||
+      !rect.height ||
+      clientX < rect.left ||
+      clientX > rect.right ||
+      clientY < rect.top ||
+      clientY > rect.bottom
+    )
+      return null;
+    this.pointer.set(
+      ((clientX - rect.left) / rect.width) * 2 - 1,
+      -((clientY - rect.top) / rect.height) * 2 + 1,
+    );
+    this.raycaster.setFromCamera(this.pointer, this.camera);
+    const names = [];
+    for (const entity of this.entities.values()) {
+      if (entity.role === 'orc' && !includeOrcs) continue;
+      if (entity.title.visible) names.push(entity.title);
+    }
+    // Sprite raycasts include transparent texture padding. Only painted rows
+    // intercept a click; empty margins let the body underneath remain clickable.
+    const nameHit = this.paintedLabelHit(names);
+    if (nameHit) return nameHit.object.userData.unitId;
+    // Opaque world signs also cover the world visually; a hall plaque is not
+    // a clickable body behind the hall.
+    if (
+      this.paintedLabelHit(
+        this.worldLabels.filter(
+          (title) => !title.userData.unitId && title.visible,
+        ),
+      )
+    )
+      return null;
+    const id = this.bodyHitFromRay();
+    return id && (includeOrcs || this.entities.get(id)?.role !== 'orc')
+      ? id
+      : null;
+  }
+
+  paintedLabelHit(labels) {
+    return this.raycaster.intersectObjects(labels, false).find((hit) => {
+      const { hitRegions, contentHeight } = hit.object.userData;
+      if (!hit.uv || !hitRegions) return false;
+      const x = hit.uv.x * 256,
+        y = (1 - hit.uv.y) * contentHeight;
+      return hitRegions.some(
+        (region) =>
+          x >= region.x &&
+          x <= region.x + region.width &&
+          y >= region.y &&
+          y <= region.y + region.height,
+      );
+    });
+  }
+
+  bodyHitFromRay() {
+    // Test the visible triangles, including occluding buildings and trees.
+    // Selection rings, invisible convenience boxes and name sprites cannot
+    // claim a body hit. This only runs on pointer events, never in draw().
+    const hit = this.raycaster
+      .intersectObjects(this.scene.children, true)
+      .find((candidate) => {
+        const object = candidate.object;
+        if (!object.isMesh) return false;
+        let ancestor = object;
+        while (ancestor) {
+          if (!ancestor.visible) return false;
+          ancestor = ancestor.parent;
+        }
+        const mat = Array.isArray(object.material)
+          ? object.material[candidate.face?.materialIndex || 0]
+          : object.material;
+        return mat?.visible && mat.depthWrite && mat.opacity > 0.35;
+      });
+    let object = hit?.object;
+    while (object) {
+      if (object.userData.bodyUnitId) return object.userData.bodyUnitId;
+      object = object.parent;
+    }
+    return null;
+  }
+
+  // Read-only viewport CSS coordinates for interaction QA and accessibility aids.
+  // These follow the actual displaced nameplates, including orbit/zoom changes.
+  selectionTargets() {
+    const rect = this.canvas.getBoundingClientRect();
+    const point = new THREE.Vector3();
+    const project = (object) => {
+      object.getWorldPosition(point).project(this.camera);
+      return {
+        x: rect.left + ((point.x + 1) * rect.width) / 2,
+        y: rect.top + ((1 - point.y) * rect.height) / 2,
+      };
+    };
+    return [...this.entities.values()]
+      .filter((entity) => entity.role !== 'orc')
+      .map((entity) => {
+        const body = { ...project(entity.hitbox), visible: false };
+        const right = new THREE.Vector3().setFromMatrixColumn(
+          this.camera.matrixWorld,
+          0,
+        );
+        // A body center can be behind a roof or another villager. Find an
+        // exposed point on the actual model, or report that only its name is
+        // available. This bounded diagnostic is not part of the frame loop.
+        for (const height of [0.62, 0.82, 0.42, 0.22]) {
+          for (const side of [0, -0.2, 0.2]) {
+            point
+              .set(0, entity.height * height, 0)
+              .applyMatrix4(entity.root.matrixWorld);
+            point.addScaledVector(right, side).project(this.camera);
+            const x = rect.left + ((point.x + 1) * rect.width) / 2,
+              y = rect.top + ((1 - point.y) * rect.height) / 2;
+            if (
+              this.pickUnit(x, y) === entity.id &&
+              this.bodyHitFromRay() === entity.id
+            ) {
+              Object.assign(body, { x, y, visible: true });
+              break;
+            }
+          }
+          if (body.visible) break;
+        }
+        const nameplate = project(entity.title);
+        const region = entity.title.userData.nameRegion;
+        if (region) {
+          // Aim at the name ink rather than a transparent gap between rows.
+          const pixelsPerCanvasPixel = entity.title.userData.pixels / 256;
+          nameplate.x +=
+            (region.x + region.width / 2 - 128) * pixelsPerCanvasPixel;
+          nameplate.y +=
+            (region.y +
+              region.height / 2 -
+              entity.title.userData.contentHeight / 2) *
+            pixelsPerCanvasPixel;
+        }
+        return {
+          id: entity.hitbox.userData.unitId,
+          selected: entity.hitbox.userData.unitId === this.selectedId,
+          body,
+          nameplate: {
+            ...nameplate,
+            width: entity.title.userData.pixels,
+            height: entity.title.userData.pixels * entity.title.userData.ratio,
+            visible: entity.title.visible,
+          },
+        };
+      });
   }
 
   resize() {
@@ -801,12 +991,12 @@ export class Renderer {
     let leaderCount = 0;
     const boxes = this.labelBoxes;
     boxes.length = 0;
-    // Reserve space for the hall plaque and keep names above, not over, models.
-    for (const view of this.structures.values()) {
-      if (!view.title.visible) continue;
-      view.title.getWorldPosition(this.projected).project(this.camera);
-      const w = view.title.userData.pixels,
-        h = w * view.title.userData.ratio;
+    // Reserve the hall, food and worksite signs before placing moving names.
+    for (const title of this.worldLabels) {
+      if (!title.visible || title.userData.unitId) continue;
+      title.getWorldPosition(this.projected).project(this.camera);
+      const w = title.userData.pixels,
+        h = w * title.userData.ratio;
       boxes.push({
         x: ((this.projected.x + 1) * width) / 2,
         y: ((1 - this.projected.y) * height) / 2,
@@ -814,15 +1004,8 @@ export class Renderer {
         h,
       });
     }
-    const ordered = this.game.units
-      .slice()
-      .sort((a, b) =>
-        a.id === this.selectedId
-          ? -1
-          : b.id === this.selectedId
-            ? 1
-            : a.y - b.y,
-      );
+    // Selection must not reshuffle neighbours while a pointer is approaching.
+    const ordered = this.game.units.slice().sort((a, b) => a.y - b.y);
     for (const unit of ordered) {
       const entity = this.entities.get(unit.id);
       if (!entity || !entity.title.visible) continue;
@@ -833,10 +1016,9 @@ export class Renderer {
         .project(this.camera);
       const x = ((this.projected.x + 1) * width) / 2,
         y = ((1 - this.projected.y) * height) / 2;
-      const w =
-        title.userData.pixels *
-        (title.userData.variant === 'selected' ? 0.95 : 0.74);
-      const h = title.userData.pixels * title.userData.ratio;
+      // Reserve the expanded footprint even when only the name is shown.
+      const w = 102;
+      const h = (102 * 86) / 256;
       const offsets = [
         [0, 0],
         [-38, 0],
@@ -848,15 +1030,30 @@ export class Renderer {
         [62, 22],
         [-38, 43],
         [38, 43],
+        [-102, 0],
+        [102, 0],
+        [0, 66],
+        [-102, 36],
+        [102, 36],
+        [-74, 68],
+        [74, 68],
       ];
       let chosen = offsets[0],
         least = Infinity;
       for (const offset of offsets) {
-        const overlaps = boxes.filter(
-          (box) =>
-            Math.abs(x + offset[0] - box.x) < (w + box.w) / 2 + 2 &&
-            Math.abs(y - offset[1] - box.y) < (h + box.h) / 2 + 2,
-        ).length;
+        // If a crowded site exhausts the candidates, minimize covered area,
+        // rather than treating a tiny edge collision like a fully hidden name.
+        const overlaps = boxes.reduce((area, box) => {
+          const overlapX = Math.max(
+            0,
+            (w + box.w) / 2 + 3 - Math.abs(x + offset[0] - box.x),
+          );
+          const overlapY = Math.max(
+            0,
+            (h + box.h) / 2 + 3 - Math.abs(y - offset[1] - box.y),
+          );
+          return area + overlapX * overlapY;
+        }, 0);
         if (overlaps < least) {
           chosen = offset;
           least = overlaps;
@@ -1047,6 +1244,7 @@ export class Renderer {
         ];
     const height = isOrc ? 2.12 : 1.82;
     const { group, model, asset } = this.normalizedModel(name, height, true);
+    group.userData.bodyUnitId = unit.id;
     const meshRoot = new THREE.Group();
     meshRoot.add(group);
     // Pack variants share a rig. Only the chosen role's equipment is visible.
@@ -1118,6 +1316,7 @@ export class Renderer {
       isOrc ? '#73404e' : '#35432c',
     );
     title.position.y = height + 0.4;
+    title.userData.unitId = unit.id;
     title.userData.pixels = isOrc ? 64 : 86;
     title.userData.variant = 'npc';
     this.worldLabels.push(title);
@@ -1359,7 +1558,9 @@ export class Renderer {
     entity.ring.visible = unit.alive;
     entity.title.visible = unit.alive || entity.role !== 'orc';
     entity.title.material.opacity = unit.alive ? 1 : 0.65;
-    const expanded = selected || unit.id === this.hoveredId;
+    // Expanding on NPC hover made the target move before a click landed.
+    const expanded =
+      selected || (entity.role === 'orc' && unit.id === this.hoveredId);
     entity.title.userData.pixels = expanded
       ? 102
       : entity.role === 'orc'
@@ -1367,11 +1568,10 @@ export class Renderer {
         : 86;
     entity.title.userData.variant = expanded ? 'selected' : 'npc';
     if (!updateLabel) return;
-    const title = !unit.alive
-      ? `${unit.name || 'Orc'} †`
-      : entity.role === 'orc'
-        ? `Orc ${unit.level || 1}`
-        : `${ROLE_SYMBOLS[entity.role]} ${unit.name}`;
+    const title =
+      entity.role === 'orc'
+        ? `Orc ${unit.level || 1}${unit.alive ? '' : ' †'}`
+        : `${ROLE_SYMBOLS[entity.role]} ${unit.name} · Lv ${progressionFor(unit).level}${unit.alive ? '' : ' †'}`;
     const actionText = moving
       ? '→ Travelling'
       : ACTIVITY_LABELS[activity] || activity;
@@ -1556,6 +1756,7 @@ export class Renderer {
     this.resizeObserver.disconnect();
     this.canvas.removeEventListener('pointerdown', this.pointerDown);
     this.canvas.removeEventListener('pointerup', this.pointerUp);
+    this.canvas.removeEventListener('pointercancel', this.pointerCancel);
     this.canvas.removeEventListener('pointermove', this.pointerMove);
     this.canvas.removeEventListener('pointerleave', this.pointerLeave);
     this.controls.dispose();

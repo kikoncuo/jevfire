@@ -227,7 +227,7 @@ both existing and shorter priority instructions. Stamina/availability rules
 address that behavior explicitly; they do not demonstrate improved model
 reasoning. Meals, forced sole jobs, and simulation updates never count as AI ticks.
 
-## Current release checks
+## Stamina and frame-pacing release checks
 
 [Source hashes and pins](current-validation.json) identify the tested code.
 All **41 CPU tests** passed, along with formatting and a production build.
@@ -249,3 +249,32 @@ decisions** over **135.0 wall seconds**. The final five-second window drew 58
 FPS with a 9.3 ms animation-frame p99. These are observed outcomes from one run;
 changed rules and frame cadence prevent treating its duration as an improvement
 in model reasoning over the historical release.
+
+## Character inspector checks
+
+[inspector-check.js](inspector-check.js) exercises actual body/nameplate clicks,
+camera drag rejection, work-earned XP, per-character scripted history, the mobile
+details panel, and reset. It uses the ordinary game controls and does not inject
+model responses or mutate simulation state.
+
+[inspector-model-check.js](inspector-model-check.js) loads the real browser model
+and checks the selected character's applied choice, candidate scores, timestamp,
+and saved input observation. It also checks that a builder's sole available job
+is identified as a game rule and does not display a neighbour's AI scores.
+
+Run these sequentially against a fresh production preview with WebGPU enabled:
+
+```bash
+npm run build
+npm run preview -- --port 5173
+# In another terminal, from web/:
+playwright-cli -s=cowork open http://127.0.0.1:5173 --persistent --headed
+playwright-cli -s=cowork run-code --filename=qa/inspector-check.js
+playwright-cli -s=cowork run-code --filename=qa/inspector-model-check.js
+```
+
+The execution records are [UI and progression](inspector-result.json) and
+[real model](inspector-model-result.json), with [source hashes and model
+pins](inspector-validation.json). These establish inspector behavior, not policy
+quality or an inference speedup. Levels are work milestones and add no stat
+multiplier; training still increases the separately displayed attack value.

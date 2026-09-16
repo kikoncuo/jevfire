@@ -12,8 +12,9 @@ Qwen chooses each person's actions. [3D art credits and licenses](ASSETS.md).
 1. Click **Load Qwen 3.5** in a recent desktop browser with WebGPU and
    `shader-f16`. The 4-bit model is about **450 MB**, plus runtime files.
    Allow roughly 2 GB of free GPU/unified memory; requirements vary by device.
-2. Start the village. Click a person or roster card to inspect health, hunger,
-   action scores, and the exact observations supplied to the controller.
+2. Start the village. Click a person, nameplate, or roster card to open its
+   inspector. See level/XP, health, hunger, current job, and recent decisions.
+   On smaller screens, details open in a compact panel with a close button.
 3. Edit the village order and role policies. Balance food reserves against
    early defenses, or risk faster foraging. Policies persist in this browser;
    **Restore** returns a role to the supplied policy.
@@ -58,6 +59,25 @@ Bram takes earlier breaks (70 stamina), Tomas later ones (30); other thresholds
 are shown in context. Unavailable work is removed from the candidate set. When only relaxation
 is available, a labeled game rule applies it without invoking the model or
 increasing AI ticks.
+
+## Character levels and decisions
+
+Every character starts at **level 1** and earns one level per **100 XP** from
+productive work. Collectors earn 10 XP per harvested food; fighters earn 2 XP
+per productive training second and 0.5 per actual damage dealt to an orc. Builders earn
+0.1 XP per building HP repaired, 60 per tower constructed (shared according to
+actual progress), and 0.5 per ally HP healed. Walking, resting, model calls,
+and tower attacks do not award XP. Reset starts everyone at level 1 again.
+Levels are experience milestones, with no added combat or work-speed multiplier;
+fighters' existing training strength still determines damage.
+
+The inspector distinguishes **current job and activity** from the **latest Qwen
+decision**. The six-entry history identifies Qwen decisions, scripted commands,
+forced single-option jobs, and automatic meal breaks with simulation timestamps.
+Repeated identical scripted/rule assignments are collapsed; actual repeated model
+decisions remain visible. Scores and the saved input snapshot belong to the
+shown Qwen decision, not to a newer world state or automatic action. A scorer
+provides preferences, not a generated explanation of its reasoning.
 
 ## What the model knows
 
