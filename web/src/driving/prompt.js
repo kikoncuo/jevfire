@@ -203,3 +203,11 @@ export function buildDrivingPrompt(
   const user = `${examples.length ? `Examples with other policies, not the current state:\n${examples.join('\n')}\nNow apply your own strategy.\n` : ''}Race order: ${mission || 'Finish three laps as far ahead as possible.'}\n${observation(context, unitId, format.compact)}${format.focused ? `\n${speedComparison(context)}` : ''}\nActions:\n${choices.map((action, i) => `${labels[i]}: ${action} — ${meanings[action]}`).join('\n')}${format.focused ? `\nYOUR DRIVER POLICY: ${policy}\nActual speed is ${number(context.self.speedKph)}km/h; cruise target is ${number(context.self.targetSpeedKph)}km/h. Apply this policy to these values and choose one available action.` : ''}\nChoose ${labels.join(', ')}:`;
   return `<|im_start|>system\n${system}<|im_end|>\n<|im_start|>user\n${user}<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n${prefix}`;
 }
+
+// Preserve the published model-facing text exactly. Its system message includes
+// candidate labels, so a changed label set intentionally invalidates the cache.
+export function buildDrivingPromptParts(...args) {
+  const prompt = buildDrivingPrompt(...args);
+  const boundary = prompt.indexOf('<|im_start|>user\n');
+  return { prompt, prefix: boundary < 0 ? '' : prompt.slice(0, boundary) };
+}

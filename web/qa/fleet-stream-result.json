@@ -1,0 +1,41 @@
+{
+  "first": {
+    "busy": true,
+    "completed": 1,
+    "batches": 0
+  },
+  "paused": {
+    "decisions_per_second": 0,
+    "scored_per_second": 0,
+    "batches_per_second": 0,
+    "per_car_per_second": {
+      "nova": 0
+    },
+    "mean_batch_ms": null,
+    "mean_roundtrip_ms": null,
+    "mean_cars_per_batch": null,
+    "amortized_decision_ms": null,
+    "cache_saved_fraction": 0,
+    "total_decisions": 1,
+    "completed_decisions": 1,
+    "discarded_decisions": 0,
+    "window_seconds": 1
+  },
+  "settled": {
+    "decisions_per_second": 0,
+    "scored_per_second": 0,
+    "batches_per_second": 0,
+    "per_car_per_second": {
+      "nova": 0
+    },
+    "mean_batch_ms": 2895.199999988079,
+    "mean_roundtrip_ms": 2896.5,
+    "mean_cars_per_batch": 4,
+    "amortized_decision_ms": 723.7999999970198,
+    "cache_saved_fraction": 0,
+    "total_decisions": 1,
+    "completed_decisions": 4,
+    "discarded_decisions": 3,
+    "window_seconds": 2.908300000011921
+  }
+}

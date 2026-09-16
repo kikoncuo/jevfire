@@ -163,25 +163,54 @@ See [fixed fields and finite values](guarantees.md) and
 
 ## Browser scheduling and performance
 
-One WebLLM engine runs in a worker and scores **one driver at a time** in
-round-robin order. Each decision resets prompt state and prefills a fresh
-observation. Downloaded model-file caching does not provide shared-prefix KV
-reuse between drivers. The CUDA/vLLM implementation can submit independent
-field prompts as batches and reuse eligible prefix-cache blocks; those server
-optimizations are not implemented by this browser demo.
+All eligible drivers enter one fleet request from the same frozen world snapshot.
+One WebLLM engine scores their independent prompts **sequentially**, reusing each
+driver's unchanged system-prompt checkpoint. The model build does not expose physical
+multi-sequence GPU execution; sending four concurrent promises would still queue
+on the same engine. The next fleet request starts immediately after completion.
+Each car's answer is applied as soon as it is ready, without waiting for the other
+cars. There is no inter-request pause and maximum mode uses 128-token submissions with
+zero artificial yield delay. Lane reservations and available actions are checked
+again before applying results, so outdated or conflicting maneuvers are discarded.
 
-Prefill is split into small GPU submissions with yields between them because
-inference and rendering share the device. Balanced pace uses smaller chunks
-and longer yields than Maximum pace. The renderer uses instanced car geometry,
-caps pixel ratio at 1.25, and avoids dynamic shadows and postprocessing. Physics
-advances in fixed 1/60-second steps, while drawing is capped at 60 submissions
-per second. Neither setting promises a measured frame rate on every device.
+Cached policies are separate from downloaded model files. A changed policy or available-label header
+invalidates its exact token prefix; changing traffic is always processed afresh.
+The SDK skips intermediate sampling/readback on its optimized path and reports
+actual processed and cached token counts. [Browser SDK](browser-sdk.md).
 
-**AI decisions/sec** counts accepted model decisions over wall time. **Render
-FPS** counts submitted scene frames. They measure different work. Faster
-simulation speed does not create additional AI decisions; it gives the model
-less wall time before the next hazard. CUDA benchmark speedups and Last Hearth
-measurements should not be presented as Slipstream results.
+| Measurement | Meaning |
+| --- | --- |
+| Fleet decisions/sec | Accepted car choices per elapsed wall second |
+| Fleet rounds/sec | Completed requests, each covering all currently eligible cars |
+| Mean fleet inference | Worker time for a complete fleet request |
+| Per-car updates/sec | Accepted choices for that specific car per wall second |
+| Amortized ms/car | Total fleet inference time divided by scored car choices; not individual response latency |
+| Prompt work reused | Cached token evaluations divided by logical input-token evaluations |
+| Render FPS | Submitted scene draws per wall second |
+
+Four cars receiving one update per second mean four decisions/sec and one fleet
+round/sec. A serial implementation would need an amortized budget of 250 ms/car
+including overhead; a true parallel batch could take up to one second for the
+whole fleet. `1×` controls simulation speed, not AI frequency. The current UI never
+labels a fleet request as one car decision or treats four fields as four GPU
+batches. Applied and discarded counts remain distinct. Rates use ten-second rolling windows (five seconds for frames); means and cache
+savings cover the current run and remain visible after pausing. Paused rates are
+zero. The UI also shows how many cars are eligible and the mean cars per round.
+
+The previous recorded race averaged **1,451 ms per accepted single-car inference**
+and produced **44 applied choices in 78.366 wall seconds (0.56/sec)**, using the
+old balanced path with a 200 ms inter-request pause. These are historical numbers,
+not measurements of the new cache/maximum-throughput path. The
+[recorded race](../web/qa/driving-race-current.json) retains its original settings.
+
+The [driving quality study](driving-quality.md) compares the published worker,
+the optimized scorer and complete live races. It reports both faster scoring
+and weak policy accuracy, including the effect of older observations.
+
+Inference and rendering share the GPU. Removing idle time prioritizes decisions
+and can increase render contention. The renderer batches geometry, caps pixel
+ratio at 1.25 and avoids dynamic shadows; no hardware-independent FPS or inference
+latency is promised. CUDA speedups and village measurements are separate results.
 
 ## Implementation map
 

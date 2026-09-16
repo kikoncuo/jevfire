@@ -45,3 +45,12 @@ Google Fonts (SIL Open Font License). Three.js and `BufferGeometryUtils` are
 MIT-licensed code dependencies. The pinned Qwen model and WebLLM runtime have
 their own notices and are separate from these graphics; see
 [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
+
+## World 1-1
+
+`src/mario/renderer.js` draws original pixel artwork with Canvas2D: a red-cap
+plumber, mushrooms, Goombas, pipes, terrain, blocks, coins, flag and castle. There
+are no downloaded or extracted Nintendo sprites, music or ROM files. The course
+is an approximate playable recreation of Super Mario Bros. World 1-1, not an
+emulated or exact port. Super Mario Bros. and its characters originate with
+Nintendo; this is an independent technical demo.

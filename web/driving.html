@@ -23,6 +23,7 @@
         <nav aria-label="Demos">
           <a href="./">Last Hearth</a
           ><a aria-current="page" href="./driving.html">Slipstream</a
+          ><a href="./mario.html">World 1-1</a
           ><a
             href="https://github.com/kikoncuo/jevfire"
             target="_blank"
@@ -67,8 +68,7 @@
           <label class="pace-control"
             >AI pace
             <select id="pace">
-              <option value="balanced">Balanced</option>
-              <option value="fast">Maximum</option>
+              <option value="fast">Maximum · no pauses</option>
             </select></label
           >
           <label class="pace-control"
@@ -133,18 +133,25 @@
             </section>
             <section class="telemetry" aria-label="Live measurements">
               <div>
-                <strong id="ai-rate">—</strong><span>AI decisions / sec</span>
+                <strong id="ai-rate">—</strong
+                ><span>Fleet decisions / sec</span>
               </div>
               <div>
-                <strong id="ai-total">0</strong
-                ><span>Applied AI decisions</span>
+                <strong id="per-car-rate">—</strong
+                ><span>Fleet rounds / sec</span>
               </div>
               <div>
-                <strong id="latency">—</strong><span>Last inference</span>
+                <strong id="latency">—</strong><span>Mean fleet inference</span>
               </div>
               <div><strong id="fps">—</strong><span>Render FPS</span></div>
-              <div><strong id="contacts">0</strong><span>Contacts</span></div>
+              <div>
+                <strong id="cache-saved">—</strong
+                ><span>Prompt work reused</span>
+              </div>
             </section>
+            <p id="timing-note" class="timing-note"></p>
+            <span id="ai-total" hidden>0</span
+            ><span id="contacts" hidden>0</span>
             <div class="section-label">
               <h2>The drivers</h2>
               <span>Same machine. Different appetite for risk.</span>
@@ -178,17 +185,32 @@
                   action to that car’s known field.
                 </p>
                 <p>
-                  The four cars share one model, taking turns through inference.
-                  Their prompts are independent. Steering, smooth lane changes,
-                  traffic, and optional following assistance run between AI
-                  decisions. Tight overtakes temporarily waive that assistance.
-                  Excess corner speed can cause a spin, damage, or retirement.
-                  Pitting costs time but repairs damage and renews tyres and
-                  boost. Game rules never count as AI ticks.
+                  All eligible cars enter one fleet request together. WebLLM
+                  scores their independent prompts sequentially on one model,
+                  reusing eligible cached prefixes. The next fleet request
+                  starts immediately, with no artificial pause. This browser
+                  build does not expose simultaneous multi-sequence GPU
+                  execution. Steering, smooth lane changes, traffic, and
+                  optional following assistance run between AI decisions. Tight
+                  overtakes temporarily waive that assistance. Excess corner
+                  speed can cause a spin, damage, or retirement. Pitting costs
+                  time but repairs damage and renews tyres and boost. Game rules
+                  never count as AI ticks.
                 </p>
                 <p>
-                  Only known fields and actions can enter the result. A valid
-                  action can still be a poor driving choice.
+                  Fleet decisions/sec counts applied car choices. Four cars at
+                  one update/sec means four decisions/sec and one fleet
+                  round/sec. Mean fleet inference is the time for the whole
+                  request, not one car. Per-car rates appear on the driver
+                  cards. Only known fields and actions can enter the result. A
+                  valid action can still be a poor driving choice. Our small
+                  comparison found faster scoring but worse live race outcomes.
+                  <a
+                    href="https://github.com/kikoncuo/jevfire/blob/main/docs/driving-quality.md"
+                    target="_blank"
+                    rel="noreferrer"
+                    >See the speed and quality measurements ↗</a
+                  >
                   <a
                     href="https://github.com/kikoncuo/jevfire/blob/main/docs/driving-demo.md"
                     target="_blank"

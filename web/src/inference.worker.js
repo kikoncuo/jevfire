@@ -1,3 +1,4 @@
+import { FiniteDecisions, WebLLMBackend } from './sdk/index.js';
 import { MLCEngine, prebuiltAppConfig } from '@mlc-ai/web-llm';
 import { Tokenizer } from '@mlc-ai/web-tokenizers';
 import { UNIT_DEFINITIONS, assemble } from './contract.js';
@@ -15,7 +16,9 @@ import {
   SEMANTIC_LABEL_CANDIDATES,
   driverChoices,
 } from './driving/contract.js';
-import { buildDrivingPrompt } from './driving/prompt.js';
+import { buildDrivingPromptParts } from './driving/prompt.js';
+import { buildMarioPromptParts } from './mario/prompt.js';
+import { validateControl } from './mario/contract.js';
 
 const MODEL = 'Qwen3.5-0.8B-q4f16_1-MLC';
 const REVISION = '0ec138972555613c1d7812a821778ad0398c8790';
@@ -27,7 +30,9 @@ let engine,
   capture,
   labelIds,
   semanticLabels,
-  busy = false;
+  scorer,
+  backend,
+  scoredFieldObserver = null;
 const send = (type, body = {}) => self.postMessage({ type, ...body });
 
 function singleTokenId(label) {
@@ -45,6 +50,7 @@ class Capture {
   processLogits(logits) {
     if (!this.active) return logits;
     this.row = this.ids.map((id) => Number(logits[id]));
+    this.vocabulary = this.returnVocab ? Array.from(logits) : undefined;
     if (this.inspect) {
       const top = [];
       const ranks = this.row.map(() => 1);
@@ -156,16 +162,36 @@ async function load() {
     engine = null;
     throw error;
   }
+  backend = await WebLLMBackend.create({
+    engine,
+    model: MODEL,
+    runtimeVersion: '0.2.85',
+    capture,
+    cacheSlots: 6,
+    maxPrefixTokens: 512,
+  });
+  const forward = backend.forward.bind(backend);
+  backend.forward = async (...args) => {
+    const result = await forward(...args);
+    if (args[1]) scoredFieldObserver?.(performance.now());
+    return result;
+  };
+  scorer = new FiniteDecisions({ backend, tokenizer, maxCachedPrefixes: 6 });
   send('ready', {
+    sdk_backend: backend.name,
+    prefix_cache_slots: backend.cacheSlots,
+    cache_fallback_reason: backend.reason,
     model: MODEL,
     revision: REVISION,
     runtime: 'WebLLM 0.2.85',
     label_ids: labelIds,
     driving_semantic_labels: semanticLabels,
+    execution: 'single-working-state-sequential',
+    gpu_batch_size: 1,
   });
 }
 
-async function decide(message) {
+async function decide(message, { emit = true } = {}) {
   if (!engine) throw new Error('Load the model first');
   if (
     message.scenario !== undefined &&
@@ -213,7 +239,7 @@ async function decide(message) {
       ? 'Action:'
       : 'Action:\n'
     : '';
-  const prompt = (driving ? buildDrivingPrompt : buildDecisionPrompt)(
+  const prepared = (driving ? buildDrivingPromptParts : buildDecisionPrompt)(
     unit.id,
     message.context,
     message.mission,
@@ -232,43 +258,59 @@ async function decide(message) {
         ]
       : []),
   );
+  const prompt = driving ? prepared.prompt : prepared;
   const tokens = Array.from(tokenizer.encode(prompt));
   const promptTokens = tokens.length;
   if (promptTokens > 1800)
     throw new Error(
       `Observation and policy exceed the 1,800-token input limit (${promptTokens} tokens). Shorten the role policy.`,
     );
-  const start = performance.now();
-  capture.ids = driving
+  const ids = driving
     ? scoreLabels.map(singleTokenId)
     : labelIds[unit.role].slice(0, choices.length);
-  if (capture.ids.some((id) => id === null))
+  if (ids.some((id) => id === null))
     throw new Error('Driving label is not a single token');
-  capture.row = null;
-  capture.inspect = message.testOnly === true;
-  capture.diagnostic = null;
-  // Split prefill into small GPU submissions, yielding between them so the
-  // compositor can draw. The worker alone cannot isolate a shared GPU.
-  // WebLLM's public low-level API updates KV/recurrent state with input tokens
-  // only; intermediate samples are ignored and never fed back into the model.
-  const chunkSize = message.pace === 'fast' ? 128 : 32;
-  const yieldMs = message.pace === 'fast' ? 4 : 16;
-  await engine.resetChat(false, MODEL);
-  let sampled;
-  for (let offset = 0; offset < tokens.length; offset += chunkSize) {
-    const chunk = tokens.slice(offset, offset + chunkSize);
-    capture.active = offset + chunk.length === tokens.length;
-    sampled = await engine.forwardTokensAndSample(chunk, true, MODEL);
-    if (!capture.active)
-      await new Promise((resolve) => setTimeout(resolve, yieldMs));
+  const throughput = message.pace === 'fast' || message.pace === 'throughput';
+  const chunkSize = throughput ? 128 : 32;
+  const yieldMs = throughput ? 0 : 16;
+  const boundary = prompt.indexOf('<|im_start|>user\n');
+  const score = await scorer.score({
+    prompt,
+    prefix: driving
+      ? prepared.prefix
+      : boundary < 0
+        ? ''
+        : prompt.slice(0, boundary),
+    cacheKey: `${driving ? 'driving' : 'village'}:${unit.id}`,
+    candidateTokenIds: ids,
+    chunkSize,
+    yieldMs,
+    useCache: message.cache !== false,
+    returnVocab: message.testOnly === true,
+  });
+  const row = score.logits;
+  const elapsed = score.elapsed_ms;
+  let diagnostic;
+  if (message.testOnly && score.vocabulary) {
+    const top = [];
+    const ranks = row.map(() => 1);
+    for (let id = 0; id < score.vocabulary.length; id++) {
+      const value = score.vocabulary[id];
+      row.forEach((candidate, index) => {
+        if (value > candidate) ranks[index]++;
+      });
+      if (top.length < 12 || value > top[top.length - 1].score) {
+        top.push({ id, score: value });
+        top.sort((a, b) => b.score - a.score);
+        if (top.length > 12) top.pop();
+      }
+    }
+    diagnostic = { ranks, top };
   }
-  if (!capture.row)
-    throw new Error('WebLLM did not expose the requested candidate scores');
-  const row = [...capture.row];
-  const diagnostic = capture.diagnostic;
-  const elapsed = performance.now() - start;
   let comparison;
   if (message.testOnly && message.compareWithWhole) {
+    await scorer.clear();
+    capture.ids = ids;
     capture.active = true;
     await engine.resetChat(false, MODEL);
     await engine.completions.create({
@@ -295,13 +337,15 @@ async function decide(message) {
   }
   const result = assemble({ [unit.id]: choices }, [row]);
   result.fields[unit.id].options = choices;
-  send('decision', {
-    ...(capture.inspect
+  const payload = {
+    type: 'decision',
+    ...(diagnostic
       ? {
           prompt,
           diagnostic: {
             ...diagnostic,
-            sampled_text: tokenizer.decode(new Int32Array([sampled])),
+            sampled_text: null,
+            sampling: 'none',
             comparison,
             top: diagnostic.top.map((item) => {
               let token;
@@ -335,36 +379,237 @@ async function decide(message) {
     testOnly: message.testOnly === true,
     elapsed_ms: elapsed,
     prefill_chunk_tokens: chunkSize,
-    prefill_chunks: Math.ceil(tokens.length / chunkSize),
+    prefill_chunks: score.usage.forward_calls,
+    cache: score.usage,
     fields_scored: 1,
     backend_requests: 1,
-    forward_calls: Math.ceil(tokens.length / chunkSize),
+    forward_calls: score.usage.forward_calls,
     prompt_tokens: promptTokens,
     scheduling: 'round-robin',
-    usage: { prompt_tokens: promptTokens, scored_positions: 1 },
+    usage: {
+      ...score.usage,
+      prompt_tokens: promptTokens,
+      scored_positions: 1,
+      processed_tokens: score.usage.processed_tokens,
+      cached_prefix_tokens: score.usage.cached_prefix_tokens,
+    },
+  };
+  if (emit) send('decision', payload);
+  return payload;
+}
+
+export function drivingBatchRequests(message) {
+  if (
+    !Array.isArray(message.requests) ||
+    !message.requests.length ||
+    message.requests.length > DRIVERS.length
+  )
+    throw new Error('A driving batch needs 1–4 driver requests');
+  const ids = new Set();
+  return message.requests.map((request) => {
+    if (!request || ids.has(request.unitId))
+      throw new Error('Duplicate or missing driver request');
+    const actions = driverChoices(
+      request.unitId,
+      request.actions === undefined
+        ? request.context?.availableActions
+        : request.actions,
+    );
+    if (request.context?.self?.id !== request.unitId)
+      throw new Error('Driver context identity does not match request');
+    ids.add(request.unitId);
+    return {
+      ...structuredClone(request),
+      type: 'decide',
+      scenario: 'driving',
+      id: message.id,
+      epoch: message.epoch,
+      mission: message.mission ?? '',
+      actions,
+      pace: message.pace ?? 'fast',
+      cache: message.cache !== false,
+      testOnly: message.testOnly === true,
+      labelMode: message.labelMode,
+    };
   });
 }
 
-self.onmessage = async ({ data }) => {
-  if (busy) {
-    send('error', {
-      message: 'Inference is already running',
-      epoch: data.epoch,
+export function aggregateDecisionUsage(decisions) {
+  const sum = (name) =>
+    decisions.reduce(
+      (total, item) =>
+        total + (Number.isFinite(item.usage?.[name]) ? item.usage[name] : 0),
+      0,
+    );
+  return {
+    input_tokens: sum('input_tokens'),
+    prompt_tokens: sum('prompt_tokens'),
+    processed_tokens: sum('processed_tokens'),
+    cached_prefix_tokens: sum('cached_prefix_tokens'),
+    forward_calls: sum('forward_calls'),
+    yield_ms: sum('yield_ms'),
+    scored_positions: decisions.length,
+    cache_hits: decisions.filter((item) => item.usage?.cache_hit).length,
+    execution: 'sequential-driver-jobs',
+    gpu_batch_size: 1,
+  };
+}
+
+async function decideDrivingBatch(message) {
+  if (!engine) throw new Error('Load the model first');
+  const requests = drivingBatchRequests(message);
+  const start = performance.now();
+  const decisions = [];
+  // One immutable world snapshot, one shared engine owner. SDK checkpoints keep
+  // each driver's policy isolated; the runtime exposes sequential suffix work,
+  // not a multi-sequence GPU forward. No timers separate these driver jobs.
+  for (const [index, request] of requests.entries()) {
+    const decision = {
+      ...(await decide(request, { emit: false })),
+      scheduling: 'fleet',
+    };
+    decisions.push(decision);
+    // The first car can act while the remaining independent fields are scored.
+    // The fleet summary still reports all completed work exactly once.
+    send('drivingField', {
+      id: message.id,
+      epoch: message.epoch,
+      scenario: 'driving',
+      unitId: request.unitId,
+      decision,
+      batch_size: requests.length,
+      index,
+      fleet_age_ms: performance.now() - start,
     });
-    return;
   }
-  busy = true;
+  const usage = aggregateDecisionUsage(decisions);
+  send('drivingBatch', {
+    id: message.id,
+    epoch: message.epoch,
+    scenario: 'driving',
+    decisions,
+    parsed_json: Object.assign(
+      {},
+      ...decisions.map((item) => item.parsed_json),
+    ),
+    fields: Object.assign({}, ...decisions.map((item) => item.fields)),
+    fields_scored: decisions.length,
+    scores_are_calibrated: false,
+    elapsed_ms: performance.now() - start,
+    per_field_elapsed_ms: Object.fromEntries(
+      decisions.map((item) => [item.unitId, item.elapsed_ms]),
+    ),
+    usage,
+    execution: usage.execution,
+    gpu_batch_size: 1,
+    sdk_backend: backend.name,
+    cache_fallback_reason: backend.reason ?? null,
+  });
+}
+
+async function decideMario(message) {
+  if (!engine) throw new Error('Load the model first');
+  const labels = ['A', 'B', 'C'];
+  const spaced = labels.map((label) => ` ${label}`);
+  const leadingSpace = spaced.every((label) => singleTokenId(label) !== null);
+  const prepared = buildMarioPromptParts(
+    message.context,
+    message.mission ?? '',
+    message.rolePrompt,
+    {
+      labels,
+      scoreLabels: leadingSpace ? spaced : labels,
+      assistantPrefix: leadingSpace ? 'Action:' : 'Action:\n',
+    },
+  );
+  const throughput = message.pace !== 'balanced';
+  const start = performance.now();
+  let lastField = start;
+  const fieldTimes = [];
+  scoredFieldObserver = (now) => {
+    fieldTimes.push(now - lastField);
+    lastField = now;
+  };
+  let result;
   try {
-    if (data.type === 'load') await load();
-    else if (data.type === 'decide') await decide(data);
-  } catch (error) {
-    send('error', {
-      message: error.message || String(error),
-      epoch: data.epoch,
-      id: data.id,
-      operation: data.type,
+    result = await scorer.scoreFields({
+      ...prepared,
+      cacheKey: 'mario:controls',
+      useCache: message.cache !== false,
+      chunkSize: throughput ? 128 : 32,
+      yieldMs: throughput ? 0 : 16,
     });
   } finally {
-    busy = false;
+    scoredFieldObserver = null;
   }
-};
+  validateControl(result.parsed_json);
+  send('marioDecision', {
+    ...result,
+    id: message.id,
+    epoch: message.epoch,
+    scenario: 'mario',
+    model: MODEL,
+    model_revision: REVISION,
+    testOnly: message.testOnly === true,
+    elapsed_ms: performance.now() - start,
+    fields_scored: prepared.fields.length,
+    per_field_elapsed_ms: Object.fromEntries(
+      prepared.fields.map((field, index) => [
+        field.key,
+        fieldTimes[index] ?? null,
+      ]),
+    ),
+    execution: result.usage.execution,
+    gpu_batch_size: 1,
+    sdk_backend: backend.name,
+    cache_fallback_reason: backend.reason ?? null,
+    ...(message.testOnly
+      ? {
+          shared_prompt: prepared.sharedPrompt,
+          field_suffixes: Object.fromEntries(
+            prepared.fields.map((field) => [field.key, field.suffix]),
+          ),
+        }
+      : {}),
+  });
+}
+
+// FIFO snapshots protect the one engine owner. Every request either responds or
+// reports its own id/epoch; requests arriving during a batch are never dropped.
+export function createWorkerQueue(handle, reportError) {
+  let tail = Promise.resolve();
+  return (data) => {
+    let snapshot;
+    try {
+      snapshot = structuredClone(data);
+    } catch (error) {
+      reportError(error, data);
+      return Promise.resolve();
+    }
+    const result = tail.then(() => handle(snapshot));
+    tail = result.catch((error) => reportError(error, snapshot));
+    return tail;
+  };
+}
+
+const enqueue = createWorkerQueue(
+  async (data) => {
+    if (!data || typeof data !== 'object')
+      throw new Error('Invalid worker message');
+    if (data.type === 'load') await load();
+    else if (data.type === 'decide') await decide(data);
+    else if (data.type === 'decideDrivingBatch') await decideDrivingBatch(data);
+    else if (data.type === 'decideMario') await decideMario(data);
+    else throw new Error('Unknown worker operation');
+  },
+  (error, data) => {
+    send('error', {
+      message: error.message || String(error),
+      epoch: data?.epoch,
+      id: data?.id,
+      operation: data?.type,
+    });
+  },
+);
+
+if (typeof self !== 'undefined') self.onmessage = ({ data }) => enqueue(data);

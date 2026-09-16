@@ -1,9 +1,13 @@
 # JEVfire browser demos
 
+[World 1-1](https://kikoncuo.github.io/jevfire/mario.html) adds a third game: original
+Canvas2D art, playable keyboard/touch controls, a scripted baseline and local Qwen
+choosing three typed controls with shared-context SDK reuse. [Game notes](../docs/mario-demo.md).
+
 **[Slipstream: four racing strategies →](https://kikoncuo.github.io/jevfire/driving.html)** ·
 **[Last Hearth: six villagers →](https://kikoncuo.github.io/jevfire/)**
 
-Both demos run Qwen 3.5 0.8B locally through WebLLM and WebGPU. The same pinned
+All three demos run Qwen 3.5 0.8B locally through WebLLM and WebGPU. The same pinned
 model files can be reused from the browser cache; each page creates its own
 worker and engine. Neither requires an inference server or API key.
 
@@ -31,7 +35,9 @@ in all three lanes, closing speeds and time to contact, the next corner's safe
 speed and braking distance, tyres, damage, boost, and pit distance. Read the
 [full design and context contract](../docs/driving-demo.md).
 
-The model scores one eligible driver at a time in round-robin order. It cannot
+The model scores all eligible drivers in one fleet request, sequentially on
+one engine, and immediately starts the next request. Stable policies are cached.
+It cannot
 invent keys or actions, but can choose badly. Physics runs independently of
 inference; a higher simulation speed gives the model less time to react per
 simulated second. Reset, pause, policy edits and unavailable actions invalidate
@@ -161,8 +167,8 @@ Missing or nonfinite scores fail explicitly.
 Scripted mode shows no AI rate. Paused rates are zero. Pauses, resets, changed
 orders, dead actors, automatic meal breaks, and newly unavailable jobs discard
 pending results. Round counts use the currently eligible actor set; rule-only jobs and meal
-breaks do not add model decisions. This browser does not implement
-vLLM's parallel scheduling or explicit prefix-cache optimization. The repo's
+breaks do not add model decisions. The browser SDK reuses exact instruction
+prefixes but does not implement vLLM's parallel GPU batching. The repo's
 **10.3× CUDA result is a separate benchmark**, not a claim for this game.
 
 The model cannot invent a field or choose outside the role enum. It can still
@@ -179,19 +185,23 @@ Prompt tuning here has not established an optimal survival policy.
 ## Smooth rendering and inference
 
 A Web Worker keeps model orchestration off the main thread, but WebLLM and the
-browser compositor still share a GPU. Large prefill submissions can freeze
-animation even when no long JavaScript task is recorded. The demo therefore
-splits each fresh prompt into small submissions through WebLLM's public
-`forwardTokensAndSample` API, retaining state between chunks within that decision.
-Intermediate sampled tokens are discarded and never fed back as generated text;
-only the final candidate scores select the action.
+browser compositor still share a GPU. The new SDK checkpoints unchanged prompt
+prefixes, including attention and recurrent state. The optimized adapter avoids
+sampling and intermediate vocabulary readback; an unsupported runtime falls back
+to independent prefills. See [the SDK implementation and limits](../docs/browser-sdk.md).
 
-**Balanced** uses 32-token chunks, 16 ms pauses between chunks, and a 200 ms
-inter-decision pause. **Maximum** uses 128-token chunks, 4 ms pauses, and a 30 ms
-inter-decision pause. Balanced trades decision throughput for smoother animation.
-This is still a complete prompt prefill, with extra per-chunk scoring overhead;
-it is not the server's shared-prefix optimization. Different chunk shapes can
-slightly change floating-point scores and occasionally close decisions.
+Last Hearth retains its responsiveness controls: Balanced uses 32-token chunks
+with 16 ms yields and a 200 ms inter-decision pause; Maximum uses 128-token chunks
+with no artificial in-worker yields and a 30 ms UI pause. **Slipstream** instead
+scores an entire fleet snapshot with 128-token submissions and immediately starts
+the next fleet request: no inter-request pause. Its per-driver policies are cached.
+**World 1-1** reuses one observation across movement, jump and speed suffixes,
+using 128-token submissions and no artificial in-worker yields. Its default
+Decision steps mode explicitly waits at each action boundary; Live mode does not.
+
+This browser runtime scores independent suffixes sequentially. It does not expose
+simultaneous multi-sequence GPU execution. Higher throughput can compete with
+rendering, and changed submission shapes can alter close floating-point scores.
 
 The scene batches static foliage, caches shadows, limits pixel ratio, caps draws
 near 60 FPS, and updates label content at 10 Hz. Low graphics reduces resolution

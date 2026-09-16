@@ -1,0 +1,739 @@
+{
+  "tested_at": "2026-09-16T22:45:50.681Z",
+  "errors": [],
+  "mario": {
+    "mode": "manual",
+    "loaded": false,
+    "loading": false,
+    "busy": false,
+    "running": false,
+    "epoch": 5,
+    "discarded": 0,
+    "timing": "step",
+    "time": 0.7999999999999996,
+    "player": {
+      "x": 6.299999999999985,
+      "y": 4.47875,
+      "w": 0.72,
+      "h": 0.94,
+      "vx": 4.1,
+      "vy": 5.366666666666666,
+      "onGround": false,
+      "coyote": 0,
+      "power": "small",
+      "facing": 1,
+      "invincible": 0,
+      "dead": false,
+      "animation": "jump"
+    },
+    "control": {
+      "direction": "still",
+      "jump": false,
+      "speed": "walk"
+    },
+    "won": false,
+    "dead": false,
+    "over": false,
+    "coins": 0,
+    "score": 0,
+    "lastDecision": null,
+    "decisions": [],
+    "events": [
+      {
+        "id": 1,
+        "type": "control",
+        "message": "right \u00b7 jump released \u00b7 walk",
+        "time": 0,
+        "control": {
+          "direction": "right",
+          "jump": false,
+          "speed": "walk"
+        },
+        "source": "manual"
+      },
+      {
+        "id": 2,
+        "type": "control",
+        "message": "still \u00b7 jump released \u00b7 walk",
+        "time": 0.45000000000000057,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        },
+        "source": "manual"
+      },
+      {
+        "id": 3,
+        "type": "control",
+        "message": "right \u00b7 jump held \u00b7 walk",
+        "time": 0.483333333333334,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "walk"
+        },
+        "source": "manual"
+      },
+      {
+        "id": 4,
+        "type": "jump",
+        "message": "Jumped",
+        "time": 0.49166666666666736,
+        "x": 4.93055555555555,
+        "y": 1
+      },
+      {
+        "id": 5,
+        "type": "control",
+        "message": "still \u00b7 jump released \u00b7 walk",
+        "time": 0.783333333333333,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        },
+        "source": "manual"
+      }
+    ],
+    "observation": {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 399.2,
+      "coins": 0,
+      "self": {
+        "x": 6.3,
+        "y": 4.48,
+        "vx": 4.1,
+        "vy": 5.37,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": false,
+        "power": "small",
+        "jumpHeld": false,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 191.7
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": {
+          "type": "question",
+          "dx": 8.98,
+          "width": 1,
+          "topY": 5,
+          "heightAboveFeet": 0.52
+        },
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": {
+          "dx": 13.9,
+          "dy": -3.48,
+          "vx": -1.35
+        }
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 9.7,
+            "dy": -0.48,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-20-4",
+            "type": "brick",
+            "dx": 13.7,
+            "dy": -0.48,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-4",
+            "type": "brick",
+            "dx": 15.7,
+            "dy": -0.48,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-21-4",
+            "type": "question",
+            "dx": 14.7,
+            "dy": -0.48,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-8",
+            "type": "question",
+            "dx": 15.7,
+            "dy": 3.52,
+            "w": 1,
+            "h": 1,
+            "topY": 9,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [
+          {
+            "id": "goomba-1",
+            "type": "goomba",
+            "dx": 14.62,
+            "dy": -3.48,
+            "vx": -1.35,
+            "w": 0.8,
+            "h": 0.8
+          }
+        ],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    "metrics": {
+      "decisions_per_second": 0,
+      "rounds_per_second": 0,
+      "total_decisions": 0,
+      "completed_rounds": 0,
+      "mean_latency_ms": null,
+      "window_seconds": 1
+    },
+    "frames": {
+      "fps": 55.180180178698656,
+      "frame_p99_ms": 10.300000000000011,
+      "frame_max_ms": 10.399999999999977,
+      "slow_frames": 0
+    },
+    "mobile": {
+      "viewport": 390,
+      "content": 390
+    }
+  },
+  "village_mobile": {
+    "viewport": 390,
+    "content": 390,
+    "mario_link": true
+  },
+  "village": {
+    "loaded": true,
+    "loading": false,
+    "busy": false,
+    "mode": "model",
+    "epoch": 3,
+    "rendererReady": true,
+    "selectedId": "mira",
+    "selectedHistory": [
+      {
+        "id": 9,
+        "action": "forage_bold",
+        "source": "model",
+        "at": 6.375800000000015,
+        "detail": ""
+      },
+      {
+        "id": 7,
+        "action": "forage_bold",
+        "source": "model",
+        "at": 4.083900000000004,
+        "detail": ""
+      },
+      {
+        "id": 5,
+        "action": "forage_bold",
+        "source": "model",
+        "at": 1.2508000000000012,
+        "detail": ""
+      }
+    ],
+    "selectedDecision": {
+      "type": "decision",
+      "parsed_json": {
+        "mira": "forage_bold"
+      },
+      "fields": {
+        "mira": {
+          "value": "forage_bold",
+          "probabilities": [0.3663736330488795, 0.6336263669511205],
+          "logits": [23.957990646362305, 24.505796432495117],
+          "options": ["forage_safe", "forage_bold"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 5,
+      "epoch": 2,
+      "unitId": "mira",
+      "testOnly": false,
+      "elapsed_ms": 769.6000000238419,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 13,
+      "cache": {
+        "input_tokens": 579,
+        "processed_tokens": 403,
+        "cached_prefix_tokens": 176,
+        "forward_calls": 13,
+        "yield_ms": 192,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 13,
+      "prompt_tokens": 579,
+      "scheduling": "round-robin",
+      "usage": {
+        "input_tokens": 579,
+        "processed_tokens": 403,
+        "cached_prefix_tokens": 176,
+        "forward_calls": 13,
+        "yield_ms": 192,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state",
+        "prompt_tokens": 579
+      },
+      "appliedAt": 6.375800000000015,
+      "observedContext": {
+        "self": {
+          "id": "mira",
+          "alive": true,
+          "role": "collector",
+          "level": 1,
+          "experience": 0,
+          "health": 85,
+          "max_health": 85,
+          "hunger": 97,
+          "stamina": 99,
+          "break_threshold": 45,
+          "rest_until": 95,
+          "starves_in_seconds": 137,
+          "home_walk_seconds": 7,
+          "action": "forage_bold",
+          "personality": "A cautious scout who chooses safer food routes and brings supplies home.",
+          "needs_override": null,
+          "carrying_food": 0,
+          "attacked_by": 0
+        },
+        "village": {
+          "food": 6,
+          "alive": 6,
+          "wave": 0,
+          "hall_health_percent": 100,
+          "threatened_villagers": 0,
+          "threatened_buildings": 0
+        },
+        "available_actions": ["forage_safe", "forage_bold"],
+        "rest_available_reason": null,
+        "nearest_orcs": [],
+        "food_routes": [
+          {
+            "id": "north-grove",
+            "distance": 3.1,
+            "bearing": "NW",
+            "food": 40,
+            "risk": "low",
+            "safe_round_trip_seconds": 17
+          },
+          {
+            "id": "west-garden",
+            "distance": 8.8,
+            "bearing": "SW",
+            "food": 18,
+            "risk": "low",
+            "safe_round_trip_seconds": 17
+          },
+          {
+            "id": "wild-grove",
+            "distance": 14.2,
+            "bearing": "E",
+            "food": 44,
+            "risk": "low",
+            "safe_round_trip_seconds": 24
+          }
+        ]
+      }
+    },
+    "rendererStats": {
+      "draw_calls": 162,
+      "triangles": 55526,
+      "pixel_ratio": 1,
+      "shadow_map_size": 1024,
+      "rendered_frames": 567,
+      "geometries": 124,
+      "textures": 61
+    },
+    "frames": {
+      "fps": 53.4,
+      "frame_p99_ms": 10.300000000001091,
+      "frame_max_ms": 16.600000000000364,
+      "slow_frames": 0
+    },
+    "running": false,
+    "over": false,
+    "ticks": 6,
+    "time": 7.459100000000022,
+    "food": 6,
+    "wave": 0,
+    "seed": 7341,
+    "units": [
+      {
+        "id": "mira",
+        "name": "Mira",
+        "role": "collector",
+        "health": 85,
+        "maxHealth": 85,
+        "hunger": 94.77862999999991,
+        "stamina": 97.20626499999611,
+        "alive": true,
+        "action": "forage_bold",
+        "proposed": "forage_bold",
+        "personality": "A cautious scout who chooses safer food routes and brings supplies home.",
+        "disposition": "cautious",
+        "activity": "gathering",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 2,
+        "experience": 0,
+        "carrying": 0,
+        "targetId": "north-grove",
+        "x": 9.59118136760729,
+        "y": 7.6006731331524895
+      },
+      {
+        "id": "bram",
+        "name": "Bram",
+        "role": "collector",
+        "health": 85,
+        "maxHealth": 85,
+        "hunger": 94.77862999999991,
+        "stamina": 97.87383999999703,
+        "alive": true,
+        "action": "forage_bold",
+        "proposed": "forage_bold",
+        "personality": "A lazy forager who likes short trips, full baskets, and a long lunch once the pantry is stocked.",
+        "disposition": "leisurely",
+        "activity": "walking",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 2,
+        "experience": 0,
+        "carrying": 0,
+        "targetId": "wild-grove",
+        "x": 23.97680499570576,
+        "y": 10.305508298374292
+      },
+      {
+        "id": "aldric",
+        "name": "Aldric",
+        "role": "fighter",
+        "health": 130,
+        "maxHealth": 130,
+        "hunger": 94.77862999999991,
+        "stamina": 96.64763499999538,
+        "alive": true,
+        "action": "train",
+        "proposed": "relax",
+        "personality": "A protective veteran who puts threatened villagers and buildings before personal glory.",
+        "disposition": "protective",
+        "activity": "training",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 11.487992000000114,
+        "experience": 8.133200000001914,
+        "carrying": 0,
+        "targetId": "training",
+        "x": 15.041593139022728,
+        "y": 24.567361983278676
+      },
+      {
+        "id": "sable",
+        "name": "Sable",
+        "role": "fighter",
+        "health": 130,
+        "maxHealth": 130,
+        "hunger": 94.77862999999991,
+        "stamina": 96.64763499999538,
+        "alive": true,
+        "action": "train",
+        "proposed": "relax",
+        "personality": "An ambitious fighter who loves training for stronger attacks but answers real calls for help.",
+        "disposition": "ambitious",
+        "activity": "training",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 11.487992000000114,
+        "experience": 8.133200000001914,
+        "carrying": 0,
+        "targetId": "training",
+        "x": 16.95840686097728,
+        "y": 24.567361983278676
+      },
+      {
+        "id": "tomas",
+        "name": "Tomas",
+        "role": "builder",
+        "health": 85,
+        "maxHealth": 85,
+        "hunger": 94.77862999999991,
+        "stamina": 96.64763499999538,
+        "alive": true,
+        "action": "build",
+        "proposed": "relax",
+        "personality": "An industrious architect who repairs the hall and builds a strong ring of defenses.",
+        "disposition": "industrious",
+        "activity": "building",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 2,
+        "experience": 13.71407142857142,
+        "carrying": 0,
+        "targetId": "tower-1",
+        "x": 11.551884707405277,
+        "y": 17.631682372701526
+      },
+      {
+        "id": "nell",
+        "name": "Nell",
+        "role": "builder",
+        "health": 85,
+        "maxHealth": 85,
+        "hunger": 94.77862999999991,
+        "stamina": 96.64763499999538,
+        "alive": true,
+        "action": "build",
+        "proposed": "relax",
+        "personality": "A medic and builder who spends food to heal wounded friends before expanding the settlement.",
+        "disposition": "compassionate",
+        "activity": "building",
+        "needsOverride": null,
+        "autoTargetId": null,
+        "strength": 2,
+        "experience": 12.571285714285724,
+        "carrying": 0,
+        "targetId": "tower-2",
+        "x": 21.482241996939393,
+        "y": 17.690931277637006
+      }
+    ],
+    "orcs": 0,
+    "summary": {
+      "time": 7.5,
+      "alive": 6,
+      "total": 6,
+      "food": 6,
+      "wave": 0,
+      "kills": 0,
+      "gathered": 0,
+      "automatic_meals": 0,
+      "treatments": 0,
+      "ticks": 6,
+      "decisions": 6,
+      "orcs": 0,
+      "hall_health": 420,
+      "game_over": false,
+      "end_reason": null
+    },
+    "buildings": [
+      {
+        "id": "hall",
+        "health": 420,
+        "maxHealth": 420,
+        "progress": 1
+      },
+      {
+        "id": "west-house",
+        "health": 170,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "east-house",
+        "health": 170,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "west-wall",
+        "health": 160,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "east-wall",
+        "health": 160,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "tower-1",
+        "health": 34.285178571428716,
+        "maxHealth": 150,
+        "progress": 0.2285678571428582
+      },
+      {
+        "id": "tower-2",
+        "health": 31.428214285714397,
+        "maxHealth": 150,
+        "progress": 0.2095214285714296
+      },
+      {
+        "id": "tower-3",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-4",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      }
+    ],
+    "lastResult": {
+      "type": "decision",
+      "parsed_json": {
+        "bram": "forage_bold"
+      },
+      "fields": {
+        "bram": {
+          "value": "forage_bold",
+          "probabilities": [0.3113434278366478, 0.6886565721633522],
+          "logits": [23.840251922607422, 24.634098052978516],
+          "options": ["forage_safe", "forage_bold"]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 6,
+      "epoch": 2,
+      "unitId": "bram",
+      "testOnly": false,
+      "elapsed_ms": 851.5,
+      "prefill_chunk_tokens": 32,
+      "prefill_chunks": 13,
+      "cache": {
+        "input_tokens": 604,
+        "processed_tokens": 396,
+        "cached_prefix_tokens": 208,
+        "forward_calls": 13,
+        "yield_ms": 192,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "forward_calls": 13,
+      "prompt_tokens": 604,
+      "scheduling": "round-robin",
+      "usage": {
+        "input_tokens": 604,
+        "processed_tokens": 396,
+        "cached_prefix_tokens": 208,
+        "forward_calls": 13,
+        "yield_ms": 192,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state",
+        "prompt_tokens": 604
+      }
+    },
+    "roundTripMs": 854.6999999880791,
+    "metrics": {
+      "decisions_per_second": 0,
+      "rounds_per_second": 0,
+      "total_decisions": 6,
+      "completed_rounds": 3,
+      "mean_latency_ms": 991.633333325386,
+      "window_seconds": 7.461800000011921
+    },
+    "selectedContext": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "level": 1,
+        "experience": 0,
+        "health": 85,
+        "max_health": 85,
+        "hunger": 95,
+        "stamina": 98,
+        "break_threshold": 45,
+        "rest_until": 95,
+        "starves_in_seconds": 135,
+        "home_walk_seconds": 8,
+        "action": "forage_bold",
+        "personality": "A cautious scout who chooses safer food routes and brings supplies home.",
+        "needs_override": null,
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "available_actions": ["forage_safe", "forage_bold"],
+      "rest_available_reason": null,
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "north-grove",
+          "distance": 0.8,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 15
+        },
+        {
+          "id": "west-garden",
+          "distance": 9.7,
+          "bearing": "S",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "wild-grove",
+          "distance": 15.5,
+          "bearing": "E",
+          "food": 44,
+          "risk": "low",
+          "safe_round_trip_seconds": 25
+        }
+      ]
+    },
+    "policies": {
+      "collector": "Keep the pantry stocked. Choose safe foraging when enemies threaten the routes; choose bold foraging when supplies run low and routes are clear. A full basket returns home automatically. Take a break when stamina is low or you need recovery; a fully rested healthy villager has no useful reason to relax. The visible automatic-needs rule gets food when your hunger is low; your decision controls the longer-term job, not each meal.",
+      "fighter": "Protect the settlement. Defend when orcs threaten villagers or buildings; attacking draws their aggression onto you. Train between attacks to permanently increase strength. Relax when badly injured or low on stamina, then return to the available work. Visible automatic-needs behavior handles urgent meals, then resumes your chosen job. Do not keep training through an attack on a friend.",
+      "builder": "Keep buildings and villagers alive. Repair a damaged hall before it falls; repair other damaged defenses as needed. Heal wounded allies when food is available: each treatment spends one food for up to twenty health. Build towers when repairs and healing are not urgent. Relax to recover from serious injury or low stamina; once rested, return to available work. Visible automatic-needs behavior handles urgent meals; it does not count as a model decision."
+    }
+  }
+}

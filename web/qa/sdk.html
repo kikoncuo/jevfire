@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <title>JEVfire SDK validation</title>
+  </head>
+  <body>
+    <h1>Browser SDK validation</h1>
+    <pre id="status">Starting real model…</pre>
+    <script type="module">
+      const worker = new Worker(
+        new URL('./sdk-model.worker.js', import.meta.url),
+        { type: 'module' },
+      );
+      window.sdkEvents = [];
+      worker.onmessage = ({ data }) => {
+        window.sdkEvents.push(data);
+        document.querySelector('#status').textContent = JSON.stringify(
+          data,
+          null,
+          2,
+        );
+        if (data.type === 'report') window.sdkReport = data;
+        if (data.type === 'error') window.sdkError = data;
+      };
+      worker.postMessage({ type: 'run' });
+    </script>
+  </body>
+</html>

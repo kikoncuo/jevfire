@@ -114,10 +114,14 @@ Primary sources: the original
 and [PyTorch engine](https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD/blob/2af86848be75847ccb3553b0941cc51d6ef7e4e9/core/engine_torch.py).
 [Attribution and licenses](../THIRD_PARTY_NOTICES.md) explain the relationship.
 
-## The browser demo
+## The browser demos
 
-Last Hearth applies the finite-choice idea through WebLLM/WebGPU. It currently
-scores actors sequentially, with a fresh prompt for each decision, and does not
-implement the server's shared-prefix cache reuse. Cached downloaded model files
-are distinct from reusable prompt state. The CUDA/vLLM benchmark speedups do not
-describe this browser path. See the [browser implementation](../web/README.md).
+Last Hearth, Slipstream and World 1-1 apply the finite-choice idea through
+WebLLM/WebGPU. The browser SDK caches exact instruction prefixes across actor
+updates and can restore one shared context for multiple independent field
+suffixes. It preserves both attention KV state and Qwen3.5 recurrent state.
+The pinned WebLLM build executes these suffixes sequentially, not as a physical
+multi-sequence GPU batch. Downloaded model caching and prompt-state caching are
+different mechanisms. The server's CUDA benchmark does not describe browser
+performance. See the [browser SDK](browser-sdk.md), [World 1-1](mario-demo.md)
+and [browser implementation](../web/README.md).

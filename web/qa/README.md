@@ -398,3 +398,36 @@ code and artifacts. All **85 CPU tests**, formatting and the production build
 passed. The full race preceded only the final Back/forward-cache lifecycle guard;
 its physics, inference prompt and shipped driver policies are unchanged in the
 release. UI and navigation were tested again after that guard was added.
+
+## World 1-1 and fleet scheduling
+
+The new SDK and Mario integration are described in [browser-sdk.md](../../docs/browser-sdk.md)
+and [mario-demo.md](../../docs/mario-demo.md). `mario-check.js` uses actual keyboard
+controls, verifies scripted course completion and mobile width, compares five
+paired cache-disabled/shared-context requests on real Qwen, and records actual
+model play. [Raw result](mario-check-result.json): 1,478→541 ms mean three-field
+latency, all 15 assignments equal; the scripted run clears, the first Qwen run dies
+at the first Goomba. The measurements establish cache savings, not strong gameplay.
+
+`driving-quality.js` tests cache/chunk behavior on fixed driving observations with
+an explicit acceptable-action rubric. `driving-race-quality.js` runs a complete
+live race through normal controls and records authoritative outcomes, observation
+age, accepted/scored rates, sampling coverage and frame statistics. These checks
+separate frozen-input quality from the effects of changed action timing.
+
+The final [driving quality study](../../docs/driving-quality.md) links every
+condition and limitation. [Machine-readable comparison](driving-quality-comparison.json)
+combines the prior release, rejected candidate and final implementation. Rebuild
+that summary with `python3 qa/summarize-driving-quality.py` from `web/`.
+Raw race files are losslessly gzip-compressed JSON; `gzip -dc` reads them.
+`fleet-stream-check.js` additionally verifies that the first result is applied
+before the fleet finishes, pausing discards the remaining choices, and resetting
+clears counters. [Real-model streaming check](fleet-stream-result.json).
+
+Final production smoke checks in [final-regression-result.json](final-regression-result.json)
+cover keyboard movement and jump after resume, Mario and village layouts at
+390 px, and six accepted real-model village decisions with the shared worker.
+No page errors were observed. The final worker SHA-256 is
+`c565357429924f047d5925b46c46e3611fd68d7a5066f4978411b92e09854476`.
+All 135 browser CPU tests, formatting and the production build passed; 42 Python
+tests passed and seven opt-in CUDA integration tests were skipped.

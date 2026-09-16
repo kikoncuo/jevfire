@@ -1,0 +1,222 @@
+{
+  "tested_at": "2026-09-16T21:38:13.068Z",
+  "ready": {
+    "type": "ready",
+    "sdk_backend": "webllm-0.2.85-forked-state",
+    "prefix_cache_slots": 6,
+    "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+    "revision": "0ec138972555613c1d7812a821778ad0398c8790",
+    "runtime": "WebLLM 0.2.85",
+    "label_ids": {
+      "collector": [32, 33, 34],
+      "fighter": [32, 33, 34],
+      "builder": [32, 33, 34, 35],
+      "driving": [32, 33, 34, 35, 36, 37, 38, 39, 40]
+    },
+    "driving_semantic_labels": {
+      "accelerate": "Fast",
+      "brake": "Slow",
+      "hold": "Stay",
+      "left": "Left",
+      "right": "Right",
+      "boost": "Boost",
+      "risky_left": "Risk",
+      "risky_right": "Cut",
+      "pit": "Repair"
+    }
+  },
+  "decisions": [
+    {
+      "scenario": "village",
+      "unitId": "mira",
+      "cold_ms": 1224.800000011921,
+      "warm_ms": 827.8999999761581,
+      "cache": {
+        "input_tokens": 600,
+        "processed_tokens": 424,
+        "cached_prefix_tokens": 176,
+        "forward_calls": 14,
+        "yield_ms": 208,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "mira": "forage_safe"
+      }
+    },
+    {
+      "scenario": "village",
+      "unitId": "bram",
+      "cold_ms": 1172,
+      "warm_ms": 813.2000000476837,
+      "cache": {
+        "input_tokens": 625,
+        "processed_tokens": 417,
+        "cached_prefix_tokens": 208,
+        "forward_calls": 14,
+        "yield_ms": 208,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "bram": "forage_bold"
+      }
+    },
+    {
+      "scenario": "village",
+      "unitId": "aldric",
+      "cold_ms": 937,
+      "warm_ms": 717.6000000238419,
+      "cache": {
+        "input_tokens": 497,
+        "processed_tokens": 337,
+        "cached_prefix_tokens": 160,
+        "forward_calls": 11,
+        "yield_ms": 160,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "aldric": "defend"
+      }
+    },
+    {
+      "scenario": "village",
+      "unitId": "sable",
+      "cold_ms": 1170.9000000357628,
+      "warm_ms": 667.6999999880791,
+      "cache": {
+        "input_tokens": 499,
+        "processed_tokens": 323,
+        "cached_prefix_tokens": 176,
+        "forward_calls": 11,
+        "yield_ms": 160,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "sable": "defend"
+      }
+    },
+    {
+      "scenario": "village",
+      "unitId": "tomas",
+      "cold_ms": 1136.1000000238419,
+      "warm_ms": 694.6999999880791,
+      "cache": {
+        "input_tokens": 533,
+        "processed_tokens": 341,
+        "cached_prefix_tokens": 192,
+        "forward_calls": 11,
+        "yield_ms": 160,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "tomas": "relax"
+      }
+    },
+    {
+      "scenario": "village",
+      "unitId": "nell",
+      "cold_ms": 1439,
+      "warm_ms": 867.1000000238419,
+      "cache": {
+        "input_tokens": 535,
+        "processed_tokens": 343,
+        "cached_prefix_tokens": 192,
+        "forward_calls": 11,
+        "yield_ms": 160,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "nell": "relax"
+      }
+    },
+    {
+      "scenario": "driving",
+      "unitId": "nova",
+      "cold_ms": 1306.6000000238419,
+      "warm_ms": 1498.7000000476837,
+      "cache": {
+        "input_tokens": 583,
+        "processed_tokens": 503,
+        "cached_prefix_tokens": 80,
+        "forward_calls": 16,
+        "yield_ms": 240,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "nova": "boost"
+      }
+    },
+    {
+      "scenario": "driving",
+      "unitId": "atlas",
+      "cold_ms": 1618.300000011921,
+      "warm_ms": 1090.699999988079,
+      "cache": {
+        "input_tokens": 608,
+        "processed_tokens": 528,
+        "cached_prefix_tokens": 80,
+        "forward_calls": 17,
+        "yield_ms": 256,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "atlas": "boost"
+      }
+    },
+    {
+      "scenario": "driving",
+      "unitId": "juno",
+      "cold_ms": 1266.699999988079,
+      "warm_ms": 1108.8999999761581,
+      "cache": {
+        "input_tokens": 596,
+        "processed_tokens": 500,
+        "cached_prefix_tokens": 96,
+        "forward_calls": 16,
+        "yield_ms": 240,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "juno": "hold"
+      }
+    },
+    {
+      "scenario": "driving",
+      "unitId": "milo",
+      "cold_ms": 1238.3999999761581,
+      "warm_ms": 963.6000000238419,
+      "cache": {
+        "input_tokens": 570,
+        "processed_tokens": 474,
+        "cached_prefix_tokens": 96,
+        "forward_calls": 15,
+        "yield_ms": 224,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "parsed_json": {
+        "milo": "boost"
+      }
+    }
+  ],
+  "prompt_edit_and_probe_reset": true,
+  "passed": true
+}

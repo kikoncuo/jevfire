@@ -1250,3 +1250,17 @@ footer {
     width: 60px;
   }
 }
+
+.card-rate {
+  display: block;
+  font: 10px var(--mono);
+  color: var(--muted);
+  margin-top: 7px;
+}
+.timing-note {
+  margin: 0;
+  padding: 9px 10px;
+  background: #e3e6db;
+  color: #535b4d;
+  font: 10px/1.5 var(--mono);
+}

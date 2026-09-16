@@ -1,0 +1,2240 @@
+{
+  "source_release": "f2ce8867a1b329d19b3cc228af152c9fafdc2028",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+  "runtime": "WebLLM 0.2.85",
+  "environment": {
+    "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "hardwareConcurrency": 16,
+    "url": "http://127.0.0.1:4173/driving.html"
+  },
+  "note": "12 handcrafted scenes repeated twice and two paired race seeds; not an external policy benchmark or statistical proof of equivalent driving.",
+  "fixed_scenes": {
+    "scenes": 12,
+    "repeats": 2,
+    "same_prompt_cache_chunk_summary": {
+      "scene_count": 12,
+      "paired_comparisons": 24,
+      "agreement": 23,
+      "agreement_rate": 0.9583333333333334,
+      "regressions": 0,
+      "improvements": 0,
+      "median_paired_scorer_speedup": 1.999324889227116,
+      "modes": {
+        "baseline": {
+          "calls": 24,
+          "accepted": 4,
+          "rubric_accuracy": 0.16666666666666666,
+          "median_scorer_ms": 1232.949999988079,
+          "median_wall_ms": 1270,
+          "cache_hits": 0,
+          "input_tokens": 14096,
+          "processed_tokens": 14096,
+          "cached_prefix_tokens": 0,
+          "forward_calls": 456
+        },
+        "optimized": {
+          "calls": 24,
+          "accepted": 4,
+          "rubric_accuracy": 0.16666666666666666,
+          "median_scorer_ms": 619.5,
+          "median_wall_ms": 643,
+          "cache_hits": 14,
+          "input_tokens": 14096,
+          "processed_tokens": 12784,
+          "cached_prefix_tokens": 1312,
+          "forward_calls": 108
+        }
+      }
+    },
+    "published_release_summary": {
+      "scene_count": 12,
+      "calls": 24,
+      "accepted": 4,
+      "rubric_accuracy": 0.16666666666666666,
+      "scenes_accepted_every_repeat": 2,
+      "scenes_accepted_any_repeat": 2,
+      "median_scorer_ms": 1280.449999988079,
+      "median_wall_ms": 1285.5,
+      "input_tokens": 14096,
+      "forward_calls": 456
+    },
+    "published_vs_optimized_agreement": 24,
+    "comparisons": [
+      {
+        "scene": "dev-nova-clear-push",
+        "round": 0,
+        "expected": ["accelerate", "boost"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": true,
+        "optimized_accepted": true
+      },
+      {
+        "scene": "dev-atlas-wet-corner",
+        "round": 0,
+        "expected": ["brake"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-juno-steady-band",
+        "round": 0,
+        "expected": ["hold"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-milo-clear-slow",
+        "round": 0,
+        "expected": ["brake"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-nova-blocked-left",
+        "round": 0,
+        "expected": ["left", "risky_left"],
+        "legacy": "boost",
+        "optimized": "boost",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-atlas-repair",
+        "round": 0,
+        "expected": ["pit"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": true,
+        "optimized_accepted": true
+      },
+      {
+        "scene": "heldout-juno-scarce-boost",
+        "round": 0,
+        "expected": ["hold"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-milo-final-boost",
+        "round": 0,
+        "expected": ["boost"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-nova-right-pass",
+        "round": 0,
+        "expected": ["right", "risky_right"],
+        "legacy": "boost",
+        "optimized": "boost",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-atlas-damage-threshold",
+        "round": 0,
+        "expected": ["pit"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-juno-fast-rear",
+        "round": 0,
+        "expected": ["brake"],
+        "legacy": "hold",
+        "optimized": "hold",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-milo-wet-boundary",
+        "round": 0,
+        "expected": ["brake"],
+        "legacy": "hold",
+        "optimized": "hold",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-milo-wet-boundary",
+        "round": 1,
+        "expected": ["brake"],
+        "legacy": "hold",
+        "optimized": "hold",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-juno-fast-rear",
+        "round": 1,
+        "expected": ["brake"],
+        "legacy": "hold",
+        "optimized": "hold",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-atlas-damage-threshold",
+        "round": 1,
+        "expected": ["pit"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-nova-right-pass",
+        "round": 1,
+        "expected": ["right", "risky_right"],
+        "legacy": "boost",
+        "optimized": "boost",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-milo-final-boost",
+        "round": 1,
+        "expected": ["boost"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "heldout-juno-scarce-boost",
+        "round": 1,
+        "expected": ["hold"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-atlas-repair",
+        "round": 1,
+        "expected": ["pit"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": true,
+        "optimized_accepted": true
+      },
+      {
+        "scene": "dev-nova-blocked-left",
+        "round": 1,
+        "expected": ["left", "risky_left"],
+        "legacy": "boost",
+        "optimized": "boost",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-milo-clear-slow",
+        "round": 1,
+        "expected": ["brake"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-juno-steady-band",
+        "round": 1,
+        "expected": ["hold"],
+        "legacy": "pit",
+        "optimized": "pit",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-atlas-wet-corner",
+        "round": 1,
+        "expected": ["brake"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": false,
+        "optimized_accepted": false
+      },
+      {
+        "scene": "dev-nova-clear-push",
+        "round": 1,
+        "expected": ["accelerate", "boost"],
+        "legacy": "accelerate",
+        "optimized": "accelerate",
+        "legacy_accepted": true,
+        "optimized_accepted": true
+      }
+    ],
+    "optimized_scorer_ms": {
+      "mean": 622.3958333283663,
+      "median": 619.5,
+      "count": 24
+    },
+    "legacy_scorer_ms": {
+      "mean": 1290.5500000019867,
+      "median": 1280.449999988079,
+      "count": 24
+    }
+  },
+  "races": [
+    {
+      "variant": "legacy",
+      "seed": 7,
+      "status": "complete",
+      "raw": "driving-race-legacy-7.json.gz",
+      "settings": {
+        "seed": 7,
+        "pace": "balanced",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 92.518,
+      "coverage": {
+        "accepted_decisions_authoritative": 58,
+        "captured_decision_details": 58,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 58,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 92.26666666666272,
+        "winner": "nova",
+        "winner_time_sim_seconds": 74.85854236736785,
+        "finishers": 4,
+        "dnfs": 0,
+        "contacts": 0,
+        "spins": 3,
+        "overtakes": 11,
+        "assists": 11,
+        "pit_stops": 2,
+        "discarded_decisions": 3,
+        "decisions_per_wall_second": 0.626905034695951,
+        "observation_age_sim_seconds": {
+          "count": 58,
+          "mean": 1.2600574712629873,
+          "median": 1.2499999999978755,
+          "p95": 1.4166666666669574,
+          "max": 1.466666666663528
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 58,
+          "mean": 1261.3068965488467,
+          "median": 1250.0999999642372,
+          "p95": 1431,
+          "max": 1439.8999999761581
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "observed_fps_snapshots": {
+          "count": 344,
+          "mean": 54.26615454705644,
+          "median": 54.2,
+          "p95": 55.8,
+          "max": 56.2
+        },
+        "worst_observed_frame_ms": 91.80000000000001,
+        "standings": [
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 74.85854236736785,
+            "damage": 0,
+            "tyres": 90.27078657572488,
+            "boostEnergy": 3.0878077872387166e-16
+          },
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 77.92392536876332,
+            "damage": 0,
+            "tyres": 90.97339017291971,
+            "boostEnergy": 3.0878077872387166e-16
+          },
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 82.52409899625522,
+            "damage": 0,
+            "tyres": 96.40679330345571,
+            "boostEnergy": 68.75000000000067
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 4,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 92.2593678781299,
+            "damage": 64,
+            "tyres": 78.71756078195943,
+            "boostEnergy": 3.0878077872387166e-16
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 74.85854236736785,
+            "terminal_first_observed_wall_seconds": 75.057,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 90.27078657572488,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 5,
+            "pit_stops": 0,
+            "assists": 4,
+            "observed_model_decisions": 16,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.17293931991612443,
+            "decisions_per_active_wall_second": 0.21317132312775625,
+            "action_counts": {
+              "boost": 4,
+              "risky_left": 6,
+              "risky_right": 5,
+              "accelerate": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 16,
+              "mean": 1.2447916666655325,
+              "median": 1.2333333333322898,
+              "p95": 1.4166666666668668,
+              "max": 1.4166666666668668
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 16,
+              "mean": 1244.3749999925494,
+              "median": 1247.8999999761581,
+              "p95": 1388.800000011921,
+              "max": 1388.800000011921
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 82.52409899625522,
+            "terminal_first_observed_wall_seconds": 82.694,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 96.40679330345571,
+            "boost_energy": 68.75000000000067,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 0,
+            "pit_stops": 1,
+            "assists": 3,
+            "observed_model_decisions": 13,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.1405131974318511,
+            "decisions_per_active_wall_second": 0.15720608508477035,
+            "action_counts": {
+              "boost": 5,
+              "accelerate": 5,
+              "pit": 1,
+              "hold": 1,
+              "brake": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 13,
+              "mean": 1.2820512820500913,
+              "median": 1.266666666665536,
+              "p95": 1.466666666663528,
+              "max": 1.466666666663528
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 13,
+              "mean": 1281.0307692381052,
+              "median": 1260.699999988079,
+              "p95": 1439.8999999761581,
+              "max": 1439.8999999761581
+            }
+          },
+          {
+            "id": "juno",
+            "position": 4,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 92.2593678781299,
+            "terminal_first_observed_wall_seconds": 92.509,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 64,
+            "tyres": 78.71756078195943,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 3,
+            "overtakes": 4,
+            "pit_stops": 1,
+            "assists": 0,
+            "observed_model_decisions": 15,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.16213061242136664,
+            "decisions_per_active_wall_second": 0.16214638575706147,
+            "action_counts": {
+              "hold": 5,
+              "boost": 8,
+              "accelerate": 1,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 15,
+              "mean": 1.2688888888869443,
+              "median": 1.2666666666648752,
+              "p95": 1.4499999999970328,
+              "max": 1.4499999999970328
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 15,
+              "mean": 1269.3066666603088,
+              "median": 1266.1000000238419,
+              "p95": 1431,
+              "max": 1431
+            }
+          },
+          {
+            "id": "milo",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 77.92392536876332,
+            "terminal_first_observed_wall_seconds": 78.103,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 90.97339017291971,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 2,
+            "pit_stops": 0,
+            "assists": 4,
+            "observed_model_decisions": 14,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.15132190492660888,
+            "decisions_per_active_wall_second": 0.1792504769343047,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "hold": 6
+            },
+            "observation_age_sim_seconds": {
+              "count": 14,
+              "mean": 1.2476190476178128,
+              "median": 1.233333333333471,
+              "p95": 1.3333333333336235,
+              "max": 1.3333333333336235
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 14,
+              "mean": 1253.7714285680227,
+              "median": 1241.800000011921,
+              "p95": 1329.6000000238419,
+              "max": 1329.6000000238419
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "legacy",
+      "seed": 19,
+      "status": "complete",
+      "raw": "driving-race-legacy-19.json.gz",
+      "settings": {
+        "seed": 19,
+        "pace": "balanced",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 81.472,
+      "coverage": {
+        "accepted_decisions_authoritative": 52,
+        "captured_decision_details": 52,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 52,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 81.28333333333,
+        "winner": "atlas",
+        "winner_time_sim_seconds": 74.50640775370218,
+        "finishers": 4,
+        "dnfs": 0,
+        "contacts": 0,
+        "spins": 1,
+        "overtakes": 8,
+        "assists": 13,
+        "pit_stops": 0,
+        "discarded_decisions": 2,
+        "decisions_per_wall_second": 0.638256087981147,
+        "observation_age_sim_seconds": {
+          "count": 52,
+          "mean": 1.2814102564091412,
+          "median": 1.283333333330674,
+          "p95": 1.4333333333334046,
+          "max": 1.4833333333323893
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 52,
+          "mean": 1273.1096153878248,
+          "median": 1274.6000000238419,
+          "p95": 1417.199999988079,
+          "max": 1431.199999988079
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 0,
+          "mean": null,
+          "median": null,
+          "p95": null,
+          "max": null
+        },
+        "observed_fps_snapshots": {
+          "count": 308,
+          "mean": 54.47142857142847,
+          "median": 54.6,
+          "p95": 55.6,
+          "max": 56
+        },
+        "worst_observed_frame_ms": 10.400000000023283,
+        "standings": [
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 74.50640775370218,
+            "damage": 0,
+            "tyres": 90.94888080172383,
+            "boostEnergy": 3.0878077872387166e-16
+          },
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 77.9239253687633,
+            "damage": 0,
+            "tyres": 91.28997560933144,
+            "boostEnergy": 3.0878077872387166e-16
+          },
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 78.79727662504719,
+            "damage": 0,
+            "tyres": 91.32580669241578,
+            "boostEnergy": 3.0878077872387166e-16
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 4,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 81.28135258857037,
+            "damage": 51.67518538039071,
+            "tyres": 74.54281052578405,
+            "boostEnergy": 3.0878077872387166e-16
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 78.79727662504719,
+            "terminal_first_observed_wall_seconds": 79.025,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 91.32580669241578,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 3,
+            "pit_stops": 0,
+            "assists": 6,
+            "observed_model_decisions": 16,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.1963864886095837,
+            "decisions_per_active_wall_second": 0.2024675735526732,
+            "action_counts": {
+              "boost": 4,
+              "risky_left": 6,
+              "risky_right": 6
+            },
+            "observation_age_sim_seconds": {
+              "count": 16,
+              "mean": 1.2395833333320645,
+              "median": 1.2166666666638406,
+              "p95": 1.4166666666668277,
+              "max": 1.4166666666668277
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 16,
+              "mean": 1231.0624999925494,
+              "median": 1208.199999988079,
+              "p95": 1431.199999988079,
+              "max": 1431.199999988079
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 74.50640775370218,
+            "terminal_first_observed_wall_seconds": 74.747,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 90.94888080172383,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 1,
+            "pit_stops": 0,
+            "assists": 2,
+            "observed_model_decisions": 9,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.11046739984289082,
+            "decisions_per_active_wall_second": 0.12040617014729688,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 9,
+              "mean": 1.3240740740736459,
+              "median": 1.3499999999991488,
+              "p95": 1.4333333333334046,
+              "max": 1.4333333333334046
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 9,
+              "mean": 1324.9444444444443,
+              "median": 1349.4000000357628,
+              "p95": 1417.199999988079,
+              "max": 1417.199999988079
+            }
+          },
+          {
+            "id": "juno",
+            "position": 4,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 81.28135258857037,
+            "terminal_first_observed_wall_seconds": 81.463,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 51.67518538039071,
+            "tyres": 74.54281052578405,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 1,
+            "overtakes": 2,
+            "pit_stops": 0,
+            "assists": 1,
+            "observed_model_decisions": 13,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.15956402199528674,
+            "decisions_per_active_wall_second": 0.1595816505652873,
+            "action_counts": {
+              "hold": 7,
+              "boost": 4,
+              "accelerate": 1,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 13,
+              "mean": 1.28333333333207,
+              "median": 1.283333333330674,
+              "p95": 1.4833333333323893,
+              "max": 1.4833333333323893
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 13,
+              "mean": 1267.6461538626597,
+              "median": 1265.1000000238419,
+              "p95": 1429.1000000238419,
+              "max": 1429.1000000238419
+            }
+          },
+          {
+            "id": "milo",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 77.9239253687633,
+            "terminal_first_observed_wall_seconds": 77.98,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 91.28997560933144,
+            "boost_energy": 3.0878077872387166e-16,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 2,
+            "pit_stops": 0,
+            "assists": 4,
+            "observed_model_decisions": 14,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.1718381775333857,
+            "decisions_per_active_wall_second": 0.17953321364452424,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "hold": 6
+            },
+            "observation_age_sim_seconds": {
+              "count": 14,
+              "mean": 1.299999999998758,
+              "median": 1.299999999998974,
+              "p95": 1.449999999997992,
+              "max": 1.449999999997992
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 14,
+              "mean": 1292.9142857193947,
+              "median": 1286.300000011921,
+              "p95": 1410.2999999523163,
+              "max": 1410.2999999523163
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 7,
+      "status": "complete",
+      "raw": "driving-race-candidate-7.json.gz",
+      "settings": {
+        "seed": 7,
+        "pace": "fast",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 99.843,
+      "coverage": {
+        "accepted_decisions_authoritative": 124,
+        "captured_decision_details": 124,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 124,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 99.59999999999563,
+        "winner": "milo",
+        "winner_time_sim_seconds": 77.9239253687633,
+        "finishers": 4,
+        "dnfs": 0,
+        "contacts": 2,
+        "spins": 1,
+        "overtakes": 12,
+        "assists": 12,
+        "pit_stops": 4,
+        "discarded_decisions": 2,
+        "decisions_per_wall_second": 1.241949861282213,
+        "observation_age_sim_seconds": {
+          "count": 124,
+          "mean": 1.142876344084869,
+          "median": 0.766666666666449,
+          "p95": 2.833333333333328,
+          "max": 2.966666666666657
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 124,
+          "mean": 621.9072580625934,
+          "median": 588.1999999880791,
+          "p95": 775,
+          "max": 836
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 90,
+          "mean": 876.4122222238117,
+          "median": 636.3000000119209,
+          "p95": 2109.2999999523163,
+          "max": 2902.300000011921
+        },
+        "observed_fps_snapshots": {
+          "count": 375,
+          "mean": 52.69574302624265,
+          "median": 52.8,
+          "p95": 54.6,
+          "max": 55.418719211973325
+        },
+        "worst_observed_frame_ms": 100,
+        "standings": [
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 77.9239253687633,
+            "damage": 0,
+            "tyres": 91.45061460516303,
+            "boostEnergy": 6.25000000000038
+          },
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 82.20903599486027,
+            "damage": 0,
+            "tyres": 96.79284068539755,
+            "boostEnergy": 68.75000000000067
+          },
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 85.79958652408416,
+            "damage": 44.74949481858901,
+            "tyres": 93.70521020777893,
+            "boostEnergy": 37.50000000000042
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 4,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 99.59685872685095,
+            "damage": 0,
+            "tyres": 98.26384214106112,
+            "boostEnergy": 100
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 85.79958652408416,
+            "terminal_first_observed_wall_seconds": 85.954,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 44.74949481858901,
+            "tyres": 93.70521020777893,
+            "boost_energy": 37.50000000000042,
+            "contacts": 1,
+            "spins": 0,
+            "overtakes": 4,
+            "pit_stops": 1,
+            "assists": 5,
+            "observed_model_decisions": 10,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.10015724687759782,
+            "decisions_per_active_wall_second": 0.1163412988342602,
+            "action_counts": {
+              "boost": 3,
+              "risky_left": 3,
+              "pit": 2,
+              "accelerate": 2
+            },
+            "observation_age_sim_seconds": {
+              "count": 10,
+              "mean": 1.7783333333322766,
+              "median": 1.2499999999984865,
+              "p95": 2.966666666666657,
+              "max": 2.966666666666657
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 10,
+              "mean": 628.2199999988079,
+              "median": 586.5,
+              "p95": 755.6999999880791,
+              "max": 755.6999999880791
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 82.20903599486027,
+            "terminal_first_observed_wall_seconds": 82.494,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 96.79284068539755,
+            "boost_energy": 68.75000000000067,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 3,
+            "pit_stops": 1,
+            "assists": 2,
+            "observed_model_decisions": 13,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.13020442094087717,
+            "decisions_per_active_wall_second": 0.15758721846437318,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 6,
+              "pit": 2,
+              "brake": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 13,
+              "mean": 1.7858974358965356,
+              "median": 1.6666666666670356,
+              "p95": 2.966666666666657,
+              "max": 2.966666666666657
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 13,
+              "mean": 663.3307692316862,
+              "median": 660.6000000238419,
+              "p95": 836,
+              "max": 836
+            }
+          },
+          {
+            "id": "juno",
+            "position": 4,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 99.59685872685095,
+            "terminal_first_observed_wall_seconds": 99.832,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 98.26384214106112,
+            "boost_energy": 100,
+            "contacts": 1,
+            "spins": 1,
+            "overtakes": 3,
+            "pit_stops": 2,
+            "assists": 2,
+            "observed_model_decisions": 13,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.13020442094087717,
+            "decisions_per_active_wall_second": 0.1302187675294495,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "pit": 3,
+              "risky_left": 1,
+              "hold": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 13,
+              "mean": 1.8230769230762365,
+              "median": 1.9500000000002924,
+              "p95": 2.966666666666657,
+              "max": 2.966666666666657
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 13,
+              "mean": 675.2692307600609,
+              "median": 673.8999999761581,
+              "p95": 770.3999999761581,
+              "max": 770.3999999761581
+            }
+          },
+          {
+            "id": "milo",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 77.9239253687633,
+            "terminal_first_observed_wall_seconds": 77.981,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 91.45061460516303,
+            "boost_energy": 6.25000000000038,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 2,
+            "pit_stops": 0,
+            "assists": 3,
+            "observed_model_decisions": 88,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.8813837725228608,
+            "decisions_per_active_wall_second": 1.128480014362473,
+            "action_counts": {
+              "boost": 3,
+              "accelerate": 4,
+              "hold": 81
+            },
+            "observation_age_sim_seconds": {
+              "count": 88,
+              "mean": 0.8751893939381238,
+              "median": 0.6333333333310733,
+              "p95": 2.066666666665377,
+              "max": 2.966666666666657
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 88,
+              "mean": 607.1874999986453,
+              "median": 578,
+              "p95": 775,
+              "max": 814.9000000357628
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "candidate",
+      "seed": 19,
+      "status": "complete",
+      "raw": "driving-race-candidate-19.json.gz",
+      "settings": {
+        "seed": 19,
+        "pace": "fast",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 101.33,
+      "coverage": {
+        "accepted_decisions_authoritative": 96,
+        "captured_decision_details": 96,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 96,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 101.08333333332888,
+        "winner": "milo",
+        "winner_time_sim_seconds": 82.69824542591157,
+        "finishers": 4,
+        "dnfs": 0,
+        "contacts": 1,
+        "spins": 4,
+        "overtakes": 12,
+        "assists": 10,
+        "pit_stops": 6,
+        "discarded_decisions": 5,
+        "decisions_per_wall_second": 0.9473995855126813,
+        "observation_age_sim_seconds": {
+          "count": 96,
+          "mean": 1.1715277777763689,
+          "median": 0.7666666666661328,
+          "p95": 2.4999999999999787,
+          "max": 2.716666666666654
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 96,
+          "mean": 624.8666666653007,
+          "median": 644.6000000238419,
+          "p95": 787.6000000238419,
+          "max": 824.5
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 70,
+          "mean": 883.012857143368,
+          "median": 690,
+          "p95": 2259.100000023842,
+          "max": 2741.300000011921
+        },
+        "observed_fps_snapshots": {
+          "count": 381,
+          "mean": 52.95234866207587,
+          "median": 52.8,
+          "p95": 54.8,
+          "max": 56.4
+        },
+        "worst_observed_frame_ms": 91.80000000000001,
+        "standings": [
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 82.69824542591157,
+            "damage": 45.62406989041588,
+            "tyres": 81.3913134156493,
+            "boostEnergy": 68.75000000000067
+          },
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 85.40503312186647,
+            "damage": 0,
+            "tyres": 97.00656045705327,
+            "boostEnergy": 68.75000000000067
+          },
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 94.80536064414494,
+            "damage": 41.77362143757628,
+            "tyres": 80.40166056923637,
+            "boostEnergy": 31.04166666666708
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 4,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 101.07283900393243,
+            "damage": 0,
+            "tyres": 98.18323975651406,
+            "boostEnergy": 100
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 94.80536064414494,
+            "terminal_first_observed_wall_seconds": 94.919,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 41.77362143757628,
+            "tyres": 80.40166056923637,
+            "boost_energy": 31.04166666666708,
+            "contacts": 1,
+            "spins": 1,
+            "overtakes": 4,
+            "pit_stops": 2,
+            "assists": 4,
+            "observed_model_decisions": 33,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.3256686075199842,
+            "decisions_per_active_wall_second": 0.34766485108355544,
+            "action_counts": {
+              "boost": 5,
+              "risky_left": 6,
+              "pit": 3,
+              "accelerate": 4,
+              "hold": 14,
+              "risky_right": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 33,
+              "mean": 0.8580808080785303,
+              "median": 0.683333333331781,
+              "p95": 2.4999999999999787,
+              "max": 2.716666666666654
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 33,
+              "mean": 573.68787879113,
+              "median": 606.1999999880791,
+              "p95": 758.8999999761581,
+              "max": 772.8999999761581
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 85.40503312186647,
+            "terminal_first_observed_wall_seconds": 85.582,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 97.00656045705327,
+            "boost_energy": 68.75000000000067,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 1,
+            "pit_stops": 1,
+            "assists": 4,
+            "observed_model_decisions": 10,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.09868745682423764,
+            "decisions_per_active_wall_second": 0.1168470005374962,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "pit": 2
+            },
+            "observation_age_sim_seconds": {
+              "count": 10,
+              "mean": 2.0283333333326476,
+              "median": 2.0833333333336075,
+              "p95": 2.716666666666654,
+              "max": 2.716666666666654
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 10,
+              "mean": 683.519999986887,
+              "median": 652.3999999761581,
+              "p95": 816.8999999761581,
+              "max": 816.8999999761581
+            }
+          },
+          {
+            "id": "juno",
+            "position": 4,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 101.07283900393243,
+            "terminal_first_observed_wall_seconds": 101.321,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 98.18323975651406,
+            "boost_energy": 100,
+            "contacts": 0,
+            "spins": 1,
+            "overtakes": 3,
+            "pit_stops": 2,
+            "assists": 0,
+            "observed_model_decisions": 10,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.09868745682423764,
+            "decisions_per_active_wall_second": 0.09869622289554979,
+            "action_counts": {
+              "boost": 3,
+              "accelerate": 4,
+              "pit": 3
+            },
+            "observation_age_sim_seconds": {
+              "count": 10,
+              "mean": 1.8883333333329673,
+              "median": 2.066666666666727,
+              "p95": 2.716666666666654,
+              "max": 2.716666666666654
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 10,
+              "mean": 649.1,
+              "median": 677,
+              "p95": 748.9000000357628,
+              "max": 748.9000000357628
+            }
+          },
+          {
+            "id": "milo",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 82.69824542591157,
+            "terminal_first_observed_wall_seconds": 82.91,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 45.62406989041588,
+            "tyres": 81.3913134156493,
+            "boost_energy": 68.75000000000067,
+            "contacts": 0,
+            "spins": 2,
+            "overtakes": 4,
+            "pit_stops": 1,
+            "assists": 2,
+            "observed_model_decisions": 43,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.42435606434422185,
+            "decisions_per_active_wall_second": 0.5186346640935955,
+            "action_counts": {
+              "boost": 6,
+              "accelerate": 12,
+              "hold": 19,
+              "risky_right": 1,
+              "brake": 4,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 43,
+              "mean": 1.0461240310065998,
+              "median": 0.7499999999996128,
+              "p95": 2.3833333333333298,
+              "max": 2.716666666666654
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 43,
+              "mean": 644.86744185797,
+              "median": 659.5999999642372,
+              "p95": 792,
+              "max": 824.5
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "optimized",
+      "seed": 7,
+      "status": "complete",
+      "raw": "driving-race-optimized-7.json.gz",
+      "settings": {
+        "seed": 7,
+        "pace": "fast",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 99.86,
+      "coverage": {
+        "accepted_decisions_authoritative": 102,
+        "captured_decision_details": 102,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 102,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 99.59999999999563,
+        "winner": "atlas",
+        "winner_time_sim_seconds": 87.10206386690392,
+        "finishers": 4,
+        "dnfs": 0,
+        "contacts": 0,
+        "spins": 3,
+        "overtakes": 19,
+        "assists": 15,
+        "pit_stops": 6,
+        "discarded_decisions": 4,
+        "decisions_per_wall_second": 1.021430002002804,
+        "observation_age_sim_seconds": {
+          "count": 102,
+          "mean": 0.9964052287566204,
+          "median": 0.7166666666666508,
+          "p95": 2.3333333333336608,
+          "max": 2.9666666666666517
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 102,
+          "mean": 654.6568627474355,
+          "median": 645,
+          "p95": 923.3000000119209,
+          "max": 980.7999999523163
+        },
+        "four_car_batch_elapsed_ms": {
+          "count": 3,
+          "mean": 2721.1000000039735,
+          "median": 2761.900000035763,
+          "p95": 2946.7999999523163,
+          "max": 2946.7999999523163
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 72,
+          "mean": 970.7041666747796,
+          "median": 652.1999999880791,
+          "p95": 2481.7000000476837,
+          "max": 2946.7999999523163
+        },
+        "observed_fps_snapshots": {
+          "count": 370,
+          "mean": 53.28918918918926,
+          "median": 53.4,
+          "p95": 54.6,
+          "max": 55.4
+        },
+        "worst_observed_frame_ms": 99.89999999999418,
+        "standings": [
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 87.10206386690392,
+            "damage": 0,
+            "tyres": 98.07832289350607,
+            "boostEnergy": 100
+          },
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 87.81512478165529,
+            "damage": 0,
+            "tyres": 97.8837681755408,
+            "boostEnergy": 100
+          },
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 96.90466964476806,
+            "damage": 55.605002512363164,
+            "tyres": 80.98359922144792,
+            "boostEnergy": 51.04166666666729
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 4,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 99.59372815250957,
+            "damage": 0,
+            "tyres": 95.67834626449223,
+            "boostEnergy": 13.12500000000044
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 96.90466964476806,
+            "terminal_first_observed_wall_seconds": 97.107,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 55.605002512363164,
+            "tyres": 80.98359922144792,
+            "boost_energy": 51.04166666666729,
+            "contacts": 0,
+            "spins": 1,
+            "overtakes": 5,
+            "pit_stops": 2,
+            "assists": 8,
+            "observed_model_decisions": 32,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.320448628079311,
+            "decisions_per_active_wall_second": 0.32953340129959735,
+            "action_counts": {
+              "boost": 6,
+              "risky_left": 5,
+              "risky_right": 3,
+              "hold": 12,
+              "pit": 2,
+              "accelerate": 4
+            },
+            "observation_age_sim_seconds": {
+              "count": 32,
+              "mean": 0.6609374999983368,
+              "median": 0.6500000000000004,
+              "p95": 0.9166666666670373,
+              "max": 0.9333333333335911
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 32,
+              "mean": 656.0000000093132,
+              "median": 624.3000000119209,
+              "p95": 923.3000000119209,
+              "max": 926.4000000357628
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 87.10206386690392,
+            "terminal_first_observed_wall_seconds": 87.209,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 98.07832289350607,
+            "boost_energy": 100,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 4,
+            "pit_stops": 1,
+            "assists": 3,
+            "observed_model_decisions": 7,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.07009813739234928,
+            "decisions_per_active_wall_second": 0.08026694492540908,
+            "action_counts": {
+              "boost": 2,
+              "accelerate": 3,
+              "pit": 2
+            },
+            "observation_age_sim_seconds": {
+              "count": 7,
+              "mean": 1.3047619047616106,
+              "median": 1.4499999999999815,
+              "p95": 1.6500000000002935,
+              "max": 1.6500000000002935
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 7,
+              "mean": 688.7428571411541,
+              "median": 717.8000000119209,
+              "p95": 812.3000000119209,
+              "max": 812.3000000119209
+            }
+          },
+          {
+            "id": "juno",
+            "position": 4,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 99.59372815250957,
+            "terminal_first_observed_wall_seconds": 99.845,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 95.67834626449223,
+            "boost_energy": 13.12500000000044,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 4,
+            "pit_stops": 2,
+            "assists": 1,
+            "observed_model_decisions": 21,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.21029441217704786,
+            "decisions_per_active_wall_second": 0.21032600530822776,
+            "action_counts": {
+              "hold": 14,
+              "boost": 4,
+              "pit": 3
+            },
+            "observation_age_sim_seconds": {
+              "count": 21,
+              "mean": 1.1007936507917004,
+              "median": 0.7833333333321164,
+              "p95": 2.1333333333333306,
+              "max": 2.233333333333312
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 21,
+              "mean": 661.3904761899086,
+              "median": 645,
+              "p95": 923.4000000357628,
+              "max": 980.7999999523163
+            }
+          },
+          {
+            "id": "milo",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 87.81512478165529,
+            "terminal_first_observed_wall_seconds": 88.021,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 97.8837681755408,
+            "boost_energy": 100,
+            "contacts": 0,
+            "spins": 2,
+            "overtakes": 6,
+            "pit_stops": 1,
+            "assists": 3,
+            "observed_model_decisions": 42,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.4205888243540957,
+            "decisions_per_active_wall_second": 0.4771588598175435,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 6,
+              "risky_right": 1,
+              "hold": 29,
+              "brake": 1,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 42,
+              "mean": 1.148412698411227,
+              "median": 0.7666666666663637,
+              "p95": 2.5999999999964842,
+              "max": 2.9666666666666517
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 42,
+              "mean": 644.5857142848628,
+              "median": 625.8000000119209,
+              "p95": 917.6999999880791,
+              "max": 925.5999999642372
+            }
+          }
+        ]
+      }
+    },
+    {
+      "variant": "optimized",
+      "seed": 19,
+      "status": "complete",
+      "raw": "driving-race-optimized-19.json.gz",
+      "settings": {
+        "seed": 19,
+        "pace": "fast",
+        "simulation_speed": 1,
+        "assist_enabled": true,
+        "policies": {
+          "nova": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight.",
+          "atlas": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45.",
+          "juno": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage.",
+          "milo": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+        },
+        "driver_ids": ["nova", "atlas", "juno", "milo"],
+        "poll_interval_ms": 250,
+        "max_race_wall_ms": 230000,
+        "viewport": {
+          "width": 1440,
+          "height": 1000
+        }
+      },
+      "race_wall_seconds": 99.732,
+      "coverage": {
+        "accepted_decisions_authoritative": 95,
+        "captured_decision_details": 95,
+        "decision_detail_fraction": 1,
+        "captured_model_decision_events": 95,
+        "per_car_counts_exact": true,
+        "event_poll_gaps": 0
+      },
+      "integrity": {
+        "at_least_one_real_model_decision": true,
+        "captured_context_driver_mismatches": 0,
+        "captured_policy_mismatches": 0,
+        "captured_actions_outside_offered_options": 0,
+        "non_model_decision_events": 0
+      },
+      "quality": {
+        "completed_race": true,
+        "simulation_seconds": 99.59999999999563,
+        "winner": "atlas",
+        "winner_time_sim_seconds": 83.65837956515175,
+        "finishers": 3,
+        "dnfs": 1,
+        "contacts": 2,
+        "spins": 3,
+        "overtakes": 19,
+        "assists": 16,
+        "pit_stops": 6,
+        "discarded_decisions": 3,
+        "decisions_per_wall_second": 0.9525528416155297,
+        "observation_age_sim_seconds": {
+          "count": 95,
+          "mean": 1.046666666665339,
+          "median": 0.7166666666638548,
+          "p95": 2.6333333333336153,
+          "max": 3.0000000000000213
+        },
+        "captured_decision_elapsed_ms": {
+          "count": 95,
+          "mean": 646.6799999939768,
+          "median": 651.7999999523163,
+          "p95": 822.1999999880791,
+          "max": 896.5
+        },
+        "four_car_batch_elapsed_ms": {
+          "count": 6,
+          "mean": 2809.383333315452,
+          "median": 2720.800000011921,
+          "p95": 3033.300000011921,
+          "max": 3033.300000011921
+        },
+        "captured_unique_fleet_batch_elapsed_ms": {
+          "count": 65,
+          "mean": 983.258461538645,
+          "median": 669.2000000476837,
+          "p95": 2720.800000011921,
+          "max": 3033.300000011921
+        },
+        "observed_fps_snapshots": {
+          "count": 371,
+          "mean": 53.3929919137466,
+          "median": 53.4,
+          "p95": 54.8,
+          "max": 55.8
+        },
+        "worst_observed_frame_ms": 68,
+        "standings": [
+          {
+            "id": "atlas",
+            "name": "Atlas",
+            "position": 1,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 83.65837956515175,
+            "damage": 0,
+            "tyres": 97.66172379403042,
+            "boostEnergy": 84.16666666666703
+          },
+          {
+            "id": "milo",
+            "name": "Milo",
+            "position": 2,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 84.37049559388754,
+            "damage": 0,
+            "tyres": 97.90028640508608,
+            "boostEnergy": 100
+          },
+          {
+            "id": "juno",
+            "name": "Juno",
+            "position": 3,
+            "laps": 3,
+            "raceDistance": 1316.2831250184727,
+            "finished": true,
+            "retired": false,
+            "finishTime": 99.59685926759495,
+            "damage": 26.075210361752212,
+            "tyres": 96.50247240063392,
+            "boostEnergy": 37.50000000000042
+          },
+          {
+            "id": "nova",
+            "name": "Nova",
+            "position": 4,
+            "laps": 2,
+            "raceDistance": 1222.8202387373415,
+            "finished": false,
+            "retired": true,
+            "finishTime": null,
+            "damage": 100,
+            "tyres": 81.2188506097925,
+            "boostEnergy": 37.50000000000042
+          }
+        ],
+        "per_car": [
+          {
+            "id": "nova",
+            "position": 4,
+            "finished": false,
+            "retired": true,
+            "retirement_reason": "Repeated corner impacts",
+            "finish_time_sim_seconds": null,
+            "terminal_first_observed_wall_seconds": 89.115,
+            "race_distance_m": 1222.8202387373415,
+            "laps": 2,
+            "damage": 100,
+            "tyres": 81.2188506097925,
+            "boost_energy": 37.50000000000042,
+            "contacts": 2,
+            "spins": 1,
+            "overtakes": 7,
+            "pit_stops": 2,
+            "assists": 6,
+            "observed_model_decisions": 16,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.1604299522720892,
+            "decisions_per_active_wall_second": 0.17954328676429335,
+            "action_counts": {
+              "boost": 5,
+              "risky_left": 4,
+              "accelerate": 3,
+              "risky_right": 1,
+              "pit": 2,
+              "hold": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 16,
+              "mean": 0.6656249999984771,
+              "median": 0.6666666666630618,
+              "p95": 0.849999999999981,
+              "max": 0.849999999999981
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 16,
+              "mean": 656.8937500007451,
+              "median": 646.3000000119209,
+              "p95": 872.2999999523163,
+              "max": 872.2999999523163
+            }
+          },
+          {
+            "id": "atlas",
+            "position": 1,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 83.65837956515175,
+            "terminal_first_observed_wall_seconds": 83.865,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 97.66172379403042,
+            "boost_energy": 84.16666666666703,
+            "contacts": 0,
+            "spins": 0,
+            "overtakes": 3,
+            "pit_stops": 1,
+            "assists": 2,
+            "observed_model_decisions": 9,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.09024184815305017,
+            "decisions_per_active_wall_second": 0.10731532820604543,
+            "action_counts": {
+              "boost": 3,
+              "accelerate": 4,
+              "pit": 2
+            },
+            "observation_age_sim_seconds": {
+              "count": 9,
+              "mean": 1.1462962962955512,
+              "median": 1.3166666666666567,
+              "p95": 1.5999999999999783,
+              "max": 1.5999999999999783
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 9,
+              "mean": 691.3666666613685,
+              "median": 679.3999999761581,
+              "p95": 805.8000000119209,
+              "max": 805.8000000119209
+            }
+          },
+          {
+            "id": "juno",
+            "position": 3,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 99.59685926759495,
+            "terminal_first_observed_wall_seconds": 99.718,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 26.075210361752212,
+            "tyres": 96.50247240063392,
+            "boost_energy": 37.50000000000042,
+            "contacts": 1,
+            "spins": 1,
+            "overtakes": 4,
+            "pit_stops": 2,
+            "assists": 3,
+            "observed_model_decisions": 24,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.2406449284081338,
+            "decisions_per_active_wall_second": 0.24067871397340498,
+            "action_counts": {
+              "hold": 14,
+              "boost": 6,
+              "pit": 3,
+              "accelerate": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 24,
+              "mean": 1.1958333333322022,
+              "median": 1.2666666666629567,
+              "p95": 2.1999999999999815,
+              "max": 2.28333333333333
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 24,
+              "mean": 634.2958333243927,
+              "median": 634,
+              "p95": 822.1999999880791,
+              "max": 853.0999999642372
+            }
+          },
+          {
+            "id": "milo",
+            "position": 2,
+            "finished": true,
+            "retired": false,
+            "retirement_reason": "",
+            "finish_time_sim_seconds": 84.37049559388754,
+            "terminal_first_observed_wall_seconds": 84.677,
+            "race_distance_m": 1316.2831250184727,
+            "laps": 3,
+            "damage": 0,
+            "tyres": 97.90028640508608,
+            "boost_energy": 100,
+            "contacts": 1,
+            "spins": 1,
+            "overtakes": 5,
+            "pit_stops": 1,
+            "assists": 5,
+            "observed_model_decisions": 46,
+            "decision_count_exact": true,
+            "decisions_per_race_wall_second": 0.46123611278225646,
+            "decisions_per_active_wall_second": 0.5432407855734143,
+            "action_counts": {
+              "boost": 4,
+              "accelerate": 4,
+              "risky_right": 1,
+              "hold": 35,
+              "risky_left": 1,
+              "pit": 1
+            },
+            "observation_age_sim_seconds": {
+              "count": 46,
+              "mean": 1.0818840579695381,
+              "median": 0.6833333333304381,
+              "p95": 2.866666666666651,
+              "max": 3.0000000000000213
+            },
+            "captured_decision_elapsed_ms": {
+              "count": 46,
+              "mean": 640.845652166916,
+              "median": 629.4000000357628,
+              "p95": 786.6999999880791,
+              "max": 896.5
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "race_totals": {
+    "legacy": {
+      "races": 2,
+      "finishers": 8,
+      "dnfs": 0,
+      "contacts": 0,
+      "spins": 4,
+      "pit_stops": 2,
+      "accepted_decisions": 110,
+      "wall_seconds": 173.99,
+      "decisions_per_second": 0.6322202425426748,
+      "winner_time_mean_sim_seconds": 74.68247506053501,
+      "all_finish_time_mean_sim_seconds": 80.00936211832492,
+      "race_time_mean_sim_seconds": 86.77499999999637,
+      "mean_observation_age_sim_seconds": 1.2701515151502603,
+      "worst_observation_age_sim_seconds": 1.4833333333323893
+    },
+    "candidate": {
+      "races": 2,
+      "finishers": 8,
+      "dnfs": 0,
+      "contacts": 3,
+      "spins": 5,
+      "pit_stops": 10,
+      "accepted_decisions": 220,
+      "wall_seconds": 201.173,
+      "decisions_per_second": 1.093586117421324,
+      "winner_time_mean_sim_seconds": 80.31108539733744,
+      "all_finish_time_mean_sim_seconds": 88.68886060130177,
+      "race_time_mean_sim_seconds": 100.34166666666226,
+      "mean_observation_age_sim_seconds": 1.1553787878775235,
+      "worst_observation_age_sim_seconds": 2.966666666666657
+    },
+    "optimized": {
+      "races": 2,
+      "finishers": 7,
+      "dnfs": 1,
+      "contacts": 2,
+      "spins": 6,
+      "pit_stops": 12,
+      "accepted_decisions": 197,
+      "wall_seconds": 199.59199999999998,
+      "decisions_per_second": 0.9870135075554132,
+      "winner_time_mean_sim_seconds": 85.38022171602783,
+      "all_finish_time_mean_sim_seconds": 91.29161726749587,
+      "race_time_mean_sim_seconds": 99.59999999999563,
+      "mean_observation_age_sim_seconds": 1.0206429780019417,
+      "worst_observation_age_sim_seconds": 3.0000000000000213
+    }
+  }
+}

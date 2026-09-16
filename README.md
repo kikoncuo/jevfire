@@ -24,6 +24,7 @@ Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · five trials per cell
 
 <p align="center">
   <a href="https://kikoncuo.github.io/jevfire/driving.html"><strong>Race four prompts ↗</strong></a> ·
+  <a href="https://kikoncuo.github.io/jevfire/mario.html"><strong>Play World 1-1 ↗</strong></a> ·
   <a href="https://kikoncuo.github.io/jevfire/">Village demo</a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="benchmarks/README.md">Benchmarks & raw data</a> ·
@@ -65,6 +66,29 @@ All fixtures and individual timings are [published](benchmarks/results/benchmark
 > latency estimate. A separate 2,622-request tuning campaign had zero request
 > errors and exact matches throughout; those are repeated fixtures, not 2,622
 > independent examples. [Methodology, full results, and limits →](benchmarks/README.md)
+
+## Three browser experiments, one local model
+
+[**World 1-1**](https://kikoncuo.github.io/jevfire/mario.html) recreates the first
+Mario course with original drawn artwork. Play yourself, watch an explicit scripted
+controller, or let Qwen choose movement, jumping and running speed. The new
+[browser SDK](docs/browser-sdk.md) prefills one shared observation and restores
+its cached attention/recurrent state for each typed field, avoiding repeated
+prompt processing. [How the game works →](docs/mario-demo.md)
+
+[**Slipstream**](https://kikoncuo.github.io/jevfire/driving.html) gives four cars
+separate prompts and submits all eligible cars together, with cached policies and
+no artificial delay between fleet requests. The UI distinguishes fleet decisions
+per second, each car's update rate and mean whole-fleet inference time. Four cars
+at one update/second require **4 decisions/second**, not one. Results are applied
+as each car finishes scoring. In two paired race seeds, the new scheduler made
+56% more decisions per second but produced worse race outcomes; faster scoring
+did not make the drivers better. [Measured speed and driving quality →](docs/driving-quality.md)
+
+[**Last Hearth**](https://kikoncuo.github.io/jevfire/) gives villagers distinct
+roles, personalities and finite jobs. All three demos run the pinned Qwen3.5 0.8B
+locally through WebLLM/WebGPU. Browser field work is sequential with context reuse;
+the CUDA/vLLM server's parallel batching and headline benchmarks are separate.
 
 ## Why it works
 
@@ -176,8 +200,9 @@ Try asking for a `teleport` field: code still assembles only the declared keys
 and allowed actions. This guarantees structure; a legal choice can still get
 a villager killed. [How spatial context and policies work →](docs/game-context.md)
 
-The browser scores one living NPC at a time in a fair round-robin; it does not
-implement vLLM's cache optimization or claim the CUDA benchmark's speedup.
+The village scores one living NPC at a time in a fair round-robin and reuses
+unchanged instructions through the browser SDK. Its sequential WebLLM execution
+is distinct from vLLM batching and the CUDA benchmark's speedup.
 [Implementation, requirements, and model provenance →](web/README.md)
 
 ### Connect your own game

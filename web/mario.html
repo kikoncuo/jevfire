@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#efe9dc" />
+    <meta
+      name="description"
+      content="World 1-1, played by a small local Qwen model. Three typed controls, one shared context. An interactive JEVfire WebGPU experiment."
+    />
+    <title>World 1-1 · JEVfire</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23cb452f' d='M8 4h16v4h4v12H4V8h4z'/%3E%3Cpath fill='%23f4d7a1' d='M8 20h16v8H8z'/%3E%3Cpath fill='%23fff0cd' d='M8 8h4v8H8zm12 0h4v8h-4z'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div class="shell">
+      <header>
+        <a class="brand" href="./">JEV<span>fire</span></a>
+        <nav aria-label="Demos">
+          <a href="./">Last Hearth</a><a href="./driving.html">Slipstream</a
+          ><a aria-current="page" href="./mario.html">World 1-1</a
+          ><a href="https://github.com/kikoncuo/jevfire">Source ↗</a>
+        </nav>
+      </header>
+      <main>
+        <div class="intro">
+          <div>
+            <p class="eyebrow">EXPERIMENT 04 / THREE BUTTONS, ONE BRAIN</p>
+            <h1>World <span>1—1</span></h1>
+          </div>
+          <p>
+            Run. Jump. Don’t overthink it.<br />A tiny model meets a familiar
+            first level.
+          </p>
+          <div class="cartridge" aria-hidden="true">
+            LOCAL<br /><b>0.8B</b><br />QWEN 3.5
+          </div>
+        </div>
+        <section class="toolbar" aria-label="Game controls">
+          <button id="load" class="primary">
+            Load Qwen <small>~450 MB · cached locally</small>
+          </button>
+          <button id="manual">Play yourself</button
+          ><button id="scripted">Watch scripted</button>
+          <button id="run" disabled>Start level</button
+          ><button id="reset" class="quiet">↺ Restart</button>
+          <label
+            >AI timing
+            <select id="timing">
+              <option value="step">Decision steps</option>
+              <option value="live">Live · harder</option>
+            </select></label
+          >
+        </section>
+        <div id="download" class="download" hidden>
+          <div>
+            <span id="load-status">Preparing model…</span
+            ><button id="cancel">Cancel</button>
+          </div>
+          <progress id="progress" max="100" value="0"></progress>
+        </div>
+        <p id="error" class="error" role="alert" hidden></p>
+        <div class="workspace">
+          <div class="game-column">
+            <section class="cabinet" aria-label="World 1-1 game">
+              <div class="hud">
+                <div>
+                  <span>PLAYER</span><strong id="player-form">SMALL</strong>
+                </div>
+                <div><span>COINS</span><strong id="coins">00</strong></div>
+                <div><span>WORLD</span><strong>1—1</strong></div>
+                <div><span>TIME</span><strong id="time">400</strong></div>
+                <div>
+                  <span>PROGRESS</span><strong id="distance">0%</strong>
+                </div>
+              </div>
+              <canvas
+                id="world"
+                width="960"
+                height="448"
+                tabindex="0"
+                aria-label="Side-scrolling platform game. Arrow keys move, Space jumps, Shift runs. Use Play yourself to control the player."
+              ></canvas>
+              <div class="cabinet-foot">
+                <span id="state">SELECT A CONTROLLER</span
+                ><span id="timing-status"
+                  >Decision steps · the world waits while Qwen thinks</span
+                >
+              </div>
+            </section>
+            <div class="touch" aria-label="Touch controls">
+              <div>
+                <button data-key="ArrowLeft" aria-label="Move left">←</button
+                ><button data-key="ArrowRight" aria-label="Move right">
+                  →
+                </button>
+              </div>
+              <span
+                >← → move &nbsp; / &nbsp; Space jump &nbsp; / &nbsp; Shift
+                run</span
+              >
+              <div>
+                <button data-key="Shift" aria-label="Run">RUN</button
+                ><button data-key="Space" aria-label="Jump">JUMP</button>
+              </div>
+            </div>
+            <section class="meters" aria-label="Inference measurements">
+              <div>
+                <strong id="update-rate">—</strong><span>AI updates / sec</span>
+              </div>
+              <div>
+                <strong id="field-rate">—</strong><span>Fields / sec</span>
+              </div>
+              <div>
+                <strong id="latency">—</strong
+                ><span>Mean 3-field inference</span>
+              </div>
+              <div>
+                <strong id="cache">—</strong><span>Prompt work reused</span>
+              </div>
+              <div><strong id="fps">—</strong><span>Render FPS</span></div>
+            </section>
+            <p id="status" class="status" role="status">
+              Play instantly with the keyboard, watch the rules, or download
+              Qwen to try the same level with local AI.
+            </p>
+            <details class="explanation">
+              <summary>One observation. Three independent choices.</summary>
+              <p>
+                The SDK reads the same player position, nearby blocks, pits and
+                enemies for movement, jump and speed. It keeps the attention and
+                recurrent state after that shared prefix, then restores it for
+                each short field suffix. Code assembles the three allowed values
+                into a control object.
+              </p>
+              <p>
+                One control update contains three field assignments. Their
+                scores run sequentially on one WebLLM engine; this is
+                shared-context inference, not three simultaneous GPU requests.
+                “Prompt work reused” counts token evaluations avoided, not a
+                claimed latency speedup.
+              </p>
+              <p>
+                Decision steps give the model a fresh observation every 0.30
+                seconds of game time and wait for its answer before advancing.
+                Live mode keeps the world moving during inference. Render FPS
+                and AI updates measure different things.
+              </p>
+              <p>
+                This is a playable recreation of the first Super Mario Bros.
+                level, with original code and drawn artwork. Its physics and
+                details are approximate. A valid control can still be a bad
+                move.
+                <a
+                  href="https://github.com/kikoncuo/jevfire/blob/main/docs/mario-demo.md"
+                  >Controls, SDK and measurements ↗</a
+                >
+              </p>
+            </details>
+          </div>
+          <aside>
+            <section class="decision-panel">
+              <div class="section-heading">
+                <h2>The next move</h2>
+                <span id="source">NO CONTROLLER</span>
+              </div>
+              <div class="control-readout">
+                <div>
+                  <span>MOVE</span><strong id="control-direction">—</strong>
+                </div>
+                <div><span>JUMP</span><strong id="control-jump">—</strong></div>
+                <div>
+                  <span>PACE</span><strong id="control-speed">—</strong>
+                </div>
+              </div>
+              <p id="choice-age" class="fine">No AI decision yet.</p>
+              <div id="scores"></div>
+            </section>
+            <section class="policy">
+              <label for="policy">Player instructions</label
+              ><textarea
+                id="policy"
+                rows="6"
+                maxlength="700"
+                spellcheck="false"
+              ></textarea>
+              <div>
+                <button id="apply" class="dark">Apply prompt</button
+                ><button id="restore" class="quiet">Restore</button>
+              </div>
+              <p id="policy-status" class="fine">
+                Changes affect the next AI update.
+              </p>
+            </section>
+            <section class="journal">
+              <div class="section-heading">
+                <h2>Level events</h2>
+                <span>LIVE</span>
+              </div>
+              <ol id="events">
+                <li>The flag is waiting.</li>
+              </ol>
+            </section>
+            <details>
+              <summary>What Qwen saw</summary>
+              <pre id="observation">
+The next accepted AI update will save its observation here.</pre
+              >
+            </details>
+          </aside>
+        </div>
+      </main>
+      <footer>
+        <span>JEVfire / WORLD 1—1</span><span>Qwen 3.5 · WebLLM · WebGPU</span
+        ><a
+          href="https://github.com/kikoncuo/jevfire/blob/main/docs/browser-sdk.md"
+          >Browser SDK ↗</a
+        >
+      </footer>
+    </div>
+    <script type="module" src="/src/mario/main.js"></script>
+  </body>
+</html>

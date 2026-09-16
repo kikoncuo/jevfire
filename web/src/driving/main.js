@@ -3,11 +3,8 @@ import { DrivingGame } from './game.js';
 import { DrivingRenderer } from './renderer.js';
 import { DRIVERS, ACTION_LABELS } from './contract.js';
 import { validateDecision } from '../contract.js';
-import {
-  DecisionScheduler,
-  DecisionTelemetry,
-  FrameTelemetry,
-} from '../controller.js';
+import { FleetTelemetry } from './telemetry.js';
+import { DecisionTelemetry, FrameTelemetry } from '../controller.js';
 
 const $ = (id) => document.getElementById(id);
 const text = (id, value) => {
@@ -21,7 +18,8 @@ const SOURCE = { model: 'Qwen', scripted: 'Scripted', ready: 'Awaiting start' };
 const MISSION =
   'Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.';
 const game = new DrivingGame();
-const scheduler = new DecisionScheduler();
+const fleet = new FleetTelemetry();
+let batches = [];
 const telemetry = new DecisionTelemetry();
 const frames = new FrameTelemetry();
 const cards = new Map(),
@@ -55,11 +53,11 @@ let worker = null,
   busy = false,
   mode = 'idle',
   gpuAvailable = true;
+let raceGeneration = 0;
 let epoch = 0,
   sequence = 0,
   pending = null,
-  watchdog = null,
-  nextInference = 0;
+  watchdog = null;
 let lastScripted = -Infinity,
   lastUi = 0,
   lastDraw = 0,
@@ -138,13 +136,14 @@ function makeCards() {
     button.className = 'driver-card';
     button.dataset.driver = definition.id;
     button.style.setProperty('--driver', definition.color);
-    button.innerHTML = `<span class="card-top"><span class="card-number">${definition.number}</span><span class="card-name">${definition.name}</span></span><span class="card-style">${definition.style}</span><span class="card-speed"><b>0</b> <small>km/h</small></span><span class="card-action">Awaiting start</span><span class="card-progress">0 laps · 0 passes</span>`;
+    button.innerHTML = `<span class="card-top"><span class="card-number">${definition.number}</span><span class="card-name">${definition.name}</span></span><span class="card-style">${definition.style}</span><span class="card-speed"><b>0</b> <small>km/h</small></span><span class="card-action">Awaiting start</span><span class="card-progress">0 laps · 0 passes</span><span class="card-rate">— AI updates/s</span>`;
     button.onclick = () => selectDriver(definition.id, true);
     cards.set(definition.id, {
       card: button,
       speed: button.querySelector('.card-speed b'),
       action: button.querySelector('.card-action'),
       progress: button.querySelector('.card-progress'),
+      rate: button.querySelector('.card-rate'),
     });
     $('drivers').append(button);
   }
@@ -214,7 +213,10 @@ function updateInspector() {
   $('decision-detail').hidden = !result;
   text(
     'no-decision',
-    pending?.unitId === car.id && game.running && mode === 'model'
+    (pending?.unitId === car.id ||
+      pending?.requests?.some((r) => r.unitId === car.id)) &&
+      game.running &&
+      mode === 'model'
       ? 'Qwen is reading this car’s traffic…'
       : mode === 'scripted'
         ? 'Scripted drive. No AI scores are produced.'
@@ -332,7 +334,7 @@ function updateInspector() {
   }
 }
 function updateUI(now = performance.now()) {
-  const metrics = telemetry.snapshot(now, game.running && mode === 'model');
+  const metrics = fleet.snapshot(now, game.running && mode === 'model');
   const frameStats = frames.snapshot(now);
   text('clock', clock(game.time));
   text(
@@ -353,7 +355,25 @@ function updateUI(now = performance.now()) {
   text('ai-total', metrics.total_decisions);
   text(
     'latency',
-    latestLatency === null ? '—' : `${Math.round(latestLatency)} ms`,
+    metrics.mean_batch_ms === null
+      ? '—'
+      : `${Math.round(metrics.mean_batch_ms)} ms`,
+  );
+  text(
+    'per-car-rate',
+    mode === 'model' ? metrics.batches_per_second.toFixed(2) : '—',
+  );
+  text(
+    'cache-saved',
+    mode === 'model'
+      ? `${Math.round(metrics.cache_saved_fraction * 100)}%`
+      : '—',
+  );
+  text(
+    'timing-note',
+    mode === 'model' && metrics.mean_batch_ms !== null
+      ? `${game.drivers.filter((car) => game.availableActions(car).length > 1).length}/4 eligible · ${metrics.total_decisions} applied · ${metrics.discarded_decisions} discarded · ${Math.round(metrics.amortized_decision_ms)} ms/car amortized · ${Math.round(metrics.mean_roundtrip_ms)} ms mean request · ${metrics.mean_cars_per_batch.toFixed(1)} cars/round · rates 10s / means this run`
+      : 'One fleet round scores every eligible car. Rates use wall time; simulation speed is separate.',
   );
   text('fps', rendererReady ? Math.round(frameStats.fps) : '—');
   text('contacts', game.summary().contacts);
@@ -371,6 +391,10 @@ function updateUI(now = performance.now()) {
   for (const car of game.drivers) {
     const refs = cards.get(car.id);
     refs.speed.textContent = kph(car.speed);
+    refs.rate.textContent =
+      mode === 'model'
+        ? `${(metrics.per_car_per_second[car.id] || 0).toFixed(2)} AI updates/s`
+        : '— AI updates/s';
     refs.card.classList.toggle('retired', Boolean(car.retired));
     refs.card.classList.toggle('boosting', Boolean(car.boosting));
     refs.action.textContent = car.retired
@@ -458,7 +482,9 @@ function createWorker() {
       text('load', 'Use local Qwen');
       text(
         'compatibility',
-        'Qwen is loaded on this device. Each car keeps its own instructions; one shared model takes turns choosing.',
+        data.prefix_cache_slots > 0
+          ? 'Qwen is loaded locally. All eligible cars enter one fleet request, with cached prompts and no delay between rounds.'
+          : 'Qwen is loaded locally. All eligible cars enter one fleet request with no delay between rounds. This runtime uses independent prefills.',
       );
       text(
         'run-status',
@@ -484,10 +510,17 @@ function createWorker() {
       showError(data.message);
       return;
     }
+    if (data.type === 'drivingField') {
+      acceptField(data);
+      return;
+    }
+    if (data.type === 'drivingBatch') {
+      acceptBatch(data);
+      return;
+    }
     if (data.type !== 'decision') return;
     clearTimeout(watchdog);
     busy = false;
-    nextInference = performance.now() + ($('pace').value === 'fast' ? 30 : 200);
     const request = pending;
     pending = null;
     if (probe && data.id === probe.id) {
@@ -571,6 +604,149 @@ function createWorker() {
       failWorker(event.message || 'Inference worker failed');
   };
 }
+function requestBatch() {
+  if (!game.running || mode !== 'model' || !loaded || busy || probe) return;
+  const requests = game.drivers
+    .filter((car) => game.availableActions(car).length > 1)
+    .map((car) => {
+      const context = game.contextFor(car.id);
+      return {
+        unitId: car.id,
+        context,
+        actions: context.availableActions,
+        rolePrompt: policies[car.id],
+        policy: policies[car.id],
+      };
+    });
+  if (!requests.length) return;
+  pending = {
+    id: ++sequence,
+    epoch,
+    raceGeneration,
+    requests,
+    received: new Set(),
+    acceptedIds: [],
+    sentAt: performance.now(),
+  };
+  busy = true;
+  worker.postMessage({
+    type: 'decideDrivingBatch',
+    scenario: 'driving',
+    id: pending.id,
+    epoch,
+    requests,
+    mission: MISSION,
+    pace: 'fast',
+  });
+  watchdog = setTimeout(
+    () =>
+      failWorker(
+        'Fleet inference took more than 45 seconds. Reload Qwen to retry.',
+      ),
+    45000,
+  );
+}
+function acceptField(data) {
+  const request = pending;
+  if (
+    !request?.requests ||
+    request.id !== data.id ||
+    request.received.has(data.unitId)
+  )
+    return;
+  const sent = request.requests.find((row) => row.unitId === data.unitId);
+  if (!sent) {
+    stop('Unexpected fleet driver.');
+    showError('Fleet result identity did not match its request.');
+    return;
+  }
+  request.received.add(data.unitId);
+  // A response from an earlier reset belongs to the old race, not its counters.
+  if (request.raceGeneration !== raceGeneration) return;
+  const now = performance.now();
+  let accepted = false;
+  try {
+    if (data.epoch !== epoch || !game.running || mode !== 'model') return;
+    const result = data.decision;
+    if (data.scenario !== 'driving' || result?.unitId !== sent.unitId)
+      throw new Error('Unexpected car score');
+    validateDecision(result.parsed_json, { [sent.unitId]: sent.actions });
+    const action = result.parsed_json[sent.unitId];
+    if (!game.availableActions(sent.unitId).includes(action)) return;
+    game.apply(result.parsed_json, 'model');
+    accepted = true;
+    request.acceptedIds.push(sent.unitId);
+    decisions.set(sent.unitId, {
+      ...result,
+      id: `${data.id}:${sent.unitId}`,
+      observedContext: sent.context,
+      policy: sent.policy,
+      appliedAt: game.time,
+      batch_id: data.id,
+      batch_size: data.batch_size,
+      fleet_age_ms: data.fleet_age_ms,
+      execution: 'sequential-driver-jobs',
+    });
+    record(sent.unitId, action, 'model');
+    text(
+      'run-status',
+      `${sent.unitId}: ${ACTION_LABELS[action].toLowerCase()} · applied as soon as ready · ${request.received.size}/${request.requests.length} fleet scores complete.`,
+    );
+  } catch (error) {
+    stop('Car decision rejected.');
+    showError(error.message);
+  } finally {
+    if (!accepted) discarded++;
+    fleet.recordDecision(now, sent.unitId, accepted);
+    updateUI(now);
+  }
+}
+function acceptBatch(data) {
+  clearTimeout(watchdog);
+  const request = pending;
+  pending = null;
+  busy = false;
+  const now = performance.now();
+  try {
+    if (
+      !request?.requests ||
+      request.id !== data.id ||
+      request.raceGeneration !== raceGeneration
+    )
+      return;
+    if (
+      data.scenario !== 'driving' ||
+      !Array.isArray(data.decisions) ||
+      data.decisions.length !== request.requests.length ||
+      request.received.size !== request.requests.length
+    )
+      throw new Error('Incomplete fleet response');
+    const batch = {
+      id: data.id,
+      elapsed_ms: data.elapsed_ms,
+      wall_ms: now - request.sentAt,
+      completed_count: data.decisions.length,
+      accepted_count: request.acceptedIds.length,
+      usage: data.usage,
+      execution: data.execution,
+    };
+    batches.push(batch);
+    if (batches.length > 100) batches.shift();
+    fleet.recordBatch(now, {
+      elapsedMs: batch.elapsed_ms,
+      wallMs: batch.wall_ms,
+      completedCount: batch.completed_count,
+      usage: batch.usage,
+    });
+    latestLatency = data.elapsed_ms;
+    updateUI(now);
+  } catch (error) {
+    stop('Fleet response rejected.');
+    showError(error.message);
+  } finally {
+    requestBatch();
+  }
+}
 function requestDecision(car, options = {}) {
   const id = ++sequence;
   const context = options.context ?? game.contextFor(car.id);
@@ -596,7 +772,8 @@ function requestDecision(car, options = {}) {
     actions,
     mission: MISSION,
     rolePrompt: pending.policy,
-    pace: $('pace').value,
+    pace: options.pace ?? $('pace').value,
+    cache: options.cache !== false,
     testOnly: options.testOnly === true,
     ...(options.testOnly && options.compareWithWhole
       ? { compareWithWhole: true }
@@ -648,6 +825,7 @@ function start() {
   epoch++;
   game.running = true;
   telemetry.begin(performance.now());
+  fleet.begin(performance.now());
   text('run', 'Pause');
   text(
     'run-status',
@@ -672,7 +850,9 @@ function resetRace() {
   $('seed').value = seed;
   game.reset({ seed });
   game.assistEnabled = $('assist').checked;
-  scheduler.reset();
+  raceGeneration++;
+  fleet.reset();
+  batches = [];
   telemetry.reset();
   decisions.clear();
   histories.clear();
@@ -803,13 +983,8 @@ function frame(now) {
     lastUi = now;
   }
   if (game.running) {
-    if (mode === 'model' && loaded && !busy && now >= nextInference) {
-      const car = scheduler.next(
-        game.drivers.filter(
-          (driver) => game.availableActions(driver).length > 1,
-        ),
-      );
-      if (car) requestDecision(car);
+    if (mode === 'model' && loaded && !busy) {
+      requestBatch();
     } else if (mode === 'scripted' && game.time - lastScripted >= 1.1) {
       lastScripted = game.time;
       const choices = game.scripted();
@@ -845,13 +1020,12 @@ window.slipstreamDiagnostics = ({ selectionTargets = false } = {}) => ({
         unitId: pending.unitId,
         epoch: pending.epoch,
         policy: pending.policy,
+        requests: pending.requests,
       }
     : null,
   policies: { ...policies },
-  metrics: telemetry.snapshot(
-    performance.now(),
-    game.running && mode === 'model',
-  ),
+  batches: [...batches],
+  metrics: fleet.snapshot(performance.now(), game.running && mode === 'model'),
   frames: frames.snapshot(performance.now()),
   summary: game.summary(),
   events: [...game.events],

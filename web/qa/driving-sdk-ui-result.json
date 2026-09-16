@@ -1,0 +1,84 @@
+{
+  "tested_at": "2026-09-16T21:48:35.518Z",
+  "url": "http://127.0.0.1:5182/driving.html",
+  "decisions": {
+    "nova": {
+      "cache": {
+        "input_tokens": 555,
+        "processed_tokens": 491,
+        "cached_prefix_tokens": 64,
+        "forward_calls": 4,
+        "yield_ms": 12,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "action": "pit",
+      "options": ["brake", "hold", "right", "risky_right", "pit"],
+      "policy": "Overtake traffic. If a car is ahead within 30m, change into a clear neighboring lane. Prefer risky_left or risky_right to pass. Otherwise accelerate, or boost on a clear straight."
+    },
+    "atlas": {
+      "cache": {
+        "input_tokens": 596,
+        "processed_tokens": 532,
+        "cached_prefix_tokens": 64,
+        "forward_calls": 5,
+        "yield_ms": 16,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "action": "pit",
+      "options": ["accelerate", "brake", "hold", "boost", "pit"],
+      "policy": "Finish intact. Brake early for the safe corner speed and slower traffic. Pass only through a clear lane; avoid risky moves. Accelerate on open straights. Pit when tyres fall below 35 or damage exceeds 45."
+    },
+    "juno": {
+      "cache": {
+        "input_tokens": 590,
+        "processed_tokens": 510,
+        "cached_prefix_tokens": 80,
+        "forward_calls": 4,
+        "yield_ms": 12,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "action": "pit",
+      "options": ["brake", "hold", "left", "boost", "risky_left", "pit"],
+      "policy": "Keep 75\u201385 km/h on clear straights; brake for corner limits. Pass slower cars through safe lanes. Conserve boost for useful overtakes. Accelerate below 75, hold within the band, and pit for worn tyres or serious damage."
+    },
+    "milo": {
+      "cache": {
+        "input_tokens": 571,
+        "processed_tokens": 491,
+        "cached_prefix_tokens": 80,
+        "forward_calls": 4,
+        "yield_ms": 12,
+        "scored_positions": 1,
+        "cache_hit": true,
+        "backend": "webllm-0.2.85-forked-state"
+      },
+      "action": "hold",
+      "options": ["brake", "hold", "right", "boost", "risky_right", "pit"],
+      "policy": "Early laps: hold 65\u201375 km/h and save boost. Pass slow cars only through safe gaps. Brake for corners. Final lap: boost on clear straights and seek overtakes. If blocked, change lane before boosting."
+    }
+  },
+  "metrics": {
+    "decisions_per_second": 0,
+    "rounds_per_second": 0,
+    "total_decisions": 111,
+    "completed_rounds": 10,
+    "mean_latency_ms": null,
+    "window_seconds": 10
+  },
+  "frames": {
+    "fps": 56.8,
+    "frame_p99_ms": 9.300000000017462,
+    "frame_max_ms": 9.400000000023283,
+    "slow_frames": 0
+  },
+  "edited_policy_first_cache_hit": false,
+  "edited_policy_later_cache_hit": true,
+  "other_policies_unchanged": true,
+  "passed": true
+}
