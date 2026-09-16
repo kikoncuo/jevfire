@@ -1,0 +1,301 @@
+{
+  "type": "decision",
+  "diagnostic": {
+    "ranks": [4, 46, 90, 24, 252, 118, 6214],
+    "top": [
+      {
+        "id": 27775,
+        "score": 21.714962005615234,
+        "token": "Based"
+      },
+      {
+        "id": 332,
+        "score": 20.674163818359375,
+        "token": "**"
+      },
+      {
+        "id": 1206,
+        "score": 19.882080078125,
+        "token": "To"
+      },
+      {
+        "id": 31114,
+        "score": 18.992656707763672,
+        "token": "Fast"
+      },
+      {
+        "id": 8160,
+        "score": 18.099224090576172,
+        "token": "Here"
+      },
+      {
+        "id": 760,
+        "score": 18.031368255615234,
+        "token": "The"
+      },
+      {
+        "id": 40,
+        "score": 17.827465057373047,
+        "token": "I"
+      },
+      {
+        "id": 1919,
+        "score": 17.777751922607422,
+        "token": "This"
+      },
+      {
+        "id": 12189,
+        "score": 17.426368713378906,
+        "token": "Since"
+      },
+      {
+        "id": 9,
+        "score": 17.246885299682617,
+        "token": "*"
+      },
+      {
+        "id": 2523,
+        "score": 17.194555282592773,
+        "token": "You"
+      },
+      {
+        "id": 21365,
+        "score": 17.057109832763672,
+        "token": "Given"
+      }
+    ],
+    "sampled_text": "Based",
+    "comparison": {
+      "whole_logits": [
+        19.212310791015625, 15.059223175048828, 14.085700988769531,
+        16.5752010345459, 12.403972625732422, 13.617767333984375,
+        6.578547477722168
+      ],
+      "chunked_logits": [
+        18.992656707763672, 14.732803344726562, 13.66598129272461,
+        16.03474998474121, 12.079708099365234, 13.269594192504883,
+        6.262618541717529
+      ],
+      "max_abs_difference": 0.5404510498046875,
+      "same_winner": true
+    }
+  },
+  "parsed_json": {
+    "nova": "accelerate"
+  },
+  "fields": {
+    "nova": {
+      "value": "accelerate",
+      "probabilities": [
+        0.930077222309063, 0.013136757991318955, 0.004520362557221311,
+        0.04829658694120577, 0.0009252595456300146, 0.0030410568474253633,
+        2.753808135698007e-6
+      ],
+      "logits": [
+        18.992656707763672, 14.732803344726562, 13.66598129272461,
+        16.03474998474121, 12.079708099365234, 13.269594192504883,
+        6.262618541717529
+      ],
+      "options": [
+        "accelerate",
+        "brake",
+        "hold",
+        "left",
+        "boost",
+        "risky_left",
+        "pit"
+      ]
+    }
+  },
+  "scores_are_calibrated": false,
+  "scenario": "driving",
+  "label_mode": "semantic",
+  "label_mapping": {
+    "Fast": "accelerate",
+    "Slow": "brake",
+    "Stay": "hold",
+    "Left": "left",
+    "Boost": "boost",
+    "Risk": "risky_left",
+    "Repair": "pit"
+  },
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+  "id": 1,
+  "epoch": 1,
+  "unitId": "nova",
+  "testOnly": true,
+  "elapsed_ms": 1588.5999999642372,
+  "prefill_chunk_tokens": 32,
+  "prefill_chunks": 24,
+  "fields_scored": 1,
+  "backend_requests": 1,
+  "forward_calls": 24,
+  "prompt_tokens": 741,
+  "scheduling": "round-robin",
+  "usage": {
+    "prompt_tokens": 741,
+    "scored_positions": 1
+  },
+  "observedContext": {
+    "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+    "timeSeconds": 0,
+    "self": {
+      "id": "nova",
+      "name": "Nova",
+      "lane": 2,
+      "lanePosition": 2,
+      "changingLanes": false,
+      "distanceAlongTrackM": 425.8,
+      "speedMps": 17,
+      "speedKph": 61.2,
+      "targetSpeedMps": 17,
+      "targetSpeedKph": 61.2,
+      "action": "hold",
+      "source": "ready",
+      "laps": 0,
+      "overtakes": 0,
+      "contacts": 0,
+      "assists": 0,
+      "tyres": 100,
+      "damage": 0,
+      "boostEnergy": 100,
+      "boostRemaining": 0,
+      "spinning": false,
+      "spinRemaining": 0,
+      "riskyRemaining": 0,
+      "pitState": "none",
+      "pitRemaining": 0,
+      "finished": false,
+      "retired": false,
+      "racePosition": 4,
+      "raceDistanceM": 0
+    },
+    "race": {
+      "laps": 3,
+      "totalDistanceM": 1316.3,
+      "position": 4,
+      "remainingDistanceM": 1329.3,
+      "lapsRemaining": 3,
+      "leaderId": "atlas",
+      "gapToLeaderM": 7,
+      "carAhead": {
+        "id": "juno",
+        "gapM": 7
+      },
+      "carBehind": null,
+      "timeLimitSeconds": 180,
+      "winnerId": null
+    },
+    "track": {
+      "lanes": 3,
+      "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+      "lengthM": 438.8,
+      "maximumSpeedMps": 31,
+      "boostMaximumSpeedMps": 39,
+      "speedLimitKph": 111.6,
+      "inBend": true,
+      "distanceToBendM": 0,
+      "safeSpeedHereMps": 21.5,
+      "safeSpeedNextMps": 21.5,
+      "nextCornerDistanceM": 0,
+      "brakingDistanceM": 0,
+      "wetHere": true,
+      "nextCornerWet": true,
+      "wetSector": {
+        "startM": 319.4,
+        "endM": 438.8,
+        "gripFactor": 0.74
+      },
+      "pitEntryDistanceM": 25,
+      "lookaheadM": 140,
+      "rearVisibilityM": 80
+    },
+    "traffic": [
+      {
+        "lane": 0,
+        "label": "left / inside",
+        "front": {
+          "id": "milo",
+          "name": "Milo",
+          "controlled": true,
+          "speedMps": 17,
+          "speedKph": 61.2,
+          "gapM": -4.4,
+          "closingMps": 0,
+          "ttcSeconds": null
+        },
+        "rear": {
+          "id": "milo",
+          "name": "Milo",
+          "controlled": true,
+          "speedMps": 17,
+          "speedKph": 61.2,
+          "gapM": -4.4,
+          "closingMps": 0,
+          "ttcSeconds": null
+        },
+        "canEnter": false,
+        "canRiskEnter": false
+      },
+      {
+        "lane": 1,
+        "label": "middle",
+        "front": null,
+        "rear": null,
+        "canEnter": true,
+        "canRiskEnter": true
+      },
+      {
+        "lane": 2,
+        "label": "right / outside",
+        "front": {
+          "id": "juno",
+          "name": "Juno",
+          "controlled": true,
+          "speedMps": 17,
+          "speedKph": 61.2,
+          "gapM": 3.4,
+          "closingMps": 0,
+          "ttcSeconds": null
+        },
+        "rear": {
+          "id": "traffic-6",
+          "name": "Traffic 6",
+          "controlled": false,
+          "speedMps": 20,
+          "speedKph": 72,
+          "gapM": 27.8,
+          "closingMps": 3,
+          "ttcSeconds": 9.3
+        },
+        "canEnter": false,
+        "canRiskEnter": false
+      }
+    ],
+    "assist": {
+      "enabled": true,
+      "active": false,
+      "interventions": 0,
+      "reason": "",
+      "suppressedForRisk": false,
+      "cornersProtected": false
+    },
+    "availableActions": [
+      "accelerate",
+      "brake",
+      "hold",
+      "left",
+      "boost",
+      "risky_left",
+      "pit"
+    ],
+    "units": {
+      "speed": "m/s and km/h explicitly named",
+      "distance": "metres",
+      "time": "seconds",
+      "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+    }
+  },
+  "policy": "Brake now. Choose brake."
+}

@@ -278,3 +278,123 @@ The execution records are [UI and progression](inspector-result.json) and
 pins](inspector-validation.json). These establish inspector behavior, not policy
 quality or an inference speedup. Levels are work milestones and add no stat
 multiplier; training still increases the separately displayed attack value.
+
+## Slipstream driving demo
+
+The driving demo has its own simulation, finite action contract and per-car
+prompts. It shares the pinned WebLLM worker and Qwen 3.5 0.8B files with Last
+Hearth. Village survival results do not measure driving policy quality.
+
+The driving checks distinguish three kinds of evidence:
+
+- `driving-game.test.js` and `driving-contract.test.js` cover real physics,
+  finite resources, safe/risky lane availability, contact, grip, spins, damage,
+  physical pit service, race outcomes, observations and typed assignments.
+- [driving-balance.js](driving-balance.js) records three deterministic **scripted**
+  races in [driving-balance.json](driving-balance.json). With seeds 7, 8 and 9,
+  Atlas, Milo and Juno won respectively; each race had three finishers and one
+  DNF. These used **zero model requests**. They show mechanics and balance,
+  not prompt following or inference speed.
+- [driving-policy-probe.js](driving-policy-probe.js) submits hand-authored scenes
+  to the actual loaded WebLLM worker while paused. It never applies its output
+  to the race or adds AI ticks. The scenes were repeatedly inspected and used
+  to select a prompt format; they are development evidence, not an untouched
+  accuracy benchmark.
+
+The [initial comparison](driving-policy-initial.json) found that ordinary
+letter labels matched none of six scene expectations, while rotated/semantic
+labels and semantic examples matched one each. The model often preferred to
+start an explanatory sentence with “Based” or “To”; restricting that distribution
+to finite labels still yields a valid object, but can amplify irrelevant token
+preferences. This is a concrete limitation of using a pretrained model as a
+one-position classifier without task training.
+
+[Answer-prefix and compact-prompt probes](driving-policy-suffix.json) improved
+this small development set: compact observations with a fixed `Action:`
+assistant prefix and letter labels matched four of six scenes. It distinguished
+pushing, steady pace, passing blocked traffic and servicing damage, but still
+missed both braking scenes. The other suffix variants matched only one or two.
+Whitespace-prefixed labels are verified as single tokens before scoring.
+A [final paired comparison](driving-policy-final.json) reproduced those four
+matches. Adding explicit speed differences and repeating the policy matched
+three of six and still missed braking, so production retains the compact
+format. These counts neither establish reliable racing behavior nor general accuracy. Full per-case prompts, labels, logits and outputs are retained.
+
+A separate [whole-versus-chunked comparison](driving-engine-comparison.json)
+used an explicit brake instruction. Both methods selected the same wrong
+acceleration action; the largest candidate-logit difference was about 0.54.
+This single diagnostic rules out a chunk-specific winner change for that input,
+not numerical differences or bugs for all possible prompts.
+
+[driving-smoke.js](driving-smoke.js) exercises real body/tag selection, mobile
+layout, scripted counter isolation, offline real-model scoring, per-driver
+prompts and saved observations, edit isolation and stale-result rejection.
+[driving-race.js](driving-race.js) records one complete real-model race using
+normal UI controls, including accepted decisions, events, frame measurements
+and standings. A script's presence alone is not proof it passed; release
+execution records and source hashes are recorded separately.
+
+To reproduce, start a production preview and open `/driving.html` in the isolated
+browser. Tests may reset the race and restore driver prompts; use a disposable
+session. The policy and race scripts require Qwen to be loaded first and the
+race paused. Run one GPU check at a time:
+
+```bash
+npm test
+node qa/driving-balance.js
+npm run build
+npm run preview -- --port 5173
+# In another terminal, from web/:
+playwright-cli -s=cowork open http://127.0.0.1:5173/driving.html --persistent --headed
+playwright-cli -s=cowork run-code --filename=qa/driving-smoke.js
+playwright-cli -s=cowork run-code --filename=qa/driving-policy-probe.js
+playwright-cli -s=cowork run-code --filename=qa/driving-race.js
+```
+
+Browser reports are stored as `window.slipstreamSmokeReport`,
+`window.slipstreamPolicyReport` and `window.slipstreamRaceReport`. AI rates use
+accepted decisions per wall-clock second; simulated race time, script updates,
+frame counts and forced pit routing do not create AI ticks. Seeded physics is
+repeatable, but asynchronous model timings and browser cadence can change a
+live race. The browser makes no claim to the server benchmark's CUDA speedup.
+
+The first [complete real-model race](driving-race-result.json), using the longer
+initial driver policies, finished in 92.24 wall seconds with 56 accepted model
+decisions. Atlas won at 75.00 simulated seconds; all four finished. There were
+four overtakes, one completed pit stop and no spins or contact. Median sampled
+rendering was 54.2 FPS on the recorded Apple Metal adapter. This single run is
+not a device-independent benchmark or a controlled strategy comparison.
+Its actions exposed a practical failure: Nova repeatedly boosted/accelerated
+behind traffic; Juno chose hold throughout. The output contract remained valid.
+
+A [recorded-state overtaking probe](driving-overtake-probe.json) then compared
+four shorter instructions on an actual blocked Nova observation. Three selected
+`risky_left`, while one still selected acceleration. The current Nova default
+uses the tested instruction to prioritize passing a car within 30 metres.
+The other strategies were also shortened. This is prompt tuning on observed
+failures, not independent validation or hard-coded driving behavior.
+
+The [current real-model race](driving-race-current.json), with the shorter
+policies, recorded **13 overtakes, two spins and 44 accepted AI decisions**.
+Juno won in **70.56 simulated seconds**; Nova chose three risky passes, spun,
+and finished third with **61.2% damage**. Milo also spun. All four finished;
+this run had no contacts or completed pit service. It took **78.37 wall
+seconds**, with a median of **54.0 sampled rendered FPS** on the same recorded
+Apple WebGPU adapter. These are observed outcomes from one development run,
+not a controlled causal comparison: asynchronous inference timing also differs.
+The model still used early boost despite conservation instructions. Different
+prompts influence scores but do not reliably enforce every intended strategy.
+
+The release [smoke report](driving-smoke-result.json) passed all eight body/tag
+selections, mobile bounds/overflow, offline real scoring for all drivers,
+per-car observations and scores, prompt-edit isolation and in-flight reset
+rejection. The [village regression](driving-village-regression.json) also passed
+real Mira/Bram score attribution and Nell's rule-only inspector with the shared
+worker. Normal navigation to Last Hearth and Back returned a working circuit
+without reporting a terminated model worker as loaded.
+
+[Release source hashes and pins](driving-validation.json) identify the checked
+code and artifacts. All **85 CPU tests**, formatting and the production build
+passed. The full race preceded only the final Back/forward-cache lifecycle guard;
+its physics, inference prompt and shipped driver policies are unchanged in the
+release. UI and navigation were tested again after that guard was added.

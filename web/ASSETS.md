@@ -1,4 +1,6 @@
-# Last Hearth game art
+# Browser demo art
+
+## Last Hearth
 
 The demo bundles selected 3D models locally. There is no third-party model CDN at runtime. Geometry, skeletons, materials, and textures are genuine artist-made assets; the landscape, berry bushes, campfire, role tools, selection markers, and UI are authored in this repository.
 
@@ -22,3 +24,24 @@ Original KayKit village filenames:
 Human animation clips: `Idle`, `Walking_A`, `Running_A`, `Interact`, `PickUp`, `1H_Melee_Attack_Chop`, `Sit_Floor_Idle`, `Death_A`, `Death_A_Pose`, `Unarmed_Melee_Attack_Punch_A`. Independent skeleton clones allow each NPC to walk, work, fight, or die independently.
 
 UI typography uses Libre Baskerville, Barlow Condensed, and DM Mono via Google Fonts (SIL Open Font License). Three.js and its GLTFLoader, SkeletonUtils, and OrbitControls are MIT-licensed code dependencies, not artwork.
+
+## Slipstream
+
+Slipstream's artwork is authored procedurally in
+[`src/driving/renderer.js`](src/driving/renderer.js) and is covered by this
+repository's [MIT license](../LICENSE). It does not load the Last Hearth model
+packs or external vehicle models.
+
+| Asset                                     | Construction                                                                                                                                          |
+| :---------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Four colored racing cars and grey traffic | Shared instanced geometry for bodies, glass cabins, wheels, hubs, trim, headlights and brake lamps. The vehicle shapes are original stylized designs. |
+| Circuit                                   | Mesh-built road, lane markings, curbs, timing stripe, wet asphalt and a separate pit entry/service/exit lane.                                         |
+| Paddock and landscape                     | Procedural garage, control tower, grandstand, seats, pit canopy, trees, shrubs, cones and gravel patches.                                             |
+| Number tags and signs                     | Small canvas-generated textures using system Arial; no downloaded sign or badge images.                                                               |
+| Racing effects                            | Instanced boost shapes, low-poly smoke, skid marks, selection ring and damage/retirement appearance changes.                                          |
+
+Slipstream's page typography uses DM Sans, Barlow Condensed and DM Mono via
+Google Fonts (SIL Open Font License). Three.js and `BufferGeometryUtils` are
+MIT-licensed code dependencies. The pinned Qwen model and WebLLM runtime have
+their own notices and are separate from these graphics; see
+[THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).

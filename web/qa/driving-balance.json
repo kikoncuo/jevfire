@@ -1,0 +1,2075 @@
+{
+  "generated_at": "2026-09-16T21:38:26.097Z",
+  "scope": "Deterministic racing-mechanics and scripted-balance checks",
+  "model_requests": 0,
+  "reproduction": "cd web && node qa/driving-balance.js",
+  "environment": {
+    "node": "v23.11.0",
+    "platform": "darwin",
+    "architecture": "arm64"
+  },
+  "source_sha256": {
+    "src/driving/game.js": "60161ac53402c0b18fdf0375887d92c9fa9632d4ce2bdd0f3c1825edc8ef9542",
+    "src/driving/track.js": "c3421c12a193f97c382242060333d2489835ed347ec4fd5ca1c38293a5ce8d0c",
+    "src/driving/contract.js": "02e2259c4a9423532dce3e62138c7aa4450490d357605bf562a83a7db8c51e6d",
+    "src/driving/main.js": "7ca6827be54f9d1753375e804631ad0bf793837ba3bd0a6f71d50a079ac8ef85",
+    "qa/driving-balance.js": "10ed5b4ecc951c27b0a793d0ce85bfcbcae7310dc6f6e8b4fe136c98f7558646"
+  },
+  "setup": {
+    "seeds": [7, 8, 9],
+    "controlled_cars": 4,
+    "background_traffic": 6,
+    "race_laps": 3,
+    "finish_distance_m": 1316.2831250184727,
+    "maximum_simulated_seconds": 180,
+    "simulation_step_seconds": 0.016666666666666666,
+    "following_assist_enabled": true,
+    "nominal_scripted_decision_interval_seconds": 1.1,
+    "scheduling": "Physics first; if simulation time since the previous batch is >=1.1s, call scripted(), then revalidate and apply each car sequentially, replacing unavailable proposals with hold. This matches main.js at 60 virtual frames/s."
+  },
+  "limitations": [
+    "Zero model requests. These outcomes do not measure Qwen policy quality, inference speed, browser FPS or a benefit of JEVfire.",
+    "Scripted strategies are explicitly coded; editable model prompts do not influence this controller.",
+    "The seed changes wet-sector grip and the staggered grid. These are development balance runs, not controlled comparisons of driver personalities.",
+    "Browser frame cadence and simulation speed can move a controller update by a frame and change race outcomes. The observed interval range is recorded.",
+    "Event counts include every actual event captured during the run; the events array omits repetitive decision events. Contact episodes are counted once per incident, not once per car.",
+    "All durations are simulated seconds. Wall-clock execution speed is not benchmarked."
+  ],
+  "runs": [
+    {
+      "seed": 7,
+      "controller": "Explicit scripted baseline; driver prompts are not read",
+      "model_requests": 0,
+      "initial_grid": [
+        { "id": "nova", "lane": 2, "progress_m": -13, "speed_mps": 17 },
+        { "id": "atlas", "lane": 0, "progress_m": -6, "speed_mps": 17 },
+        { "id": "juno", "lane": 2, "progress_m": -6, "speed_mps": 17 },
+        { "id": "milo", "lane": 0, "progress_m": -13, "speed_mps": 17 }
+      ],
+      "wet_sector": {
+        "index": 1,
+        "start": 319.38052083641213,
+        "end": 438.76104167282426,
+        "gripFactor": 0.74,
+        "label": "South wet bend"
+      },
+      "winner_id": "atlas",
+      "winner_finish_seconds": 63.120499,
+      "simulated_duration_seconds": 100.833333,
+      "race_over": true,
+      "end_reason": "Race complete",
+      "scripted_batches": 91,
+      "scripted_action_applications": 188,
+      "revalidated_to_hold": 0,
+      "observed_decision_interval_seconds": {
+        "minimum": 1.1,
+        "maximum": 1.116667,
+        "mean": 1.115185
+      },
+      "totals": {
+        "finished": 3,
+        "retired": 1,
+        "laps": 9,
+        "overtakes": 20,
+        "contact_episodes": 0,
+        "braking_assist_episodes": 8,
+        "spins": 8,
+        "completed_pit_stops": 3,
+        "distance_travelled_m": 4386.300657
+      },
+      "standings": [
+        {
+          "id": "atlas",
+          "name": "Atlas",
+          "position": 1,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 63.120499,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1260.961209,
+          "final_resources": {
+            "tyres_percent": 77.450993,
+            "damage_percent": 45.872005,
+            "boost_energy_percent": 100
+          },
+          "overtakes": 8,
+          "contacts": 0,
+          "braking_assists": 1,
+          "spins": 1,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "decision": 55,
+            "overtake": 8,
+            "assist": 1,
+            "lap": 2,
+            "spin": 1,
+            "pit": 1,
+            "finish": 1
+          }
+        },
+        {
+          "id": "milo",
+          "name": "Milo",
+          "position": 2,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 86.328275,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1379.286338,
+          "final_resources": {
+            "tyres_percent": 82.497496,
+            "damage_percent": 44.831429,
+            "boost_energy_percent": 100
+          },
+          "overtakes": 4,
+          "contacts": 0,
+          "braking_assists": 6,
+          "spins": 2,
+          "completed_pit_stops": 1,
+          "event_counts": {
+            "assist": 6,
+            "decision": 61,
+            "overtake": 4,
+            "lap": 2,
+            "spin": 2,
+            "pit": 6,
+            "finish": 1
+          }
+        },
+        {
+          "id": "juno",
+          "name": "Juno",
+          "position": 3,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 100.83008,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1387.087764,
+          "final_resources": {
+            "tyres_percent": 82.327422,
+            "damage_percent": 38.011639,
+            "boost_energy_percent": 86.041667
+          },
+          "overtakes": 5,
+          "contacts": 0,
+          "braking_assists": 0,
+          "spins": 3,
+          "completed_pit_stops": 2,
+          "event_counts": {
+            "decision": 58,
+            "overtake": 5,
+            "boost": 2,
+            "spin": 3,
+            "pit": 11,
+            "lap": 2,
+            "finish": 1
+          }
+        },
+        {
+          "id": "nova",
+          "name": "Nova",
+          "position": 4,
+          "finished": false,
+          "retired": true,
+          "retirement_reason": "Repeated corner impacts",
+          "finish_seconds": null,
+          "completed_laps": 0,
+          "race_distance_m": 349.142247,
+          "distance_travelled_m": 358.965345,
+          "final_resources": {
+            "tyres_percent": 64.417429,
+            "damage_percent": 100,
+            "boost_energy_percent": 0
+          },
+          "overtakes": 3,
+          "contacts": 0,
+          "braking_assists": 1,
+          "spins": 2,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "assist": 1,
+            "decision": 14,
+            "boost": 4,
+            "overtake": 3,
+            "spin": 2,
+            "retire": 1
+          }
+        }
+      ],
+      "event_counts": {
+        "assist": 8,
+        "decision": 188,
+        "overtake": 20,
+        "boost": 6,
+        "spin": 8,
+        "pit": 18,
+        "retire": 1,
+        "lap": 6,
+        "finish": 3
+      },
+      "pit_durations": [
+        {
+          "car_id": "juno",
+          "entered_at": 26.033333,
+          "service_started_at": 30.183333,
+          "service_completed_at": 36.2,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 40.25,
+          "pit_lane_seconds": 14.216667
+        },
+        {
+          "car_id": "milo",
+          "entered_at": 49.65,
+          "service_started_at": 53.8,
+          "service_completed_at": 59.816667,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 63.866667,
+          "pit_lane_seconds": 14.216667
+        },
+        {
+          "car_id": "juno",
+          "entered_at": 63.8,
+          "service_started_at": 67.95,
+          "service_completed_at": 73.966667,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 79.7,
+          "pit_lane_seconds": 15.9
+        }
+      ],
+      "events": [
+        {
+          "type": "assist",
+          "carId": "nova",
+          "time": 0.016667,
+          "message": "Nova: emergency braking",
+          "reason": "Braking for Juno, 3.4 m ahead"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 0.016667,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 1.8 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 0.95,
+          "message": "Juno passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 1.116667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 1.116667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 1.483333,
+          "message": "Nova passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 3.233333,
+          "message": "Nova passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 4.2,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 7.5 m ahead"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 4.466667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 5.816667,
+          "message": "Nova passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 6.55,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.01,
+          "damage": 50.3,
+          "wet": false
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 7.4,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Nova, 29.8 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 8.266667,
+          "message": "Atlas passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "assist",
+          "carId": "atlas",
+          "time": 8.916667,
+          "message": "Atlas: emergency braking",
+          "reason": "Braking for Traffic 1, 15.5 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 9.216667,
+          "message": "Juno passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 9.316667,
+          "message": "Milo passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 10.55,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 20.2 m ahead"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 11.116667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 12.166667,
+          "message": "Atlas passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "spin",
+          "carId": "juno",
+          "time": 13.9,
+          "message": "Juno spun after exceeding corner grip",
+          "load": 1.68,
+          "damage": 42.9,
+          "wet": true
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 14.283333,
+          "message": "Milo passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 14.416667,
+          "message": "Nova engaged boost",
+          "seconds": 0.9166666666667017
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 15.233333,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Juno, 40.4 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 16.15,
+          "message": "Atlas passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 16.633333,
+          "message": "Juno requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 18.183333,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.32,
+          "damage": 57.1,
+          "wet": true
+        },
+        {
+          "type": "retire",
+          "carId": "nova",
+          "time": 18.183333,
+          "message": "Nova retired: Repeated corner impacts",
+          "reason": "Repeated corner impacts"
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 20.05,
+          "message": "Atlas completed lap 1"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 20.366667,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Juno, 6.5 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 23.333333,
+          "message": "Milo passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 24.25,
+          "message": "Milo completed lap 1"
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 25.016667,
+          "message": "Juno completed lap 1"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 26.033333,
+          "message": "Juno entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 26.933333,
+          "message": "Milo passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 30.183333,
+          "message": "Juno stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 31.033333,
+          "message": "Atlas passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 34.2,
+          "message": "Atlas passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 36.2,
+          "message": "Juno completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "spin",
+          "carId": "milo",
+          "time": 37.133333,
+          "message": "Milo spun after exceeding corner grip",
+          "load": 2.04,
+          "damage": 50.9,
+          "wet": true
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 39.05,
+          "message": "Atlas completed lap 2"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 40.083333,
+          "message": "Milo requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 40.25,
+          "message": "Juno rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 40.833333,
+          "message": "Atlas passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 45.066667,
+          "message": "Juno passed Traffic 5",
+          "otherId": "traffic-5"
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 48.633333,
+          "message": "Milo completed lap 2"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 49.65,
+          "message": "Milo entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 49.916667,
+          "message": "Atlas passed Traffic 5",
+          "otherId": "traffic-5"
+        },
+        {
+          "type": "spin",
+          "carId": "juno",
+          "time": 51.483333,
+          "message": "Juno spun after exceeding corner grip",
+          "load": 1.92,
+          "damage": 48.2,
+          "wet": true
+        },
+        {
+          "type": "spin",
+          "carId": "atlas",
+          "time": 53.8,
+          "message": "Atlas spun after exceeding corner grip",
+          "load": 1.81,
+          "damage": 45.9,
+          "wet": true
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 53.8,
+          "message": "Milo stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 54.316667,
+          "message": "Atlas passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 54.6,
+          "message": "Juno requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 56.833333,
+          "message": "Atlas requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 59.816667,
+          "message": "Milo completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 62.783333,
+          "message": "Juno completed lap 2"
+        },
+        {
+          "type": "finish",
+          "carId": "atlas",
+          "time": 63.133333,
+          "message": "Atlas won the race",
+          "finishTime": 63.12049879668117,
+          "winner": true
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 63.8,
+          "message": "Juno entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 63.866667,
+          "message": "Milo rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 67.95,
+          "message": "Juno stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 73.966667,
+          "message": "Juno completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "spin",
+          "carId": "milo",
+          "time": 75.133333,
+          "message": "Milo spun after exceeding corner grip",
+          "load": 1.77,
+          "damage": 44.8,
+          "wet": true
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 78.05,
+          "message": "Milo requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 79.7,
+          "message": "Juno rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 85.866667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "finish",
+          "carId": "milo",
+          "time": 86.333333,
+          "message": "Milo finished",
+          "finishTime": 86.3282753570259,
+          "winner": false
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 87.25,
+          "message": "Juno passed Traffic 6",
+          "otherId": "traffic-6"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 88.566667,
+          "message": "Juno passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "spin",
+          "carId": "juno",
+          "time": 91.166667,
+          "message": "Juno spun after exceeding corner grip",
+          "load": 1.46,
+          "damage": 38,
+          "wet": true
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 93.683333,
+          "message": "Juno requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "finish",
+          "carId": "juno",
+          "time": 100.833333,
+          "message": "Juno finished",
+          "finishTime": 100.83007956895584,
+          "winner": false
+        }
+      ]
+    },
+    {
+      "seed": 8,
+      "controller": "Explicit scripted baseline; driver prompts are not read",
+      "model_requests": 0,
+      "initial_grid": [
+        { "id": "nova", "lane": 0, "progress_m": -6, "speed_mps": 17 },
+        { "id": "atlas", "lane": 2, "progress_m": -6, "speed_mps": 17 },
+        { "id": "juno", "lane": 0, "progress_m": -13, "speed_mps": 17 },
+        { "id": "milo", "lane": 2, "progress_m": -13, "speed_mps": 17 }
+      ],
+      "wet_sector": {
+        "index": 0,
+        "start": 100,
+        "end": 219.38052083641213,
+        "gripFactor": 0.73,
+        "label": "North wet bend"
+      },
+      "winner_id": "milo",
+      "winner_finish_seconds": 58.295927,
+      "simulated_duration_seconds": 74.15,
+      "race_over": true,
+      "end_reason": "Race complete",
+      "scripted_batches": 67,
+      "scripted_action_applications": 183,
+      "revalidated_to_hold": 0,
+      "observed_decision_interval_seconds": {
+        "minimum": 1.1,
+        "maximum": 1.116667,
+        "mean": 1.114646
+      },
+      "totals": {
+        "finished": 3,
+        "retired": 1,
+        "laps": 10,
+        "overtakes": 24,
+        "contact_episodes": 0,
+        "braking_assist_episodes": 9,
+        "spins": 2,
+        "completed_pit_stops": 1,
+        "distance_travelled_m": 4542.23361
+      },
+      "standings": [
+        {
+          "id": "milo",
+          "name": "Milo",
+          "position": 1,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 58.295927,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1300.754995,
+          "final_resources": {
+            "tyres_percent": 91.346827,
+            "damage_percent": 0,
+            "boost_energy_percent": 58.125
+          },
+          "overtakes": 7,
+          "contacts": 0,
+          "braking_assists": 5,
+          "spins": 0,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "assist": 5,
+            "decision": 53,
+            "overtake": 7,
+            "lap": 2,
+            "boost": 2,
+            "finish": 1
+          }
+        },
+        {
+          "id": "atlas",
+          "name": "Atlas",
+          "position": 2,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 60.447687,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1333.658582,
+          "final_resources": {
+            "tyres_percent": 92.677783,
+            "damage_percent": 0,
+            "boost_energy_percent": 100
+          },
+          "overtakes": 6,
+          "contacts": 0,
+          "braking_assists": 0,
+          "spins": 0,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "decision": 55,
+            "overtake": 6,
+            "lap": 2,
+            "finish": 1
+          }
+        },
+        {
+          "id": "juno",
+          "name": "Juno",
+          "position": 3,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 74.142018,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1351.075784,
+          "final_resources": {
+            "tyres_percent": 97.010083,
+            "damage_percent": 0,
+            "boost_energy_percent": 72.083333
+          },
+          "overtakes": 7,
+          "contacts": 0,
+          "braking_assists": 2,
+          "spins": 0,
+          "completed_pit_stops": 1,
+          "event_counts": {
+            "assist": 2,
+            "decision": 54,
+            "boost": 5,
+            "overtake": 7,
+            "lap": 2,
+            "pit": 5,
+            "finish": 1
+          }
+        },
+        {
+          "id": "nova",
+          "name": "Nova",
+          "position": 4,
+          "finished": false,
+          "retired": true,
+          "retirement_reason": "Repeated corner impacts",
+          "finish_seconds": null,
+          "completed_laps": 1,
+          "race_distance_m": 565.269328,
+          "distance_travelled_m": 556.744249,
+          "final_resources": {
+            "tyres_percent": 62.526556,
+            "damage_percent": 100,
+            "boost_energy_percent": 0
+          },
+          "overtakes": 4,
+          "contacts": 0,
+          "braking_assists": 2,
+          "spins": 2,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "boost": 4,
+            "decision": 21,
+            "spin": 2,
+            "assist": 2,
+            "overtake": 4,
+            "lap": 1,
+            "retire": 1
+          }
+        }
+      ],
+      "event_counts": {
+        "assist": 9,
+        "boost": 11,
+        "decision": 183,
+        "overtake": 24,
+        "spin": 2,
+        "lap": 7,
+        "retire": 1,
+        "pit": 5,
+        "finish": 3
+      },
+      "pit_durations": [
+        {
+          "car_id": "juno",
+          "entered_at": 42.716667,
+          "service_started_at": 46.866667,
+          "service_completed_at": 52.883333,
+          "stopped_service_seconds": 6.016666,
+          "rejoined_at": 56.933333,
+          "pit_lane_seconds": 14.216666
+        }
+      ],
+      "events": [
+        {
+          "type": "assist",
+          "carId": "juno",
+          "time": 0.016667,
+          "message": "Juno: emergency braking",
+          "reason": "Braking for Nova, 1.8 m ahead"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 0.016667,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 3.4 m ahead"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 0.016667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 1.116667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 2.833333,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 6.8 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 4.416667,
+          "message": "Juno passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 4.466667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 5.35,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.56,
+          "damage": 62.3,
+          "wet": true
+        },
+        {
+          "type": "assist",
+          "carId": "juno",
+          "time": 6.716667,
+          "message": "Juno: emergency braking",
+          "reason": "Braking for Nova, 13.6 m ahead"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 7.816667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 8.033333,
+          "message": "Atlas passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 8.366667,
+          "message": "Juno passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 8.716667,
+          "message": "Milo passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 9.45,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 6.7 m ahead"
+        },
+        {
+          "type": "assist",
+          "carId": "nova",
+          "time": 10.033333,
+          "message": "Nova: emergency braking",
+          "reason": "Braking for Juno, 11.8 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 11.883333,
+          "message": "Juno passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 12.216667,
+          "message": "Nova engaged boost",
+          "seconds": 2.116666666666698
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 12.216667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 14.066667,
+          "message": "Nova passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 15.316667,
+          "message": "Juno passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 15.6,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 8.5 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 17.516667,
+          "message": "Atlas passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 17.783333,
+          "message": "Nova passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 18.7,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 7.2 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 18.733333,
+          "message": "Nova passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "assist",
+          "carId": "nova",
+          "time": 18.85,
+          "message": "Nova: emergency braking",
+          "reason": "Braking for Juno, 3.9 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 18.933333,
+          "message": "Milo passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 20.383333,
+          "message": "Nova passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "lap",
+          "carId": "nova",
+          "time": 20.733333,
+          "message": "Nova completed lap 1"
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 20.783333,
+          "message": "Juno completed lap 1"
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 21.083333,
+          "message": "Atlas completed lap 1"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 21.1,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 21.7,
+          "message": "Milo completed lap 1"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 25.333333,
+          "message": "Milo passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 25.433333,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.64,
+          "damage": 64,
+          "wet": true
+        },
+        {
+          "type": "retire",
+          "carId": "nova",
+          "time": 25.433333,
+          "message": "Nova retired: Repeated corner impacts",
+          "reason": "Repeated corner impacts"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 31.15,
+          "message": "Juno engaged boost",
+          "seconds": 2.4500000000000366
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 33.383333,
+          "message": "Juno requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 34,
+          "message": "Juno passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 35.7,
+          "message": "Milo passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 37.55,
+          "message": "Milo passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 39.183333,
+          "message": "Atlas passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 39.233333,
+          "message": "Milo completed lap 2"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 39.333333,
+          "message": "Milo passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "boost",
+          "carId": "milo",
+          "time": 40.083333,
+          "message": "Milo engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 40.75,
+          "message": "Atlas passed Juno",
+          "otherId": "juno"
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 41.2,
+          "message": "Atlas completed lap 2"
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 41.7,
+          "message": "Juno completed lap 2"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 42.716667,
+          "message": "Juno entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 46.866667,
+          "message": "Juno stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "boost",
+          "carId": "milo",
+          "time": 50.133333,
+          "message": "Milo engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 52.35,
+          "message": "Milo passed Traffic 5",
+          "otherId": "traffic-5"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 52.883333,
+          "message": "Juno completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 56.383333,
+          "message": "Atlas passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 56.933333,
+          "message": "Juno rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "finish",
+          "carId": "milo",
+          "time": 58.3,
+          "message": "Milo won the race",
+          "finishTime": 58.29592734481524,
+          "winner": true
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 58.666667,
+          "message": "Atlas passed Traffic 5",
+          "otherId": "traffic-5"
+        },
+        {
+          "type": "finish",
+          "carId": "atlas",
+          "time": 60.45,
+          "message": "Atlas finished",
+          "finishTime": 60.44768671601976,
+          "winner": false
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 65.733333,
+          "message": "Juno passed Traffic 4",
+          "otherId": "traffic-4"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 65.766667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 66.733333,
+          "message": "Juno passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "finish",
+          "carId": "juno",
+          "time": 74.15,
+          "message": "Juno finished",
+          "finishTime": 74.14201766965509,
+          "winner": false
+        }
+      ]
+    },
+    {
+      "seed": 9,
+      "controller": "Explicit scripted baseline; driver prompts are not read",
+      "model_requests": 0,
+      "initial_grid": [
+        { "id": "nova", "lane": 2, "progress_m": -6, "speed_mps": 17 },
+        { "id": "atlas", "lane": 0, "progress_m": -13, "speed_mps": 17 },
+        { "id": "juno", "lane": 2, "progress_m": -13, "speed_mps": 17 },
+        { "id": "milo", "lane": 0, "progress_m": -6, "speed_mps": 17 }
+      ],
+      "wet_sector": {
+        "index": 1,
+        "start": 319.38052083641213,
+        "end": 438.76104167282426,
+        "gripFactor": 0.72,
+        "label": "South wet bend"
+      },
+      "winner_id": "juno",
+      "winner_finish_seconds": 70.502943,
+      "simulated_duration_seconds": 86.916667,
+      "race_over": true,
+      "end_reason": "Race complete",
+      "scripted_batches": 78,
+      "scripted_action_applications": 205,
+      "revalidated_to_hold": 0,
+      "observed_decision_interval_seconds": {
+        "minimum": 1.1,
+        "maximum": 1.116667,
+        "mean": 1.114935
+      },
+      "totals": {
+        "finished": 3,
+        "retired": 1,
+        "laps": 10,
+        "overtakes": 22,
+        "contact_episodes": 0,
+        "braking_assist_episodes": 5,
+        "spins": 6,
+        "completed_pit_stops": 3,
+        "distance_travelled_m": 4846.685596
+      },
+      "standings": [
+        {
+          "id": "juno",
+          "name": "Juno",
+          "position": 1,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 70.502943,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1339.013652,
+          "final_resources": {
+            "tyres_percent": 97.394994,
+            "damage_percent": 0,
+            "boost_energy_percent": 86.041667
+          },
+          "overtakes": 7,
+          "contacts": 0,
+          "braking_assists": 1,
+          "spins": 0,
+          "completed_pit_stops": 1,
+          "event_counts": {
+            "assist": 1,
+            "decision": 51,
+            "boost": 5,
+            "overtake": 7,
+            "lap": 2,
+            "pit": 5,
+            "finish": 1
+          }
+        },
+        {
+          "id": "milo",
+          "name": "Milo",
+          "position": 2,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 80.964863,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1321.294825,
+          "final_resources": {
+            "tyres_percent": 97.170777,
+            "damage_percent": 0,
+            "boost_energy_percent": 86.041667
+          },
+          "overtakes": 3,
+          "contacts": 0,
+          "braking_assists": 2,
+          "spins": 1,
+          "completed_pit_stops": 1,
+          "event_counts": {
+            "decision": 58,
+            "overtake": 3,
+            "assist": 2,
+            "lap": 2,
+            "spin": 1,
+            "pit": 5,
+            "boost": 1,
+            "finish": 1
+          }
+        },
+        {
+          "id": "atlas",
+          "name": "Atlas",
+          "position": 3,
+          "finished": true,
+          "retired": false,
+          "retirement_reason": null,
+          "finish_seconds": 86.909175,
+          "completed_laps": 3,
+          "race_distance_m": 1316.283125,
+          "distance_travelled_m": 1370.387655,
+          "final_resources": {
+            "tyres_percent": 97.51265,
+            "damage_percent": 0,
+            "boost_energy_percent": 100
+          },
+          "overtakes": 7,
+          "contacts": 0,
+          "braking_assists": 2,
+          "spins": 2,
+          "completed_pit_stops": 1,
+          "event_counts": {
+            "assist": 2,
+            "decision": 61,
+            "overtake": 7,
+            "spin": 2,
+            "lap": 2,
+            "pit": 5,
+            "finish": 1
+          }
+        },
+        {
+          "id": "nova",
+          "name": "Nova",
+          "position": 4,
+          "finished": false,
+          "retired": true,
+          "retirement_reason": "Repeated corner impacts",
+          "finish_seconds": null,
+          "completed_laps": 1,
+          "race_distance_m": 782.164214,
+          "distance_travelled_m": 815.989464,
+          "final_resources": {
+            "tyres_percent": 45.63073,
+            "damage_percent": 100,
+            "boost_energy_percent": 0
+          },
+          "overtakes": 5,
+          "contacts": 0,
+          "braking_assists": 0,
+          "spins": 3,
+          "completed_pit_stops": 0,
+          "event_counts": {
+            "boost": 4,
+            "decision": 35,
+            "overtake": 5,
+            "spin": 3,
+            "lap": 1,
+            "retire": 1
+          }
+        }
+      ],
+      "event_counts": {
+        "assist": 5,
+        "boost": 10,
+        "decision": 205,
+        "overtake": 22,
+        "spin": 6,
+        "lap": 7,
+        "pit": 15,
+        "retire": 1,
+        "finish": 3
+      },
+      "pit_durations": [
+        {
+          "car_id": "juno",
+          "entered_at": 39.9,
+          "service_started_at": 44.05,
+          "service_completed_at": 50.066667,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 54.116667,
+          "pit_lane_seconds": 14.216667
+        },
+        {
+          "car_id": "milo",
+          "entered_at": 50.983333,
+          "service_started_at": 55.133333,
+          "service_completed_at": 61.15,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 65.2,
+          "pit_lane_seconds": 14.216667
+        },
+        {
+          "car_id": "atlas",
+          "entered_at": 55.483333,
+          "service_started_at": 59.633333,
+          "service_completed_at": 65.65,
+          "stopped_service_seconds": 6.016667,
+          "rejoined_at": 69.7,
+          "pit_lane_seconds": 14.216667
+        }
+      ],
+      "events": [
+        {
+          "type": "assist",
+          "carId": "atlas",
+          "time": 0.016667,
+          "message": "Atlas: emergency braking",
+          "reason": "Braking for Milo, 1.8 m ahead"
+        },
+        {
+          "type": "assist",
+          "carId": "juno",
+          "time": 0.016667,
+          "message": "Juno: emergency braking",
+          "reason": "Braking for Nova, 3.4 m ahead"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 0.016667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 0.666667,
+          "message": "Nova passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 1.116667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 1.733333,
+          "message": "Juno passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 3.35,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 3.583333,
+          "message": "Juno passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 5.883333,
+          "message": "Nova passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 5.966667,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 1.77,
+          "damage": 44.9,
+          "wet": false
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 7.816667,
+          "message": "Milo passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 8.1,
+          "message": "Juno passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "assist",
+          "carId": "atlas",
+          "time": 8.666667,
+          "message": "Atlas: emergency braking",
+          "reason": "Braking for Milo, 12.6 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 8.7,
+          "message": "Atlas passed Nova",
+          "otherId": "nova"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 8.916667,
+          "message": "Nova engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 9.05,
+          "message": "Juno passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 10.016667,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 10.333333,
+          "message": "Juno passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "boost",
+          "carId": "nova",
+          "time": 12.216667,
+          "message": "Nova engaged boost",
+          "seconds": 0.5000000000000304
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 15,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Traffic 1, 9.6 m ahead"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 15.333333,
+          "message": "Atlas passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 16.233333,
+          "message": "Nova passed Milo",
+          "otherId": "milo"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 16.683333,
+          "message": "Atlas passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 17.483333,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.23,
+          "damage": 55.1,
+          "wet": true
+        },
+        {
+          "type": "spin",
+          "carId": "atlas",
+          "time": 18,
+          "message": "Atlas spun after exceeding corner grip",
+          "load": 1.28,
+          "damage": 34.2,
+          "wet": true
+        },
+        {
+          "type": "assist",
+          "carId": "milo",
+          "time": 18.683333,
+          "message": "Milo: emergency braking",
+          "reason": "Braking for Atlas, 18.4 m ahead"
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 18.85,
+          "message": "Juno completed lap 1"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 19.983333,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 21.916667,
+          "message": "Milo passed Atlas",
+          "otherId": "atlas"
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 25.066667,
+          "message": "Juno passed Traffic 3",
+          "otherId": "traffic-3"
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 25.216667,
+          "message": "Milo completed lap 1"
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 26.533333,
+          "message": "Atlas completed lap 1"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 27.8,
+          "message": "Juno engaged boost",
+          "seconds": 2.1666666666667016
+        },
+        {
+          "type": "overtake",
+          "carId": "juno",
+          "time": 28.15,
+          "message": "Juno passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "lap",
+          "carId": "nova",
+          "time": 28.316667,
+          "message": "Nova completed lap 1"
+        },
+        {
+          "type": "overtake",
+          "carId": "milo",
+          "time": 29.566667,
+          "message": "Milo passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 30.033333,
+          "message": "Juno requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 38.216667,
+          "message": "Atlas passed Traffic 4",
+          "otherId": "traffic-4"
+        },
+        {
+          "type": "spin",
+          "carId": "milo",
+          "time": 38.333333,
+          "message": "Milo spun after exceeding corner grip",
+          "load": 2.08,
+          "damage": 51.7,
+          "wet": true
+        },
+        {
+          "type": "lap",
+          "carId": "juno",
+          "time": 38.883333,
+          "message": "Juno completed lap 2"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 39.133333,
+          "message": "Atlas passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 39.45,
+          "message": "Nova passed Traffic 4",
+          "otherId": "traffic-4"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 39.9,
+          "message": "Juno entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "overtake",
+          "carId": "nova",
+          "time": 40.6,
+          "message": "Nova passed Traffic 1",
+          "otherId": "traffic-1"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 41.2,
+          "message": "Milo requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "spin",
+          "carId": "atlas",
+          "time": 42.633333,
+          "message": "Atlas spun after exceeding corner grip",
+          "load": 1.8,
+          "damage": 45.6,
+          "wet": true
+        },
+        {
+          "type": "spin",
+          "carId": "nova",
+          "time": 43.083333,
+          "message": "Nova spun after exceeding corner grip",
+          "load": 2.61,
+          "damage": 63.4,
+          "wet": true
+        },
+        {
+          "type": "retire",
+          "carId": "nova",
+          "time": 43.083333,
+          "message": "Nova retired: Repeated corner impacts",
+          "reason": "Repeated corner impacts"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 44.05,
+          "message": "Juno stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 45.666667,
+          "message": "Atlas requested a pit stop",
+          "phase": "requested"
+        },
+        {
+          "type": "lap",
+          "carId": "milo",
+          "time": 49.966667,
+          "message": "Milo completed lap 2"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 50.066667,
+          "message": "Juno completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 50.983333,
+          "message": "Milo entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "pit",
+          "carId": "juno",
+          "time": 54.116667,
+          "message": "Juno rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "lap",
+          "carId": "atlas",
+          "time": 54.466667,
+          "message": "Atlas completed lap 2"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 55.133333,
+          "message": "Milo stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 55.483333,
+          "message": "Atlas entered the pit lane",
+          "phase": "entering"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 59.633333,
+          "message": "Atlas stopped for tyres, repairs and boost",
+          "phase": "service"
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 61.15,
+          "message": "Milo completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "boost",
+          "carId": "juno",
+          "time": 61.3,
+          "message": "Juno engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "pit",
+          "carId": "milo",
+          "time": 65.2,
+          "message": "Milo rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 65.65,
+          "message": "Atlas completed six-second service",
+          "phase": "serviced"
+        },
+        {
+          "type": "pit",
+          "carId": "atlas",
+          "time": 69.7,
+          "message": "Atlas rejoined the race",
+          "phase": "exit"
+        },
+        {
+          "type": "finish",
+          "carId": "juno",
+          "time": 70.516667,
+          "message": "Juno won the race",
+          "finishTime": 70.50294286406523,
+          "winner": true
+        },
+        {
+          "type": "boost",
+          "carId": "milo",
+          "time": 72.466667,
+          "message": "Milo engaged boost",
+          "seconds": 2.5
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 77.883333,
+          "message": "Atlas passed Traffic 2",
+          "otherId": "traffic-2"
+        },
+        {
+          "type": "overtake",
+          "carId": "atlas",
+          "time": 78.933333,
+          "message": "Atlas passed Traffic 5",
+          "otherId": "traffic-5"
+        },
+        {
+          "type": "finish",
+          "carId": "milo",
+          "time": 80.966667,
+          "message": "Milo finished",
+          "finishTime": 80.96486272404024,
+          "winner": false
+        },
+        {
+          "type": "finish",
+          "carId": "atlas",
+          "time": 86.916667,
+          "message": "Atlas finished",
+          "finishTime": 86.90917519198491,
+          "winner": false
+        }
+      ]
+    }
+  ]
+}

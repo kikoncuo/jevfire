@@ -23,7 +23,8 @@ Measured median on a synthetic 28-field task with a fresh prefix.<br>
 Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · five trials per cell.</p>
 
 <p align="center">
-  <a href="https://kikoncuo.github.io/jevfire/"><strong>Play the browser demo ↗</strong></a> ·
+  <a href="https://kikoncuo.github.io/jevfire/driving.html"><strong>Race four prompts ↗</strong></a> ·
+  <a href="https://kikoncuo.github.io/jevfire/">Village demo</a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="benchmarks/README.md">Benchmarks & raw data</a> ·
   <a href="#give-your-game-an-action-layer">Game agents</a> ·
@@ -103,6 +104,37 @@ position. Engine scheduling can still require multiple batches and forward passe
 | Performance sweet spot | Flexible generative content | **Many independent decisions sharing context** |
 
 ## Give your game an action layer
+
+### Slipstream — four prompts on the starting grid
+
+**[Race in your browser →](https://kikoncuo.github.io/jevfire/driving.html)**
+
+[![Slipstream: four prompt-controlled cars in a local Qwen race](assets/driving-demo.png)](https://kikoncuo.github.io/jevfire/driving.html)
+
+*Actual browser race with local Qwen. Prompt following remains experimental.*
+
+Three laps, slower traffic, a wet bend, and four editable driver strategies.
+Nova pushes for an early lead, Atlas prioritizes finishing intact, Juno manages
+resources, and Milo saves boost for a late charge. Every driver uses the same
+car physics and the same local **Qwen 3.5 0.8B** through WebLLM + WebGPU.
+
+Choose speed changes, ordinary or risky overtakes, limited boost, and pit stops.
+Pushing too hard through a corner wears tyres and can cause a spin, damage,
+or retirement. A six-second pit service repairs and replenishes the car, but
+getting there costs track time. The fastest car can lose.
+
+The model sees **position and race gaps; lane-by-lane traffic, closing speeds
+and time to contact; corner distance and safe speed; tyres, damage, boost, and
+pit distance**. Click any numbered car to inspect its prompt, actual choice,
+candidate scores, and the exact observation used. Render FPS and accepted AI
+decisions/sec are separate counters. The scripted drive demonstrates the
+mechanics without a download; it is explicitly labeled and ignores prompt edits.
+
+Prompts express intended strategies, not guaranteed behavior. A tiny model can
+make a valid but poor choice. Steering, following assistance, grip, collisions,
+and pit routing are visible game rules; they do not count as model decisions.
+[Race design and state contract →](docs/driving-demo.md) ·
+[Browser checks and model limitations →](web/qa/README.md#slipstream-driving-demo)
 
 ### Play Last Hearth in your browser
 

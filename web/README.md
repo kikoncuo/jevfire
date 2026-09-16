@@ -1,4 +1,47 @@
-# Last Hearth — six villagers, one local model
+# JEVfire browser demos
+
+**[Slipstream: four racing strategies →](https://kikoncuo.github.io/jevfire/driving.html)** ·
+**[Last Hearth: six villagers →](https://kikoncuo.github.io/jevfire/)**
+
+Both demos run Qwen 3.5 0.8B locally through WebLLM and WebGPU. The same pinned
+model files can be reused from the browser cache; each page creates its own
+worker and engine. Neither requires an inference server or API key.
+
+## Slipstream
+
+Open `driving.html`, load Qwen, and start a three-lap race. Four cars receive
+separate editable prompts. Click a numbered car or its roster card to inspect
+its speed, race position, resources, current maneuver, last model choice and
+saved input. Apply a prompt edit to use it for that car's next decision.
+
+Nine finite actions cover acceleration, braking, holding pace, left/right lane
+changes, boost, risky left/right overtakes, and pit service. Only currently
+available actions are scored. Worn tyres and wet corners lower grip; excessive
+speed causes spins and damage, with retirement at 100 damage. Pitting involves
+driving to the entry and a six-second stopped service. Three laps decide the
+winner; unfinished cars retire at the 180-second simulation cutoff.
+
+Following assistance brakes for close traffic, never for corners. A risky pass
+briefly disables it. Lane tracking and pit routing are simulation rules.
+**Try scripted drive** uses a separately labeled controller with no inference.
+Boost, spins, contact, overtakes, pit visits and finishes appear in Race control.
+
+Observations include actual/target speed, position and rival gaps, nearby traffic
+in all three lanes, closing speeds and time to contact, the next corner's safe
+speed and braking distance, tyres, damage, boost, and pit distance. Read the
+[full design and context contract](../docs/driving-demo.md).
+
+The model scores one eligible driver at a time in round-robin order. It cannot
+invent keys or actions, but can choose badly. Physics runs independently of
+inference; a higher simulation speed gives the model less time to react per
+simulated second. Reset, pause, policy edits and unavailable actions invalidate
+stale results. Forced pit routing and paused probes add no AI decisions.
+
+See [driving QA and policy experiments](qa/README.md#slipstream-driving-demo)
+for measured results and limitations. The CUDA benchmark headline is not a
+browser speedup claim.
+
+## Last Hearth — six villagers, one local model
 
 **[Play Last Hearth →](https://kikoncuo.github.io/jevfire/)**
 
@@ -192,7 +235,7 @@ and downloaded model. [QA scripts, fixtures, and results](qa).
 | Library | MLC `v0_2_84/base/Qwen3.5-0.8B-q4f16_1_cs1k-webgpu.wasm` |
 | Library revision | `025bcaf3780fa8254f5e5efd3bfea0a5397248f4` |
 | Context | 2,048 tokens; input capped at 1,800 |
-| Labels | Up to four verified distinct single tokens, A/B/C/D, mapped to current choices |
+| Labels | Verified distinct single tokens mapped to finite actions; up to four village choices or nine driving choices |
 
 Models/tokenizers download from Hugging Face/CDNs, the compiled library from
 GitHub, and fonts from Google Fonts. Mission text and game state stay on-device.

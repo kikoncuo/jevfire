@@ -1,0 +1,3979 @@
+{
+  "tested_at": "2026-09-16T21:27:55.482Z",
+  "purpose": "Small reused development fixtures; format selection, not general accuracy",
+  "browser": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3"
+  },
+  "fixtures": [
+    {
+      "id": "clear-push",
+      "policy": "Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place.",
+      "expected": ["accelerate", "boost"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 100,
+          "damage": 0,
+          "boostEnergy": 100,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": false,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 31,
+          "safeSpeedNextMps": 26,
+          "nextCornerDistanceM": 100,
+          "brakingDistanceM": 0,
+          "wetHere": false,
+          "nextCornerWet": false,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": null,
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "boost",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    },
+    {
+      "id": "clear-slow",
+      "policy": "Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h.",
+      "expected": ["brake"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 100,
+          "damage": 0,
+          "boostEnergy": 100,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": false,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 31,
+          "safeSpeedNextMps": 26,
+          "nextCornerDistanceM": 100,
+          "brakingDistanceM": 0,
+          "wetHere": false,
+          "nextCornerWet": false,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": null,
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "boost",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    },
+    {
+      "id": "clear-steady",
+      "policy": "Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard.",
+      "expected": ["hold"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 100,
+          "damage": 0,
+          "boostEnergy": 100,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": false,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 31,
+          "safeSpeedNextMps": 26,
+          "nextCornerDistanceM": 100,
+          "brakingDistanceM": 0,
+          "wetHere": false,
+          "nextCornerWet": false,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": null,
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "boost",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    },
+    {
+      "id": "wet-corner",
+      "policy": "Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed.",
+      "expected": ["brake"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 100,
+          "damage": 0,
+          "boostEnergy": 100,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": true,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 17,
+          "safeSpeedNextMps": 17,
+          "nextCornerDistanceM": 0,
+          "brakingDistanceM": 30,
+          "wetHere": true,
+          "nextCornerWet": true,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": null,
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "boost",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    },
+    {
+      "id": "blocked-pass",
+      "policy": "Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available.",
+      "expected": ["left"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 100,
+          "damage": 0,
+          "boostEnergy": 100,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": false,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 31,
+          "safeSpeedNextMps": 26,
+          "nextCornerDistanceM": 100,
+          "brakingDistanceM": 0,
+          "wetHere": false,
+          "nextCornerWet": false,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": {
+              "id": "traffic-1",
+              "gapM": 15,
+              "speedMps": 15,
+              "speedKph": 54,
+              "closingMps": 10,
+              "ttcSeconds": 1.5
+            },
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "boost",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    },
+    {
+      "id": "repair",
+      "policy": "Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources.",
+      "expected": ["pit"],
+      "context": {
+        "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+        "timeSeconds": 0,
+        "self": {
+          "id": "nova",
+          "name": "Nova",
+          "lane": 1,
+          "lanePosition": 1,
+          "changingLanes": false,
+          "distanceAlongTrackM": 425.8,
+          "speedMps": 25,
+          "speedKph": 90,
+          "targetSpeedMps": 25,
+          "targetSpeedKph": 90,
+          "action": "hold",
+          "source": "ready",
+          "laps": 0,
+          "overtakes": 0,
+          "contacts": 0,
+          "assists": 0,
+          "tyres": 15,
+          "damage": 80,
+          "boostEnergy": 0,
+          "boostRemaining": 0,
+          "spinning": false,
+          "spinRemaining": 0,
+          "riskyRemaining": 0,
+          "pitState": "none",
+          "pitRemaining": 0,
+          "finished": false,
+          "retired": false,
+          "racePosition": 4,
+          "raceDistanceM": 0
+        },
+        "race": {
+          "laps": 3,
+          "totalDistanceM": 1316.3,
+          "position": 4,
+          "remainingDistanceM": 1329.3,
+          "lapsRemaining": 3,
+          "leaderId": "atlas",
+          "gapToLeaderM": 7,
+          "carAhead": {
+            "id": "juno",
+            "gapM": 7
+          },
+          "carBehind": null,
+          "timeLimitSeconds": 180,
+          "winnerId": null
+        },
+        "track": {
+          "lanes": 3,
+          "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+          "lengthM": 438.8,
+          "maximumSpeedMps": 31,
+          "boostMaximumSpeedMps": 39,
+          "speedLimitKph": 111.6,
+          "inBend": false,
+          "distanceToBendM": 0,
+          "safeSpeedHereMps": 31,
+          "safeSpeedNextMps": 26,
+          "nextCornerDistanceM": 100,
+          "brakingDistanceM": 0,
+          "wetHere": false,
+          "nextCornerWet": false,
+          "wetSector": {
+            "startM": 319.4,
+            "endM": 438.8,
+            "gripFactor": 0.74
+          },
+          "pitEntryDistanceM": 65,
+          "lookaheadM": 140,
+          "rearVisibilityM": 80
+        },
+        "traffic": [
+          {
+            "lane": 0,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          },
+          {
+            "lane": 1,
+            "front": null,
+            "rear": null,
+            "canEnter": false,
+            "canRiskEnter": false
+          },
+          {
+            "lane": 2,
+            "front": null,
+            "rear": null,
+            "canEnter": true,
+            "canRiskEnter": true
+          }
+        ],
+        "assist": {
+          "enabled": true,
+          "active": false,
+          "interventions": 0,
+          "reason": "",
+          "suppressedForRisk": false,
+          "cornersProtected": false
+        },
+        "availableActions": [
+          "accelerate",
+          "brake",
+          "hold",
+          "left",
+          "right",
+          "risky_left",
+          "risky_right",
+          "pit"
+        ],
+        "units": {
+          "speed": "m/s and km/h explicitly named",
+          "distance": "metres",
+          "time": "seconds",
+          "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+        }
+      }
+    }
+  ],
+  "rows": [
+    {
+      "fixture": "clear-push",
+      "labelMode": "letters_compact",
+      "expected": ["accelerate", "boost"],
+      "action": "accelerate",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [1, 7, 5, 6, 3, 2, 9, 8, 4],
+          "top": [
+            {
+              "id": 357,
+              "score": 20.12183380126953,
+              "token": " A"
+            },
+            {
+              "id": 426,
+              "score": 19.925987243652344,
+              "token": " F"
+            },
+            {
+              "id": 458,
+              "score": 19.387523651123047,
+              "token": " E"
+            },
+            {
+              "id": 353,
+              "score": 19.215774536132812,
+              "token": " I"
+            },
+            {
+              "id": 351,
+              "score": 19.078853607177734,
+              "token": " C"
+            },
+            {
+              "id": 414,
+              "score": 18.785186767578125,
+              "token": " D"
+            },
+            {
+              "id": 417,
+              "score": 18.522628784179688,
+              "token": " B"
+            },
+            {
+              "id": 462,
+              "score": 17.956146240234375,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 17.836362838745117,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 16.43828582763672,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.728053092956543,
+              "token": " J"
+            },
+            {
+              "id": 198,
+              "score": 13.517595291137695,
+              "token": "\n"
+            }
+          ],
+          "sampled_text": " A"
+        },
+        "parsed_json": {
+          "nova": "accelerate"
+        },
+        "fields": {
+          "nova": {
+            "value": "accelerate",
+            "probabilities": [
+              0.26740322988126497, 0.0540307174414167, 0.09423367005880974,
+              0.07025354079654196, 0.12830979244327154, 0.21984245711741177,
+              0.027201898833171652, 0.030663412922470813, 0.10806128050564077
+            ],
+            "logits": [
+              20.12183380126953, 18.522628784179688, 19.078853607177734,
+              18.785186767578125, 19.387523651123047, 19.925987243652344,
+              17.836362838745117, 17.956146240234375, 19.215774536132812
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 1,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1577.5,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 18,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 18,
+        "prompt_tokens": 556,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 556,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place."
+      }
+    },
+    {
+      "fixture": "clear-slow",
+      "labelMode": "letters_compact",
+      "expected": ["brake"],
+      "action": "hold",
+      "matched": false,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 4, 1, 5, 7, 6, 9, 8, 3],
+          "top": [
+            {
+              "id": 351,
+              "score": 19.890949249267578,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 19.805810928344727,
+              "token": " A"
+            },
+            {
+              "id": 353,
+              "score": 19.677249908447266,
+              "token": " I"
+            },
+            {
+              "id": 417,
+              "score": 19.379600524902344,
+              "token": " B"
+            },
+            {
+              "id": 414,
+              "score": 18.924760818481445,
+              "token": " D"
+            },
+            {
+              "id": 426,
+              "score": 18.890228271484375,
+              "token": " F"
+            },
+            {
+              "id": 458,
+              "score": 18.78876495361328,
+              "token": " E"
+            },
+            {
+              "id": 462,
+              "score": 18.41639518737793,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 17.75720977783203,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.86451244354248,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.482500076293945,
+              "token": " J"
+            },
+            {
+              "id": 5411,
+              "score": 13.322912216186523,
+              "token": " Action"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.19321300234422875, 0.12616402120403825, 0.21038339157256852,
+              0.08005733852996261, 0.06987774706563223, 0.07733994403623518,
+              0.024908075518912505, 0.04815271285807719, 0.16990376687034467
+            ],
+            "logits": [
+              19.805810928344727, 19.379600524902344, 19.890949249267578,
+              18.924760818481445, 18.78876495361328, 18.890228271484375,
+              17.75720977783203, 18.41639518737793, 19.677249908447266
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 2,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1302,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 18,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 18,
+        "prompt_tokens": 566,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 566,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h."
+      }
+    },
+    {
+      "fixture": "clear-steady",
+      "labelMode": "letters_compact",
+      "expected": ["hold"],
+      "action": "hold",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 7, 1, 5, 6, 4, 9, 8, 3],
+          "top": [
+            {
+              "id": 351,
+              "score": 20.48333168029785,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 20.066211700439453,
+              "token": " A"
+            },
+            {
+              "id": 353,
+              "score": 19.73029327392578,
+              "token": " I"
+            },
+            {
+              "id": 426,
+              "score": 19.228736877441406,
+              "token": " F"
+            },
+            {
+              "id": 414,
+              "score": 19.151363372802734,
+              "token": " D"
+            },
+            {
+              "id": 458,
+              "score": 19.064220428466797,
+              "token": " E"
+            },
+            {
+              "id": 417,
+              "score": 19.06036949157715,
+              "token": " B"
+            },
+            {
+              "id": 462,
+              "score": 18.365318298339844,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 17.82293701171875,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.886868476867676,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.582925796508789,
+              "token": " J"
+            },
+            {
+              "id": 5411,
+              "score": 13.315444946289062,
+              "token": " Action"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.19657332003331365, 0.07189403384640929, 0.29831663963565125,
+              0.07874282512391743, 0.07217142700245781, 0.08507733519354738,
+              0.020858484646150668, 0.035878638464653084, 0.14048729605389942
+            ],
+            "logits": [
+              20.066211700439453, 19.06036949157715, 20.48333168029785,
+              19.151363372802734, 19.064220428466797, 19.228736877441406,
+              17.82293701171875, 18.365318298339844, 19.73029327392578
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 3,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1157.699999988079,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 18,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 18,
+        "prompt_tokens": 559,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 559,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard."
+      }
+    },
+    {
+      "fixture": "wet-corner",
+      "labelMode": "letters_compact",
+      "expected": ["brake"],
+      "action": "hold",
+      "matched": false,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=bend/wet safe=61.2km/h; next=0m/wet safe=61.2km/h brake-distance=30m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 4, 1, 6, 7, 5, 9, 8, 3],
+          "top": [
+            {
+              "id": 351,
+              "score": 19.920360565185547,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 19.855548858642578,
+              "token": " A"
+            },
+            {
+              "id": 353,
+              "score": 19.639854431152344,
+              "token": " I"
+            },
+            {
+              "id": 417,
+              "score": 19.072349548339844,
+              "token": " B"
+            },
+            {
+              "id": 426,
+              "score": 18.987178802490234,
+              "token": " F"
+            },
+            {
+              "id": 414,
+              "score": 18.698848724365234,
+              "token": " D"
+            },
+            {
+              "id": 458,
+              "score": 18.669071197509766,
+              "token": " E"
+            },
+            {
+              "id": 462,
+              "score": 18.06913948059082,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 17.38194465637207,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.998703002929688,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.480037689208984,
+              "token": " J"
+            },
+            {
+              "id": 5411,
+              "score": 13.436281204223633,
+              "token": " Action"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.21639519210700786, 0.09888000248122404, 0.23088460393689642,
+              0.06806112475219915, 0.06606431042415867, 0.09080699072009445,
+              0.018237905113831335, 0.03625933810609995, 0.17441053235848805
+            ],
+            "logits": [
+              19.855548858642578, 19.072349548339844, 19.920360565185547,
+              18.698848724365234, 18.669071197509766, 18.987178802490234,
+              17.38194465637207, 18.06913948059082, 19.639854431152344
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 4,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1181,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 18,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 18,
+        "prompt_tokens": 547,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 547,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": true,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 17,
+            "safeSpeedNextMps": 17,
+            "nextCornerDistanceM": 0,
+            "brakingDistanceM": 30,
+            "wetHere": true,
+            "nextCornerWet": true,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed."
+      }
+    },
+    {
+      "fixture": "blocked-pass",
+      "labelMode": "letters_compact",
+      "expected": ["left"],
+      "action": "left",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=15m@54km/h closing=10m/s TTC=1.5s; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 7, 3, 1, 5, 6, 9, 8, 4],
+          "top": [
+            {
+              "id": 414,
+              "score": 20.6756591796875,
+              "token": " D"
+            },
+            {
+              "id": 357,
+              "score": 20.58095932006836,
+              "token": " A"
+            },
+            {
+              "id": 351,
+              "score": 20.15444564819336,
+              "token": " C"
+            },
+            {
+              "id": 353,
+              "score": 19.86244773864746,
+              "token": " I"
+            },
+            {
+              "id": 458,
+              "score": 19.62711524963379,
+              "token": " E"
+            },
+            {
+              "id": 426,
+              "score": 19.37679672241211,
+              "token": " F"
+            },
+            {
+              "id": 417,
+              "score": 19.243558883666992,
+              "token": " B"
+            },
+            {
+              "id": 462,
+              "score": 18.74374771118164,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 18.22934913635254,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.674003601074219,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.728736877441406,
+              "token": " J"
+            },
+            {
+              "id": 443,
+              "score": 13.144518852233887,
+              "token": " N"
+            }
+          ],
+          "sampled_text": " D"
+        },
+        "parsed_json": {
+          "nova": "left"
+        },
+        "fields": {
+          "nova": {
+            "value": "left",
+            "probabilities": [
+              0.22513439990130765, 0.059103912310335245, 0.14696344536841752,
+              0.24749674152981566, 0.0867346524638638, 0.06752750248450978,
+              0.021436334863340668, 0.035855104716314784, 0.1097479063620948
+            ],
+            "logits": [
+              20.58095932006836, 19.243558883666992, 20.15444564819336,
+              20.6756591796875, 19.62711524963379, 19.37679672241211,
+              18.22934913635254, 18.74374771118164, 19.86244773864746
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 5,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1230.300000011921,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 19,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 19,
+        "prompt_tokens": 584,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 584,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": {
+                "id": "traffic-1",
+                "gapM": 15,
+                "speedMps": 15,
+                "speedKph": 54,
+                "closingMps": 10,
+                "ttcSeconds": 1.5
+              },
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available."
+      }
+    },
+    {
+      "fixture": "repair",
+      "labelMode": "letters_compact",
+      "expected": ["pit"],
+      "action": "pit",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H.\nPOLICY: Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=15/100 damage=80/100 boost=0/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nG: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nH: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nChoose A, B, C, D, E, F, G, H:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 7, 3, 5, 6, 4, 8, 1],
+          "top": [
+            {
+              "id": 462,
+              "score": 20.664548873901367,
+              "token": " H"
+            },
+            {
+              "id": 357,
+              "score": 20.358997344970703,
+              "token": " A"
+            },
+            {
+              "id": 351,
+              "score": 19.979515075683594,
+              "token": " C"
+            },
+            {
+              "id": 426,
+              "score": 19.273540496826172,
+              "token": " F"
+            },
+            {
+              "id": 414,
+              "score": 19.250946044921875,
+              "token": " D"
+            },
+            {
+              "id": 458,
+              "score": 19.20240020751953,
+              "token": " E"
+            },
+            {
+              "id": 417,
+              "score": 19.090496063232422,
+              "token": " B"
+            },
+            {
+              "id": 469,
+              "score": 18.303451538085938,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.130175590515137,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 353,
+              "score": 14.529592514038086,
+              "token": " I"
+            },
+            {
+              "id": 387,
+              "score": 13.382951736450195,
+              "token": " P"
+            },
+            {
+              "id": 443,
+              "score": 13.00356674194336,
+              "token": " N"
+            }
+          ],
+          "sampled_text": " H"
+        },
+        "parsed_json": {
+          "nova": "pit"
+        },
+        "fields": {
+          "nova": {
+            "value": "pit",
+            "probabilities": [
+              0.22556210791346112, 0.06343998002118882, 0.15433310328965155,
+              0.0744810137633157, 0.07095163208751644, 0.07618302706827433,
+              0.028877124366084483, 0.3061720114905075
+            ],
+            "logits": [
+              20.358997344970703, 19.090496063232422, 19.979515075683594,
+              19.250946044921875, 19.20240020751953, 19.273540496826172,
+              18.303451538085938, 20.664548873901367
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_compact",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "risky_left",
+          " G": "risky_right",
+          " H": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 6,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1034.199999988079,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 17,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 17,
+        "prompt_tokens": 526,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 526,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 15,
+            "damage": 80,
+            "boostEnergy": 0,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources."
+      }
+    },
+    {
+      "fixture": "clear-push",
+      "labelMode": "letters_focused",
+      "expected": ["accelerate", "boost"],
+      "action": "hold",
+      "matched": false,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=-21.6km/h; target minus safe-now=-21.6km/h; actual minus safe-next=-3.6km/h; target minus safe-next=-3.6km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=100m; negative means the corner is closer than the braking distance. Time to corner at actual speed=4s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [2, 5, 1, 7, 6, 3, 9, 8, 4],
+          "top": [
+            {
+              "id": 351,
+              "score": 20.113910675048828,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 19.876995086669922,
+              "token": " A"
+            },
+            {
+              "id": 426,
+              "score": 19.7769718170166,
+              "token": " F"
+            },
+            {
+              "id": 353,
+              "score": 19.590389251708984,
+              "token": " I"
+            },
+            {
+              "id": 417,
+              "score": 19.287940979003906,
+              "token": " B"
+            },
+            {
+              "id": 458,
+              "score": 19.06930160522461,
+              "token": " E"
+            },
+            {
+              "id": 414,
+              "score": 19.021739959716797,
+              "token": " D"
+            },
+            {
+              "id": 462,
+              "score": 18.504150390625,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 18.25400161743164,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.639435768127441,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.795214653015137,
+              "token": " J"
+            },
+            {
+              "id": 5411,
+              "score": 13.162571907043457,
+              "token": " Action"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.17242680489539974, 0.09567133456939582, 0.21852237572452302,
+              0.07331151568429331, 0.07688258174049063, 0.1560145944939774,
+              0.034021046837683935, 0.043690388317013495, 0.12945935773722267
+            ],
+            "logits": [
+              19.876995086669922, 19.287940979003906, 20.113910675048828,
+              19.021739959716797, 19.06930160522461, 19.7769718170166,
+              18.25400161743164, 18.504150390625, 19.590389251708984
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 7,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1537.800000011921,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 23,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 23,
+        "prompt_tokens": 715,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 715,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Gain speed on clear straights. Use boost when it is available and the next corner is far away. Race aggressively for first place."
+      }
+    },
+    {
+      "fixture": "clear-slow",
+      "labelMode": "letters_focused",
+      "expected": ["brake"],
+      "action": "hold",
+      "matched": false,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=-21.6km/h; target minus safe-now=-21.6km/h; actual minus safe-next=-3.6km/h; target minus safe-next=-3.6km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=100m; negative means the corner is closer than the braking distance. Time to corner at actual speed=4s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [4, 2, 1, 5, 7, 8, 9, 6, 3],
+          "top": [
+            {
+              "id": 351,
+              "score": 20.21343994140625,
+              "token": " C"
+            },
+            {
+              "id": 417,
+              "score": 19.579849243164062,
+              "token": " B"
+            },
+            {
+              "id": 353,
+              "score": 19.463001251220703,
+              "token": " I"
+            },
+            {
+              "id": 357,
+              "score": 19.00720977783203,
+              "token": " A"
+            },
+            {
+              "id": 414,
+              "score": 18.762733459472656,
+              "token": " D"
+            },
+            {
+              "id": 462,
+              "score": 18.209980010986328,
+              "token": " H"
+            },
+            {
+              "id": 458,
+              "score": 17.981403350830078,
+              "token": " E"
+            },
+            {
+              "id": 426,
+              "score": 17.849550247192383,
+              "token": " F"
+            },
+            {
+              "id": 469,
+              "score": 17.471569061279297,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.57048225402832,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.698519706726074,
+              "token": " J"
+            },
+            {
+              "id": 2168,
+              "score": 12.858281135559082,
+              "token": " None"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.10190601050045335, 0.18067329280184963, 0.3404543627030966,
+              0.07980407788233888, 0.03653404245017655, 0.03202098253544554,
+              0.021942166712524636, 0.04591634509415244, 0.16074871931996232
+            ],
+            "logits": [
+              19.00720977783203, 19.579849243164062, 20.21343994140625,
+              18.762733459472656, 17.981403350830078, 17.849550247192383,
+              17.471569061279297, 18.209980010986328, 19.463001251220703
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 8,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1531.5,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 23,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 23,
+        "prompt_tokens": 735,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 735,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Cruise below 60 km/h. If your actual or target speed is above 60 km/h, brake now. Do not boost or accelerate above 60 km/h."
+      }
+    },
+    {
+      "fixture": "clear-steady",
+      "labelMode": "letters_focused",
+      "expected": ["hold"],
+      "action": "hold",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=-21.6km/h; target minus safe-now=-21.6km/h; actual minus safe-next=-3.6km/h; target minus safe-next=-3.6km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=100m; negative means the corner is closer than the braking distance. Time to corner at actual speed=4s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [3, 5, 1, 4, 8, 7, 9, 6, 2],
+          "top": [
+            {
+              "id": 351,
+              "score": 20.865753173828125,
+              "token": " C"
+            },
+            {
+              "id": 353,
+              "score": 19.791244506835938,
+              "token": " I"
+            },
+            {
+              "id": 357,
+              "score": 19.36937713623047,
+              "token": " A"
+            },
+            {
+              "id": 414,
+              "score": 19.06798553466797,
+              "token": " D"
+            },
+            {
+              "id": 417,
+              "score": 18.90491485595703,
+              "token": " B"
+            },
+            {
+              "id": 462,
+              "score": 18.467037200927734,
+              "token": " H"
+            },
+            {
+              "id": 426,
+              "score": 18.45250701904297,
+              "token": " F"
+            },
+            {
+              "id": 458,
+              "score": 18.439929962158203,
+              "token": " E"
+            },
+            {
+              "id": 469,
+              "score": 17.744949340820312,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.693099975585938,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.893587112426758,
+              "token": " J"
+            },
+            {
+              "id": 2168,
+              "score": 13.153772354125977,
+              "token": " None"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.10250388023439062, 0.06442091667933354, 0.4577287187131645,
+              0.07583114197290085, 0.040465650552427, 0.0409778032771709,
+              0.020195763574898218, 0.041577564983285374, 0.15629856001242898
+            ],
+            "logits": [
+              19.36937713623047, 18.90491485595703, 20.865753173828125,
+              19.06798553466797, 18.439929962158203, 18.45250701904297,
+              17.744949340820312, 18.467037200927734, 19.791244506835938
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 9,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1485.800000011921,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 23,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 23,
+        "prompt_tokens": 721,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 721,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Keep your current 90 km/h cruise target on a clear straight. Hold this pace and conserve boost. Change speed only for a nearby hazard."
+      }
+    },
+    {
+      "fixture": "wet-corner",
+      "labelMode": "letters_focused",
+      "expected": ["brake"],
+      "action": "hold",
+      "matched": false,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=bend/wet safe=61.2km/h; next=0m/wet safe=61.2km/h brake-distance=30m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=28.8km/h; target minus safe-now=28.8km/h; actual minus safe-next=28.8km/h; target minus safe-next=28.8km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=-30m; negative means the corner is closer than the braking distance. Time to corner at actual speed=0s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [3, 4, 1, 5, 7, 8, 9, 6, 2],
+          "top": [
+            {
+              "id": 351,
+              "score": 20.525753021240234,
+              "token": " C"
+            },
+            {
+              "id": 353,
+              "score": 19.72107696533203,
+              "token": " I"
+            },
+            {
+              "id": 357,
+              "score": 19.242656707763672,
+              "token": " A"
+            },
+            {
+              "id": 417,
+              "score": 18.97791290283203,
+              "token": " B"
+            },
+            {
+              "id": 414,
+              "score": 18.720874786376953,
+              "token": " D"
+            },
+            {
+              "id": 462,
+              "score": 18.247900009155273,
+              "token": " H"
+            },
+            {
+              "id": 458,
+              "score": 18.14655303955078,
+              "token": " E"
+            },
+            {
+              "id": 426,
+              "score": 17.96245765686035,
+              "token": " F"
+            },
+            {
+              "id": 469,
+              "score": 17.583770751953125,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 15.933858871459961,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.991240501403809,
+              "token": " J"
+            },
+            {
+              "id": 2168,
+              "score": 13.400437355041504,
+              "token": " None"
+            }
+          ],
+          "sampled_text": " C"
+        },
+        "parsed_json": {
+          "nova": "hold"
+        },
+        "fields": {
+          "nova": {
+            "value": "hold",
+            "probabilities": [
+              0.11422699169246345, 0.08765808236619117, 0.4121073762444678,
+              0.06778939064113773, 0.03817130119547291, 0.03175304330801878,
+              0.021743213113016923, 0.04224267327944895, 0.18430792815978234
+            ],
+            "logits": [
+              19.242656707763672, 18.97791290283203, 20.525753021240234,
+              18.720874786376953, 18.14655303955078, 17.96245765686035,
+              17.583770751953125, 18.247900009155273, 19.72107696533203
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 10,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1435.0999999642372,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 22,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 22,
+        "prompt_tokens": 701,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 701,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": true,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 17,
+            "safeSpeedNextMps": 17,
+            "nextCornerDistanceM": 0,
+            "brakingDistanceM": 30,
+            "wetHere": true,
+            "nextCornerWet": true,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Preserve the car. Brake before and during corners whenever actual or target speed exceeds the stated safe speed."
+      }
+    },
+    {
+      "fixture": "blocked-pass",
+      "labelMode": "letters_focused",
+      "expected": ["left"],
+      "action": "left",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H, I.\nPOLICY: Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=100/100 damage=0/100 boost=100/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=15m@54km/h closing=10m/s TTC=1.5s; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=-21.6km/h; target minus safe-now=-21.6km/h; actual minus safe-next=-3.6km/h; target minus safe-next=-3.6km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=100m; negative means the corner is closer than the braking distance. Time to corner at actual speed=4s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: boost \u2014 2.5s burst to 140.4km/h; consumes energy\nG: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nH: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nI: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H, I:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [3, 6, 2, 1, 4, 9, 8, 7, 5],
+          "top": [
+            {
+              "id": 414,
+              "score": 21.246295928955078,
+              "token": " D"
+            },
+            {
+              "id": 351,
+              "score": 19.955810546875,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 19.574783325195312,
+              "token": " A"
+            },
+            {
+              "id": 458,
+              "score": 19.26163673400879,
+              "token": " E"
+            },
+            {
+              "id": 353,
+              "score": 19.149120330810547,
+              "token": " I"
+            },
+            {
+              "id": 417,
+              "score": 19.047435760498047,
+              "token": " B"
+            },
+            {
+              "id": 462,
+              "score": 18.527061462402344,
+              "token": " H"
+            },
+            {
+              "id": 469,
+              "score": 18.35735511779785,
+              "token": " G"
+            },
+            {
+              "id": 426,
+              "score": 17.872922897338867,
+              "token": " F"
+            },
+            {
+              "id": 248046,
+              "score": 15.533784866333008,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 604,
+              "score": 13.992718696594238,
+              "token": " J"
+            },
+            {
+              "id": 443,
+              "score": 13.190229415893555,
+              "token": " N"
+            }
+          ],
+          "sampled_text": " D"
+        },
+        "parsed_json": {
+          "nova": "left"
+        },
+        "fields": {
+          "nova": {
+            "value": "left",
+            "probabilities": [
+              0.09444909207340851, 0.05574085808908545, 0.1382533957940069,
+              0.5024889174610594, 0.06905576661212119, 0.017222222457941402,
+              0.027956025946368392, 0.03312668391994547, 0.061707037646063216
+            ],
+            "logits": [
+              19.574783325195312, 19.047435760498047, 19.955810546875,
+              21.246295928955078, 19.26163673400879, 17.872922897338867,
+              18.35735511779785, 18.527061462402344, 19.149120330810547
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "boost",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "boost",
+          " G": "risky_left",
+          " H": "risky_right",
+          " I": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 11,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1508.4000000357628,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 24,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 24,
+        "prompt_tokens": 752,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 752,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 100,
+            "damage": 0,
+            "boostEnergy": 100,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": {
+                "id": "traffic-1",
+                "gapM": 15,
+                "speedMps": 15,
+                "speedKph": 54,
+                "closingMps": 10,
+                "ttcSeconds": 1.5
+              },
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "boost",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Overtake slow traffic. When your current lane has a slower car ahead and the left lane is clear, move left. Avoid risky passes if a normal lane change is available."
+      }
+    },
+    {
+      "fixture": "repair",
+      "labelMode": "letters_focused",
+      "expected": ["pit"],
+      "action": "pit",
+      "matched": true,
+      "output": {
+        "type": "decision",
+        "prompt": "<|im_start|>system\nChoose Nova's next racing action. Follow this driver's policy using current traffic and resources. Reply with ONLY one label: A, B, C, D, E, F, G, H.\nPOLICY: Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources.<|im_end|>\n<|im_start|>user\nRace order: Race to finish three laps ahead of the other drivers. Follow your own strategy for speed, overtaking, corner risk, boost and pit stops. Choose one available maneuver.\nYOU: speed=90km/h target=90km/h lane=1; tyres=15/100 damage=80/100 boost=0/100 active=0s.\nRACE: position=4/4 laps-left=3 finish=1329.3m leader-gap=7m; ahead=Juno 7m behind=none.\nCORNER: now=straight/dry safe=111.6km/h; next=100m/dry safe=93.6km/h brake-distance=0m.\nPIT: entry=65m service-left=0s.\nLANE 0: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLANE 1: front=clear; rear=clear; safe-entry=false risky-entry=false.\nLANE 2: front=clear; rear=clear; safe-entry=true risky-entry=true.\nLanes:0=left,2=right. Assist=on, braking=false, risky-override=0s. Overspeed corners cause spins/damage; assist never brakes for corners. Tyres100=fresh, damage100=DNF.\nCOMPARISONS: actual speed minus safe-now=-21.6km/h; target minus safe-now=-21.6km/h; actual minus safe-next=-3.6km/h; target minus safe-next=-3.6km/h. Positive means above safe speed. Braking margin (corner distance minus braking distance)=100m; negative means the corner is closer than the braking distance. Time to corner at actual speed=4s.\nActions:\nA: accelerate \u2014 target +14.4km/h\nB: brake \u2014 target -21.6km/h; cancel boost\nC: hold \u2014 keep current target speed\nD: left \u2014 safe one-lane move left\nE: right \u2014 safe one-lane move right\nF: risky_left \u2014 tight-gap left pass; following assist off 2.2s\nG: risky_right \u2014 tight-gap right pass; following assist off 2.2s\nH: pit \u2014 automatic pit entry; stop 6s to repair/refill/retyre\nYOUR DRIVER POLICY: Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources.\nActual speed is 90km/h; cruise target is 90km/h. Apply this policy to these values and choose one available action.\nChoose A, B, C, D, E, F, G, H:<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+        "diagnostic": {
+          "ranks": [3, 4, 2, 5, 7, 6, 8, 1],
+          "top": [
+            {
+              "id": 462,
+              "score": 20.455379486083984,
+              "token": " H"
+            },
+            {
+              "id": 351,
+              "score": 20.272615432739258,
+              "token": " C"
+            },
+            {
+              "id": 357,
+              "score": 19.582767486572266,
+              "token": " A"
+            },
+            {
+              "id": 417,
+              "score": 19.049949645996094,
+              "token": " B"
+            },
+            {
+              "id": 414,
+              "score": 18.992229461669922,
+              "token": " D"
+            },
+            {
+              "id": 426,
+              "score": 18.812549591064453,
+              "token": " F"
+            },
+            {
+              "id": 458,
+              "score": 18.634872436523438,
+              "token": " E"
+            },
+            {
+              "id": 469,
+              "score": 18.044776916503906,
+              "token": " G"
+            },
+            {
+              "id": 248046,
+              "score": 14.839265823364258,
+              "token": "<|im_end|>"
+            },
+            {
+              "id": 353,
+              "score": 14.374147415161133,
+              "token": " I"
+            },
+            {
+              "id": 604,
+              "score": 13.01803970336914,
+              "token": " J"
+            },
+            {
+              "id": 2168,
+              "score": 12.941003799438477,
+              "token": " None"
+            }
+          ],
+          "sampled_text": " H"
+        },
+        "parsed_json": {
+          "nova": "pit"
+        },
+        "fields": {
+          "nova": {
+            "value": "pit",
+            "probabilities": [
+              0.1317032976340796, 0.07730308056295707, 0.2625389871779341,
+              0.07296746249332874, 0.051042396809618695, 0.06096706204790133,
+              0.02829149069700231, 0.315186222577178
+            ],
+            "logits": [
+              19.582767486572266, 19.049949645996094, 20.272615432739258,
+              18.992229461669922, 18.634872436523438, 18.812549591064453,
+              18.044776916503906, 20.455379486083984
+            ],
+            "options": [
+              "accelerate",
+              "brake",
+              "hold",
+              "left",
+              "right",
+              "risky_left",
+              "risky_right",
+              "pit"
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "scenario": "driving",
+        "label_mode": "letters_focused",
+        "assistant_prefix": "Action:",
+        "label_spacing": "leading-space",
+        "label_mapping": {
+          " A": "accelerate",
+          " B": "brake",
+          " C": "hold",
+          " D": "left",
+          " E": "right",
+          " F": "risky_left",
+          " G": "risky_right",
+          " H": "pit"
+        },
+        "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+        "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+        "id": 12,
+        "epoch": 1,
+        "unitId": "nova",
+        "testOnly": true,
+        "elapsed_ms": 1415.800000011921,
+        "prefill_chunk_tokens": 32,
+        "prefill_chunks": 22,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "forward_calls": 22,
+        "prompt_tokens": 684,
+        "scheduling": "round-robin",
+        "usage": {
+          "prompt_tokens": 684,
+          "scored_positions": 1
+        },
+        "observedContext": {
+          "scenario": "Three-lap closed-circuit race. First across the shared finish wins; all traffic moves forward.",
+          "timeSeconds": 0,
+          "self": {
+            "id": "nova",
+            "name": "Nova",
+            "lane": 1,
+            "lanePosition": 1,
+            "changingLanes": false,
+            "distanceAlongTrackM": 425.8,
+            "speedMps": 25,
+            "speedKph": 90,
+            "targetSpeedMps": 25,
+            "targetSpeedKph": 90,
+            "action": "hold",
+            "source": "ready",
+            "laps": 0,
+            "overtakes": 0,
+            "contacts": 0,
+            "assists": 0,
+            "tyres": 15,
+            "damage": 80,
+            "boostEnergy": 0,
+            "boostRemaining": 0,
+            "spinning": false,
+            "spinRemaining": 0,
+            "riskyRemaining": 0,
+            "pitState": "none",
+            "pitRemaining": 0,
+            "finished": false,
+            "retired": false,
+            "racePosition": 4,
+            "raceDistanceM": 0
+          },
+          "race": {
+            "laps": 3,
+            "totalDistanceM": 1316.3,
+            "position": 4,
+            "remainingDistanceM": 1329.3,
+            "lapsRemaining": 3,
+            "leaderId": "atlas",
+            "gapToLeaderM": 7,
+            "carAhead": {
+              "id": "juno",
+              "gapM": 7
+            },
+            "carBehind": null,
+            "timeLimitSeconds": 180,
+            "winnerId": null
+          },
+          "track": {
+            "lanes": 3,
+            "laneOrder": "0 left/inside, 1 middle, 2 right/outside",
+            "lengthM": 438.8,
+            "maximumSpeedMps": 31,
+            "boostMaximumSpeedMps": 39,
+            "speedLimitKph": 111.6,
+            "inBend": false,
+            "distanceToBendM": 0,
+            "safeSpeedHereMps": 31,
+            "safeSpeedNextMps": 26,
+            "nextCornerDistanceM": 100,
+            "brakingDistanceM": 0,
+            "wetHere": false,
+            "nextCornerWet": false,
+            "wetSector": {
+              "startM": 319.4,
+              "endM": 438.8,
+              "gripFactor": 0.74
+            },
+            "pitEntryDistanceM": 65,
+            "lookaheadM": 140,
+            "rearVisibilityM": 80
+          },
+          "traffic": [
+            {
+              "lane": 0,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            },
+            {
+              "lane": 1,
+              "front": null,
+              "rear": null,
+              "canEnter": false,
+              "canRiskEnter": false
+            },
+            {
+              "lane": 2,
+              "front": null,
+              "rear": null,
+              "canEnter": true,
+              "canRiskEnter": true
+            }
+          ],
+          "assist": {
+            "enabled": true,
+            "active": false,
+            "interventions": 0,
+            "reason": "",
+            "suppressedForRisk": false,
+            "cornersProtected": false
+          },
+          "availableActions": [
+            "accelerate",
+            "brake",
+            "hold",
+            "left",
+            "right",
+            "risky_left",
+            "risky_right",
+            "pit"
+          ],
+          "units": {
+            "speed": "m/s and km/h explicitly named",
+            "distance": "metres",
+            "time": "seconds",
+            "resources": "0\u2013100; higher tyres/boost is better, lower damage is better"
+          }
+        },
+        "policy": "Finish intact. If damage exceeds 70 or tyres are below 20, request a pit stop. Otherwise conserve resources."
+      }
+    }
+  ],
+  "metrics_before": {
+    "decisions_per_second": 0,
+    "rounds_per_second": 0,
+    "total_decisions": 0,
+    "completed_rounds": 0,
+    "mean_latency_ms": null,
+    "window_seconds": 1
+  },
+  "metrics_after": {
+    "decisions_per_second": 0,
+    "rounds_per_second": 0,
+    "total_decisions": 0,
+    "completed_rounds": 0,
+    "mean_latency_ms": null,
+    "window_seconds": 1
+  }
+}
