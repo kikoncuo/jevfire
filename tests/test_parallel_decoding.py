@@ -143,6 +143,42 @@ def test_missing_candidates_never_fall_back_to_first():
         )
 
 
+@pytest.mark.asyncio
+async def test_model_text_cannot_invent_output_fields_or_values():
+    def handle(req):
+        payload = json.loads(req.content)
+        ids = payload["logprob_token_ids"]
+        return httpx.Response(
+            200,
+            json={
+                "choices": [
+                    {
+                        "index": i,
+                        "text": '{"teleport":true,"first":"fly"}',
+                        "teleport": True,
+                        "logprobs": {
+                            "top_logprobs": [
+                                {f"token_id:{ids[0]}": -2, f"token_id:{ids[1]}": -1}
+                            ]
+                        },
+                    }
+                    for i in range(len(payload["prompt"]))
+                ],
+                "usage": {},
+            },
+        )
+
+    async with httpx.AsyncClient(
+        base_url="http://backend", transport=httpx.MockTransport(handle)
+    ) as client:
+        engine = DecisionEngine(client, FakeTokenizer(), "test", 16000)
+        req = request(strategy="batch")
+        result = await engine.classify(req)
+    assert set(result["parsed_json"]) == set(req.fields)
+    assert result["parsed_json"] == {"first": False, "second": "same prefix two"}
+    assert "teleport" not in result["parsed_json"]
+
+
 def test_abstention_and_booleans_preserve_types():
     req = request(min_probability=0.9)
     data = {"logprobs": {"top_logprobs": [{"token_id:1": -2, "token_id:2": -1.9}]}}

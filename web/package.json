@@ -1,0 +1,22 @@
+{
+  "name": "jevfire-webgpu-demo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test test/*.test.js",
+    "format": "prettier --write src test qa index.html vite.config.js package.json",
+    "format:check": "prettier --check src test qa index.html vite.config.js package.json"
+  },
+  "dependencies": {
+    "@mlc-ai/web-llm": "0.2.85",
+    "@mlc-ai/web-tokenizers": "0.1.6"
+  },
+  "devDependencies": {
+    "prettier": "3.6.2",
+    "vite": "8.3.0"
+  }
+}

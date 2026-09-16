@@ -15,3 +15,8 @@ results/
 .DS_Store
 ._*
 *.jevfire-backup
+
+node_modules/
+web/dist/
+.playwright-cli/
+web/arena-*.png

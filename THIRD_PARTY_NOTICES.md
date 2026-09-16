@@ -16,6 +16,16 @@ The measured model is
 [Qwen/Qwen3.8-27B-FP8](https://huggingface.co/Qwen/Qwen3.8-27B-FP8).
 Users obtain weights separately and must follow their license.
 
+The browser demo uses [WebLLM](https://github.com/mlc-ai/web-llm) and
+[web-tokenizers](https://github.com/mlc-ai/tokenizers-cpp), under Apache 2.0.
+It downloads the MLC conversion of
+[Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B), whose upstream weights
+are Apache 2.0 licensed. Model files are not included in this repository.
+[Pinned versions and sources](web/README.md#pinned-model-and-runtime).
+The browser page loads Syne, Manrope, and DM Mono via Google Fonts; these fonts
+are distributed under the SIL Open Font License. The arena artwork is drawn
+procedurally by the application's Canvas renderer.
+
 Hero and game illustration were generated for this repository using the
 built-in image generation tool. [Prompts and provenance](docs/art-direction.md).
 The benchmark graphic is generated directly from recorded measurements.

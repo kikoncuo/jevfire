@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101414" />
+    <meta
+      name="description"
+      content="A tiny squad, a local Qwen model, and a schema the model cannot rewrite. JEVfire's playable WebGPU decision lab."
+    />
+    <title>JEVfire — Signal Run</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23101414'/%3E%3Cpath d='M7 25L25 7M9 7H25V23' fill='none' stroke='%23edb664' stroke-width='3'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <header class="masthead">
+        <a class="brand" href="https://github.com/kikoncuo/jevfire"
+          ><span class="brand-mark">↗</span> JEV<span>fire</span
+          ><small>FIELD LAB / 001</small></a
+        >
+        <div class="top-status">
+          <i></i> LOCAL INTELLIGENCE
+          <a
+            href="https://github.com/kikoncuo/jevfire"
+            target="_blank"
+            rel="noreferrer"
+            >Source ↗</a
+          >
+        </div>
+      </header>
+      <main>
+        <section class="intro">
+          <div>
+            <p class="eyebrow">ONE WORLD. THREE DECISIONS.</p>
+            <h1>Small model.<br /><em>Squad goals.</em></h1>
+          </div>
+          <div class="intro-copy">
+            <p>
+              Meet your three-person recovery crew.<br />
+              Download Qwen. Give an order. Watch it choose.
+            </p>
+            <p class="quiet">
+              A playable experiment in local, finite-choice intelligence.<br />
+              Inspired by JEV. Powered by your GPU.
+            </p>
+          </div>
+        </section>
+        <div class="workspace">
+          <section class="arena-panel" aria-label="Squad arena">
+            <div class="panel-toolbar">
+              <div>
+                <span class="live-dot"></span><strong>SIGNAL RUN</strong
+                ><span class="mode-label" id="mode-label"
+                  >Awaiting deployment</span
+                >
+              </div>
+              <span class="sector">SECTOR 07 · RECOVERY OPERATION</span>
+            </div>
+            <div class="arena-wrap">
+              <canvas
+                id="arena"
+                aria-label="Isometric recovery arena with three squad members, supply beacons and moving hazards"
+              ></canvas>
+              <div class="world-label">
+                <span>LIVE WORLD</span><strong>Recover. Return. Repeat.</strong>
+              </div>
+              <div class="arena-stats">
+                <div><b id="cores">00</b><span>CORES HOME</span></div>
+                <div><b id="ticks">00</b><span>DECISION TICKS</span></div>
+              </div>
+              <div class="arena-caption">
+                <span><i class="legend-node"></i> SUPPLY BEACON</span
+                ><span><i class="legend-danger"></i> HAZARD ZONE</span
+                ><span><i class="legend-home"></i> BASE</span>
+              </div>
+            </div>
+            <div class="arena-controls">
+              <button id="run" disabled>▶ Deploy squad</button
+              ><button id="hazard" class="secondary">＋ Drop a hazard</button
+              ><button
+                id="reset"
+                class="secondary icon-button"
+                aria-label="Reset arena"
+              >
+                ↺</button
+              ><span id="mission-status" role="status"
+                >Your crew is ready. Choose a controller.</span
+              >
+            </div>
+          </section>
+          <aside class="control-panel">
+            <div class="panel-heading">
+              <span class="eyebrow">THE BRAIN</span
+              ><span class="chip">ON DEVICE</span>
+            </div>
+            <h2>Qwen 3.5 <span>0.8B</span></h2>
+            <p class="muted">
+              One shared situation. A separate decision for each crew member.
+            </p>
+            <button id="load" class="load-button">
+              ↓ Download & load Qwen <span>~450 MB · 4-bit</span>
+            </button>
+            <div id="download" class="download" hidden>
+              <progress
+                id="progress"
+                max="100"
+                value="0"
+                aria-label="Model download"
+              ></progress>
+              <p id="load-status" role="status">Preparing download…</p>
+              <button id="cancel-load" class="text-button">
+                Cancel loading
+              </button>
+            </div>
+            <p class="download-note" id="compatibility">Checking WebGPU…</p>
+            <button id="preview" class="text-button">
+              Explore with a scripted controller first ↗
+            </button>
+            <div class="divider"></div>
+            <label class="eyebrow" for="mission">YOUR ORDER</label
+            ><textarea id="mission" maxlength="600" rows="3">
+Recover supply cores. Return to base when carrying a core. Avoid hazards and keep the crew alive.</textarea
+            >
+            <div class="presets">
+              <button
+                data-order="Recover supply cores. Return to base when carrying a core. Avoid hazards and keep the crew alive."
+                class="selected"
+              >
+                Recover</button
+              ><button
+                data-order="Prioritize safety. Return to base if hurt or in danger; otherwise recover supply cores."
+              >
+                Play it safe</button
+              ><button
+                data-order="Hold position. Do not recover supplies or leave base."
+              >
+                Hold
+              </button>
+            </div>
+            <div class="runtime-stat">
+              <span>Last decision cycle</span
+              ><strong id="latency">— <small>ms</small></strong>
+            </div>
+            <div class="runtime-stat">
+              <span>Controller</span
+              ><strong class="small-value" id="controller">Not loaded</strong>
+            </div>
+            <p class="error" id="error" role="alert" hidden></p>
+          </aside>
+        </div>
+        <section
+          class="crew-grid"
+          aria-label="Squad members"
+          id="crew"
+        ></section>
+        <section class="proof-grid">
+          <div class="proof-copy">
+            <p class="eyebrow">A FIXED CONTRACT. A REAL CHOICE.</p>
+            <h2>It can pick badly.<br /><em>It can't invent a field.</em></h2>
+            <p>
+              The model scores four labels per unit. JavaScript picks from your
+              allowed actions and builds the object. Field names never come from
+              generated text.
+            </p>
+            <div class="guarantees">
+              <span>✓ Exact field names</span><span>✓ Allowed values only</span
+              ><span>✓ No generated JSON to parse</span>
+            </div>
+            <p class="muted">
+              An allowed action can still be wrong. Game rules can override it;
+              the cards show both decisions. Scores are relative preferences,
+              not calibrated confidence.
+            </p>
+            <button class="text-button" id="inject">
+              Try asking for a made-up “teleport” field ↗
+            </button>
+          </div>
+          <div class="output-panel">
+            <div class="panel-toolbar">
+              <strong>DECISION OUTPUT</strong
+              ><span id="contract-status" class="chip">SCHEMA LOCKED</span>
+            </div>
+            <pre id="output" aria-live="polite">
+{
+  "ember": "hold",
+  "moss": "hold",
+  "echo": "hold"
+}</pre
+            >
+            <div class="allowed">
+              <span>ALLOWED VALUES</span><code>recover</code><code>return</code
+              ><code>evade</code><code>hold</code>
+            </div>
+            <p id="output-note">
+              Initial game state. No model inference has run.
+            </p>
+          </div>
+        </section>
+        <details class="technical">
+          <summary>
+            What this experiment does — and what it doesn't <span>＋</span>
+          </summary>
+          <div>
+            <p>
+              Qwen reads symbolic game state, not screenshots. WebLLM scores
+              three independent field prompts sequentially in a Web Worker; the
+              main thread animates and applies game rules. Decisions run as fast
+              as your device completes them, separately from rendering. Paused
+              or reset missions discard in-flight results.
+            </p>
+            <p>
+              This WebGPU demo does not implement vLLM's prefix-cache
+              optimization. Its performance is measured on your device; the
+              repository's 10.3× CUDA result is a separate benchmark. No browser
+              speedup or gameplay-quality claim is made.
+            </p>
+            <p>
+              Weights and runtime files download from Hugging Face/CDNs.
+              Inference stays in the browser; game state is not sent to a model
+              server. Browser caches may be evicted. Use a desktop browser with
+              WebGPU and sufficient free memory.
+              <a href="https://github.com/kikoncuo/jevfire/tree/main/web"
+                >Implementation & model details ↗</a
+              >
+            </p>
+          </div>
+        </details>
+      </main>
+      <footer>
+        <span>JEVfire <b>↗</b> One context. Many decisions.</span
+        ><span>A small experiment. A concrete contract.</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

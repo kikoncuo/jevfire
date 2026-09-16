@@ -16,6 +16,7 @@ Measured median on a synthetic 28-field task with a fresh prefix.<br>
 Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · five trials per cell.</p>
 
 <p align="center">
+  <a href="https://kikoncuo.github.io/jevfire/"><strong>Play the browser demo ↗</strong></a> ·
   <a href="#quickstart">Quickstart</a> ·
   <a href="benchmarks/README.md">Benchmarks & raw data</a> ·
   <a href="#give-your-game-an-action-layer">Game agents</a> ·
@@ -32,6 +33,12 @@ The [JEV / RLCD demo](https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD)
 inspired this independent CUDA/vLLM implementation.
 
 **No retraining. No second model. No autoregressive JSON serialization.**
+
+**The model cannot invent output fields or out-of-set values.** Your supplied
+schema defines the keys and choices; application code assembles `parsed_json`.
+The model can still select an incorrect allowed value. This is a structural
+guarantee, not a guarantee of factual correctness.
+[What is guaranteed →](docs/guarantees.md)
 
 <p align="center"><img src="assets/benchmark.svg" alt="Fresh-prefix median latency: four fields 877.5 to 109.9 ms; twelve fields 2239.4 to 330.1 ms; twenty-eight fields 5113.1 to 496.9 ms; long context with twelve fields 2951.1 to 1060.8 ms." width="100%"></p>
 
@@ -93,6 +100,29 @@ position. Engine scheduling can still require multiple batches and forward passe
 | Performance sweet spot | Flexible generative content | **Many independent decisions sharing context** |
 
 ## Give your game an action layer
+
+### Play Signal Run in your browser
+
+**[Launch the squad arena →](https://kikoncuo.github.io/jevfire/)**
+
+[![Signal Run: three units driven by local Qwen through WebLLM](assets/browser-demo.png)](https://kikoncuo.github.io/jevfire/)
+
+*Actual browser gameplay with the local model loaded.*
+
+Download **Qwen 3.5 0.8B** once, give your three-person crew an order, and watch
+it recover cores. **WebLLM + WebGPU run inference entirely on your device**.
+No API key or model server. The roughly 450 MB model download is explicit;
+an optional scripted preview lets you explore before loading it.
+
+See each unit's choice and the game rules that apply it. Then ask for a
+made-up `teleport` field: application code still assembles only the declared
+keys and allowed actions. That guarantees structure, not correct decisions.
+
+The browser scores three fields sequentially; it does not implement vLLM's
+cache optimization or claim the CUDA benchmark's speedup.
+[Implementation, requirements, and model provenance →](web/README.md)
+
+### Connect your own game
 
 <img src="assets/game-agent.png" alt="Concept illustration: a simulated racing car with branching STEER, BRAKE and BOOST decisions" width="100%">
 
