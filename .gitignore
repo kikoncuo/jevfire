@@ -20,3 +20,5 @@ node_modules/
 web/dist/
 .playwright-cli/
 web/arena-*.png
+web/lasthearth-art-*.png
+web/last-hearth-qa-*.png

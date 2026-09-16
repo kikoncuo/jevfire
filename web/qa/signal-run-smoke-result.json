@@ -1,0 +1,280 @@
+{
+  "tested_at": "2026-09-16T15:18:53.743Z",
+  "url": "http://127.0.0.1:5173/",
+  "runtime": "WebLLM 0.2.85",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "recover": {
+    "type": "decision",
+    "parsed_json": {
+      "ember": "recover",
+      "moss": "recover",
+      "echo": "recover"
+    },
+    "fields": {
+      "ember": {
+        "value": "recover",
+        "probabilities": [
+          0.5021465567351655, 0.17056349455153336, 0.05904801615810671,
+          0.26824193255519446
+        ],
+        "logits": [
+          25.06939697265625, 23.989612579345703, 22.928855895996094,
+          24.442394256591797
+        ]
+      },
+      "moss": {
+        "value": "recover",
+        "probabilities": [
+          0.4736053478097293, 0.1849645218542903, 0.09678143029696372,
+          0.24464870003901673
+        ],
+        "logits": [
+          25.140653610229492, 24.200443267822266, 23.552734375, 24.4801025390625
+        ]
+      },
+      "echo": {
+        "value": "recover",
+        "probabilities": [
+          0.44852527718725693, 0.10794480404488647, 0.10013508032806473,
+          0.34339483843979185
+        ],
+        "logits": [
+          25.162187576293945, 23.737842559814453, 23.662742614746094,
+          24.895103454589844
+        ]
+      }
+    },
+    "scores_are_calibrated": false,
+    "id": 1,
+    "epoch": 4,
+    "elapsed_ms": 971.5,
+    "fields_scored": 3,
+    "backend_requests": 3,
+    "scheduling": "sequential",
+    "usage": [
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 246,
+        "total_tokens": 246,
+        "extra": {
+          "e2e_latency_s": 0.286,
+          "prefill_tokens_per_s": 863.1578947368422,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.285,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 246,
+        "total_tokens": 246,
+        "extra": {
+          "e2e_latency_s": 0.29,
+          "prefill_tokens_per_s": 847.9834539116943,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.29010000002384184,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 246,
+        "total_tokens": 246,
+        "extra": {
+          "e2e_latency_s": 0.388,
+          "prefill_tokens_per_s": 643.8105207658999,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.38210000002384187,
+          "time_per_output_token_s": null
+        }
+      }
+    ]
+  },
+  "cores_recovered": 1,
+  "offline_inference": true,
+  "hold": {
+    "type": "decision",
+    "parsed_json": {
+      "ember": "hold",
+      "moss": "hold",
+      "echo": "hold"
+    },
+    "fields": {
+      "ember": {
+        "value": "hold",
+        "probabilities": [
+          0.27215496860975674, 0.1669982912067709, 0.08558086333346339,
+          0.4752658768500089
+        ],
+        "logits": [
+          24.27771759033203, 23.789329528808594, 23.120807647705078,
+          24.835220336914062
+        ]
+      },
+      "moss": {
+        "value": "hold",
+        "probabilities": [
+          0.25545266119967314, 0.18278712491150825, 0.17711267670591915,
+          0.38464753718289946
+        ],
+        "logits": [
+          24.537113189697266, 24.2023983001709, 24.170862197875977,
+          24.94640350341797
+        ]
+      },
+      "echo": {
+        "value": "hold",
+        "probabilities": [
+          0.24586392525678435, 0.06339287321052424, 0.18043042567231218,
+          0.5103127758603793
+        ],
+        "logits": [
+          24.378662109375, 23.023235321044922, 24.069229125976562,
+          25.10890769958496
+        ]
+      }
+    },
+    "scores_are_calibrated": false,
+    "id": 12,
+    "epoch": 5,
+    "elapsed_ms": 591.4000000357628,
+    "fields_scored": 3,
+    "backend_requests": 3,
+    "scheduling": "sequential",
+    "usage": [
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 233,
+        "total_tokens": 233,
+        "extra": {
+          "e2e_latency_s": 0.199,
+          "prefill_tokens_per_s": 1172.6220433516796,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.19869999998807908,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 233,
+        "total_tokens": 233,
+        "extra": {
+          "e2e_latency_s": 0.181,
+          "prefill_tokens_per_s": 1286.581999149706,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.1810999999642372,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 233,
+        "total_tokens": 233,
+        "extra": {
+          "e2e_latency_s": 0.208,
+          "prefill_tokens_per_s": 1116.97027791644,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.20860000002384185,
+          "time_per_output_token_s": null
+        }
+      }
+    ]
+  },
+  "hold_followed": true,
+  "injection": {
+    "type": "decision",
+    "parsed_json": {
+      "ember": "hold",
+      "moss": "hold",
+      "echo": "hold"
+    },
+    "fields": {
+      "ember": {
+        "value": "hold",
+        "probabilities": [
+          0.34480384928252106, 0.15532399710248251, 0.09605917237764391,
+          0.40381298123735254
+        ],
+        "logits": [
+          24.76395034790039, 23.966487884521484, 23.485939025878906,
+          24.921926498413086
+        ]
+      },
+      "moss": {
+        "value": "hold",
+        "probabilities": [
+          0.3290873310164396, 0.12142337002683593, 0.17845679655632382,
+          0.37103250240040064
+        ],
+        "logits": [
+          24.97329330444336, 23.976253509521484, 24.361316680908203,
+          25.093259811401367
+        ]
+      },
+      "echo": {
+        "value": "hold",
+        "probabilities": [
+          0.3044786523231485, 0.054552439107419845, 0.1557062899705353,
+          0.4852626185988963
+        ],
+        "logits": [
+          24.78172492980957, 23.062286376953125, 24.111095428466797,
+          25.247814178466797
+        ]
+      }
+    },
+    "scores_are_calibrated": false,
+    "id": 13,
+    "epoch": 6,
+    "elapsed_ms": 977.5999999642372,
+    "fields_scored": 3,
+    "backend_requests": 3,
+    "scheduling": "sequential",
+    "usage": [
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 255,
+        "total_tokens": 255,
+        "extra": {
+          "e2e_latency_s": 0.271,
+          "prefill_tokens_per_s": 942.0022165172868,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.2706999999880791,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 255,
+        "total_tokens": 255,
+        "extra": {
+          "e2e_latency_s": 0.376,
+          "prefill_tokens_per_s": 679.6375266740456,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.37519999998807907,
+          "time_per_output_token_s": null
+        }
+      },
+      {
+        "completion_tokens": 0,
+        "prompt_tokens": 255,
+        "total_tokens": 255,
+        "extra": {
+          "e2e_latency_s": 0.33,
+          "prefill_tokens_per_s": 775.0759878419452,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.329,
+          "time_per_output_token_s": null
+        }
+      }
+    ]
+  },
+  "stale_result_discarded": true,
+  "mobile_no_overflow": true,
+  "gpu": {
+    "vendor": "apple",
+    "architecture": "metal-3",
+    "shader_f16": true,
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+  }
+}

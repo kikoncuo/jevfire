@@ -1,8 +1,40 @@
-export const UNIT_IDS = Object.freeze(['ember', 'moss', 'echo']);
-export const ACTIONS = Object.freeze(['recover', 'return', 'evade', 'hold']);
-export const SCHEMA = Object.freeze(
-  Object.fromEntries(UNIT_IDS.map((id) => [id, ACTIONS])),
+export const ROLE_ACTIONS = Object.freeze({
+  collector: Object.freeze(['forage_safe', 'forage_bold', 'relax']),
+  fighter: Object.freeze(['train', 'defend', 'relax']),
+  builder: Object.freeze(['repair', 'build', 'relax']),
+});
+export const UNIT_DEFINITIONS = Object.freeze(
+  [
+    { id: 'mira', name: 'Mira', role: 'collector', color: '#dca653' },
+    { id: 'bram', name: 'Bram', role: 'collector', color: '#d8c077' },
+    { id: 'aldric', name: 'Aldric', role: 'fighter', color: '#7eabbc' },
+    { id: 'sable', name: 'Sable', role: 'fighter', color: '#9cb5cb' },
+    { id: 'tomas', name: 'Tomas', role: 'builder', color: '#c08160' },
+    { id: 'nell', name: 'Nell', role: 'builder', color: '#c4a3a0' },
+  ].map(Object.freeze),
 );
+export const UNIT_IDS = Object.freeze(UNIT_DEFINITIONS.map((unit) => unit.id));
+export const ACTIONS = Object.freeze([
+  ...new Set(Object.values(ROLE_ACTIONS).flat()),
+]);
+
+export function schemaFor(units = UNIT_DEFINITIONS) {
+  return Object.fromEntries(
+    units
+      .filter((unit) => unit.alive !== false)
+      .map((unit) => {
+        if (
+          !UNIT_DEFINITIONS.some(
+            (definition) =>
+              definition.id === unit.id && definition.role === unit.role,
+          )
+        )
+          throw new Error('Unknown actor or role');
+        return [unit.id, ROLE_ACTIONS[unit.role]];
+      }),
+  );
+}
+export const SCHEMA = Object.freeze(schemaFor());
 
 export function normalize(scores) {
   if (
@@ -19,15 +51,17 @@ export function normalize(scores) {
 
 export function assemble(schema, rows) {
   const fields = Object.entries(schema);
-  if (rows.length !== fields.length)
+  if (!Array.isArray(rows) || rows.length !== fields.length)
     throw new Error('Scoring row count does not match schema');
   const values = [],
     details = [];
   for (let i = 0; i < fields.length; i++) {
     const [name, options] = fields[i];
     if (
+      !Array.isArray(options) ||
       options.length < 2 ||
       new Set(options).size !== options.length ||
+      !Array.isArray(rows[i]) ||
       rows[i].length !== options.length
     )
       throw new Error('Invalid field candidates');
@@ -39,7 +73,7 @@ export function assemble(schema, rows) {
       { value: options[winner], probabilities, logits: rows[i] },
     ]);
   }
-  // Object.fromEntries creates own data properties, including unusual field names.
+  // Only application-owned keys and enum values enter the result. Model text is never parsed.
   return {
     parsed_json: Object.fromEntries(values),
     fields: Object.fromEntries(details),
@@ -47,29 +81,19 @@ export function assemble(schema, rows) {
   };
 }
 
-export function validateDecision(value) {
+export function validateDecision(value, schema = SCHEMA) {
   if (
     !value ||
-    Object.keys(value).length !== UNIT_IDS.length ||
-    !UNIT_IDS.every(
-      (id) => Object.hasOwn(value, id) && ACTIONS.includes(value[id]),
+    typeof value !== 'object' ||
+    Array.isArray(value) ||
+    Object.keys(value).length !== Object.keys(schema).length ||
+    !Object.entries(schema).every(
+      ([id, options]) =>
+        Object.hasOwn(value, id) && options.includes(value[id]),
     )
   )
     throw new Error('Decision violates the fixed action contract');
   return value;
-}
-
-export function guardAction(unit, proposed, source, danger) {
-  if (!ACTIONS.includes(proposed)) throw new Error('Unknown action');
-  if (unit.health < 25)
-    return { action: 'return', reason: 'Low health: return to base' };
-  if (danger && proposed === 'recover')
-    return { action: 'evade', reason: 'Hazard too close' };
-  if (unit.carrying && proposed === 'recover')
-    return { action: 'return', reason: 'Cargo secured: return to base' };
-  if (!source.stock && proposed === 'recover')
-    return { action: 'hold', reason: 'Assigned beacon is empty' };
-  return { action: proposed, reason: null };
 }
 
 export function isCurrentResult(message, epoch, running) {

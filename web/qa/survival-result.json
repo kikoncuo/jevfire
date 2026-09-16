@@ -1,0 +1,5647 @@
+{
+  "tested_at": "2026-09-16T18:32:23.005Z",
+  "seed": 7341,
+  "simulation_speed": 2,
+  "scope": "One development run; asynchronous timing prevents exact seed-only reproduction",
+  "policies": {
+    "collector": "Keep yourself and the village alive. Forage safely while food is needed. Use bold foraging only when food is critically low and the routes are not dangerous. Relax to walk home and eat before starvation, especially when weak or threatened. If you already carry food, either forage action returns it home. Relaxing also deposits food. Never remain relaxed with full hunger while the village runs out of food.",
+    "fighter": "Protect the villagers so the settlement survives. Defend when an orc is attacking or approaching an ally or a building; this draws nearby orcs onto you. Train when no one is threatened to raise your damage for later waves. Relax before starvation or to heal if badly injured. Defend again when recovered. Do not train while villagers are being attacked.",
+    "builder": "Keep the settlement alive. Repair damaged buildings, giving the hall and occupied defenses priority. Build towers when buildings are healthy; towers shoot orcs automatically. Relax before starvation or to heal if injured. Avoid working next to an orc that is attacking you. A destroyed hall cannot provide food or healing."
+  },
+  "samples": [
+    {
+      "wall_seconds": 1.0011999999880792,
+      "summary": {
+        "time": 0.7,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 1,
+        "decisions": 1,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1,
+        "rounds_per_second": 0,
+        "total_decisions": 1,
+        "completed_rounds": 0,
+        "mean_latency_ms": 490,
+        "window_seconds": 1
+      }
+    },
+    {
+      "wall_seconds": 2.002199999988079,
+      "summary": {
+        "time": 1.8,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 3,
+        "decisions": 3,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5153811183603902,
+        "rounds_per_second": 0,
+        "total_decisions": 3,
+        "completed_rounds": 0,
+        "mean_latency_ms": 564.5000000198683,
+        "window_seconds": 1.979699999988079
+      }
+    },
+    {
+      "wall_seconds": 3.0038000000119207,
+      "summary": {
+        "time": 2.7,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 5,
+        "decisions": 5,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6770644663714982,
+        "rounds_per_second": 0,
+        "total_decisions": 5,
+        "completed_rounds": 0,
+        "mean_latency_ms": 560.4600000143051,
+        "window_seconds": 2.981399999976158
+      }
+    },
+    {
+      "wall_seconds": 4.0015,
+      "summary": {
+        "time": 3.4,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 6,
+        "decisions": 6,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5079165619502388,
+        "rounds_per_second": 0.25131942699170645,
+        "total_decisions": 6,
+        "completed_rounds": 1,
+        "mean_latency_ms": 551.116666684548,
+        "window_seconds": 3.979
+      }
+    },
+    {
+      "wall_seconds": 5.001199999988079,
+      "summary": {
+        "time": 4.3,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 8,
+        "decisions": 8,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6068451603870801,
+        "rounds_per_second": 0.20085564504838502,
+        "total_decisions": 8,
+        "completed_rounds": 1,
+        "mean_latency_ms": 574.5875000208616,
+        "window_seconds": 4.978699999988079
+      }
+    },
+    {
+      "wall_seconds": 6.001600000023842,
+      "summary": {
+        "time": 5.3,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 10,
+        "decisions": 10,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6724645437550067,
+        "rounds_per_second": 0.16724645437550067,
+        "total_decisions": 10,
+        "completed_rounds": 1,
+        "mean_latency_ms": 577.130000013113,
+        "window_seconds": 5.979199999988079
+      }
+    },
+    {
+      "wall_seconds": 7.001199999988079,
+      "summary": {
+        "time": 6.3,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 12,
+        "decisions": 12,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7195426016767683,
+        "rounds_per_second": 0.2865904336127947,
+        "total_decisions": 12,
+        "completed_rounds": 2,
+        "mean_latency_ms": 561.1083333442608,
+        "window_seconds": 6.978599999964238
+      }
+    },
+    {
+      "wall_seconds": 8.000699999988079,
+      "summary": {
+        "time": 7.4,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 14,
+        "decisions": 14,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7547597859297936,
+        "rounds_per_second": 0.250679969418542,
+        "total_decisions": 14,
+        "completed_rounds": 2,
+        "mean_latency_ms": 559.6000000068119,
+        "window_seconds": 7.978299999952316
+      }
+    },
+    {
+      "wall_seconds": 9.000699999988079,
+      "summary": {
+        "time": 9.3,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 16,
+        "decisions": 16,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7820745575537658,
+        "rounds_per_second": 0.22275931969422072,
+        "total_decisions": 16,
+        "completed_rounds": 2,
+        "mean_latency_ms": 546.9250000081956,
+        "window_seconds": 8.978299999952316
+      }
+    },
+    {
+      "wall_seconds": 10.0015,
+      "summary": {
+        "time": 10.2,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 18,
+        "decisions": 18,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.803769879053673,
+        "rounds_per_second": 0.30062831317561217,
+        "total_decisions": 18,
+        "completed_rounds": 3,
+        "mean_latency_ms": 527.6666666732895,
+        "window_seconds": 9.979099999964237
+      }
+    },
+    {
+      "wall_seconds": 11.001300000011922,
+      "summary": {
+        "time": 11.6,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 20,
+        "decisions": 20,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 20,
+        "completed_rounds": 3,
+        "mean_latency_ms": 526.036842114047,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 12.000600000023843,
+      "summary": {
+        "time": 12.8,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 22,
+        "decisions": 22,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 22,
+        "completed_rounds": 3,
+        "mean_latency_ms": 513.6315789505055,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 13.00119999998808,
+      "summary": {
+        "time": 13.8,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 24,
+        "decisions": 24,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 24,
+        "completed_rounds": 4,
+        "mean_latency_ms": 500.7368421115373,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 14.001,
+      "summary": {
+        "time": 14.9,
+        "alive": 6,
+        "total": 6,
+        "food": 6,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 0,
+        "ticks": 27,
+        "decisions": 27,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 27,
+        "completed_rounds": 4,
+        "mean_latency_ms": 494.66190476360777,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 15.000400000035762,
+      "summary": {
+        "time": 16,
+        "alive": 6,
+        "total": 6,
+        "food": 9,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 3,
+        "ticks": 29,
+        "decisions": 29,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 29,
+        "completed_rounds": 4,
+        "mean_latency_ms": 476.5238095238095,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 16.001199999988078,
+      "summary": {
+        "time": 16.9,
+        "alive": 6,
+        "total": 6,
+        "food": 9,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 3,
+        "ticks": 31,
+        "decisions": 31,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.4,
+        "total_decisions": 31,
+        "completed_rounds": 5,
+        "mean_latency_ms": 467.0000000028383,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 17.001600000023842,
+      "summary": {
+        "time": 17.5,
+        "alive": 6,
+        "total": 6,
+        "food": 9,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 3,
+        "ticks": 32,
+        "decisions": 32,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 32,
+        "completed_rounds": 5,
+        "mean_latency_ms": 474.9800000011921,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 18.00130000001192,
+      "summary": {
+        "time": 18.5,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 34,
+        "decisions": 34,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 34,
+        "completed_rounds": 5,
+        "mean_latency_ms": 470.52000000476835,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 19.00530000001192,
+      "summary": {
+        "time": 19.9,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 37,
+        "decisions": 37,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.4,
+        "total_decisions": 37,
+        "completed_rounds": 6,
+        "mean_latency_ms": 469.90476190760023,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 20.00130000001192,
+      "summary": {
+        "time": 20.7,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 38,
+        "decisions": 38,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 38,
+        "completed_rounds": 6,
+        "mean_latency_ms": 488.3100000023842,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 21.001900000035764,
+      "summary": {
+        "time": 21.6,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 0,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 40,
+        "decisions": 40,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 40,
+        "completed_rounds": 6,
+        "mean_latency_ms": 486.79000000357627,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 22.002,
+      "summary": {
+        "time": 22.8,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 42,
+        "decisions": 42,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 42,
+        "completed_rounds": 7,
+        "mean_latency_ms": 479.4400000065565,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 23.0015,
+      "summary": {
+        "time": 23.7,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 44,
+        "decisions": 44,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 44,
+        "completed_rounds": 7,
+        "mean_latency_ms": 501.6250000059605,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 24.00069999998808,
+      "summary": {
+        "time": 24.6,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 46,
+        "decisions": 46,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 46,
+        "completed_rounds": 7,
+        "mean_latency_ms": 514.9263158001398,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 25.003300000011922,
+      "summary": {
+        "time": 25.6,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 48,
+        "decisions": 48,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 48,
+        "completed_rounds": 8,
+        "mean_latency_ms": 519.4157894849777,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 26.00210000002384,
+      "summary": {
+        "time": 26.4,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 49,
+        "decisions": 49,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 49,
+        "completed_rounds": 8,
+        "mean_latency_ms": 524.8444444570276,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 27.001100000023843,
+      "summary": {
+        "time": 27.3,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 51,
+        "decisions": 51,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 51,
+        "completed_rounds": 8,
+        "mean_latency_ms": 519.0263158051591,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 28.001100000023843,
+      "summary": {
+        "time": 28.6,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 54,
+        "decisions": 54,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 54,
+        "completed_rounds": 9,
+        "mean_latency_ms": 507.1300000101328,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 29.001800000011922,
+      "summary": {
+        "time": 29.3,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 55,
+        "decisions": 55,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 55,
+        "completed_rounds": 9,
+        "mean_latency_ms": 515.3444444537163,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 30.00080000001192,
+      "summary": {
+        "time": 30.5,
+        "alive": 6,
+        "total": 6,
+        "food": 12,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 6,
+        "ticks": 57,
+        "decisions": 57,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 57,
+        "completed_rounds": 9,
+        "mean_latency_ms": 512.8315789605442,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 31.002,
+      "summary": {
+        "time": 31.3,
+        "alive": 6,
+        "total": 6,
+        "food": 15,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 9,
+        "ticks": 59,
+        "decisions": 59,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 59,
+        "completed_rounds": 9,
+        "mean_latency_ms": 517.8947368515165,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 32.00130000001192,
+      "summary": {
+        "time": 32.2,
+        "alive": 6,
+        "total": 6,
+        "food": 15,
+        "wave": 1,
+        "kills": 0,
+        "gathered": 9,
+        "ticks": 61,
+        "decisions": 61,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 61,
+        "completed_rounds": 10,
+        "mean_latency_ms": 526.0473684292091,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 33.00040000003576,
+      "summary": {
+        "time": 33,
+        "alive": 6,
+        "total": 6,
+        "food": 15,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 9,
+        "ticks": 63,
+        "decisions": 63,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 63,
+        "completed_rounds": 10,
+        "mean_latency_ms": 510.31578947995837,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 34.00069999998808,
+      "summary": {
+        "time": 33.8,
+        "alive": 6,
+        "total": 6,
+        "food": 15,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 9,
+        "ticks": 65,
+        "decisions": 65,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 65,
+        "completed_rounds": 10,
+        "mean_latency_ms": 498.7052631629141,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 35.00110000002384,
+      "summary": {
+        "time": 34.9,
+        "alive": 6,
+        "total": 6,
+        "food": 15,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 9,
+        "ticks": 67,
+        "decisions": 67,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 67,
+        "completed_rounds": 11,
+        "mean_latency_ms": 506.45789474248886,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 36.00119999998808,
+      "summary": {
+        "time": 35.7,
+        "alive": 6,
+        "total": 6,
+        "food": 18,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 69,
+        "decisions": 69,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 69,
+        "completed_rounds": 11,
+        "mean_latency_ms": 499.0300000011921,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 37.0015,
+      "summary": {
+        "time": 36.7,
+        "alive": 6,
+        "total": 6,
+        "food": 18,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 71,
+        "decisions": 71,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 71,
+        "completed_rounds": 11,
+        "mean_latency_ms": 491.82500000298023,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 38.00110000002384,
+      "summary": {
+        "time": 37.7,
+        "alive": 6,
+        "total": 6,
+        "food": 18,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 73,
+        "decisions": 73,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 73,
+        "completed_rounds": 12,
+        "mean_latency_ms": 506.17368421742793,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 39.00119999998808,
+      "summary": {
+        "time": 38.7,
+        "alive": 6,
+        "total": 6,
+        "food": 18,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 75,
+        "decisions": 75,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 75,
+        "completed_rounds": 12,
+        "mean_latency_ms": 505.3100000083447,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 40.00119999998808,
+      "summary": {
+        "time": 39.6,
+        "alive": 6,
+        "total": 6,
+        "food": 18,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 77,
+        "decisions": 77,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 77,
+        "completed_rounds": 12,
+        "mean_latency_ms": 497.68500000536443,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 41.00190000003576,
+      "summary": {
+        "time": 40.6,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 79,
+        "decisions": 79,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 79,
+        "completed_rounds": 13,
+        "mean_latency_ms": 502.97500000596045,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 42.00110000002384,
+      "summary": {
+        "time": 41.1,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 80,
+        "decisions": 80,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 80,
+        "completed_rounds": 13,
+        "mean_latency_ms": 513.2210526403628,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 43.00530000001192,
+      "summary": {
+        "time": 42.5,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 83,
+        "decisions": 83,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 83,
+        "completed_rounds": 13,
+        "mean_latency_ms": 503.35500000715257,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 44.00390000003576,
+      "summary": {
+        "time": 43.4,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 85,
+        "decisions": 85,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 85,
+        "completed_rounds": 14,
+        "mean_latency_ms": 510.85000000596045,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 45.00390000003576,
+      "summary": {
+        "time": 44.3,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 87,
+        "decisions": 87,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 87,
+        "completed_rounds": 14,
+        "mean_latency_ms": 500.3850000023842,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 46.00180000001192,
+      "summary": {
+        "time": 45.5,
+        "alive": 6,
+        "total": 6,
+        "food": 17,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 12,
+        "ticks": 89,
+        "decisions": 89,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 89,
+        "completed_rounds": 14,
+        "mean_latency_ms": 496.71000000238416,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 47.00169999998808,
+      "summary": {
+        "time": 46.5,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 91,
+        "decisions": 91,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 91,
+        "completed_rounds": 15,
+        "mean_latency_ms": 500.16999999582765,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 48.001400000035765,
+      "summary": {
+        "time": 47.5,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 93,
+        "decisions": 93,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 93,
+        "completed_rounds": 15,
+        "mean_latency_ms": 495.0349999964237,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 49.00160000002384,
+      "summary": {
+        "time": 48.3,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 95,
+        "decisions": 95,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 95,
+        "completed_rounds": 15,
+        "mean_latency_ms": 488.94499999284744,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 50.002,
+      "summary": {
+        "time": 49.6,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 97,
+        "decisions": 97,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 97,
+        "completed_rounds": 16,
+        "mean_latency_ms": 487.85999999344347,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 51.00119999998808,
+      "summary": {
+        "time": 50.6,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 99,
+        "decisions": 99,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 99,
+        "completed_rounds": 16,
+        "mean_latency_ms": 479.32499999403956,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 52.00190000003576,
+      "summary": {
+        "time": 51.4,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 101,
+        "decisions": 101,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 101,
+        "completed_rounds": 16,
+        "mean_latency_ms": 469.65714284919557,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 53.00119999998808,
+      "summary": {
+        "time": 52.2,
+        "alive": 6,
+        "total": 6,
+        "food": 20,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 15,
+        "ticks": 103,
+        "decisions": 103,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 103,
+        "completed_rounds": 17,
+        "mean_latency_ms": 471.7049999922514,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 54.008100000023845,
+      "summary": {
+        "time": 53.3,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 106,
+        "decisions": 106,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 106,
+        "completed_rounds": 17,
+        "mean_latency_ms": 468.019047615074,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 55.0015,
+      "summary": {
+        "time": 54,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 107,
+        "decisions": 107,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 107,
+        "completed_rounds": 17,
+        "mean_latency_ms": 470.5349999964237,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 56.01230000001192,
+      "summary": {
+        "time": 55.2,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 109,
+        "decisions": 109,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 109,
+        "completed_rounds": 18,
+        "mean_latency_ms": 490.8399999976158,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 57.00130000001192,
+      "summary": {
+        "time": 55.8,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 110,
+        "decisions": 110,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 110,
+        "completed_rounds": 18,
+        "mean_latency_ms": 502.4105263164169,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 58.00119999998808,
+      "summary": {
+        "time": 56.7,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 1,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 112,
+        "decisions": 112,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 112,
+        "completed_rounds": 18,
+        "mean_latency_ms": 513.2210526309515,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 59.00110000002384,
+      "summary": {
+        "time": 58,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 114,
+        "decisions": 114,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 114,
+        "completed_rounds": 19,
+        "mean_latency_ms": 522.1736842111537,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 60.002,
+      "summary": {
+        "time": 58.8,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 115,
+        "decisions": 115,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 115,
+        "completed_rounds": 19,
+        "mean_latency_ms": 542.0333333313465,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 61.001,
+      "summary": {
+        "time": 59.8,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 117,
+        "decisions": 117,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 117,
+        "completed_rounds": 19,
+        "mean_latency_ms": 559.0555555522442,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 62.00119999998808,
+      "summary": {
+        "time": 61.1,
+        "alive": 6,
+        "total": 6,
+        "food": 23,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 18,
+        "ticks": 119,
+        "decisions": 119,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 119,
+        "completed_rounds": 19,
+        "mean_latency_ms": 560.2222222189108,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 63.0015,
+      "summary": {
+        "time": 61.6,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 21,
+        "ticks": 120,
+        "decisions": 120,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 120,
+        "completed_rounds": 20,
+        "mean_latency_ms": 569.3588235238019,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 64.00069999998809,
+      "summary": {
+        "time": 62.7,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 21,
+        "ticks": 122,
+        "decisions": 122,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 0.3,
+        "total_decisions": 122,
+        "completed_rounds": 20,
+        "mean_latency_ms": 603.8437499888241,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 65.00119999998807,
+      "summary": {
+        "time": 63.7,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 1,
+        "gathered": 21,
+        "ticks": 124,
+        "decisions": 124,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 124,
+        "completed_rounds": 20,
+        "mean_latency_ms": 601.1529411638485,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 66.00119999998807,
+      "summary": {
+        "time": 65.2,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 21,
+        "ticks": 126,
+        "decisions": 126,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 126,
+        "completed_rounds": 21,
+        "mean_latency_ms": 580.7999999873779,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 67.00040000003577,
+      "summary": {
+        "time": 66.1,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 21,
+        "ticks": 128,
+        "decisions": 128,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 128,
+        "completed_rounds": 21,
+        "mean_latency_ms": 572.3777777685059,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 68.005,
+      "summary": {
+        "time": 67.4,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 21,
+        "ticks": 130,
+        "decisions": 130,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 130,
+        "completed_rounds": 21,
+        "mean_latency_ms": 562.5222222175863,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 69.00060000002384,
+      "summary": {
+        "time": 68.6,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 21,
+        "ticks": 132,
+        "decisions": 132,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 132,
+        "completed_rounds": 22,
+        "mean_latency_ms": 552.2277777724796,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 70.00130000001192,
+      "summary": {
+        "time": 69.2,
+        "alive": 6,
+        "total": 6,
+        "food": 26,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 21,
+        "ticks": 133,
+        "decisions": 133,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 133,
+        "completed_rounds": 22,
+        "mean_latency_ms": 541.5166666640175,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 71.00060000002384,
+      "summary": {
+        "time": 70.6,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 2,
+        "gathered": 24,
+        "ticks": 136,
+        "decisions": 136,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 136,
+        "completed_rounds": 22,
+        "mean_latency_ms": 521.6052631547576,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 72.00169999998808,
+      "summary": {
+        "time": 72.3,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 138,
+        "decisions": 138,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 138,
+        "completed_rounds": 23,
+        "mean_latency_ms": 518.5263157894736,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 73.00119999998807,
+      "summary": {
+        "time": 72.9,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 139,
+        "decisions": 139,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 139,
+        "completed_rounds": 23,
+        "mean_latency_ms": 524.3105263176717,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 74.00160000002384,
+      "summary": {
+        "time": 73.9,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 141,
+        "decisions": 141,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 141,
+        "completed_rounds": 23,
+        "mean_latency_ms": 508.5157894774487,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 75.00130000001192,
+      "summary": {
+        "time": 74.8,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 143,
+        "decisions": 143,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 143,
+        "completed_rounds": 23,
+        "mean_latency_ms": 510.02631579574785,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 76.00110000002384,
+      "summary": {
+        "time": 75.2,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 144,
+        "decisions": 144,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 144,
+        "completed_rounds": 24,
+        "mean_latency_ms": 516.9500000079473,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 77.00210000002384,
+      "summary": {
+        "time": 76.2,
+        "alive": 6,
+        "total": 6,
+        "food": 29,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 24,
+        "ticks": 146,
+        "decisions": 146,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 146,
+        "completed_rounds": 24,
+        "mean_latency_ms": 533.3166666726271,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 78.00140000003576,
+      "summary": {
+        "time": 77.5,
+        "alive": 6,
+        "total": 6,
+        "food": 32,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 148,
+        "decisions": 148,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 148,
+        "completed_rounds": 24,
+        "mean_latency_ms": 533.5263157926107,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 79.00130000001192,
+      "summary": {
+        "time": 79.1,
+        "alive": 6,
+        "total": 6,
+        "food": 32,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 150,
+        "decisions": 150,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 150,
+        "completed_rounds": 25,
+        "mean_latency_ms": 539.9055555628406,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 80.00140000003576,
+      "summary": {
+        "time": 79.8,
+        "alive": 6,
+        "total": 6,
+        "food": 32,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 151,
+        "decisions": 151,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 151,
+        "completed_rounds": 25,
+        "mean_latency_ms": 542.3277777830759,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 81.00119999998807,
+      "summary": {
+        "time": 81.1,
+        "alive": 6,
+        "total": 6,
+        "food": 32,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 154,
+        "decisions": 154,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 154,
+        "completed_rounds": 25,
+        "mean_latency_ms": 542.1944444510672,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 82.00190000003576,
+      "summary": {
+        "time": 81.9,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 156,
+        "decisions": 156,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 156,
+        "completed_rounds": 26,
+        "mean_latency_ms": 536.161111113098,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 83.00110000002384,
+      "summary": {
+        "time": 83.2,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 158,
+        "decisions": 158,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 158,
+        "completed_rounds": 26,
+        "mean_latency_ms": 535.7368421052631,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 84.00160000002384,
+      "summary": {
+        "time": 84.2,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 160,
+        "decisions": 160,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 160,
+        "completed_rounds": 26,
+        "mean_latency_ms": 518.5263157863366,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 85.00160000002384,
+      "summary": {
+        "time": 85,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 162,
+        "decisions": 162,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 162,
+        "completed_rounds": 27,
+        "mean_latency_ms": 508.05263157581027,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 86.00119999998807,
+      "summary": {
+        "time": 85.8,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 164,
+        "decisions": 164,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 164,
+        "completed_rounds": 27,
+        "mean_latency_ms": 514.2049999952317,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 87.00060000002384,
+      "summary": {
+        "time": 87.1,
+        "alive": 6,
+        "total": 6,
+        "food": 31,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 27,
+        "ticks": 166,
+        "decisions": 166,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 166,
+        "completed_rounds": 27,
+        "mean_latency_ms": 487.72499999403954,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 88.00119999998807,
+      "summary": {
+        "time": 88.1,
+        "alive": 6,
+        "total": 6,
+        "food": 34,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 30,
+        "ticks": 168,
+        "decisions": 168,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 168,
+        "completed_rounds": 28,
+        "mean_latency_ms": 476.10499999523165,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 89.00160000002384,
+      "summary": {
+        "time": 88.9,
+        "alive": 6,
+        "total": 6,
+        "food": 34,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 30,
+        "ticks": 170,
+        "decisions": 170,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 170,
+        "completed_rounds": 28,
+        "mean_latency_ms": 486.3799999922514,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 90.00060000002384,
+      "summary": {
+        "time": 90,
+        "alive": 6,
+        "total": 6,
+        "food": 34,
+        "wave": 2,
+        "kills": 3,
+        "gathered": 30,
+        "ticks": 172,
+        "decisions": 172,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 172,
+        "completed_rounds": 28,
+        "mean_latency_ms": 482.19523808785846,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 91.00119999998807,
+      "summary": {
+        "time": 91,
+        "alive": 6,
+        "total": 6,
+        "food": 34,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 30,
+        "ticks": 174,
+        "decisions": 174,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 174,
+        "completed_rounds": 29,
+        "mean_latency_ms": 482.66999999284747,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 92.00190000003576,
+      "summary": {
+        "time": 91.5,
+        "alive": 6,
+        "total": 6,
+        "food": 34,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 30,
+        "ticks": 175,
+        "decisions": 175,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 175,
+        "completed_rounds": 29,
+        "mean_latency_ms": 498.56842104698484,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 93.00160000002384,
+      "summary": {
+        "time": 92.4,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 177,
+        "decisions": 177,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 177,
+        "completed_rounds": 29,
+        "mean_latency_ms": 511.62105262906925,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 94.00560000002385,
+      "summary": {
+        "time": 93.1,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 178,
+        "decisions": 178,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 178,
+        "completed_rounds": 29,
+        "mean_latency_ms": 529.1944444444445,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 95.00180000001193,
+      "summary": {
+        "time": 93.9,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 180,
+        "decisions": 180,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 180,
+        "completed_rounds": 30,
+        "mean_latency_ms": 549.0277777777778,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 96.0015,
+      "summary": {
+        "time": 94.6,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 181,
+        "decisions": 181,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 181,
+        "completed_rounds": 30,
+        "mean_latency_ms": 556.4529411792755,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 97.00130000001192,
+      "summary": {
+        "time": 95.8,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 184,
+        "decisions": 184,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 184,
+        "completed_rounds": 30,
+        "mean_latency_ms": 562.9666666719648,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 98.00190000003576,
+      "summary": {
+        "time": 97,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 3,
+        "gathered": 33,
+        "ticks": 185,
+        "decisions": 185,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.2,
+        "total_decisions": 185,
+        "completed_rounds": 30,
+        "mean_latency_ms": 573.794117650565,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 99.00190000003576,
+      "summary": {
+        "time": 98.6,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 4,
+        "gathered": 33,
+        "ticks": 187,
+        "decisions": 187,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 187,
+        "completed_rounds": 31,
+        "mean_latency_ms": 576.8000000049086,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 100.00169999998808,
+      "summary": {
+        "time": 99.5,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 4,
+        "gathered": 33,
+        "ticks": 189,
+        "decisions": 189,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 189,
+        "completed_rounds": 31,
+        "mean_latency_ms": 576.6470588270356,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 101.00160000002384,
+      "summary": {
+        "time": 100.6,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 4,
+        "gathered": 33,
+        "ticks": 191,
+        "decisions": 191,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.2,
+        "total_decisions": 191,
+        "completed_rounds": 31,
+        "mean_latency_ms": 570.7941176470588,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 102.00169999998808,
+      "summary": {
+        "time": 101.4,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 4,
+        "gathered": 33,
+        "ticks": 193,
+        "decisions": 193,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 193,
+        "completed_rounds": 32,
+        "mean_latency_ms": 558.4055555529064,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 103.00160000002384,
+      "summary": {
+        "time": 102.4,
+        "alive": 6,
+        "total": 6,
+        "food": 37,
+        "wave": 3,
+        "kills": 4,
+        "gathered": 33,
+        "ticks": 195,
+        "decisions": 195,
+        "orcs": 1,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 195,
+        "completed_rounds": 32,
+        "mean_latency_ms": 537.7444444398085,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 104.00119999998807,
+      "summary": {
+        "time": 103.6,
+        "alive": 6,
+        "total": 6,
+        "food": 38,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 35,
+        "ticks": 198,
+        "decisions": 198,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 198,
+        "completed_rounds": 33,
+        "mean_latency_ms": 516.1099999934435,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 105.00090000003576,
+      "summary": {
+        "time": 104.4,
+        "alive": 6,
+        "total": 6,
+        "food": 38,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 35,
+        "ticks": 200,
+        "decisions": 200,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 200,
+        "completed_rounds": 33,
+        "mean_latency_ms": 505.94999999701975,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 106.00130000001192,
+      "summary": {
+        "time": 105.8,
+        "alive": 6,
+        "total": 6,
+        "food": 38,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 35,
+        "ticks": 202,
+        "decisions": 202,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 202,
+        "completed_rounds": 33,
+        "mean_latency_ms": 489.5380952329863,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 107.00140000003576,
+      "summary": {
+        "time": 106.8,
+        "alive": 6,
+        "total": 6,
+        "food": 38,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 35,
+        "ticks": 204,
+        "decisions": 204,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 204,
+        "completed_rounds": 34,
+        "mean_latency_ms": 474.1549999922514,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 108.00069999998809,
+      "summary": {
+        "time": 107.7,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 206,
+        "decisions": 206,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.4,
+        "total_decisions": 206,
+        "completed_rounds": 34,
+        "mean_latency_ms": 484.20952380271183,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 109.00030000001192,
+      "summary": {
+        "time": 108.6,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 208,
+        "decisions": 208,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 208,
+        "completed_rounds": 34,
+        "mean_latency_ms": 482.2476190385364,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 110.00019999998808,
+      "summary": {
+        "time": 109.4,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 210,
+        "decisions": 210,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.4,
+        "total_decisions": 210,
+        "completed_rounds": 35,
+        "mean_latency_ms": 482.19523808785846,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 111.00180000001193,
+      "summary": {
+        "time": 110,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 211,
+        "decisions": 211,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 211,
+        "completed_rounds": 35,
+        "mean_latency_ms": 492.98499999344347,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 112.00160000002384,
+      "summary": {
+        "time": 110.9,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 213,
+        "decisions": 213,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 213,
+        "completed_rounds": 35,
+        "mean_latency_ms": 503.5349999934435,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 113.00130000001192,
+      "summary": {
+        "time": 111.7,
+        "alive": 6,
+        "total": 6,
+        "food": 41,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 215,
+        "decisions": 215,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 215,
+        "completed_rounds": 35,
+        "mean_latency_ms": 500.7049999922514,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 114.00069999998809,
+      "summary": {
+        "time": 112.9,
+        "alive": 6,
+        "total": 6,
+        "food": 40,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 217,
+        "decisions": 217,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 217,
+        "completed_rounds": 36,
+        "mean_latency_ms": 507.5263157831995,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 115.00160000002384,
+      "summary": {
+        "time": 113.7,
+        "alive": 6,
+        "total": 6,
+        "food": 40,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 219,
+        "decisions": 219,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 219,
+        "completed_rounds": 36,
+        "mean_latency_ms": 502.7368420958519,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 116.00119999998807,
+      "summary": {
+        "time": 114.9,
+        "alive": 6,
+        "total": 6,
+        "food": 40,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 222,
+        "decisions": 222,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 222,
+        "completed_rounds": 37,
+        "mean_latency_ms": 491.5549999922514,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 117.0015,
+      "summary": {
+        "time": 115.9,
+        "alive": 6,
+        "total": 6,
+        "food": 39,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 224,
+        "decisions": 224,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 224,
+        "completed_rounds": 37,
+        "mean_latency_ms": 501.84999999403954,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 118.0015,
+      "summary": {
+        "time": 117.2,
+        "alive": 6,
+        "total": 6,
+        "food": 39,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 226,
+        "decisions": 226,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 226,
+        "completed_rounds": 37,
+        "mean_latency_ms": 484.84999999403954,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 119.00169999998808,
+      "summary": {
+        "time": 118.3,
+        "alive": 6,
+        "total": 6,
+        "food": 39,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 228,
+        "decisions": 228,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 228,
+        "completed_rounds": 38,
+        "mean_latency_ms": 472.44999999701975,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 120.00180000001193,
+      "summary": {
+        "time": 119.2,
+        "alive": 6,
+        "total": 6,
+        "food": 39,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 230,
+        "decisions": 230,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 230,
+        "completed_rounds": 38,
+        "mean_latency_ms": 474.25999999642374,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 121.00080000001192,
+      "summary": {
+        "time": 120.8,
+        "alive": 6,
+        "total": 6,
+        "food": 39,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 38,
+        "ticks": 233,
+        "decisions": 233,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 233,
+        "completed_rounds": 38,
+        "mean_latency_ms": 460.04090908711606,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 122.00110000002384,
+      "summary": {
+        "time": 121.8,
+        "alive": 6,
+        "total": 6,
+        "food": 42,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 41,
+        "ticks": 235,
+        "decisions": 235,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 235,
+        "completed_rounds": 39,
+        "mean_latency_ms": 447.4863636331125,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 123.00140000003576,
+      "summary": {
+        "time": 122.8,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 237,
+        "decisions": 237,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 237,
+        "completed_rounds": 39,
+        "mean_latency_ms": 446.9454545432871,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 124.00019999998808,
+      "summary": {
+        "time": 123.9,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 3,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 239,
+        "decisions": 239,
+        "orcs": 0,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 239,
+        "completed_rounds": 39,
+        "mean_latency_ms": 443.2545454529199,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 125.0015,
+      "summary": {
+        "time": 124.8,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 241,
+        "decisions": 241,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 241,
+        "completed_rounds": 40,
+        "mean_latency_ms": 442.16818181763995,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 126.00110000002384,
+      "summary": {
+        "time": 125.9,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 243,
+        "decisions": 243,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 243,
+        "completed_rounds": 40,
+        "mean_latency_ms": 466.89047618990855,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 127.00030000001192,
+      "summary": {
+        "time": 126.7,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 245,
+        "decisions": 245,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2.1,
+        "rounds_per_second": 0.3,
+        "total_decisions": 245,
+        "completed_rounds": 40,
+        "mean_latency_ms": 472.49047618820555,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 128.00140000003577,
+      "summary": {
+        "time": 127.7,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 246,
+        "decisions": 246,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.4,
+        "total_decisions": 246,
+        "completed_rounds": 41,
+        "mean_latency_ms": 476.8799999952316,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 129.0018000000119,
+      "summary": {
+        "time": 128.7,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 248,
+        "decisions": 248,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 2,
+        "rounds_per_second": 0.3,
+        "total_decisions": 248,
+        "completed_rounds": 41,
+        "mean_latency_ms": 500.94999999403956,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 130.00060000002384,
+      "summary": {
+        "time": 129.1,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 249,
+        "decisions": 249,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 249,
+        "completed_rounds": 41,
+        "mean_latency_ms": 509.38421052380613,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 131.00190000003576,
+      "summary": {
+        "time": 130.1,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 251,
+        "decisions": 251,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 251,
+        "completed_rounds": 41,
+        "mean_latency_ms": 532.7222222189108,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 132.00160000002384,
+      "summary": {
+        "time": 131,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 5,
+        "gathered": 44,
+        "ticks": 253,
+        "decisions": 253,
+        "orcs": 3,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 253,
+        "completed_rounds": 42,
+        "mean_latency_ms": 541.5388888882267,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 133.0005,
+      "summary": {
+        "time": 131.8,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 255,
+        "decisions": 255,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 255,
+        "completed_rounds": 42,
+        "mean_latency_ms": 555.0166666640175,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 134.001,
+      "summary": {
+        "time": 132.7,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 257,
+        "decisions": 257,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 257,
+        "completed_rounds": 42,
+        "mean_latency_ms": 563.75,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 135.0016999999881,
+      "summary": {
+        "time": 133.9,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 258,
+        "decisions": 258,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 258,
+        "completed_rounds": 43,
+        "mean_latency_ms": 569.4352941162446,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 136.0016999999881,
+      "summary": {
+        "time": 135,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 260,
+        "decisions": 260,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 260,
+        "completed_rounds": 43,
+        "mean_latency_ms": 568.3999999971951,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 137.00119999998807,
+      "summary": {
+        "time": 136,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 262,
+        "decisions": 262,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.3,
+        "total_decisions": 262,
+        "completed_rounds": 43,
+        "mean_latency_ms": 561.3941176428515,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 138.00190000003576,
+      "summary": {
+        "time": 137.4,
+        "alive": 6,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 264,
+        "decisions": 264,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 264,
+        "completed_rounds": 44,
+        "mean_latency_ms": 556.3111111124357,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 139.00130000001192,
+      "summary": {
+        "time": 138.2,
+        "alive": 5,
+        "total": 6,
+        "food": 45,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 44,
+        "ticks": 266,
+        "decisions": 266,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.3,
+        "total_decisions": 266,
+        "completed_rounds": 44,
+        "mean_latency_ms": 547.6888888908757,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 140.0015,
+      "summary": {
+        "time": 139.3,
+        "alive": 5,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 268,
+        "decisions": 268,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 268,
+        "completed_rounds": 44,
+        "mean_latency_ms": 531.9631578953642,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 141.002,
+      "summary": {
+        "time": 140.2,
+        "alive": 5,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 270,
+        "decisions": 270,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 270,
+        "completed_rounds": 45,
+        "mean_latency_ms": 524.4526315833393,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 142.0005,
+      "summary": {
+        "time": 141.2,
+        "alive": 5,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 272,
+        "decisions": 272,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.3,
+        "total_decisions": 272,
+        "completed_rounds": 45,
+        "mean_latency_ms": 522.0842105307078,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 143.002,
+      "summary": {
+        "time": 142.5,
+        "alive": 5,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 274,
+        "decisions": 274,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 274,
+        "completed_rounds": 46,
+        "mean_latency_ms": 515.4526315833393,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 144.00090000003576,
+      "summary": {
+        "time": 143.1,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 275,
+        "decisions": 275,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.4,
+        "total_decisions": 275,
+        "completed_rounds": 46,
+        "mean_latency_ms": 523.4166666666666,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 145.00160000002384,
+      "summary": {
+        "time": 144,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 277,
+        "decisions": 277,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.4,
+        "total_decisions": 277,
+        "completed_rounds": 47,
+        "mean_latency_ms": 532.4578947362147,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 146.00119999998807,
+      "summary": {
+        "time": 144.9,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 279,
+        "decisions": 279,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.9,
+        "rounds_per_second": 0.5,
+        "total_decisions": 279,
+        "completed_rounds": 48,
+        "mean_latency_ms": 528.4526315802023,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 147.0018000000119,
+      "summary": {
+        "time": 145.4,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 280,
+        "decisions": 280,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.5,
+        "total_decisions": 280,
+        "completed_rounds": 48,
+        "mean_latency_ms": 541.9444444477558,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 148.0006999999881,
+      "summary": {
+        "time": 146.3,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 282,
+        "decisions": 282,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.5,
+        "total_decisions": 282,
+        "completed_rounds": 49,
+        "mean_latency_ms": 564.4722222255336,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 149.00160000002384,
+      "summary": {
+        "time": 146.8,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 283,
+        "decisions": 283,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.6,
+        "total_decisions": 283,
+        "completed_rounds": 50,
+        "mean_latency_ms": 565.0823529432802,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 150.00119999998807,
+      "summary": {
+        "time": 147.7,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 285,
+        "decisions": 285,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.7,
+        "total_decisions": 285,
+        "completed_rounds": 51,
+        "mean_latency_ms": 570.0647058872615,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 151.002,
+      "summary": {
+        "time": 148.6,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 287,
+        "decisions": 287,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.7,
+        "total_decisions": 287,
+        "completed_rounds": 52,
+        "mean_latency_ms": 574.4882352948189,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 152.00130000001192,
+      "summary": {
+        "time": 149.5,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 289,
+        "decisions": 289,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 289,
+        "completed_rounds": 53,
+        "mean_latency_ms": 577.5294117611998,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 153.00130000001192,
+      "summary": {
+        "time": 150.7,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 291,
+        "decisions": 291,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 291,
+        "completed_rounds": 54,
+        "mean_latency_ms": 579.2411764684846,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 154.002,
+      "summary": {
+        "time": 151.7,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 292,
+        "decisions": 292,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 292,
+        "completed_rounds": 54,
+        "mean_latency_ms": 579.9294117654072,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 155.001,
+      "summary": {
+        "time": 152.7,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 294,
+        "decisions": 294,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 294,
+        "completed_rounds": 55,
+        "mean_latency_ms": 581.6882352934164,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 156.0016999999881,
+      "summary": {
+        "time": 153.6,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 296,
+        "decisions": 296,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 296,
+        "completed_rounds": 56,
+        "mean_latency_ms": 575.6823529390728,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 157.00110000002385,
+      "summary": {
+        "time": 154.6,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 298,
+        "decisions": 298,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 298,
+        "completed_rounds": 57,
+        "mean_latency_ms": 565.9944444464313,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 158.00119999998807,
+      "summary": {
+        "time": 155.2,
+        "alive": 2,
+        "total": 6,
+        "food": 48,
+        "wave": 4,
+        "kills": 6,
+        "gathered": 47,
+        "ticks": 299,
+        "decisions": 299,
+        "orcs": 2,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.9,
+        "total_decisions": 299,
+        "completed_rounds": 58,
+        "mean_latency_ms": 550.1941176477601,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 159.00130000001192,
+      "summary": {
+        "time": 156.2,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 301,
+        "decisions": 301,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 301,
+        "completed_rounds": 59,
+        "mean_latency_ms": 546.3999999993378,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 160.00140000003577,
+      "summary": {
+        "time": 157.2,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 303,
+        "decisions": 303,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 303,
+        "completed_rounds": 60,
+        "mean_latency_ms": 546.7666666640175,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 161.00130000001192,
+      "summary": {
+        "time": 158.1,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 305,
+        "decisions": 305,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 305,
+        "completed_rounds": 61,
+        "mean_latency_ms": 548.9333333339956,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 162.00160000002384,
+      "summary": {
+        "time": 158.8,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 307,
+        "decisions": 307,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 307,
+        "completed_rounds": 62,
+        "mean_latency_ms": 554.8944444490803,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 163.00160000002384,
+      "summary": {
+        "time": 159.7,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 308,
+        "decisions": 308,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 308,
+        "completed_rounds": 62,
+        "mean_latency_ms": 557.8411764747956,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 164.0015,
+      "summary": {
+        "time": 160.5,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 310,
+        "decisions": 310,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 310,
+        "completed_rounds": 63,
+        "mean_latency_ms": 558.9722222255336,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 165.0015,
+      "summary": {
+        "time": 161,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 311,
+        "decisions": 311,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.9,
+        "total_decisions": 311,
+        "completed_rounds": 64,
+        "mean_latency_ms": 550.2470588298405,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 166.00110000002385,
+      "summary": {
+        "time": 162,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 313,
+        "decisions": 313,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.9,
+        "total_decisions": 313,
+        "completed_rounds": 65,
+        "mean_latency_ms": 565.5705882416052,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 167.00190000003576,
+      "summary": {
+        "time": 162.8,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 315,
+        "decisions": 315,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.9,
+        "total_decisions": 315,
+        "completed_rounds": 66,
+        "mean_latency_ms": 563.2941176470588,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 168.0018000000119,
+      "summary": {
+        "time": 163.6,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 317,
+        "decisions": 317,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 317,
+        "completed_rounds": 67,
+        "mean_latency_ms": 569.1222222215599,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 169.00110000002385,
+      "summary": {
+        "time": 164.4,
+        "alive": 2,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 319,
+        "decisions": 319,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.8,
+        "rounds_per_second": 0.9,
+        "total_decisions": 319,
+        "completed_rounds": 68,
+        "mean_latency_ms": 566.5333333346579,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 170.00019999998807,
+      "summary": {
+        "time": 165.3,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 320,
+        "decisions": 320,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 0.8,
+        "total_decisions": 320,
+        "completed_rounds": 68,
+        "mean_latency_ms": 573.7941176470588,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 171.0016999999881,
+      "summary": {
+        "time": 166.2,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 321,
+        "decisions": 321,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 0.8,
+        "total_decisions": 321,
+        "completed_rounds": 69,
+        "mean_latency_ms": 576.2687499970198,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 172.0018000000119,
+      "summary": {
+        "time": 167.6,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 323,
+        "decisions": 323,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 0.9,
+        "total_decisions": 323,
+        "completed_rounds": 71,
+        "mean_latency_ms": 578.4312499985099,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 173.00040000003577,
+      "summary": {
+        "time": 168.3,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 325,
+        "decisions": 325,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.1,
+        "total_decisions": 325,
+        "completed_rounds": 73,
+        "mean_latency_ms": 577.4000000007012,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 174.00140000003577,
+      "summary": {
+        "time": 169,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 326,
+        "decisions": 326,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.1,
+        "total_decisions": 326,
+        "completed_rounds": 74,
+        "mean_latency_ms": 578.1625000014901,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 175.0018000000119,
+      "summary": {
+        "time": 170.1,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 328,
+        "decisions": 328,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.2,
+        "total_decisions": 328,
+        "completed_rounds": 76,
+        "mean_latency_ms": 583.3705882359953,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 176.00010000002385,
+      "summary": {
+        "time": 171.1,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 330,
+        "decisions": 330,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.3,
+        "total_decisions": 330,
+        "completed_rounds": 78,
+        "mean_latency_ms": 573.6764705917415,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 177.00140000003577,
+      "summary": {
+        "time": 171.7,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 331,
+        "decisions": 331,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.3,
+        "total_decisions": 331,
+        "completed_rounds": 79,
+        "mean_latency_ms": 580.5437500067055,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 178.002,
+      "summary": {
+        "time": 172.6,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 333,
+        "decisions": 333,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.4,
+        "total_decisions": 333,
+        "completed_rounds": 81,
+        "mean_latency_ms": 577.3250000104308,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 179.00130000001192,
+      "summary": {
+        "time": 173.1,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 334,
+        "decisions": 334,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.4,
+        "total_decisions": 334,
+        "completed_rounds": 82,
+        "mean_latency_ms": 591.6266666809718,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 180.00130000001192,
+      "summary": {
+        "time": 174,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 336,
+        "decisions": 336,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 336,
+        "completed_rounds": 84,
+        "mean_latency_ms": 602.3375000096858,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 181.00190000003576,
+      "summary": {
+        "time": 174.5,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 337,
+        "decisions": 337,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 337,
+        "completed_rounds": 85,
+        "mean_latency_ms": 605.2625000104308,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 182.00190000003576,
+      "summary": {
+        "time": 175.5,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 339,
+        "decisions": 339,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 339,
+        "completed_rounds": 87,
+        "mean_latency_ms": 619.8062500059605,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 183.00140000003577,
+      "summary": {
+        "time": 176,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 340,
+        "decisions": 340,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 340,
+        "completed_rounds": 88,
+        "mean_latency_ms": 633.7200000047684,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 184.00160000002384,
+      "summary": {
+        "time": 176.8,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 342,
+        "decisions": 342,
+        "orcs": 5,
+        "hall_health": 420,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 342,
+        "completed_rounds": 90,
+        "mean_latency_ms": 632.0812500044703,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 185.00119999998807,
+      "summary": {
+        "time": 177.5,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 343,
+        "decisions": 343,
+        "orcs": 5,
+        "hall_health": 410,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 343,
+        "completed_rounds": 91,
+        "mean_latency_ms": 641.6800000031789,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 186.00160000002384,
+      "summary": {
+        "time": 178.4,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 345,
+        "decisions": 345,
+        "orcs": 5,
+        "hall_health": 400,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 345,
+        "completed_rounds": 93,
+        "mean_latency_ms": 650.4466666698456,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 187.00140000003577,
+      "summary": {
+        "time": 178.8,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 346,
+        "decisions": 346,
+        "orcs": 5,
+        "hall_health": 379,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 346,
+        "completed_rounds": 94,
+        "mean_latency_ms": 649.6333333333333,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 188.00130000001192,
+      "summary": {
+        "time": 180,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 348,
+        "decisions": 348,
+        "orcs": 5,
+        "hall_health": 358,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 348,
+        "completed_rounds": 96,
+        "mean_latency_ms": 654.3933333317439,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 189.0015,
+      "summary": {
+        "time": 181,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 350,
+        "decisions": 350,
+        "orcs": 5,
+        "hall_health": 337,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 350,
+        "completed_rounds": 98,
+        "mean_latency_ms": 647.9687499962747,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 190.00019999998807,
+      "summary": {
+        "time": 181.7,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 352,
+        "decisions": 352,
+        "orcs": 5,
+        "hall_health": 337,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 352,
+        "completed_rounds": 100,
+        "mean_latency_ms": 630.8125,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 191.0015,
+      "summary": {
+        "time": 182.4,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 353,
+        "decisions": 353,
+        "orcs": 5,
+        "hall_health": 317,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 353,
+        "completed_rounds": 101,
+        "mean_latency_ms": 626.0187500007451,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 192,
+      "summary": {
+        "time": 183.5,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 355,
+        "decisions": 355,
+        "orcs": 5,
+        "hall_health": 296,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 355,
+        "completed_rounds": 103,
+        "mean_latency_ms": 611.3999999985099,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 193.00040000003577,
+      "summary": {
+        "time": 184.4,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 50,
+        "ticks": 357,
+        "decisions": 357,
+        "orcs": 5,
+        "hall_health": 263,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.7,
+        "total_decisions": 357,
+        "completed_rounds": 105,
+        "mean_latency_ms": 601.652941177873,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 194.00119999998807,
+      "summary": {
+        "time": 185.1,
+        "alive": 1,
+        "total": 6,
+        "food": 53,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 358,
+        "decisions": 358,
+        "orcs": 5,
+        "hall_health": 230,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 358,
+        "completed_rounds": 106,
+        "mean_latency_ms": 596.9875000007451,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 195.00140000003577,
+      "summary": {
+        "time": 186.2,
+        "alive": 1,
+        "total": 6,
+        "food": 53,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 360,
+        "decisions": 360,
+        "orcs": 5,
+        "hall_health": 197,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.7,
+        "total_decisions": 360,
+        "completed_rounds": 108,
+        "mean_latency_ms": 593.7352941141409,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 196.00130000001192,
+      "summary": {
+        "time": 186.7,
+        "alive": 1,
+        "total": 6,
+        "food": 53,
+        "wave": 5,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 361,
+        "decisions": 361,
+        "orcs": 5,
+        "hall_health": 197,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 361,
+        "completed_rounds": 109,
+        "mean_latency_ms": 587.4562499932945,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 197.00110000002385,
+      "summary": {
+        "time": 187.7,
+        "alive": 1,
+        "total": 6,
+        "food": 52,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 363,
+        "decisions": 363,
+        "orcs": 9,
+        "hall_health": 165,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.7,
+        "total_decisions": 363,
+        "completed_rounds": 111,
+        "mean_latency_ms": 597.276470584028,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 198.00010000002385,
+      "summary": {
+        "time": 188.5,
+        "alive": 1,
+        "total": 6,
+        "food": 52,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 365,
+        "decisions": 365,
+        "orcs": 9,
+        "hall_health": 132,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.7,
+        "rounds_per_second": 1.7,
+        "total_decisions": 365,
+        "completed_rounds": 113,
+        "mean_latency_ms": 599.7647058788468,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 199.00119999998807,
+      "summary": {
+        "time": 189.1,
+        "alive": 1,
+        "total": 6,
+        "food": 52,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 366,
+        "decisions": 366,
+        "orcs": 9,
+        "hall_health": 132,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 366,
+        "completed_rounds": 114,
+        "mean_latency_ms": 599.4187499955297,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 200.00119999998807,
+      "summary": {
+        "time": 189.6,
+        "alive": 1,
+        "total": 6,
+        "food": 52,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 367,
+        "decisions": 367,
+        "orcs": 9,
+        "hall_health": 99,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 367,
+        "completed_rounds": 115,
+        "mean_latency_ms": 609.0733333309491,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 201.002,
+      "summary": {
+        "time": 190.6,
+        "alive": 1,
+        "total": 6,
+        "food": 52,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 369,
+        "decisions": 369,
+        "orcs": 9,
+        "hall_health": 66,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 369,
+        "completed_rounds": 117,
+        "mean_latency_ms": 631.34375,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 202.0005,
+      "summary": {
+        "time": 191.3,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 371,
+        "decisions": 371,
+        "orcs": 9,
+        "hall_health": 66,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.6,
+        "rounds_per_second": 1.6,
+        "total_decisions": 371,
+        "completed_rounds": 119,
+        "mean_latency_ms": 628.1687500029802,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 203.00130000001192,
+      "summary": {
+        "time": 192,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 372,
+        "decisions": 372,
+        "orcs": 9,
+        "hall_health": 33,
+        "game_over": false,
+        "end_reason": null
+      },
+      "metrics": {
+        "decisions_per_second": 1.5,
+        "rounds_per_second": 1.5,
+        "total_decisions": 372,
+        "completed_rounds": 120,
+        "mean_latency_ms": 636.8,
+        "window_seconds": 10
+      }
+    },
+    {
+      "wall_seconds": 204.001,
+      "summary": {
+        "time": 192.6,
+        "alive": 1,
+        "total": 6,
+        "food": 51,
+        "wave": 6,
+        "kills": 6,
+        "gathered": 53,
+        "ticks": 373,
+        "decisions": 373,
+        "orcs": 9,
+        "hall_health": 0,
+        "game_over": true,
+        "end_reason": "The hall was destroyed"
+      },
+      "metrics": {
+        "decisions_per_second": 0,
+        "rounds_per_second": 0,
+        "total_decisions": 373,
+        "completed_rounds": 121,
+        "mean_latency_ms": 636.8066666682561,
+        "window_seconds": 10
+      }
+    }
+  ],
+  "final": {
+    "loaded": true,
+    "loading": false,
+    "busy": false,
+    "mode": "model",
+    "epoch": 17,
+    "rendererReady": true,
+    "running": false,
+    "over": true,
+    "ticks": 373,
+    "time": 192.5640000000121,
+    "food": 51,
+    "wave": 6,
+    "seed": 7341,
+    "units": [
+      {
+        "id": "mira",
+        "name": "Mira",
+        "role": "collector",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 0,
+        "alive": false,
+        "action": "forage_safe",
+        "proposed": "forage_safe",
+        "strength": 2,
+        "carrying": 3,
+        "targetId": null,
+        "x": 11.882547700489035,
+        "y": 16.417644617934275
+      },
+      {
+        "id": "bram",
+        "name": "Bram",
+        "role": "collector",
+        "health": 85,
+        "maxHealth": 85,
+        "hunger": 98.65866000000011,
+        "alive": true,
+        "action": "relax",
+        "proposed": "relax",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": "hall",
+        "x": 15.557943283276895,
+        "y": 22.198576522229764
+      },
+      {
+        "id": "aldric",
+        "name": "Aldric",
+        "role": "fighter",
+        "health": 0,
+        "maxHealth": 130,
+        "hunger": 0,
+        "alive": false,
+        "action": "defend",
+        "proposed": "defend",
+        "strength": 11,
+        "carrying": 0,
+        "targetId": null,
+        "x": 19.850539030293437,
+        "y": 14.80554898994491
+      },
+      {
+        "id": "sable",
+        "name": "Sable",
+        "role": "fighter",
+        "health": 0,
+        "maxHealth": 130,
+        "hunger": 71.47434000000283,
+        "alive": false,
+        "action": "defend",
+        "proposed": "defend",
+        "strength": 11,
+        "carrying": 0,
+        "targetId": null,
+        "x": 18.396139395291158,
+        "y": 13.004991552119836
+      },
+      {
+        "id": "tomas",
+        "name": "Tomas",
+        "role": "builder",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 0,
+        "alive": false,
+        "action": "repair",
+        "proposed": "repair",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 15.832565336136113,
+        "y": 21.8673339886009
+      },
+      {
+        "id": "nell",
+        "name": "Nell",
+        "role": "builder",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 41.69000000000254,
+        "alive": false,
+        "action": "repair",
+        "proposed": "repair",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 19.493847521312308,
+        "y": 17.681289224536286
+      }
+    ],
+    "orcs": 9,
+    "summary": {
+      "time": 192.6,
+      "alive": 1,
+      "total": 6,
+      "food": 51,
+      "wave": 6,
+      "kills": 6,
+      "gathered": 53,
+      "ticks": 373,
+      "decisions": 373,
+      "orcs": 9,
+      "hall_health": 0,
+      "game_over": true,
+      "end_reason": "The hall was destroyed"
+    },
+    "buildings": [
+      {
+        "id": "hall",
+        "health": 0,
+        "maxHealth": 420,
+        "progress": 1
+      },
+      {
+        "id": "west-house",
+        "health": 0,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "east-house",
+        "health": 0,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "west-wall",
+        "health": 0,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "east-wall",
+        "health": 0,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "tower-1",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-2",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-3",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-4",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      }
+    ],
+    "lastResult": {
+      "type": "decision",
+      "parsed_json": {
+        "bram": "relax"
+      },
+      "fields": {
+        "bram": {
+          "value": "relax",
+          "probabilities": [
+            0.3926270124316435, 0.1588154837075823, 0.44855750386077414
+          ],
+          "logits": [23.560985565185547, 22.655868530273438, 23.694162368774414]
+        }
+      },
+      "scores_are_calibrated": false,
+      "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+      "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+      "id": 408,
+      "epoch": 16,
+      "unitId": "bram",
+      "testOnly": false,
+      "elapsed_ms": 544.6000000238419,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "prompt_tokens": 588,
+      "scheduling": "round-robin",
+      "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 588,
+        "total_tokens": 588,
+        "extra": {
+          "e2e_latency_s": 0.545,
+          "prefill_tokens_per_s": 1080.2866067453833,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.5442999999523163,
+          "time_per_output_token_s": null
+        }
+      }
+    },
+    "roundTripMs": 545.8000000119209,
+    "metrics": {
+      "decisions_per_second": 0,
+      "rounds_per_second": 0,
+      "total_decisions": 373,
+      "completed_rounds": 121,
+      "mean_latency_ms": 636.8066666682561,
+      "window_seconds": 10
+    },
+    "selectedContext": {
+      "self": {
+        "id": "mira",
+        "alive": false,
+        "role": "collector",
+        "health": 0,
+        "max_health": 85,
+        "hunger": 0,
+        "starves_in_seconds": 0,
+        "home_walk_seconds": 3,
+        "action": "forage_safe",
+        "carrying_food": 3,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 51,
+        "alive": 1,
+        "wave": 6,
+        "hall_health_percent": 0,
+        "threatened_villagers": 1,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-9",
+          "distance": 4.1,
+          "bearing": "SE",
+          "health": 112,
+          "level": 5,
+          "attacking": "hall",
+          "reaches_me_seconds": 3
+        },
+        {
+          "id": "orc-11",
+          "distance": 5.2,
+          "bearing": "S",
+          "health": 112,
+          "level": 5,
+          "attacking": "bram",
+          "reaches_me_seconds": 3
+        }
+      ],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 4.9,
+          "bearing": "W",
+          "food": 7,
+          "risk": "medium",
+          "safe_round_trip_seconds": 15
+        },
+        {
+          "id": "north-grove",
+          "distance": 9.8,
+          "bearing": "N",
+          "food": 39,
+          "risk": "medium",
+          "safe_round_trip_seconds": 20
+        },
+        {
+          "id": "east-garden",
+          "distance": 13.1,
+          "bearing": "E",
+          "food": 11,
+          "risk": "high",
+          "safe_round_trip_seconds": 20
+        }
+      ]
+    },
+    "policies": {
+      "collector": "Keep yourself and the village alive. Forage safely while food is needed. Use bold foraging only when food is critically low and the routes are not dangerous. Relax to walk home and eat before starvation, especially when weak or threatened. If you already carry food, either forage action returns it home. Relaxing also deposits food. Never remain relaxed with full hunger while the village runs out of food.",
+      "fighter": "Protect the villagers so the settlement survives. Defend when an orc is attacking or approaching an ally or a building; this draws nearby orcs onto you. Train when no one is threatened to raise your damage for later waves. Relax before starvation or to heal if badly injured. Defend again when recovered. Do not train while villagers are being attacked.",
+      "builder": "Keep the settlement alive. Repair damaged buildings, giving the hall and occupied defenses priority. Build towers when buildings are healthy; towers shoot orcs automatically. Relax before starvation or to heal if injured. Avoid working next to an orc that is attacking you. A destroyed hall cannot provide food or healing."
+    }
+  },
+  "wall_seconds": 204.001,
+  "provenance": {
+    "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+    "library_revision": "025bcaf3780fa8254f5e5efd3bfea0a5397248f4",
+    "gpu": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "shader_f16": true,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+    },
+    "sha256": {
+      "web/src/decision-prompt.js": "b5b557d9dc746a9c39700be6ec4d9a4d71086333adcda1a4009b8d87827ae2a7",
+      "web/src/observation.js": "fc6670132538b1b65006f9e2bc8440e48290331201a7726b9750c3f962262957",
+      "web/src/prompts.js": "8c2529ae067af9d90e82e437fc79ef19805377a70b028d6f65e05374c276963c",
+      "web/src/game.js": "b2b2ef66a1a638259e745048e341b8eef4d259775d2e5ffb61c0650c6e22faa6",
+      "web/src/inference.worker.js": "13f5036dde27aeb7e619dcafa756ac7fde6140e3ad246081f62e14fb135b92db",
+      "web/qa/policy-fixtures.json": "235d1b08445b2f85b6d966e38961cf27addd219e288de8088f33a31482813c0f",
+      "web/qa/policy-heldout-fixtures.json": "25c26e878ae7633e1623e9b2ef93d133b0f802e879d39a30de97c90418bb11f0"
+    },
+    "labels": ["A", "B", "C"],
+    "note": "Repeatedly inspected handcrafted development scenes, not untouched validation. Exact role policies are included above. Prompt text comes from the hashed source files."
+  },
+  "mean_accepted_decisions_per_wall_second": 1.82842240969407
+}

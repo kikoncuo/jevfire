@@ -21,10 +21,11 @@ The browser demo uses [WebLLM](https://github.com/mlc-ai/web-llm) and
 It downloads the MLC conversion of
 [Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B), whose upstream weights
 are Apache 2.0 licensed. Model files are not included in this repository.
-[Pinned versions and sources](web/README.md#pinned-model-and-runtime).
-The browser page loads Syne, Manrope, and DM Mono via Google Fonts; these fonts
-are distributed under the SIL Open Font License. The arena artwork is drawn
-procedurally by the application's Canvas renderer.
+[Pinned versions and sources](web/README.md#pinned-runtime).
+The browser page loads Libre Baskerville, Barlow Condensed, and DM Mono via
+Google Fonts under the SIL Open Font License. Three.js is MIT licensed.
+Last Hearth bundles CC0 3D art by Kay Lousberg and Quaternius. Original license
+files accompany the assets; [sources and modifications](web/ASSETS.md).
 
 Hero and game illustration were generated for this repository using the
 built-in image generation tool. [Prompts and provenance](docs/art-direction.md).

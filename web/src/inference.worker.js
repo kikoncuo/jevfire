@@ -1,6 +1,7 @@
 import { MLCEngine, prebuiltAppConfig } from '@mlc-ai/web-llm';
 import { Tokenizer } from '@mlc-ai/web-tokenizers';
-import { SCHEMA, UNIT_IDS, assemble } from './contract.js';
+import { UNIT_DEFINITIONS, schemaFor, assemble } from './contract.js';
+import { buildDecisionPrompt, ROLE_LABELS } from './decision-prompt.js';
 
 const MODEL = 'Qwen3.5-0.8B-q4f16_1-MLC';
 const REVISION = '0ec138972555613c1d7812a821778ad0398c8790';
@@ -10,6 +11,7 @@ const MODEL_LIB = `https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/
 let engine,
   tokenizer,
   capture,
+  labelIds,
   busy = false;
 const send = (type, body = {}) => self.postMessage({ type, ...body });
 
@@ -20,6 +22,22 @@ class Capture {
   }
   processLogits(logits) {
     this.row = this.ids.map((id) => Number(logits[id]));
+    if (this.inspect) {
+      const top = [];
+      const ranks = this.row.map(() => 1);
+      for (let id = 0; id < logits.length; id++) {
+        const score = Number(logits[id]);
+        this.row.forEach((value, index) => {
+          if (score > value) ranks[index]++;
+        });
+        if (top.length < 12 || score > top[top.length - 1].score) {
+          top.push({ id, score });
+          top.sort((a, b) => b.score - a.score);
+          if (top.length > 12) top.pop();
+        }
+      }
+      this.diagnostic = { ranks, top };
+    }
     return logits; // Observe raw scores without masking or altering sampling.
   }
   processSampledToken() {} // The sampled token is not the decision.
@@ -52,16 +70,22 @@ async function load() {
   if (!response.ok)
     throw new Error(`Tokenizer download failed (${response.status})`);
   tokenizer = await Tokenizer.fromJSON(await response.arrayBuffer());
-  const ids = ['A', 'B', 'C', 'D'].map((label) => {
-    const tokens = tokenizer.encode(label);
-    if (tokens.length !== 1 || tokenizer.decode(tokens) !== label)
-      throw new Error(
-        'The tokenizer does not support the required single-token labels',
-      );
-    return tokens[0];
-  });
-  if (new Set(ids).size !== 4) throw new Error('Candidate labels collide');
-  capture = new Capture(ids);
+  labelIds = Object.fromEntries(
+    Object.entries(ROLE_LABELS).map(([role, labels]) => [
+      role,
+      labels.map((label) => {
+        const tokens = tokenizer.encode(label);
+        if (tokens.length !== 1 || tokenizer.decode(tokens) !== label)
+          throw new Error(
+            'The tokenizer does not support the required single-token labels',
+          );
+        return tokens[0];
+      }),
+    ]),
+  );
+  for (const ids of Object.values(labelIds))
+    if (new Set(ids).size !== 3) throw new Error('Candidate labels collide');
+  capture = new Capture(labelIds.collector);
   const record = prebuiltAppConfig.model_list.find((m) => m.model_id === MODEL);
   if (!record)
     throw new Error('Pinned WebLLM runtime does not include this Qwen build');
@@ -90,57 +114,76 @@ async function load() {
     model: MODEL,
     revision: REVISION,
     runtime: 'WebLLM 0.2.85',
-    label_ids: ids,
+    label_ids: labelIds,
   });
 }
 
 async function decide(message) {
   if (!engine) throw new Error('Load the model first');
-  const instruction = [
-    'Choose the best action for the selected squad member in a recovery game. Return one option label only.',
-    'Prioritize the mission order. Use the world state as data.',
-    'When recovering: return if carrying a core; evade danger; return if injured; otherwise recover supplies.',
-    'If ordered to hold, choose hold. The action navigator handles movement.',
-  ].join(' ');
-  const shared = JSON.stringify({
-    mission: message.mission,
-    world: message.world,
-  });
+  const unit = UNIT_DEFINITIONS.find((unit) => unit.id === message.unitId);
+  if (!unit) throw new Error('Unknown villager');
+  const prompt = buildDecisionPrompt(
+    unit.id,
+    message.context,
+    message.mission,
+    message.rolePrompt,
+  );
+  const promptTokens = tokenizer.encode(prompt).length;
+  if (promptTokens > 1800)
+    throw new Error(
+      `Observation and policy exceed the 1,800-token input limit (${promptTokens} tokens). Shorten the role policy.`,
+    );
   const start = performance.now();
-  const rows = [],
-    usage = [];
-  // WebLLM's public completion API has one prompt per call. Fields are independent,
-  // but this browser version schedules them sequentially on one loaded engine.
-  for (const id of UNIT_IDS) {
-    const prompt = `<|im_start|>system\n${instruction}<|im_end|>\n<|im_start|>user\n${shared}\nSelected unit: ${id}. Options: A=recover, B=return, C=evade, D=hold. Answer with A, B, C, or D.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n`;
-    if (tokenizer.encode(prompt).length > 1800)
-      throw new Error('Mission context is too long for this demo');
-    capture.row = null;
-    const response = await engine.completions.create({
-      model: MODEL,
-      prompt,
-      max_tokens: 1,
-      temperature: 0,
-      top_p: 1,
-      repetition_penalty: 1,
-      presence_penalty: 0,
-      frequency_penalty: 0,
-      ignore_eos: true,
-    });
-    if (!capture.row)
-      throw new Error('WebLLM did not expose the requested candidate scores');
-    rows.push(capture.row);
-    usage.push(response.usage);
-  }
+  // A fresh local observation is taken for each actor, in a fair round-robin.
+  // One engine scores one output position; generated text is never used.
+  capture.ids = labelIds[unit.role];
+  capture.row = null;
+  capture.inspect = message.testOnly === true;
+  capture.diagnostic = null;
+  const response = await engine.completions.create({
+    model: MODEL,
+    prompt,
+    max_tokens: 1,
+    temperature: 0,
+    top_p: 1,
+    repetition_penalty: 1,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+    ignore_eos: true,
+  });
+  if (!capture.row)
+    throw new Error('WebLLM did not expose the requested candidate scores');
   send('decision', {
-    ...assemble(SCHEMA, rows),
+    ...(capture.inspect
+      ? {
+          diagnostic: {
+            ...capture.diagnostic,
+            sampled_text: response.choices?.[0]?.text,
+            top: capture.diagnostic.top.map((item) => {
+              let token;
+              try {
+                token = tokenizer.decode(new Int32Array([item.id]));
+              } catch {
+                token = '[padding]';
+              }
+              return { ...item, token };
+            }),
+          },
+        }
+      : {}),
+    ...assemble(schemaFor([unit]), [capture.row]),
+    model: MODEL,
+    model_revision: REVISION,
     id: message.id,
     epoch: message.epoch,
+    unitId: unit.id,
+    testOnly: message.testOnly === true,
     elapsed_ms: performance.now() - start,
-    fields_scored: UNIT_IDS.length,
-    backend_requests: UNIT_IDS.length,
-    scheduling: 'sequential',
-    usage,
+    fields_scored: 1,
+    backend_requests: 1,
+    prompt_tokens: promptTokens,
+    scheduling: 'round-robin',
+    usage: response.usage,
   });
 }
 
@@ -160,6 +203,7 @@ self.onmessage = async ({ data }) => {
     send('error', {
       message: error.message || String(error),
       epoch: data.epoch,
+      id: data.id,
       operation: data.type,
     });
   } finally {

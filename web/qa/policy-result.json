@@ -1,0 +1,1863 @@
+{
+  "tested_at": "2026-09-16T18:31:36.476Z",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "runtime": "WebLLM 0.2.85",
+  "policies": {
+    "collector": "Keep yourself and the village alive. Forage safely while food is needed. Use bold foraging only when food is critically low and the routes are not dangerous. Relax to walk home and eat before starvation, especially when weak or threatened. If you already carry food, either forage action returns it home. Relaxing also deposits food. Never remain relaxed with full hunger while the village runs out of food.",
+    "fighter": "Protect the villagers so the settlement survives. Defend when an orc is attacking or approaching an ally or a building; this draws nearby orcs onto you. Train when no one is threatened to raise your damage for later waves. Relax before starvation or to heal if badly injured. Defend again when recovered. Do not train while villagers are being attacked.",
+    "builder": "Keep the settlement alive. Repair damaged buildings, giving the hall and occupied defenses priority. Build towers when buildings are healthy; towers shoot orcs automatically. Relax before starvation or to heal if injured. Avoid working next to an orc that is attacking you. A destroyed hall cannot provide food or healing."
+  },
+  "sets": [
+    {
+      "file": "policy-fixtures.json",
+      "passed": 7,
+      "total": 12,
+      "rows": [
+        {
+          "name": "collector-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 488.4000000357628,
+          "prompt_tokens": 521,
+          "logits": [23.638206481933594, 22.410724639892578, 23.41520118713379],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.638206481933594,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.41520118713379,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.410724639892578,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.564247131347656,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.101261138916016,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.599699020385742,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.375404357910156,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 18.293941497802734,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.218952178955078,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 16.594072341918945,
+                "token": "Choice"
+              },
+              {
+                "id": 332,
+                "score": 16.320520401000977,
+                "token": "**"
+              },
+              {
+                "id": 3670,
+                "score": 16.23378562927246,
+                "token": "Options"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "fighter-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 316.30000001192093,
+          "prompt_tokens": 428,
+          "logits": [23.517009735107422, 23.81704330444336, 24.10396957397461],
+          "diagnostic": {
+            "ranks": [3, 2, 1],
+            "top": [
+              {
+                "id": 34,
+                "score": 24.10396957397461,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.81704330444336,
+                "token": "B"
+              },
+              {
+                "id": 32,
+                "score": 23.517009735107422,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.170455932617188,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.694965362548828,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.404029846191406,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.218002319335938,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.584022521972656,
+                "token": "Action"
+              },
+              {
+                "id": 23949,
+                "score": 17.766326904296875,
+                "token": "Choice"
+              },
+              {
+                "id": 23298,
+                "score": 17.33397674560547,
+                "token": "Choose"
+              },
+              {
+                "id": 15666,
+                "score": 17.254318237304688,
+                "token": "Answer"
+              },
+              {
+                "id": 1206,
+                "score": 17.213539123535156,
+                "token": "To"
+              }
+            ],
+            "sampled_text": "C"
+          }
+        },
+        {
+          "name": "builder-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 297.10000002384186,
+          "prompt_tokens": 405,
+          "logits": [
+            24.438390731811523, 23.002914428710938, 24.386695861816406
+          ],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.438390731811523,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.386695861816406,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.002914428710938,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.983060836791992,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.73577880859375,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.700138092041016,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.633100509643555,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 17.98003387451172,
+                "token": "Action"
+              },
+              {
+                "id": 23949,
+                "score": 17.191125869750977,
+                "token": "Choice"
+              },
+              {
+                "id": 1206,
+                "score": 17.156261444091797,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 16.96240997314453,
+                "token": "c"
+              },
+              {
+                "id": 15666,
+                "score": 16.956754684448242,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 380.4000000357628,
+          "prompt_tokens": 517,
+          "logits": [23.901437759399414, 22.5035400390625, 23.502811431884766],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.901437759399414,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.502811431884766,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.5035400390625,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.66507339477539,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.334692001342773,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.88658332824707,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.801284790039062,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 18.168989181518555,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.03641700744629,
+                "token": "Answer"
+              },
+              {
+                "id": 1206,
+                "score": 16.814512252807617,
+                "token": "To"
+              },
+              {
+                "id": 23949,
+                "score": 16.489957809448242,
+                "token": "Choice"
+              },
+              {
+                "id": 332,
+                "score": 16.39803695678711,
+                "token": "**"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 408.30000001192093,
+          "prompt_tokens": 522,
+          "logits": [23.92717933654785, 22.745922088623047, 23.779850006103516],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.92717933654785,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.779850006103516,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.745922088623047,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.818374633789062,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.296485900878906,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.904088973999023,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.69108772277832,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 18.112154006958008,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.286457061767578,
+                "token": "Answer"
+              },
+              {
+                "id": 1206,
+                "score": 16.735017776489258,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 16.587669372558594,
+                "token": "c"
+              },
+              {
+                "id": 3928,
+                "score": 16.515356063842773,
+                "token": "None"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 665.6999999880791,
+          "prompt_tokens": 550,
+          "logits": [23.646183013916016, 22.41305160522461, 23.529050827026367],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.646183013916016,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.529050827026367,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.41305160522461,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.48303985595703,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.396549224853516,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.095691680908203,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.053909301757812,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.982498168945312,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.046133041381836,
+                "token": "To"
+              },
+              {
+                "id": 15666,
+                "score": 16.789867401123047,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 16.46625518798828,
+                "token": "Choice"
+              },
+              {
+                "id": 66,
+                "score": 16.284961700439453,
+                "token": "c"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 450.60000002384186,
+          "prompt_tokens": 424,
+          "logits": [23.639102935791016, 23.97810935974121, 24.011674880981445],
+          "diagnostic": {
+            "ranks": [3, 2, 1],
+            "top": [
+              {
+                "id": 34,
+                "score": 24.011674880981445,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.97810935974121,
+                "token": "B"
+              },
+              {
+                "id": 32,
+                "score": 23.639102935791016,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.206867218017578,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.78345489501953,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.61254119873047,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.163822174072266,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.36636734008789,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.595247268676758,
+                "token": "To"
+              },
+              {
+                "id": 23949,
+                "score": 17.382658004760742,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 17.206897735595703,
+                "token": "Answer"
+              },
+              {
+                "id": 23298,
+                "score": 16.921117782592773,
+                "token": "Choose"
+              }
+            ],
+            "sampled_text": "C"
+          }
+        },
+        {
+          "name": "fighter-defend-attacked-collector",
+          "expected": ["defend"],
+          "choice": "defend",
+          "pass": true,
+          "elapsed_ms": 522.9000000357628,
+          "prompt_tokens": 469,
+          "logits": [23.349811553955078, 24.12894058227539, 23.74258041381836],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.12894058227539,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 23.74258041381836,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.349811553955078,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 19.97206687927246,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.516130447387695,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.500652313232422,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.02713394165039,
+                "token": "Option"
+              },
+              {
+                "id": 1206,
+                "score": 17.456684112548828,
+                "token": "To"
+              },
+              {
+                "id": 2432,
+                "score": 17.446063995361328,
+                "token": "Action"
+              },
+              {
+                "id": 66,
+                "score": 17.093894958496094,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 16.71075439453125,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 16.691585540771484,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "fighter-defend-attacked-building",
+          "expected": ["defend"],
+          "choice": "defend",
+          "pass": true,
+          "elapsed_ms": 581,
+          "prompt_tokens": 464,
+          "logits": [23.6929874420166, 24.30400848388672, 23.967435836791992],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.30400848388672,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 23.967435836791992,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.6929874420166,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.108312606811523,
+                "token": "<think>"
+              },
+              {
+                "id": 27775,
+                "score": 19.705373764038086,
+                "token": "Based"
+              },
+              {
+                "id": 760,
+                "score": 19.59064483642578,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.958786010742188,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.753154754638672,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.59208869934082,
+                "token": "To"
+              },
+              {
+                "id": 23949,
+                "score": 16.897842407226562,
+                "token": "Choice"
+              },
+              {
+                "id": 66,
+                "score": 16.818359375,
+                "token": "c"
+              },
+              {
+                "id": 69267,
+                "score": 16.73332977294922,
+                "token": "Assistant"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "fighter-injured-at-home",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 411.4000000357628,
+          "prompt_tokens": 426,
+          "logits": [
+            23.679237365722656, 23.804466247558594, 24.112977981567383
+          ],
+          "diagnostic": {
+            "ranks": [3, 2, 1],
+            "top": [
+              {
+                "id": 34,
+                "score": 24.112977981567383,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.804466247558594,
+                "token": "B"
+              },
+              {
+                "id": 32,
+                "score": 23.679237365722656,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.17360496520996,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.78366470336914,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.380908966064453,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.05316925048828,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.304676055908203,
+                "token": "Action"
+              },
+              {
+                "id": 23949,
+                "score": 17.424901962280273,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 17.41286849975586,
+                "token": "Answer"
+              },
+              {
+                "id": 1206,
+                "score": 17.20635986328125,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 17.119827270507812,
+                "token": "c"
+              }
+            ],
+            "sampled_text": "C"
+          }
+        },
+        {
+          "name": "builder-critical-hall-repair",
+          "expected": ["repair"],
+          "choice": "repair",
+          "pass": true,
+          "elapsed_ms": 393.60000002384186,
+          "prompt_tokens": 420,
+          "logits": [24.583152770996094, 23.09128189086914, 24.30190086364746],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.583152770996094,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.30190086364746,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.09128189086914,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 20.100814819335938,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 20.085874557495117,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.247421264648438,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.085060119628906,
+                "token": "Option"
+              },
+              {
+                "id": 1206,
+                "score": 18.13744354248047,
+                "token": "To"
+              },
+              {
+                "id": 2432,
+                "score": 17.929189682006836,
+                "token": "Action"
+              },
+              {
+                "id": 23949,
+                "score": 17.34696388244629,
+                "token": "Choice"
+              },
+              {
+                "id": 66,
+                "score": 17.27179718017578,
+                "token": "c"
+              },
+              {
+                "id": 15666,
+                "score": 17.176593780517578,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 388.0999999642372,
+          "prompt_tokens": 399,
+          "logits": [24.357990264892578, 23.007116317749023, 24.31250762939453],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.357990264892578,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.31250762939453,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.007116317749023,
+                "token": "B"
+              },
+              {
+                "id": 760,
+                "score": 20.032920837402344,
+                "token": "The"
+              },
+              {
+                "id": 248068,
+                "score": 19.953941345214844,
+                "token": "<think>"
+              },
+              {
+                "id": 27775,
+                "score": 19.23001480102539,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 18.796297073364258,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.595970153808594,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.469654083251953,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 17.148052215576172,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 17.10913848876953,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 16.926681518554688,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        }
+      ]
+    },
+    {
+      "file": "policy-heldout-fixtures.json",
+      "passed": 4,
+      "total": 12,
+      "rows": [
+        {
+          "name": "heldout-collector-moderate-stock",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 529.3000000119209,
+          "prompt_tokens": 520,
+          "logits": [
+            24.061702728271484, 22.684656143188477, 23.826190948486328
+          ],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.061702728271484,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.826190948486328,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.684656143188477,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.779380798339844,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.219099044799805,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.519775390625,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.518810272216797,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 17.767772674560547,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.335960388183594,
+                "token": "Answer"
+              },
+              {
+                "id": 3928,
+                "score": 16.61298942565918,
+                "token": "None"
+              },
+              {
+                "id": 66,
+                "score": 16.607942581176758,
+                "token": "c"
+              },
+              {
+                "id": 1206,
+                "score": 16.388683319091797,
+                "token": "To"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-collector-one-meal-left",
+          "expected": ["forage_bold"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 502.60000002384186,
+          "prompt_tokens": 517,
+          "logits": [23.91072654724121, 22.51787757873535, 23.574909210205078],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.91072654724121,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.574909210205078,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.51787757873535,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.792516708374023,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.253477096557617,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.685997009277344,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.67382049560547,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 17.97027587890625,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.00209617614746,
+                "token": "Answer"
+              },
+              {
+                "id": 1206,
+                "score": 16.63418197631836,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 16.4154109954834,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 16.37360954284668,
+                "token": "Choice"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-collector-starving-with-food",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 567.6999999880791,
+          "prompt_tokens": 525,
+          "logits": [23.796363830566406, 22.570402145385742, 23.64840316772461],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.796363830566406,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.64840316772461,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.570402145385742,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.7307186126709,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.347309112548828,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.76810073852539,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.55831527709961,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 18.221874237060547,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 17.260929107666016,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 16.445960998535156,
+                "token": "Choice"
+              },
+              {
+                "id": 3670,
+                "score": 16.3946590423584,
+                "token": "Options"
+              },
+              {
+                "id": 3928,
+                "score": 16.3138370513916,
+                "token": "None"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-fighter-train-between-waves",
+          "expected": ["train"],
+          "choice": "defend",
+          "pass": false,
+          "elapsed_ms": 461.89999997615814,
+          "prompt_tokens": 423,
+          "logits": [23.47394371032715, 24.158504486083984, 23.916854858398438],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.158504486083984,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 23.916854858398438,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.47394371032715,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 19.994056701660156,
+                "token": "<think>"
+              },
+              {
+                "id": 27775,
+                "score": 19.621692657470703,
+                "token": "Based"
+              },
+              {
+                "id": 760,
+                "score": 19.55705451965332,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.83656883239746,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.05340576171875,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.416975021362305,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 17.11049461364746,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 17.01198959350586,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 16.90237045288086,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "heldout-fighter-protect-builder",
+          "expected": ["defend"],
+          "choice": "defend",
+          "pass": true,
+          "elapsed_ms": 440.2000000476837,
+          "prompt_tokens": 470,
+          "logits": [23.511289596557617, 24.33354377746582, 24.00390625],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.33354377746582,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 24.00390625,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.511289596557617,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.01275634765625,
+                "token": "<think>"
+              },
+              {
+                "id": 27775,
+                "score": 19.92597007751465,
+                "token": "Based"
+              },
+              {
+                "id": 760,
+                "score": 19.556076049804688,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.98993682861328,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.65502166748047,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.500774383544922,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 16.874488830566406,
+                "token": "c"
+              },
+              {
+                "id": 15666,
+                "score": 16.77794075012207,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 16.75180435180664,
+                "token": "Choice"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "heldout-fighter-wounded-recovery",
+          "expected": ["relax"],
+          "choice": "defend",
+          "pass": false,
+          "elapsed_ms": 429.39999997615814,
+          "prompt_tokens": 424,
+          "logits": [
+            23.514659881591797, 24.034778594970703, 24.008981704711914
+          ],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.034778594970703,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 24.008981704711914,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.514659881591797,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.248516082763672,
+                "token": "<think>"
+              },
+              {
+                "id": 27775,
+                "score": 19.77172088623047,
+                "token": "Based"
+              },
+              {
+                "id": 760,
+                "score": 19.668956756591797,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.98311424255371,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.16759490966797,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.448333740234375,
+                "token": "To"
+              },
+              {
+                "id": 15666,
+                "score": 17.216449737548828,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 17.188434600830078,
+                "token": "Choice"
+              },
+              {
+                "id": 66,
+                "score": 16.9072265625,
+                "token": "c"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "heldout-builder-damaged-house",
+          "expected": ["repair"],
+          "choice": "repair",
+          "pass": true,
+          "elapsed_ms": 383.89999997615814,
+          "prompt_tokens": 419,
+          "logits": [
+            24.226144790649414, 22.696819305419922, 23.902629852294922
+          ],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.226144790649414,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.902629852294922,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.696819305419922,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.867618560791016,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.85660171508789,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.22705841064453,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 18.980323791503906,
+                "token": "Option"
+              },
+              {
+                "id": 1206,
+                "score": 17.731645584106445,
+                "token": "To"
+              },
+              {
+                "id": 2432,
+                "score": 17.63042449951172,
+                "token": "Action"
+              },
+              {
+                "id": 66,
+                "score": 17.177204132080078,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 17.12714958190918,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 16.96654510498047,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-builder-three-defense-sites",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 385.39999997615814,
+          "prompt_tokens": 402,
+          "logits": [
+            24.543315887451172, 23.150718688964844, 24.499095916748047
+          ],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.543315887451172,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.499095916748047,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.150718688964844,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 20.217731475830078,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 20.093097686767578,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.091350555419922,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 18.838294982910156,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.960689544677734,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.801822662353516,
+                "token": "To"
+              },
+              {
+                "id": 66,
+                "score": 17.2816104888916,
+                "token": "c"
+              },
+              {
+                "id": 23949,
+                "score": 17.15550422668457,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 17.151874542236328,
+                "token": "Answer"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-builder-hungry-at-home",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 437.5,
+          "prompt_tokens": 404,
+          "logits": [24.23859405517578, 22.731382369995117, 24.20205307006836],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.23859405517578,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.20205307006836,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.731382369995117,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.866966247558594,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.669553756713867,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 18.959917068481445,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 18.615381240844727,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 17.613361358642578,
+                "token": "Action"
+              },
+              {
+                "id": 23949,
+                "score": 17.049575805664062,
+                "token": "Choice"
+              },
+              {
+                "id": 1206,
+                "score": 16.941097259521484,
+                "token": "To"
+              },
+              {
+                "id": 15666,
+                "score": 16.88085174560547,
+                "token": "Answer"
+              },
+              {
+                "id": 66,
+                "score": 16.78054428100586,
+                "token": "c"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-fighter-starvation-before-interception",
+          "expected": ["relax"],
+          "choice": "defend",
+          "pass": false,
+          "elapsed_ms": 455.80000001192093,
+          "prompt_tokens": 475,
+          "logits": [
+            23.222476959228516, 24.360328674316406, 23.955589294433594
+          ],
+          "diagnostic": {
+            "ranks": [3, 1, 2],
+            "top": [
+              {
+                "id": 33,
+                "score": 24.360328674316406,
+                "token": "B"
+              },
+              {
+                "id": 34,
+                "score": 23.955589294433594,
+                "token": "C"
+              },
+              {
+                "id": 32,
+                "score": 23.222476959228516,
+                "token": "A"
+              },
+              {
+                "id": 248068,
+                "score": 20.1855411529541,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.69645881652832,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.627405166625977,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 19.30335235595703,
+                "token": "Option"
+              },
+              {
+                "id": 2432,
+                "score": 18.15591049194336,
+                "token": "Action"
+              },
+              {
+                "id": 1206,
+                "score": 17.241867065429688,
+                "token": "To"
+              },
+              {
+                "id": 23949,
+                "score": 17.15576934814453,
+                "token": "Choice"
+              },
+              {
+                "id": 15666,
+                "score": 17.03922462463379,
+                "token": "Answer"
+              },
+              {
+                "id": 3670,
+                "score": 16.90032958984375,
+                "token": "Options"
+              }
+            ],
+            "sampled_text": "B"
+          }
+        },
+        {
+          "name": "heldout-builder-repair-before-expansion",
+          "expected": ["repair"],
+          "choice": "repair",
+          "pass": true,
+          "elapsed_ms": 418,
+          "prompt_tokens": 441,
+          "logits": [24.53238296508789, 23.02581787109375, 24.187110900878906],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 24.53238296508789,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 24.187110900878906,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 23.02581787109375,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 20.0732479095459,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.985681533813477,
+                "token": "The"
+              },
+              {
+                "id": 27775,
+                "score": 19.408193588256836,
+                "token": "Based"
+              },
+              {
+                "id": 5173,
+                "score": 18.89249038696289,
+                "token": "Option"
+              },
+              {
+                "id": 1206,
+                "score": 18.209251403808594,
+                "token": "To"
+              },
+              {
+                "id": 2432,
+                "score": 17.45545768737793,
+                "token": "Action"
+              },
+              {
+                "id": 66,
+                "score": 17.20087432861328,
+                "token": "c"
+              },
+              {
+                "id": 15666,
+                "score": 17.114978790283203,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 17.104541778564453,
+                "token": "Choice"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        },
+        {
+          "name": "heldout-collector-starvation-and-nearby-orc",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 624.5,
+          "prompt_tokens": 554,
+          "logits": [
+            23.636558532714844, 22.518444061279297, 23.609464645385742
+          ],
+          "diagnostic": {
+            "ranks": [1, 3, 2],
+            "top": [
+              {
+                "id": 32,
+                "score": 23.636558532714844,
+                "token": "A"
+              },
+              {
+                "id": 34,
+                "score": 23.609464645385742,
+                "token": "C"
+              },
+              {
+                "id": 33,
+                "score": 22.518444061279297,
+                "token": "B"
+              },
+              {
+                "id": 248068,
+                "score": 19.510055541992188,
+                "token": "<think>"
+              },
+              {
+                "id": 760,
+                "score": 19.17031478881836,
+                "token": "The"
+              },
+              {
+                "id": 5173,
+                "score": 18.65243911743164,
+                "token": "Option"
+              },
+              {
+                "id": 27775,
+                "score": 18.395980834960938,
+                "token": "Based"
+              },
+              {
+                "id": 2432,
+                "score": 18.028499603271484,
+                "token": "Action"
+              },
+              {
+                "id": 15666,
+                "score": 16.985429763793945,
+                "token": "Answer"
+              },
+              {
+                "id": 23949,
+                "score": 16.280115127563477,
+                "token": "Choice"
+              },
+              {
+                "id": 3670,
+                "score": 16.248390197753906,
+                "token": "Options"
+              },
+              {
+                "id": 1206,
+                "score": 16.24553871154785,
+                "token": "To"
+              }
+            ],
+            "sampled_text": "A"
+          }
+        }
+      ]
+    }
+  ],
+  "provenance": {
+    "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+    "library_revision": "025bcaf3780fa8254f5e5efd3bfea0a5397248f4",
+    "gpu": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "shader_f16": true,
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36"
+    },
+    "sha256": {
+      "web/src/decision-prompt.js": "b5b557d9dc746a9c39700be6ec4d9a4d71086333adcda1a4009b8d87827ae2a7",
+      "web/src/observation.js": "fc6670132538b1b65006f9e2bc8440e48290331201a7726b9750c3f962262957",
+      "web/src/prompts.js": "8c2529ae067af9d90e82e437fc79ef19805377a70b028d6f65e05374c276963c",
+      "web/src/game.js": "b2b2ef66a1a638259e745048e341b8eef4d259775d2e5ffb61c0650c6e22faa6",
+      "web/src/inference.worker.js": "13f5036dde27aeb7e619dcafa756ac7fde6140e3ad246081f62e14fb135b92db",
+      "web/qa/policy-fixtures.json": "235d1b08445b2f85b6d966e38961cf27addd219e288de8088f33a31482813c0f",
+      "web/qa/policy-heldout-fixtures.json": "25c26e878ae7633e1623e9b2ef93d133b0f802e879d39a30de97c90418bb11f0"
+    },
+    "labels": ["A", "B", "C"],
+    "note": "Repeatedly inspected handcrafted development scenes, not untouched validation. Exact role policies are included above. Prompt text comes from the hashed source files."
+  }
+}

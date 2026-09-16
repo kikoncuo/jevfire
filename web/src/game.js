@@ -1,363 +1,944 @@
-import { UNIT_IDS, guardAction, validateDecision } from './contract.js';
-export const COLORS = ['#efaf55', '#91c49e', '#8caecf'];
+import { UNIT_DEFINITIONS, schemaFor, validateDecision } from './contract.js';
+
+export const WORLD_SIZE = 32;
+export const COLORS = UNIT_DEFINITIONS.map((unit) => unit.color);
+const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
-export class Game {
-  constructor() {
-    this.reset();
-  }
-  reset() {
-    this.time = 0;
-    this.cores = 0;
-    this.ticks = 0;
-    this.running = false;
-    this.base = { x: 6, y: 10 };
-    this.sources = [
-      { x: 2, y: 3, stock: 4 },
-      { x: 6, y: 1, stock: 4 },
-      { x: 10, y: 3, stock: 4 },
-    ];
-    this.units = UNIT_IDS.map((id, i) => ({
-      id,
-      x: 5 + i,
-      y: 10,
-      health: 100,
-      carrying: false,
-      action: 'hold',
-      proposed: 'hold',
-      reason: null,
-      color: COLORS[i],
-      source: i,
-      trail: [],
-    }));
-    this.extraHazards = [];
-  }
-  hazards() {
-    return [
-      { x: 4 + Math.sin(this.time * 0.2) * 1.2, y: 5.2 },
-      { x: 8, y: 5.4 + Math.cos(this.time * 0.15) },
-      ...this.extraHazards,
-    ];
-  }
-  danger(unit) {
-    return this.hazards().some((h) => distance(h, unit) < 1.7);
-  }
-  addHazard() {
-    const u = this.units[this.extraHazards.length % 3];
-    this.extraHazards.push({ x: u.x + 0.65, y: u.y - 0.7 });
-    if (this.extraHazards.length > 3) this.extraHazards.shift();
-  }
-  state() {
-    return Object.fromEntries(
-      this.units.map((u) => [
-        u.id,
-        {
-          health: Math.round(u.health),
-          carrying_core: u.carrying,
-          in_danger: this.danger(u),
-          beacon_has_supplies: this.sources[u.source].stock > 0,
-          at_base: distance(u, this.base) < 1.1,
-        },
-      ]),
-    );
-  }
-  apply(decision) {
-    validateDecision(decision);
-    for (const u of this.units) {
-      u.proposed = decision[u.id];
-      const guarded = guardAction(
-        u,
-        u.proposed,
-        this.sources[u.source],
-        this.danger(u),
-      );
-      u.action = guarded.action;
-      u.reason = guarded.reason;
-    }
-    this.ticks++;
-  }
-  scripted(mission) {
-    return Object.fromEntries(
-      this.units.map((u) => [
-        u.id,
-        /hold/i.test(mission)
-          ? 'hold'
-          : u.carrying || u.health < 55
-            ? 'return'
-            : this.danger(u)
-              ? 'evade'
-              : 'recover',
-      ]),
-    );
-  }
-  update(dt) {
-    if (!this.running) return;
-    this.time += dt;
-    for (const u of this.units) {
-      const source = this.sources[u.source];
-      const danger = this.danger(u);
-      const guard = guardAction(u, u.proposed, source, danger);
-      u.action = guard.action;
-      u.reason = guard.reason;
-      if (danger) u.health = Math.max(1, u.health - dt * 7);
-      if (distance(u, this.base) < 1.1) {
-        u.health = Math.min(100, u.health + dt * 16);
-        if (u.carrying) {
-          u.carrying = false;
-          this.cores++;
-        }
-      }
-      let target = null;
-      if (u.action === 'recover') target = source;
-      if (u.action === 'return') target = this.base;
-      if (u.action === 'evade') {
-        const h = this.hazards().toSorted(
-          (a, b) => distance(u, a) - distance(u, b),
-        )[0];
-        const dx = u.x - h.x,
-          dy = u.y - h.y,
-          len = Math.hypot(dx, dy) || 1;
-        target = {
-          x: Math.max(1, Math.min(11, u.x + (dx / len) * 2)),
-          y: Math.max(1, Math.min(10.7, u.y + (dy / len) * 2)),
-        };
-      }
-      if (target) {
-        const d = distance(u, target);
-        if (d > 0.18) {
-          const step = Math.min(d, dt * 1.05);
-          u.x += ((target.x - u.x) / d) * step;
-          u.y += ((target.y - u.y) / d) * step;
-        }
-      }
-      if (
-        u.action === 'recover' &&
-        distance(u, source) < 0.5 &&
-        !u.carrying &&
-        source.stock
-      ) {
-        source.stock--;
-        u.carrying = true;
-      }
-      u.trail.push({ x: u.x, y: u.y });
-      if (u.trail.length > 30) u.trail.shift();
-    }
-  }
+const round = (n) => Math.round(n * 10) / 10;
+const HUNGER_RATE = 0.7;
+const MEAL_SIZE = 34;
+const NEIGHBORS = [
+  [1, 0],
+  [-1, 0],
+  [0, 1],
+  [0, -1],
+  [1, 1],
+  [1, -1],
+  [-1, 1],
+  [-1, -1],
+];
+
+function seeded(seed) {
+  let value =
+    typeof seed === 'number'
+      ? seed >>> 0
+      : [...String(seed)].reduce(
+          (hash, char) => Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0,
+          2166136261,
+        );
+  return () => {
+    value += 0x6d2b79f5;
+    let n = value;
+    n = Math.imul(n ^ (n >>> 15), n | 1);
+    n ^= n + Math.imul(n ^ (n >>> 7), n | 61);
+    return ((n ^ (n >>> 14)) >>> 0) / 4294967296;
+  };
 }
 
-export class Renderer {
-  constructor(canvas, game) {
-    this.canvas = canvas;
-    this.ctx = canvas.getContext('2d');
-    this.game = game;
-    this.resize();
-    new ResizeObserver(() => this.resize()).observe(canvas);
+function bearing(a, b) {
+  const names = ['E', 'SE', 'S', 'SW', 'W', 'NW', 'N', 'NE'];
+  return names[
+    (Math.round(Math.atan2(b.y - a.y, b.x - a.x) / (Math.PI / 4)) + 8) % 8
+  ];
+}
+
+function segmentDistance(point, a, b) {
+  const dx = b.x - a.x,
+    dy = b.y - a.y;
+  const t = clamp(
+    ((point.x - a.x) * dx + (point.y - a.y) * dy) / (dx * dx + dy * dy || 1),
+    0,
+    1,
+  );
+  return Math.hypot(point.x - a.x - t * dx, point.y - a.y - t * dy);
+}
+
+export class Game {
+  constructor(options = {}) {
+    this.seed = options.seed ?? 1847;
+    this.reset();
   }
-  resize() {
-    const rect = this.canvas.getBoundingClientRect();
-    this.w = rect.width;
-    this.h = rect.height;
-    const dpr = Math.min(devicePixelRatio, 2);
-    this.canvas.width = rect.width * dpr;
-    this.canvas.height = rect.height * dpr;
-    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    this.scale = Math.min(this.w / 840, this.h / 510);
+
+  reset(options = {}) {
+    if (options.seed !== undefined) this.seed = options.seed;
+    this.random = seeded(this.seed);
+    this.running = false;
+    this.time = 0;
+    this.ticks = 0;
+    this.decisions = 0;
+    this.food = 6;
+    this.totalGathered = 0;
+    this.kills = 0;
+    this.wave = 0;
+    this.nextWave = 22;
+    this.gameOver = false;
+    this.over = false;
+    this.endReason = null;
+    this.events = [];
+    this.projectiles = [];
+    this.nextOrcId = 1;
+    this.base = { x: 16, y: 20 };
+    this.trainingGround = { id: 'training', x: 16, y: 25.4 };
+    const placements = [
+      [14.5, 19],
+      [17.5, 19],
+      [14.5, 17.8],
+      [17.5, 17.8],
+      [12.5, 19.5],
+      [19.5, 19.5],
+    ];
+    this.units = UNIT_DEFINITIONS.map((definition, i) => ({
+      ...definition,
+      x: placements[i][0],
+      y: placements[i][1],
+      health: definition.role === 'fighter' ? 130 : 85,
+      maxHealth: definition.role === 'fighter' ? 130 : 85,
+      hunger: 100,
+      alive: true,
+      action: 'relax',
+      proposed: 'relax',
+      reason: null,
+      activity: 'resting',
+      strength: definition.role === 'fighter' ? 11 : 2,
+      carrying: 0,
+      targetId: null,
+      heading: 0,
+      work: 0,
+      cooldown: 0,
+      nextMeal: 0,
+      path: [],
+      pathFor: null,
+      nextPath: 0,
+      home: {
+        id: `home-${definition.id}`,
+        x: 14.6 + (i % 3) * 1.4,
+        y: 21.5 + Math.floor(i / 3) * 1.2,
+      },
+    }));
+    this.buildings = [
+      {
+        id: 'hall',
+        type: 'hall',
+        x: 16,
+        y: 20,
+        maxHealth: 420,
+        health: 420,
+        progress: 1,
+      },
+      {
+        id: 'west-house',
+        type: 'house',
+        x: 12,
+        y: 21,
+        maxHealth: 170,
+        health: 170,
+        progress: 1,
+      },
+      {
+        id: 'east-house',
+        type: 'house',
+        x: 20,
+        y: 21,
+        maxHealth: 170,
+        health: 170,
+        progress: 1,
+      },
+      {
+        id: 'west-wall',
+        type: 'wall',
+        x: 13,
+        y: 17,
+        maxHealth: 160,
+        health: 160,
+        progress: 1,
+      },
+      {
+        id: 'east-wall',
+        type: 'wall',
+        x: 19,
+        y: 17,
+        maxHealth: 160,
+        health: 160,
+        progress: 1,
+      },
+      ...[
+        [11, 17],
+        [21, 17],
+        [14, 23],
+        [18, 23],
+      ].map(([x, y], i) => ({
+        id: `tower-${i + 1}`,
+        type: 'tower',
+        x,
+        y,
+        maxHealth: 150,
+        health: 0,
+        progress: 0,
+        cooldown: 0,
+        destroyed: false,
+      })),
+    ];
+    this.resources = [
+      {
+        id: 'west-garden',
+        type: 'berries',
+        x: 7,
+        y: 17,
+        food: 18,
+        maxFood: 18,
+        refill: 0,
+      },
+      {
+        id: 'east-garden',
+        type: 'berries',
+        x: 25,
+        y: 16,
+        food: 18,
+        maxFood: 18,
+        refill: 0,
+      },
+      {
+        id: 'north-grove',
+        type: 'berries',
+        x: 9,
+        y: 7,
+        food: 40,
+        maxFood: 40,
+        refill: 0,
+      },
+      {
+        id: 'wild-grove',
+        type: 'berries',
+        x: 25,
+        y: 6,
+        food: 44,
+        maxFood: 44,
+        refill: 0,
+      },
+    ];
+    this.orcs = [];
+    this.log('start', 'Six villagers. One hall. Keep them alive.');
   }
-  iso(x, y, z = 0) {
+
+  log(type, text, details = {}) {
+    this.events.unshift({ time: this.time, type, text, ...details });
+    this.events.length = Math.min(this.events.length, 32);
+  }
+
+  hall() {
+    return this.buildings.find((building) => building.id === 'hall');
+  }
+  livingOrcs() {
+    return this.orcs.filter((orc) => orc.alive);
+  }
+  livingUnits() {
+    return this.units.filter((unit) => unit.alive);
+  }
+
+  spawnWave() {
+    this.wave++;
+    const count = Math.min(7, 1 + Math.floor(this.wave / 2));
+    for (let i = 0; i < count; i++) {
+      const edge = Math.floor(this.random() * 3);
+      const x = edge === 0 ? 1 : edge === 1 ? 31 : 3 + this.random() * 26;
+      const y = edge < 2 ? 3 + this.random() * 16 : 1;
+      this.spawnOrc(x, y, this.wave);
+    }
+    this.nextWave = this.time + Math.max(20, 36 - this.wave);
+    this.log(
+      'wave',
+      `Wave ${this.wave}: ${count} stronger orc${count === 1 ? '' : 's'} enter the woods.`,
+    );
+  }
+
+  spawnOrc(x, y, level = Math.max(1, this.wave)) {
+    const health = 42 + level * 14;
+    const orc = {
+      id: `orc-${this.nextOrcId++}`,
+      x,
+      y,
+      level,
+      health,
+      maxHealth: health,
+      alive: true,
+      strength: 4 + level * 1.6,
+      speed: Math.min(1.85, 1.15 + level * 0.035),
+      targetId: null,
+      heading: 0,
+      activity: 'roaming',
+      cooldown: 0,
+      tauntedUntil: 0,
+      roam: { x: 6 + this.random() * 20, y: 9 + this.random() * 17 },
+      nextRoam: this.time + 8 + this.random() * 8,
+    };
+    this.orcs.push(orc);
+    return orc;
+  }
+
+  apply(decision) {
+    const ids =
+      decision && typeof decision === 'object' ? Object.keys(decision) : [];
+    if (
+      !ids.length ||
+      ids.some((id) => !this.units.some((unit) => unit.id === id && unit.alive))
+    )
+      throw new Error('Decision must address living villagers');
+    const selected = this.units.filter((unit) => ids.includes(unit.id));
+    validateDecision(decision, schemaFor(selected));
+    for (const unit of selected) {
+      unit.proposed = decision[unit.id];
+      if (unit.action !== unit.proposed) {
+        unit.action = unit.proposed;
+        unit.targetId = null;
+        unit.work = 0;
+        unit.path = [];
+      }
+      unit.reason = null;
+    }
+    this.ticks++;
+    this.decisions += selected.length;
+    return decision;
+  }
+
+  routeRisk(unit, target) {
+    const nearby = this.livingOrcs().filter(
+      (orc) => segmentDistance(orc, unit, target) < 5,
+    );
+    return nearby.length === 0
+      ? 'low'
+      : nearby.some((orc) => segmentDistance(orc, unit, target) < 2.8)
+        ? 'high'
+        : 'medium';
+  }
+
+  forageTarget(unit, safe) {
+    const candidates = this.resources.filter((resource) => resource.food > 0);
+    return candidates.sort((a, b) => {
+      const score = (resource) =>
+        distance(unit, resource) +
+        (safe
+          ? { low: 0, medium: 16, high: 40 }[this.routeRisk(unit, resource)]
+          : -resource.food * 0.32);
+      return score(a) - score(b);
+    })[0];
+  }
+
+  repairTarget(unit) {
+    return this.buildings
+      .filter(
+        (building) =>
+          building.progress >= 1 &&
+          building.health > 0 &&
+          building.health < building.maxHealth - 1,
+      )
+      .sort(
+        (a, b) =>
+          a.health / a.maxHealth -
+            (a.id === 'hall' ? 0.35 : 0) -
+            (b.health / b.maxHealth - (b.id === 'hall' ? 0.35 : 0)) ||
+          distance(unit, a) - distance(unit, b),
+      )[0];
+  }
+
+  buildTarget(unit) {
+    return this.buildings
+      .filter(
+        (building) =>
+          building.type === 'tower' &&
+          building.progress < 1 &&
+          !building.destroyed,
+      )
+      .sort((a, b) => distance(unit, a) - distance(unit, b))[0];
+  }
+
+  defendTarget(unit) {
+    return this.livingOrcs().sort((a, b) => {
+      const priority = (orc) =>
+        distance(unit, orc) -
+        (this.units.some((ally) => ally.alive && orc.targetId === ally.id)
+          ? 25
+          : 0) -
+        (this.buildings.some(
+          (building) => building.health > 0 && orc.targetId === building.id,
+        )
+          ? 15
+          : 0);
+      return priority(a) - priority(b);
+    })[0];
+  }
+
+  // Navigation is deterministic execution of the selected action, not another policy.
+  // Only safe-foraging routes penalize danger. No action is replaced by a survival fallback.
+  findPath(start, goal, safe) {
+    const cell = (point) => [
+      clamp(Math.round(point.x / 2), 1, 15),
+      clamp(Math.round(point.y / 2), 1, 15),
+    ];
+    const [sx, sy] = cell(start),
+      [gx, gy] = cell(goal);
+    const key = (x, y) => y * 17 + x;
+    const startKey = key(sx, sy),
+      goalKey = key(gx, gy);
+    const open = [{ x: sx, y: sy, key: startKey, score: 0 }],
+      cost = new Map([[startKey, 0]]),
+      parent = new Map();
+    const threats = safe ? this.livingOrcs() : [];
+    while (open.length) {
+      open.sort((a, b) => a.score - b.score);
+      const current = open.shift();
+      if (current.key === goalKey) {
+        const path = [{ x: goal.x, y: goal.y }];
+        let cursor = goalKey;
+        while (cursor !== startKey) {
+          path.unshift({
+            x: (cursor % 17) * 2,
+            y: Math.floor(cursor / 17) * 2,
+          });
+          cursor = parent.get(cursor);
+        }
+        return path;
+      }
+      for (const [dx, dy] of NEIGHBORS) {
+        const x = current.x + dx,
+          y = current.y + dy;
+        if (x < 1 || x > 15 || y < 1 || y > 15) continue;
+        const next = key(x, y),
+          point = { x: x * 2, y: y * 2 };
+        if (
+          next !== goalKey &&
+          this.buildings.some(
+            (building) =>
+              building.health > 0 && distance(point, building) < 1.1,
+          )
+        )
+          continue;
+        const danger = threats.reduce(
+          (sum, orc) => sum + Math.max(0, 5.5 - distance(point, orc)) * 3,
+          0,
+        );
+        const newCost = cost.get(current.key) + Math.hypot(dx, dy) + danger;
+        if (newCost >= (cost.get(next) ?? Infinity)) continue;
+        cost.set(next, newCost);
+        parent.set(next, current.key);
+        const existing = open.find((node) => node.key === next);
+        if (existing) existing.score = newCost + Math.hypot(x - gx, y - gy);
+        else
+          open.push({
+            x,
+            y,
+            key: next,
+            score: newCost + Math.hypot(x - gx, y - gy),
+          });
+      }
+    }
+    return [{ x: goal.x, y: goal.y }];
+  }
+
+  move(entity, target, speed, dt, safe = false, direct = false) {
+    if (!target) return false;
+    if (distance(entity, target) < 0.85) return true;
+    let waypoint = target;
+    if (!direct) {
+      const targetKey = `${target.id ?? ''}:${Math.round(target.x)}:${Math.round(target.y)}:${safe}`;
+      if (
+        entity.pathFor !== targetKey ||
+        this.time >= entity.nextPath ||
+        !entity.path.length
+      ) {
+        entity.path = this.findPath(entity, target, safe);
+        entity.pathFor = targetKey;
+        entity.nextPath = this.time + 2.5;
+      }
+      while (entity.path.length > 1 && distance(entity, entity.path[0]) < 0.25)
+        entity.path.shift();
+      waypoint = entity.path[0] ?? target;
+    }
+    const d = distance(entity, waypoint);
+    if (d > 0.02) {
+      const step = Math.min(d, speed * dt);
+      entity.heading = Math.atan2(waypoint.x - entity.x, waypoint.y - entity.y);
+      entity.x = clamp(
+        entity.x + ((waypoint.x - entity.x) / d) * step,
+        0.6,
+        31.4,
+      );
+      entity.y = clamp(
+        entity.y + ((waypoint.y - entity.y) / d) * step,
+        0.6,
+        31.4,
+      );
+    }
+    entity.activity = 'walking';
+    return distance(entity, target) < 0.85;
+  }
+
+  damage(target, amount, attacker) {
+    if (target.health <= 0) return;
+    target.health = Math.max(0, target.health - amount);
+    if (target.health > 0) return;
+    if (Object.hasOwn(target, 'role'))
+      this.killUnit(target, `killed by ${attacker?.id ?? 'an orc'}`);
+    else if (target.id.startsWith('orc-')) {
+      target.alive = false;
+      target.activity = 'dead';
+      target.targetId = null;
+      target.diedAt = this.time;
+      this.kills++;
+      this.log(
+        'kill',
+        `${attacker?.name ?? 'A tower'} felled a level ${target.level} orc.`,
+        { targetId: target.id },
+      );
+    } else {
+      target.destroyed = true;
+      this.log(
+        'building',
+        `${target.type === 'hall' ? 'The hall' : target.id} was destroyed.`,
+        { targetId: target.id },
+      );
+    }
+  }
+
+  killUnit(unit, cause) {
+    if (!unit.alive) return;
+    unit.alive = false;
+    unit.health = 0;
+    unit.activity = 'dead';
+    unit.targetId = null;
+    unit.diedAt = this.time;
+    unit.reason = cause;
+    this.log('death', `${unit.name} ${cause}.`, { unitId: unit.id });
+  }
+
+  deposit(unit) {
+    if (
+      unit.carrying > 0 &&
+      this.hall().health > 0 &&
+      distance(unit, this.base) < 3.5
+    ) {
+      const amount = unit.carrying;
+      this.food += amount;
+      this.totalGathered += amount;
+      unit.carrying = 0;
+      this.log('food', `${unit.name} brought home ${amount} food.`, {
+        unitId: unit.id,
+      });
+    }
+  }
+
+  stepUnit(unit, dt) {
+    if (!unit.alive) return;
+    unit.hunger = Math.max(0, unit.hunger - dt * HUNGER_RATE);
+    if (unit.hunger <= 0) {
+      this.killUnit(unit, 'starved');
+      return;
+    }
+    unit.cooldown = Math.max(0, unit.cooldown - dt);
+    unit.reason = null;
+    const action = unit.action;
+    if (action === 'relax') {
+      unit.targetId = 'hall';
+      if (!this.move(unit, unit.home, 2.1, dt)) return;
+      unit.activity = 'resting';
+      if (this.hall().health <= 0) {
+        unit.reason = 'The hall is destroyed: no food or healing';
+        return;
+      }
+      this.deposit(unit);
+      if (unit.hunger <= 74 && this.food > 0 && this.time >= unit.nextMeal) {
+        this.food--;
+        unit.hunger = Math.min(100, unit.hunger + MEAL_SIZE);
+        unit.nextMeal = this.time + 3;
+      }
+      if (this.food === 0 && unit.hunger <= 74)
+        unit.reason = 'The shared pantry is empty';
+      unit.health = Math.min(
+        unit.maxHealth,
+        unit.health + dt * (unit.hunger > 20 ? 3 : 0),
+      );
+      return;
+    }
+    if (action === 'forage_safe' || action === 'forage_bold') {
+      const safe = action === 'forage_safe';
+      // A filled basket returns home as part of the selected foraging action.
+      if (unit.carrying >= 3) {
+        unit.targetId = 'hall';
+        if (this.move(unit, unit.home, safe ? 1.8 : 2.5, dt, safe))
+          this.deposit(unit);
+        if (this.hall().health <= 0)
+          unit.reason = 'Cannot deposit: hall destroyed';
+        return;
+      }
+      let target = this.resources.find(
+        (resource) => resource.id === unit.targetId && resource.food > 0,
+      );
+      if (!target || this.time >= (unit.nextResourceCheck ?? 0)) {
+        target = this.forageTarget(unit, safe);
+        unit.nextResourceCheck = this.time + 3;
+      }
+      if (!target) {
+        unit.activity = 'waiting';
+        unit.reason = 'All food patches are empty';
+        return;
+      }
+      unit.targetId = target.id;
+      if (!this.move(unit, target, safe ? 1.8 : 2.5, dt, safe)) return;
+      unit.activity = 'gathering';
+      unit.work += dt;
+      const duration = safe ? 2.1 : 1.45;
+      if (unit.work >= duration && target.food > 0) {
+        unit.work -= duration;
+        target.food--;
+        unit.carrying++;
+      }
+      return;
+    }
+    if (action === 'train') {
+      unit.targetId = 'training';
+      const position = {
+        ...this.trainingGround,
+        x: this.trainingGround.x + (unit.id === 'aldric' ? -0.8 : 0.8),
+      };
+      if (!this.move(unit, position, 2.1, dt)) return;
+      unit.activity = 'training';
+      unit.strength = Math.min(40, unit.strength + dt * 0.12);
+      return;
+    }
+    if (action === 'defend') {
+      const target = this.defendTarget(unit);
+      if (!target) {
+        unit.targetId = null;
+        if (this.move(unit, { x: 16, y: 16 }, 2.4, dt))
+          unit.activity = 'guarding';
+        unit.reason = 'No living orcs to intercept';
+        return;
+      }
+      unit.targetId = target.id;
+      if (distance(unit, target) < 6) {
+        target.targetId = unit.id;
+        target.tauntedUntil = this.time + 3;
+      }
+      if (distance(unit, target) > 1.4) {
+        this.move(unit, target, 2.45, dt, false, true);
+        return;
+      }
+      unit.activity = 'fighting';
+      unit.heading = Math.atan2(target.x - unit.x, target.y - unit.y);
+      if (unit.cooldown <= 0) {
+        this.damage(target, unit.strength, unit);
+        unit.cooldown = 0.85;
+      }
+      return;
+    }
+    if (action === 'repair' || action === 'build') {
+      const target =
+        action === 'repair' ? this.repairTarget(unit) : this.buildTarget(unit);
+      if (!target) {
+        unit.targetId = null;
+        unit.activity = 'waiting';
+        unit.reason =
+          action === 'repair'
+            ? 'No damaged standing buildings'
+            : 'All defense sites completed or destroyed';
+        return;
+      }
+      unit.targetId = target.id;
+      if (!this.move(unit, target, 2, dt)) return;
+      unit.activity = action === 'repair' ? 'repairing' : 'building';
+      unit.heading = Math.atan2(target.x - unit.x, target.y - unit.y);
+      if (action === 'repair')
+        target.health = Math.min(target.maxHealth, target.health + dt * 10);
+      else {
+        const previous = target.progress;
+        target.progress = Math.min(1, target.progress + dt / 28);
+        target.health = Math.min(
+          target.maxHealth,
+          target.health + (target.progress - previous) * target.maxHealth,
+        );
+        if (target.progress === 1 && previous < 1)
+          this.log('build', `${unit.name} completed a watchtower.`, {
+            unitId: unit.id,
+            targetId: target.id,
+          });
+      }
+    }
+  }
+
+  stepOrc(orc, dt) {
+    if (!orc.alive) return;
+    orc.cooldown = Math.max(0, orc.cooldown - dt);
+    const candidates = [
+      ...this.livingUnits(),
+      ...this.buildings.filter((building) => building.health > 0),
+    ];
+    let target = candidates.find((entity) => entity.id === orc.targetId);
+    if (target && distance(orc, target) > 10 && this.time >= orc.tauntedUntil)
+      target = null;
+    if (this.time >= orc.tauntedUntil) {
+      const nearby = candidates
+        .filter((entity) => distance(orc, entity) < (entity.role ? 5.6 : 4.7))
+        .sort((a, b) => distance(orc, a) - distance(orc, b));
+      if (
+        nearby[0] &&
+        (!target || distance(orc, nearby[0]) + 1.2 < distance(orc, target))
+      )
+        target = nearby[0];
+    }
+    orc.targetId = target?.id ?? null;
+    if (target) {
+      if (distance(orc, target) > (target.role ? 1.25 : 1.7)) {
+        this.move(orc, target, orc.speed, dt, false, true);
+        return;
+      }
+      orc.activity = 'fighting';
+      orc.heading = Math.atan2(target.x - orc.x, target.y - orc.y);
+      if (orc.cooldown <= 0) {
+        this.damage(target, orc.strength, orc);
+        orc.cooldown = 1.05;
+      }
+      return;
+    }
+    if (this.time >= orc.nextRoam || distance(orc, orc.roam) < 1) {
+      orc.roam = { x: 5 + this.random() * 22, y: 7 + this.random() * 21 };
+      orc.nextRoam = this.time + 8 + this.random() * 8;
+    }
+    this.move(orc, orc.roam, orc.speed * 0.75, dt, false, true);
+    orc.activity = 'roaming';
+  }
+
+  update(dt) {
+    if (!this.running || this.gameOver || !Number.isFinite(dt) || dt <= 0)
+      return;
+    // Bounded substeps make damage, hunger and building work stable across render rates.
+    let remaining = Math.min(dt, 10);
+    while (remaining > 1e-8 && !this.gameOver) {
+      const step = Math.min(0.05, remaining);
+      remaining -= step;
+      this.time += step;
+      if (this.time >= this.nextWave) this.spawnWave();
+      for (const unit of this.units) this.stepUnit(unit, step);
+      for (const orc of this.orcs) this.stepOrc(orc, step);
+      for (const tower of this.buildings.filter(
+        (building) =>
+          building.type === 'tower' &&
+          building.progress >= 1 &&
+          building.health > 0,
+      )) {
+        tower.cooldown = Math.max(0, tower.cooldown - step);
+        const target = this.livingOrcs()
+          .filter((orc) => distance(tower, orc) < 7)
+          .sort((a, b) => distance(tower, a) - distance(tower, b))[0];
+        tower.targetId = target?.id ?? null;
+        if (target && tower.cooldown <= 0) {
+          this.damage(target, 8, tower);
+          this.projectiles.push({
+            x: tower.x,
+            y: tower.y,
+            targetX: target.x,
+            targetY: target.y,
+            born: this.time,
+            expires: this.time + 0.28,
+          });
+          tower.cooldown = 1.4;
+        }
+      }
+      for (const resource of this.resources) {
+        resource.refill += step;
+        if (resource.refill >= 12) {
+          resource.refill -= 12;
+          resource.food = Math.min(resource.maxFood, resource.food + 1);
+        }
+      }
+      this.projectiles = this.projectiles.filter(
+        (projectile) => projectile.expires > this.time,
+      );
+      // Keep recent corpses visible without growing the simulation forever.
+      this.orcs = this.orcs.filter(
+        (orc) => orc.alive || this.time - orc.diedAt < 20,
+      );
+      if (!this.units.some((unit) => unit.alive) || this.hall().health <= 0) {
+        this.gameOver = true;
+        this.over = true;
+        this.endReason =
+          this.hall().health <= 0
+            ? 'The hall was destroyed'
+            : 'All villagers died';
+        this.running = false;
+        this.log(
+          'end',
+          `The village fell after ${Math.floor(this.time)} seconds.`,
+        );
+      }
+    }
+  }
+
+  contextFor(id) {
+    const unit = this.units.find((candidate) => candidate.id === id);
+    if (!unit) throw new Error('Unknown villager');
+    const liveOrcs = this.livingOrcs();
+    const nearest = liveOrcs.toSorted(
+      (a, b) => distance(unit, a) - distance(unit, b),
+    );
+    const endangered = this.livingUnits().filter((ally) =>
+      liveOrcs.some((orc) => orc.targetId === ally.id),
+    );
+    const buildingThreats = this.buildings.filter(
+      (building) =>
+        building.health > 0 &&
+        liveOrcs.some((orc) => orc.targetId === building.id),
+    );
+    const describe = (target) => ({
+      id: target.id,
+      distance: round(distance(unit, target)),
+      bearing: bearing(unit, target),
+    });
+    const context = {
+      self: {
+        id: unit.id,
+        alive: unit.alive,
+        role: unit.role,
+        health: Math.ceil(unit.health),
+        max_health: unit.maxHealth,
+        hunger: Math.ceil(unit.hunger),
+        starves_in_seconds: Math.floor(unit.hunger / HUNGER_RATE),
+        home_walk_seconds: Math.ceil(distance(unit, unit.home) / 2.1),
+        action: unit.action,
+        carrying_food: unit.carrying,
+        attacked_by: liveOrcs.filter((orc) => orc.targetId === unit.id).length,
+      },
+      village: {
+        food: this.food,
+        alive: this.livingUnits().length,
+        wave: this.wave,
+        hall_health_percent: Math.round(
+          (this.hall().health / this.hall().maxHealth) * 100,
+        ),
+        threatened_villagers: endangered.length,
+        threatened_buildings: buildingThreats.length,
+      },
+      nearest_orcs: nearest.slice(0, 2).map((orc) => ({
+        ...describe(orc),
+        health: Math.ceil(orc.health),
+        level: orc.level,
+        attacking: orc.targetId ?? 'none',
+        reaches_me_seconds: Math.max(
+          0,
+          Math.ceil((distance(unit, orc) - 1.25) / orc.speed),
+        ),
+      })),
+    };
+    if (unit.role === 'collector') {
+      context.food_routes = this.resources
+        .filter((resource) => resource.food > 0)
+        .toSorted((a, b) => distance(unit, a) - distance(unit, b))
+        .slice(0, 3)
+        .map((resource) => ({
+          ...describe(resource),
+          food: resource.food,
+          risk: this.routeRisk(unit, resource),
+          safe_round_trip_seconds: Math.ceil(
+            (distance(unit, resource) + distance(resource, this.base)) / 1.8 +
+              6.3,
+          ),
+        }));
+    } else if (unit.role === 'fighter') {
+      context.self.strength = round(unit.strength);
+      context.allies_under_attack = endangered
+        .filter((ally) => ally.id !== unit.id)
+        .slice(0, 3)
+        .map((ally) => ({
+          ...describe(ally),
+          health: Math.ceil(ally.health),
+          role: ally.role,
+        }));
+      context.buildings_under_attack = buildingThreats
+        .slice(0, 2)
+        .map(describe);
+    } else {
+      context.repairs = this.buildings
+        .filter(
+          (building) =>
+            building.health > 0 &&
+            building.progress >= 1 &&
+            building.health < building.maxHealth - 1,
+        )
+        .toSorted((a, b) => a.health / a.maxHealth - b.health / b.maxHealth)
+        .slice(0, 3)
+        .map((building) => ({
+          ...describe(building),
+          health_percent: Math.round(
+            (100 * building.health) / building.maxHealth,
+          ),
+          under_attack: liveOrcs.some((orc) => orc.targetId === building.id),
+        }));
+      context.defense_sites_left = this.buildings.filter(
+        (building) =>
+          building.type === 'tower' &&
+          building.progress < 1 &&
+          !building.destroyed,
+      ).length;
+      context.towers_active = this.buildings.filter(
+        (building) =>
+          building.type === 'tower' &&
+          building.progress >= 1 &&
+          building.health > 0,
+      ).length;
+    }
+    return context;
+  }
+
+  state() {
+    return Object.fromEntries(
+      this.livingUnits().map((unit) => [unit.id, this.contextFor(unit.id)]),
+    );
+  }
+
+  summary() {
     return {
-      x: this.w / 2 + (x - y) * 28 * this.scale,
-      y: this.h * 0.23 + (x + y) * 14 * this.scale - z * this.scale,
+      time: round(this.time),
+      alive: this.livingUnits().length,
+      total: this.units.length,
+      food: this.food,
+      wave: this.wave,
+      kills: this.kills,
+      gathered: this.totalGathered,
+      ticks: this.ticks,
+      decisions: this.decisions,
+      orcs: this.livingOrcs().length,
+      hall_health: Math.ceil(this.hall().health),
+      game_over: this.gameOver,
+      end_reason: this.endReason,
     };
   }
-  diamond(x, y, size, fill, stroke, z = 0) {
-    const c = this.ctx,
-      p = this.iso(x, y, z),
-      w = size * 28 * this.scale,
-      h = size * 14 * this.scale;
-    c.beginPath();
-    c.moveTo(p.x, p.y - h);
-    c.lineTo(p.x + w, p.y);
-    c.lineTo(p.x, p.y + h);
-    c.lineTo(p.x - w, p.y);
-    c.closePath();
-    c.fillStyle = fill;
-    c.fill();
-    if (stroke) {
-      c.strokeStyle = stroke;
-      c.lineWidth = 1;
-      c.stroke();
-    }
-  }
-  box(x, y, size, height, color) {
-    const c = this.ctx,
-      p = this.iso(x, y),
-      w = size * 28 * this.scale,
-      h = size * 14 * this.scale,
-      z = height * this.scale;
-    c.fillStyle = '#162122';
-    c.beginPath();
-    c.moveTo(p.x - w, p.y);
-    c.lineTo(p.x, p.y + h);
-    c.lineTo(p.x, p.y + h - z);
-    c.lineTo(p.x - w, p.y - z);
-    c.closePath();
-    c.fill();
-    c.fillStyle = '#263333';
-    c.beginPath();
-    c.moveTo(p.x, p.y + h);
-    c.lineTo(p.x + w, p.y);
-    c.lineTo(p.x + w, p.y - z);
-    c.lineTo(p.x, p.y + h - z);
-    c.closePath();
-    c.fill();
-    this.diamond(x, y, size, color, '#47554e', height);
-  }
-  text(text, p, color = '#a7b0a6', size = 10) {
-    const c = this.ctx;
-    c.font = `${size}px "Courier New",monospace`;
-    c.fillStyle = color;
-    c.textAlign = 'center';
-    c.fillText(text, p.x, p.y);
-  }
-  draw(now) {
-    const c = this.ctx,
-      g = this.game;
-    c.clearRect(0, 0, this.w, this.h);
-    const glow = c.createRadialGradient(
-      this.w * 0.5,
-      this.h * 0.5,
-      0,
-      this.w * 0.5,
-      this.h * 0.5,
-      this.w * 0.65,
+
+  // Explicit reference controller for preview and balance tests; never an AI fallback.
+  scripted() {
+    return Object.fromEntries(
+      this.livingUnits().map((unit) => {
+        const c = this.contextFor(unit.id);
+        let action;
+        if (
+          unit.hunger < 36 + c.self.home_walk_seconds * HUNGER_RATE ||
+          unit.health < unit.maxHealth * 0.38
+        )
+          action = 'relax';
+        else if (unit.role === 'collector')
+          action = this.food >= 20 ? 'relax' : 'forage_safe';
+        else if (unit.role === 'fighter')
+          action =
+            c.village.threatened_villagers ||
+            c.village.threatened_buildings ||
+            c.nearest_orcs.some((orc) => orc.distance < 12)
+              ? 'defend'
+              : 'train';
+        else
+          action = this.repairTarget(unit)
+            ? 'repair'
+            : this.buildTarget(unit)
+              ? 'build'
+              : 'relax';
+        return [unit.id, action];
+      }),
     );
-    glow.addColorStop(0, '#23302b');
-    glow.addColorStop(1, '#111918');
-    c.fillStyle = glow;
-    c.fillRect(0, 0, this.w, this.h);
-    for (let sum = 0; sum < 25; sum++)
-      for (let x = 0; x < 13; x++) {
-        const y = sum - x;
-        if (y < 0 || y >= 13) continue;
-        const border = x === 0 || y === 0 || x === 12 || y === 12;
-        this.diamond(
-          x,
-          y,
-          1,
-          border
-            ? '#182321'
-            : (x * 7 + y * 11) % 5 === 0
-              ? '#293730'
-              : '#24312c',
-          '#304038',
-        );
-      }
-    for (const [x, y, z] of [
-      [0, 1, 18],
-      [1, 0, 14],
-      [11, 1, 28],
-      [12, 2, 18],
-      [1, 10, 17],
-      [11, 11, 14],
-      [3, 0, 12],
-      [12, 9, 24],
-    ])
-      this.box(x, y, 0.65, z, '#384639');
-    this.diamond(g.base.x, g.base.y, 1.8, '#254039', '#6c9883');
-    this.box(g.base.x, g.base.y, 0.65, 12, '#50665a');
-    this.text('BASE', this.iso(g.base.x, g.base.y, 29), '#abc3a8', 11);
-    g.sources.forEach((s, i) => {
-      this.diamond(s.x, s.y, 1.15, '#2f3931', COLORS[i]);
-      this.box(s.x, s.y, 0.5, 25, '#4a5140');
-      const p = this.iso(s.x, s.y, 34 + Math.sin(now * 0.002 + i) * 3);
-      c.fillStyle = COLORS[i];
-      c.shadowColor = COLORS[i];
-      c.shadowBlur = 16 * this.scale;
-      c.fillRect(
-        p.x - 3 * this.scale,
-        p.y - 8 * this.scale,
-        6 * this.scale,
-        10 * this.scale,
-      );
-      c.shadowBlur = 0;
-      this.text(
-        String(s.stock).padStart(2, '0') + ' CORES',
-        this.iso(s.x, s.y, 52),
-        COLORS[i],
-        10,
-      );
-    });
-    for (const h of g.hazards()) {
-      const p = this.iso(h.x, h.y);
-      c.save();
-      c.translate(p.x, p.y);
-      c.scale(1, 0.5);
-      c.fillStyle = '#bd695526';
-      c.strokeStyle = '#c8755c88';
-      c.lineWidth = 1.5;
-      c.beginPath();
-      c.arc(0, 0, 43 * this.scale, 0, Math.PI * 2);
-      c.fill();
-      c.stroke();
-      c.restore();
-      this.box(h.x, h.y, 0.26, 12, '#b26851');
-      const q = this.iso(h.x, h.y, 25);
-      this.text('!', q, '#f0a17e', 15);
-    }
-    for (const u of g.units.toSorted((a, b) => a.x + a.y - (b.x + b.y))) {
-      if (u.trail.length) {
-        c.beginPath();
-        u.trail.forEach((t, i) => {
-          const p = this.iso(t.x, t.y);
-          i ? c.lineTo(p.x, p.y) : c.moveTo(p.x, p.y);
-        });
-        c.strokeStyle = u.color + '40';
-        c.lineWidth = 3 * this.scale;
-        c.stroke();
-      }
-      const p = this.iso(u.x, u.y);
-      c.fillStyle = '#0006';
-      c.beginPath();
-      c.ellipse(p.x, p.y, 9 * this.scale, 4 * this.scale, 0, 0, Math.PI * 2);
-      c.fill();
-      this.box(u.x, u.y, 0.22, 11, u.color);
-      const head = this.iso(u.x, u.y, 17);
-      c.fillStyle = '#dddcc8';
-      c.fillRect(
-        head.x - 3 * this.scale,
-        head.y - 4 * this.scale,
-        6 * this.scale,
-        6 * this.scale,
-      );
-      c.strokeStyle = u.color;
-      c.lineWidth = 1;
-      c.beginPath();
-      c.ellipse(
-        p.x,
-        p.y + 2 * this.scale,
-        12 * this.scale,
-        6 * this.scale,
-        0,
-        0,
-        Math.PI * 2,
-      );
-      c.stroke();
-      this.text(u.id.toUpperCase(), this.iso(u.x, u.y, 33), u.color, 10);
-      if (u.carrying) {
-        c.fillStyle = '#f5cf74';
-        c.fillRect(
-          p.x + 6 * this.scale,
-          p.y - 21 * this.scale,
-          5 * this.scale,
-          5 * this.scale,
-        );
-      }
-    }
-    for (let i = 0; i < 16; i++) {
-      const t = now * 0.00004 + i * 1.7;
-      const x = (Math.sin(i * 9.3) * 0.5 + 0.5) * this.w,
-        y = (t * 18) % this.h;
-      c.fillStyle = '#c5d1ae18';
-      c.fillRect(x, y, 1.5, 1.5);
-    }
   }
 }

@@ -1,72 +1,103 @@
-# Signal Run — the JEVfire browser lab
+# Last Hearth — six villagers, one local model
 
-**[Play the demo →](https://kikoncuo.github.io/jevfire/)**
+**[Play Last Hearth →](https://kikoncuo.github.io/jevfire/)**
 
-Three squad members recover supply cores from an isometric arena. A local
-**Qwen 3.5 0.8B** model chooses `recover`, `return`, `evade`, or `hold` for each
-unit. Give it a mission, add hazards, or try asking for an invented JSON field.
-The model proposes actions; deterministic navigation and game rules execute them.
+Keep a village alive against hunger and increasingly strong orcs. Two collectors
+bring home food, two fighters train and protect them, and two builders repair
+the settlement and construct defenses. Edit the objective and role policies;
+Qwen chooses each person's actions. [3D art credits and licenses](ASSETS.md).
 
-Everything runs in the browser: WebLLM inference on WebGPU, a Web Worker for
-scoring, JavaScript game simulation, and Canvas 2D rendering. There is no model
-API, Python server, API key, or CUDA box behind this demo.
+## Play
 
-## Try it
+1. Click **Load Qwen 3.5** in a recent desktop browser with WebGPU and
+   `shader-f16`. The 4-bit model is about **450 MB**, plus runtime files.
+   Allow roughly 2 GB of free GPU/unified memory; requirements vary by device.
+2. Start the village. Click a person or roster card to inspect health, hunger,
+   action scores, and the exact observations supplied to the controller.
+3. Edit the village order and role policies. Balance food reserves against
+   early defenses, or risk faster foraging. Policies persist in this browser;
+   **Restore** returns a role to the supplied policy.
+4. Try again with the same seed. The separately labeled **scripted baseline**
+   runs without a model download. It does not follow prompt edits and is never
+   substituted for failed model inference.
 
-1. Open the demo in a recent desktop browser with WebGPU, hardware acceleration,
-   and `shader-f16` support. Leave at least roughly 2 GB of GPU/unified memory
-   available; actual memory use varies by browser and device.
-2. Click **Download & load Qwen**. The 4-bit model files are about **450 MB**,
-   plus the application and compiled runtime. Download starts only on this click.
-   WebLLM stores completed files in IndexedDB; browsers can evict that cache.
-3. Click **Deploy squad**. Change the order, pause, reset, or drop a hazard.
-   The cards show the model's choice, relative candidate scores, and any rule
-   that overrides the proposed action.
+Drag to orbit, scroll to zoom, and use the crosshair to restore the camera.
+The game pauses when its tab is hidden. Simulation speed does not increase model
+throughput. Seeds fix random spawning/roaming, but model arrival times and update
+cadence also affect play; identical seeds do not guarantee identical AI runs.
 
-The separately labeled **scripted preview** works without a model download. It
-uses hand-written rules and is never substituted silently for failed inference.
+## Roles and rules
 
-Weights/tokenizers download from Hugging Face and its CDNs; the compiled model
-library downloads from GitHub. The page also loads Google Fonts. Mission text
-and game state stay on the device. This is not an installable offline PWA;
-reopening the site can still require network access to load its assets.
+| Role | Choices | Tradeoff |
+|:--|:--|:--|
+| Collectors | `forage_safe`, `forage_bold`, `relax` | Safer routing versus faster, riskier food runs |
+| Fighters | `train`, `defend`, `relax` | Future strength versus intercepting current attacks |
+| Builders | `repair`, `build`, `relax` | Preserve buildings or invest in firing towers |
 
-## How the decision contract works
+Foraging includes selecting a patch, walking, harvesting, and returning a full
+basket. Defending selects a threatening orc and taunts it away from villagers.
+Building and repair select legal sites. The model chooses high-level behavior;
+navigation and combat are game code, not a hidden second model.
 
-```text
-symbolic world + your mission
-          ↓
-three field prompts → WebLLM → logits for A, B, C, D
-          ↓
-JavaScript selects an allowed value for each fixed field
-          ↓
-{ ember: "recover", moss: "hold", echo: "return" }
-          ↓
-validate → game rules → navigation + animation
-```
+Hunger declines continuously. **Zero hunger means death.** Relaxing walks home;
+hungry villagers there consume actual shared food and recover health. An empty
+pantry cannot feed them. Training permanently raises fighter damage. Orcs roam,
+acquire nearby villagers/buildings, and attack. New waves become stronger.
+Finished towers shoot orcs. The run ends when everyone dies or the hall falls.
+An allowed but unwise decision can lose the game.
 
-The tokenizer verifies that all four labels are distinct single tokens. A
-WebLLM `LogitProcessor` captures their raw scores before sampling transforms.
-Each completion requests one output position. Its generated text is ignored;
-`contract.js` creates the keys and maps each winning label to an allowed action.
-Missing or nonfinite scores fail the request. Relative softmax scores are
-**not calibrated confidence**.
+## What the model knows
 
-The model cannot add `teleport: true` or select `fly`, because neither key nor
-value can enter the assembled object. It can still pick a wrong allowed action
-or respond to an injected instruction by changing its choices. The UI includes
-a challenge demonstrating this distinction. [Full guarantee →](../docs/guarantees.md)
+Each villager gets compact, role-specific observations rather than a dump of
+every world coordinate:
 
-WebLLM's public completion API accepts one prompt at a time. The three fields
-are scored **sequentially on one engine**, using the same snapshot of the world.
-This demo does not port the CUDA sidecar's parallel scheduling or explicit
-shared-prefix cache optimization. It makes no browser speedup claim. The displayed
-cycle latency includes all three calls; animation proceeds independently. Paused,
-reset, or superseded missions discard stale inference results.
+- Health, hunger, estimated time until starvation, walk time home, current
+  action, carried food, and number of attackers.
+- Shared food, living population, wave, hall health, and threatened people or
+  buildings.
+- The nearest two orcs: distance, bearing, health, level, current attack target,
+  and estimated direct approach time.
+- Collectors see food patches, stock, route danger, and trip estimates. Fighters
+  see allies/buildings under attack. Builders see damage and unfinished defenses.
 
-## Run locally
+These are observations computed from simulation state, not model-generated facts.
+There is no screenshot interpretation in this browser build. A route's estimated
+risk can become stale as orcs move. [Context design](../docs/game-context.md).
 
-Requires Node.js 22.12+ (or a newer version supported by Vite).
+## Read the counters correctly
+
+**One AI tick = one accepted model decision for one living villager.** One
+WebLLM engine scores actors in a fair round-robin, taking fresh observations
+before each request. It scores three labels at one output position; JavaScript
+builds a result such as `{"mira":"forage_safe"}`. Generated text is ignored.
+Missing or nonfinite scores fail explicitly.
+
+| Display | Measurement |
+|:--|:--|
+| AI ticks/sec | Applied NPC decisions per wall-clock second over a rolling 10-second window; shorter during warmup |
+| Squad rounds/sec | Completed rounds where every currently living villager received a fresh decision |
+| Last inference | One actor's scoring time, including prefill |
+| Model decisions | Total applied AI decisions in this run |
+| Render FPS | Drawing frames per second; not model inference |
+
+Scripted mode shows no AI rate. Paused rates are zero. Pauses, resets, changed
+orders, and dead actors discard pending results. This browser does not implement
+vLLM's parallel scheduling or explicit prefix-cache optimization. The repo's
+**10.3× CUDA result is a separate benchmark**, not a claim for this game.
+
+The model cannot invent a field or choose outside the role enum. It can still
+choose badly, misunderstand observations, or follow an injected instruction
+that changes its preference. Scores are not calibrated confidence.
+[Exact structural guarantee](../docs/guarantees.md).
+
+The supplied policies remain experimental: the final handcrafted scene checks
+matched 7/12 development cases and 4/12 additional cases. Missed meals,
+training, and construction still occur. [Full results and limitations](qa/README.md).
+Prompt tuning here did not establish an optimal survival policy.
+
+## Develop and verify
+
+Requires Node.js 22.12+ or a newer version supported by Vite:
 
 ```bash
 cd web
@@ -74,8 +105,9 @@ npm ci
 npm run dev
 ```
 
-Open the printed localhost URL. WebGPU requires a secure context: HTTPS or
-localhost, not an arbitrary HTTP address on your LAN.
+WebGPU requires HTTPS or localhost. Explicitly load the model in the opened page.
+Inference runs in a Web Worker through WebLLM; Three.js renders through WebGL.
+There is no inference API key or remote model server.
 
 ```bash
 npm test
@@ -84,50 +116,30 @@ npm run build
 npm run preview
 ```
 
-CPU tests cover finite outputs, invalid scores, invented fields, game rules,
-stale results, and core collection. Real GPU checks require a supported browser
-and a model download; they are not run by the CPU-only CI job.
+CPU tests cover hunger, meals, death, training, construction, repair, aggro,
+taunts, tower combat, observations, seeded balance, role contracts, stale results,
+fair scheduling, and measured tick rates. GPU checks require a supported browser
+and downloaded model. [QA scripts, fixtures, and results](qa).
 
-The [recorded browser smoke test](qa/smoke-result.json) passed on Chromium 152
-with an Apple Metal 3 WebGPU adapter on September 16, 2026. The production build
-recovered a core with browser networking disabled after loading, followed a Hold
-order, retained the fixed schema under the injection challenge, discarded a
-result after reset, and fit a 390 px viewport without horizontal overflow.
-The three recorded cycles took 971.5, 591.4, and 977.6 ms. These are individual
-smoke-test observations, not a benchmark distribution or a comparison with JSON.
+## Pinned runtime
 
-To repeat with the Playwright CLI, open the app in its isolated browser session,
-click the download button, and wait until Qwen is ready. From `web/`, run:
-
-```bash
-playwright-cli -s=cowork open http://127.0.0.1:5173 --persistent --headed
-# Load the real model in the opened browser before this next command.
-playwright-cli -s=cowork run-code --filename=qa/browser-smoke.js
-```
-
-The script temporarily disables networking, restores it in `finally`, and
-returns real scores and timings. It does not mock inference. Outputs are also
-available through `window.jevfireSmokeReport` in that browser page.
-
-## Pinned model and runtime
-
-| Component | Version / source |
+| Component | Pin |
 |:--|:--|
-| Runtime | `@mlc-ai/web-llm` **0.2.85** |
-| Tokenizer runtime | `@mlc-ai/web-tokenizers` **0.1.6** |
-| Weights | [mlc-ai/Qwen3.5-0.8B-q4f16_1-MLC](https://huggingface.co/mlc-ai/Qwen3.5-0.8B-q4f16_1-MLC/tree/0ec138972555613c1d7812a821778ad0398c8790) |
+| WebLLM | `@mlc-ai/web-llm` 0.2.85 |
+| Tokenizer runtime | `@mlc-ai/web-tokenizers` 0.1.6 |
+| Weights | [Qwen3.5-0.8B-q4f16_1-MLC](https://huggingface.co/mlc-ai/Qwen3.5-0.8B-q4f16_1-MLC/tree/0ec138972555613c1d7812a821778ad0398c8790) |
 | Weight revision | `0ec138972555613c1d7812a821778ad0398c8790` |
-| Compiled library | MLC `v0_2_84/base/Qwen3.5-0.8B-q4f16_1_cs1k-webgpu.wasm` |
+| Library | MLC `v0_2_84/base/Qwen3.5-0.8B-q4f16_1_cs1k-webgpu.wasm` |
 | Library revision | `025bcaf3780fa8254f5e5efd3bfea0a5397248f4` |
-| Context | 2,048 tokens; inputs capped below 1,800 tokens |
-| Template | Qwen ChatML, empty thinking block; symbolic text inputs only |
+| Context | 2,048 tokens; input capped at 1,800 |
+| Labels | Three verified distinct single tokens, A/B/C |
 
-Upstream: [Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B),
-[WebLLM](https://github.com/mlc-ai/web-llm), and its
-[API reference](https://webllm.mlc.ai/docs/user/api_reference.html).
-Weights are downloaded separately and retain their upstream license. The
-application's MIT license does not relicense models or dependencies.
+Models/tokenizers download from Hugging Face/CDNs, the compiled library from
+GitHub, and fonts from Google Fonts. Mission text and game state stay on-device.
+WebLLM caches completed files in IndexedDB; browsers may evict them. This is not
+an offline-installable PWA, though inference works without a network after the
+page, assets, and model load. Upstream models and dependencies retain their
+licenses. The application's MIT license does not relicense them.
 
-This small model is an experimental controller. Legal actions are guaranteed;
-successful strategy, perfect instruction following, and independent choices
-that always agree with one another are not. Test your own tasks before reuse.
+The earlier Signal Run demo remains in commit
+`c75ea086fc5aeee2eb8971b24631b827bd510045`.

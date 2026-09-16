@@ -1,0 +1,331 @@
+{
+  "note": "Exploratory Qwen3.5-2B-q4f16_1-MLC, revision dd74e9c8a20c4546df85c844103bff87b6dcacad, WebLLM0.2.85, not deployed defaults.",
+  "variant": "instruction-probe",
+  "results": [
+    {
+      "unitId": "tomas",
+      "word": "build",
+      "result": {
+        "type": "decision",
+        "diagnostic": {
+          "ranks": [3, 1, 2],
+          "top": [
+            {
+              "id": 5653,
+              "score": 23.018539428710938,
+              "token": "build"
+            },
+            {
+              "id": 3795,
+              "score": 22.95301055908203,
+              "token": "rest"
+            },
+            {
+              "id": 5565,
+              "score": 20.836681365966797,
+              "token": "fix"
+            },
+            {
+              "id": 12060,
+              "score": 17.49315643310547,
+              "token": "Rest"
+            },
+            {
+              "id": 10743,
+              "score": 17.473834991455078,
+              "token": "Build"
+            },
+            {
+              "id": 11531,
+              "score": 17.47043228149414,
+              "token": "star"
+            },
+            {
+              "id": 29797,
+              "score": 17.114837646484375,
+              "token": "restore"
+            },
+            {
+              "id": 248068,
+              "score": 15.96874713897705,
+              "token": "<think>"
+            },
+            {
+              "id": 25128,
+              "score": 15.704471588134766,
+              "token": "Fix"
+            },
+            {
+              "id": 265,
+              "score": 15.697532653808594,
+              "token": "re"
+            },
+            {
+              "id": 65,
+              "score": 15.532674789428711,
+              "token": "b"
+            },
+            {
+              "id": 73825,
+              "score": 15.305313110351562,
+              "token": "repair"
+            }
+          ],
+          "sampled_text": "build"
+        },
+        "parsed_json": {
+          "tomas": "build"
+        },
+        "fields": {
+          "tomas": {
+            "value": "build",
+            "probabilities": [
+              0.055055862178408486, 0.4879468121893214, 0.45699732563227013
+            ],
+            "logits": [
+              20.836681365966797, 23.018539428710938, 22.95301055908203
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "id": 49,
+        "epoch": 1,
+        "unitId": "tomas",
+        "testOnly": true,
+        "elapsed_ms": 386.39999997615814,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "prompt_tokens": 344,
+        "scheduling": "round-robin",
+        "usage": {
+          "completion_tokens": 0,
+          "prompt_tokens": 344,
+          "total_tokens": 344,
+          "extra": {
+            "e2e_latency_s": 0.386,
+            "prefill_tokens_per_s": 890.9608909058737,
+            "decode_tokens_per_s": null,
+            "time_to_first_token_s": 0.38610000002384187,
+            "time_per_output_token_s": null
+          }
+        }
+      }
+    },
+    {
+      "unitId": "aldric",
+      "word": "train",
+      "result": {
+        "type": "decision",
+        "diagnostic": {
+          "ranks": [2, 6, 1],
+          "top": [
+            {
+              "id": 3795,
+              "score": 23.279033660888672,
+              "token": "rest"
+            },
+            {
+              "id": 10087,
+              "score": 21.806232452392578,
+              "token": "train"
+            },
+            {
+              "id": 12060,
+              "score": 18.527767181396484,
+              "token": "Rest"
+            },
+            {
+              "id": 33468,
+              "score": 16.942218780517578,
+              "token": "Train"
+            },
+            {
+              "id": 11531,
+              "score": 16.7177734375,
+              "token": "star"
+            },
+            {
+              "id": 20494,
+              "score": 16.507966995239258,
+              "token": "fight"
+            },
+            {
+              "id": 31009,
+              "score": 16.472381591796875,
+              "token": "eat"
+            },
+            {
+              "id": 29653,
+              "score": 16.410982131958008,
+              "token": "training"
+            },
+            {
+              "id": 371,
+              "score": 16.007434844970703,
+              "token": "tr"
+            },
+            {
+              "id": 13515,
+              "score": 15.885425567626953,
+              "token": "food"
+            },
+            {
+              "id": 248068,
+              "score": 15.882956504821777,
+              "token": "<think>"
+            },
+            {
+              "id": 34538,
+              "score": 15.65490436553955,
+              "token": "trained"
+            }
+          ],
+          "sampled_text": "rest"
+        },
+        "parsed_json": {
+          "aldric": "relax"
+        },
+        "fields": {
+          "aldric": {
+            "value": "relax",
+            "probabilities": [
+              0.18634342709442941, 0.0009317655016000135, 0.8127248074039706
+            ],
+            "logits": [
+              21.806232452392578, 16.507966995239258, 23.279033660888672
+            ]
+          }
+        },
+        "scores_are_calibrated": false,
+        "id": 50,
+        "epoch": 1,
+        "unitId": "aldric",
+        "testOnly": true,
+        "elapsed_ms": 350.39999997615814,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "prompt_tokens": 356,
+        "scheduling": "round-robin",
+        "usage": {
+          "completion_tokens": 0,
+          "prompt_tokens": 356,
+          "total_tokens": 356,
+          "extra": {
+            "e2e_latency_s": 0.351,
+            "prefill_tokens_per_s": 1016.2717671951458,
+            "decode_tokens_per_s": null,
+            "time_to_first_token_s": 0.3502999999523163,
+            "time_per_output_token_s": null
+          }
+        }
+      }
+    },
+    {
+      "unitId": "mira",
+      "word": "bold",
+      "result": {
+        "type": "decision",
+        "diagnostic": {
+          "ranks": [2, 1, 3],
+          "top": [
+            {
+              "id": 14394,
+              "score": 22.1634521484375,
+              "token": "bold"
+            },
+            {
+              "id": 18112,
+              "score": 19.917869567871094,
+              "token": "safe"
+            },
+            {
+              "id": 3795,
+              "score": 19.804136276245117,
+              "token": "rest"
+            },
+            {
+              "id": 65,
+              "score": 16.559926986694336,
+              "token": "b"
+            },
+            {
+              "id": 332,
+              "score": 15.837589263916016,
+              "token": "**"
+            },
+            {
+              "id": 9071,
+              "score": 15.44156265258789,
+              "token": "fast"
+            },
+            {
+              "id": 41385,
+              "score": 15.237915992736816,
+              "token": "Bold"
+            },
+            {
+              "id": 22033,
+              "score": 15.094381332397461,
+              "token": "rob"
+            },
+            {
+              "id": 33,
+              "score": 14.980112075805664,
+              "token": "B"
+            },
+            {
+              "id": 248068,
+              "score": 14.937112808227539,
+              "token": "<think>"
+            },
+            {
+              "id": 11531,
+              "score": 14.834362030029297,
+              "token": "star"
+            },
+            {
+              "id": 29062,
+              "score": 14.828373908996582,
+              "token": "bol"
+            }
+          ],
+          "sampled_text": "bold"
+        },
+        "parsed_json": {
+          "mira": "forage_bold"
+        },
+        "fields": {
+          "mira": {
+            "value": "forage_bold",
+            "probabilities": [
+              0.08819576486604483, 0.8330898712764553, 0.07871436385749983
+            ],
+            "logits": [19.917869567871094, 22.1634521484375, 19.804136276245117]
+          }
+        },
+        "scores_are_calibrated": false,
+        "id": 51,
+        "epoch": 1,
+        "unitId": "mira",
+        "testOnly": true,
+        "elapsed_ms": 518.5,
+        "fields_scored": 1,
+        "backend_requests": 1,
+        "prompt_tokens": 434,
+        "scheduling": "round-robin",
+        "usage": {
+          "completion_tokens": 0,
+          "prompt_tokens": 434,
+          "total_tokens": 434,
+          "extra": {
+            "e2e_latency_s": 0.518,
+            "prefill_tokens_per_s": 837.5144731956464,
+            "decode_tokens_per_s": null,
+            "time_to_first_token_s": 0.5181999999880791,
+            "time_per_output_token_s": null
+          }
+        }
+      }
+    }
+  ]
+}

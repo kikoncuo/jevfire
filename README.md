@@ -101,25 +101,35 @@ position. Engine scheduling can still require multiple batches and forward passe
 
 ## Give your game an action layer
 
-### Play Signal Run in your browser
+### Play Last Hearth in your browser
 
-**[Launch the squad arena →](https://kikoncuo.github.io/jevfire/)**
+**[Keep the village alive →](https://kikoncuo.github.io/jevfire/)**
 
-[![Signal Run: three units driven by local Qwen through WebLLM](assets/browser-demo.png)](https://kikoncuo.github.io/jevfire/)
+[![Last Hearth: a 3D survival village driven by local Qwen through WebLLM](assets/browser-demo.png)](https://kikoncuo.github.io/jevfire/)
 
 *Actual browser gameplay with the local model loaded.*
 
-Download **Qwen 3.5 0.8B** once, give your three-person crew an order, and watch
-it recover cores. **WebLLM + WebGPU run inference entirely on your device**.
-No API key or model server. The roughly 450 MB model download is explicit;
-an optional scripted preview lets you explore before loading it.
+Six animated villagers face hunger and growing orc waves. **Collectors** bring
+home food, **fighters** train and draw attacks away from others, and **builders**
+repair buildings and raise defenses. Relax to eat from the shared pantry;
+reach zero hunger and die. Write the role policies that keep them alive.
 
-See each unit's choice and the game rules that apply it. Then ask for a
-made-up `teleport` field: application code still assembles only the declared
-keys and allowed actions. That guarantees structure, not correct decisions.
+**Qwen 3.5 0.8B runs entirely in your browser through WebLLM + WebGPU**. The
+roughly 450 MB download is explicit and cached locally. No API key or inference
+server. A separately labeled scripted baseline works without downloading a model.
 
-The browser scores three fields sequentially; it does not implement vLLM's
-cache optimization or claim the CUDA benchmark's speedup.
+Click a villager to inspect its observations: nearby orcs, who they are attacking,
+food routes, travel estimates, hunger, and damaged buildings. Edit the role
+prompt and see its next choice. **Live AI ticks/sec, full-roster rounds/sec, and
+render FPS are measured separately.** Actual artist-made 3D characters and village
+assets are bundled locally. [Art credits](web/ASSETS.md).
+
+Try asking for a `teleport` field: code still assembles only the declared keys
+and allowed actions. This guarantees structure; a legal choice can still get
+a villager killed. [How spatial context and policies work →](docs/game-context.md)
+
+The browser scores one living NPC at a time in a fair round-robin; it does not
+implement vLLM's cache optimization or claim the CUDA benchmark's speedup.
 [Implementation, requirements, and model provenance →](web/README.md)
 
 ### Connect your own game
@@ -188,6 +198,22 @@ the headline benchmark measures extraction fixtures, not racing performance.
 The endpoint selects actions; your application executes them. Related decisions
 need application rules or sequential stages. A [tool-routing example](examples/tool_router.py)
 shows how to assemble fixed nested JSON after scoring.
+
+## Images as context
+
+Use the [image context example](examples/image_context.py) to send an image to
+a vision-capable vLLM chat endpoint, then score its text observations with JEVfire:
+
+```bash
+python examples/image_context.py --image assets/browser-demo.png \
+  --vision-url http://127.0.0.1:8020 --vision-model vision \
+  --endpoint http://127.0.0.1:8010
+```
+
+This requires a running vision-enabled endpoint. The current decision API
+accepts text, so this is a two-stage integration with extra vision processing
+and observation-generation cost. The browser demo uses symbolic text; it does
+not infer from screenshots. [Image payloads, setup, limits, and verification →](docs/image-context.md)
 
 ## Quickstart
 

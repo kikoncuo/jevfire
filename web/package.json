@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@mlc-ai/web-llm": "0.2.85",
-    "@mlc-ai/web-tokenizers": "0.1.6"
+    "@mlc-ai/web-tokenizers": "0.1.6",
+    "three": "0.186.0"
   },
   "devDependencies": {
     "prettier": "3.6.2",

@@ -3,235 +3,365 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#101414" />
+    <meta name="theme-color" content="#262e27" />
     <meta
       name="description"
-      content="A tiny squad, a local Qwen model, and a schema the model cannot rewrite. JEVfire's playable WebGPU decision lab."
+      content="Keep six villagers alive with a language model running on your own GPU. A playable JEVfire experiment in local, constrained decisions."
     />
-    <title>JEVfire — Signal Run</title>
+    <title>Last Hearth — a JEVfire experiment</title>
     <link
       rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23101414'/%3E%3Cpath d='M7 25L25 7M9 7H25V23' fill='none' stroke='%23edb664' stroke-width='3'/%3E%3C/svg%3E"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='5' fill='%23262e27'/%3E%3Cpath d='M16 4L27 14V28H5V14z' fill='%23cc784a'/%3E%3Cpath d='M13 27V17h6v10' fill='%23f5e9cc'/%3E%3C/svg%3E"
     />
   </head>
   <body>
     <div id="app">
       <header class="masthead">
-        <a class="brand" href="https://github.com/kikoncuo/jevfire"
-          ><span class="brand-mark">↗</span> JEV<span>fire</span
-          ><small>FIELD LAB / 001</small></a
+        <a
+          class="brand"
+          href="https://github.com/kikoncuo/jevfire"
+          aria-label="JEVfire source repository"
+          ><svg viewBox="0 0 36 42" aria-hidden="true">
+            <path d="M2 2H34V23Q32 34 18 40Q4 34 2 23Z" />
+            <path d="M10 25L18 10L26 25ZM18 20V30" /></svg
+          ><span
+            >JEV<em>fire</em><small>PLAYABLE EXPERIMENT No. 02</small></span
+          ></a
         >
-        <div class="top-status">
-          <i></i> LOCAL INTELLIGENCE
+        <div class="game-title">
+          <h1>Last Hearth</h1>
+          <span>SIX VILLAGERS. ONE CHANCE.</span>
+        </div>
+        <nav>
           <a
+            href="https://github.com/kikoncuo/jevfire/blob/main/web/README.md"
+            target="_blank"
+            rel="noreferrer"
+            >Field guide ↗</a
+          ><a
             href="https://github.com/kikoncuo/jevfire"
             target="_blank"
             rel="noreferrer"
             >Source ↗</a
           >
-        </div>
+        </nav>
       </header>
       <main>
-        <section class="intro">
-          <div>
-            <p class="eyebrow">ONE WORLD. THREE DECISIONS.</p>
-            <h1>Small model.<br /><em>Squad goals.</em></h1>
+        <section class="village-ledger" aria-label="Village status">
+          <div class="ledger-title">
+            <span class="live-dot"></span
+            ><span id="mode-label">Awaiting your orders</span>
           </div>
-          <div class="intro-copy">
-            <p>
-              Meet your three-person recovery crew.<br />
-              Download Qwen. Give an order. Watch it choose.
-            </p>
-            <p class="quiet">
-              A playable experiment in local, finite-choice intelligence.<br />
-              Inspired by JEV. Powered by your GPU.
-            </p>
+          <div>
+            <span>SURVIVED</span><strong id="survival-time">00:00</strong>
+          </div>
+          <div>
+            <span>VILLAGERS</span
+            ><strong><b id="alive">6</b><small> / 6</small></strong>
+          </div>
+          <div><span>FOOD STORE</span><strong id="food">18</strong></div>
+          <div><span>ORC WAVE</span><strong id="wave">0</strong></div>
+        </section>
+        <section class="telemetry" aria-label="Runtime measurements">
+          <div class="telemetry-heading">
+            <span class="live-dot"></span><strong>LOCAL INFERENCE</strong
+            ><span id="controller">Not loaded</span>
+          </div>
+          <div class="telemetry-stat emphasis">
+            <b id="npc-rate">0.00</b><span>AI TICKS / SEC</span>
+          </div>
+          <div class="telemetry-stat">
+            <b id="decision-rate">0.00</b><span>SQUAD ROUNDS / SEC</span>
+          </div>
+          <div class="telemetry-stat">
+            <b id="latency">—</b><span>LAST INFERENCE</span>
+          </div>
+          <div class="telemetry-stat">
+            <b id="model-ticks">0</b><span>MODEL DECISIONS</span>
+          </div>
+          <div class="telemetry-stat">
+            <b id="render-fps">—</b><span>RENDER FPS</span>
           </div>
         </section>
-        <div class="workspace">
-          <section class="arena-panel" aria-label="Squad arena">
-            <div class="panel-toolbar">
-              <div>
-                <span class="live-dot"></span><strong>SIGNAL RUN</strong
-                ><span class="mode-label" id="mode-label"
-                  >Awaiting deployment</span
-                >
+        <div class="game-workspace">
+          <aside class="command-panel">
+            <section class="panel-section engine-section">
+              <div class="section-caption">
+                <span>01 / THE MIND</span
+                ><span class="local-mark">ON YOUR DEVICE</span>
               </div>
-              <span class="sector">SECTOR 07 · RECOVERY OPERATION</span>
-            </div>
+              <h2>Give the village a brain.</h2>
+              <p class="intro-note">
+                Qwen chooses. The villagers act.<br />You write the orders they
+                live by.
+              </p>
+              <button id="load" class="load-button">
+                ↓ Load Qwen 3.5 <span>0.8B · ~450 MB · cached locally</span>
+              </button>
+              <div id="download" class="download" hidden>
+                <progress
+                  id="progress"
+                  max="100"
+                  value="0"
+                  aria-label="Model download"
+                ></progress>
+                <p id="load-status" role="status">Preparing download…</p>
+                <button id="cancel-load" class="text-button">
+                  Cancel loading
+                </button>
+              </div>
+              <p id="compatibility" class="fine-print">Checking WebGPU…</p>
+              <button id="preview" class="preview-button">
+                Play the scripted baseline <span>NO MODEL DOWNLOAD</span>
+              </button>
+              <p id="error" class="error" role="alert" hidden></p>
+            </section>
+            <section class="panel-section doctrine-section">
+              <div class="section-caption"><span>02 / YOUR ORDERS</span></div>
+              <label for="mission">Village objective</label>
+              <textarea id="mission" maxlength="500" rows="3">
+Keep everyone alive. Keep food in reserve, protect threatened villagers, and maintain the village defenses.</textarea
+              >
+              <div class="presets">
+                <button
+                  data-order="Keep everyone alive. Gather food safely, defend endangered villagers, and repair damaged buildings."
+                  class="selected"
+                >
+                  Survive</button
+                ><button
+                  data-order="Expand aggressively. Gather food boldly, train strong fighters, and build defenses early."
+                >
+                  Risk it</button
+                ><button
+                  data-order="Prioritize eating and resting. Everyone should relax when hungry or hurt."
+                >
+                  Recover
+                </button>
+              </div>
+              <div class="role-label">
+                <label for="prompt-role">Role doctrine</label
+                ><select id="prompt-role" aria-label="Role to edit">
+                  <option value="collector">Collectors</option>
+                  <option value="fighter">Fighters</option>
+                  <option value="builder">Builders</option>
+                </select>
+              </div>
+              <textarea
+                id="role-prompt"
+                maxlength="1500"
+                rows="7"
+                spellcheck="false"
+                aria-label="Editable role instructions"
+              ></textarea>
+              <div class="prompt-footer">
+                <span>Edits apply to future decisions.</span
+                ><button id="prompt-reset" class="text-button">Restore</button>
+              </div>
+            </section>
+            <section class="panel-section challenge-note">
+              <span class="section-caption">THE CHALLENGE</span>
+              <p>
+                Food runs out. Orcs get stronger. Relax to eat; reach zero
+                hunger and you die. How long can your orders keep them alive?
+              </p>
+            </section>
+          </aside>
+          <section class="world-panel" aria-label="Last Hearth village">
             <div class="arena-wrap">
               <canvas
                 id="arena"
-                aria-label="Isometric recovery arena with three squad members, supply beacons and moving hazards"
+                aria-label="Interactive 3D village. Six human villagers collect food, train, fight orcs and build defenses. Select a villager to inspect their view of the world."
               ></canvas>
-              <div class="world-label">
-                <span>LIVE WORLD</span><strong>Recover. Return. Repeat.</strong>
+              <div class="map-heading">
+                <span>THE BORDERLANDS</span
+                ><strong>Last Hearth <i>✦</i></strong>
               </div>
-              <div class="arena-stats">
-                <div><b id="cores">00</b><span>CORES HOME</span></div>
-                <div><b id="ticks">00</b><span>DECISION TICKS</span></div>
+              <div class="map-coordinate">N<span>↑</span></div>
+              <button
+                id="reset-camera"
+                class="map-button"
+                title="Reset camera"
+                aria-label="Reset camera"
+              >
+                ⌖
+              </button>
+              <div class="map-help">
+                <span>DRAG TO ORBIT · SCROLL TO ZOOM</span
+                ><span>SELECT A VILLAGER TO INSPECT</span>
               </div>
-              <div class="arena-caption">
-                <span><i class="legend-node"></i> SUPPLY BEACON</span
-                ><span><i class="legend-danger"></i> HAZARD ZONE</span
-                ><span><i class="legend-home"></i> BASE</span>
+              <div class="map-legend">
+                <span><i class="collector-dot"></i> COLLECTOR</span
+                ><span><i class="fighter-dot"></i> FIGHTER</span
+                ><span><i class="builder-dot"></i> BUILDER</span
+                ><span><i class="orc-dot"></i> ORC</span>
+              </div>
+              <div id="game-over" class="game-over" hidden>
+                <span>THE HEARTH HAS FALLEN</span>
+                <h2>A village worth<br />fighting for.</h2>
+                <p id="game-over-text"></p>
+                <p>Revise your orders and begin again.</p>
               </div>
             </div>
             <div class="arena-controls">
-              <button id="run" disabled>▶ Deploy squad</button
-              ><button id="hazard" class="secondary">＋ Drop a hazard</button
-              ><button
-                id="reset"
-                class="secondary icon-button"
-                aria-label="Reset arena"
-              >
-                ↺</button
-              ><span id="mission-status" role="status"
-                >Your crew is ready. Choose a controller.</span
+              <button id="run" disabled>▶ Begin survival</button
+              ><button id="reset" class="secondary" title="Start a new run">
+                ↻ New run</button
+              ><label class="seed-control" for="seed"
+                >SEED
+                <input
+                  id="seed"
+                  type="number"
+                  min="1"
+                  max="2147483647"
+                  value="7341" /></label
+              ><label class="speed-control" for="speed"
+                ><select id="speed" aria-label="Simulation speed">
+                  <option value="1">1×</option>
+                  <option value="2">2×</option>
+                </select></label
               >
             </div>
-          </section>
-          <aside class="control-panel">
-            <div class="panel-heading">
-              <span class="eyebrow">THE BRAIN</span
-              ><span class="chip">ON DEVICE</span>
-            </div>
-            <h2>Qwen 3.5 <span>0.8B</span></h2>
-            <p class="muted">
-              One shared situation. A separate decision for each crew member.
+            <p id="mission-status" class="mission-status" role="status">
+              Load Qwen or try the scripted baseline to begin.
             </p>
-            <button id="load" class="load-button">
-              ↓ Download & load Qwen <span>~450 MB · 4-bit</span>
-            </button>
-            <div id="download" class="download" hidden>
-              <progress
-                id="progress"
-                max="100"
-                value="0"
-                aria-label="Model download"
-              ></progress>
-              <p id="load-status" role="status">Preparing download…</p>
-              <button id="cancel-load" class="text-button">
-                Cancel loading
-              </button>
-            </div>
-            <p class="download-note" id="compatibility">Checking WebGPU…</p>
-            <button id="preview" class="text-button">
-              Explore with a scripted controller first ↗
-            </button>
-            <div class="divider"></div>
-            <label class="eyebrow" for="mission">YOUR ORDER</label
-            ><textarea id="mission" maxlength="600" rows="3">
-Recover supply cores. Return to base when carrying a core. Avoid hazards and keep the crew alive.</textarea
-            >
-            <div class="presets">
-              <button
-                data-order="Recover supply cores. Return to base when carrying a core. Avoid hazards and keep the crew alive."
-                class="selected"
-              >
-                Recover</button
-              ><button
-                data-order="Prioritize safety. Return to base if hurt or in danger; otherwise recover supply cores."
-              >
-                Play it safe</button
-              ><button
-                data-order="Hold position. Do not recover supplies or leave base."
-              >
-                Hold
-              </button>
-            </div>
-            <div class="runtime-stat">
-              <span>Last decision cycle</span
-              ><strong id="latency">— <small>ms</small></strong>
-            </div>
-            <div class="runtime-stat">
-              <span>Controller</span
-              ><strong class="small-value" id="controller">Not loaded</strong>
-            </div>
-            <p class="error" id="error" role="alert" hidden></p>
+            <section
+              id="crew"
+              class="crew-grid"
+              aria-label="Your villagers"
+            ></section>
+          </section>
+          <aside class="inspector-panel" id="inspect">
+            <section class="panel-section selected-section">
+              <div class="section-caption">
+                <span>03 / THE VILLAGER</span
+                ><span class="selection-hint">CLICK TO SELECT</span>
+              </div>
+              <div class="selected-heading">
+                <span class="selected-crest" aria-hidden="true">✦</span>
+                <div>
+                  <h2 id="selected-name">Mira</h2>
+                  <span id="selected-role">Collector</span>
+                </div>
+              </div>
+              <dl class="selected-stats">
+                <div>
+                  <dt>Health</dt>
+                  <dd id="selected-health">100</dd>
+                </div>
+                <div>
+                  <dt>Hunger</dt>
+                  <dd id="selected-hunger">100</dd>
+                </div>
+                <div>
+                  <dt>Strength</dt>
+                  <dd id="selected-strength">—</dd>
+                </div>
+                <div>
+                  <dt>Action</dt>
+                  <dd id="selected-action">Relax</dd>
+                </div>
+              </dl>
+              <p id="selected-target" class="selected-target">
+                Awaiting an order.
+              </p>
+              <div id="selected-scores" class="selected-scores"></div>
+              <details class="context-details" open>
+                <summary>What this villager knows <span>⌄</span></summary>
+                <p>
+                  Nearby threats, reachable food, allies in trouble, and the
+                  state of home. This is the exact symbolic context sent to
+                  Qwen.
+                </p>
+                <pre id="selected-context">Select a villager.</pre>
+              </details>
+            </section>
+            <section class="panel-section events-section">
+              <div class="section-caption">
+                <span>VILLAGE CHRONICLE</span><span>LIVE</span>
+              </div>
+              <ol id="event-log" class="event-log">
+                <li>The hearth is lit. Six villagers await your orders.</li>
+              </ol>
+            </section>
           </aside>
         </div>
-        <section
-          class="crew-grid"
-          aria-label="Squad members"
-          id="crew"
-        ></section>
-        <section class="proof-grid">
-          <div class="proof-copy">
-            <p class="eyebrow">A FIXED CONTRACT. A REAL CHOICE.</p>
-            <h2>It can pick badly.<br /><em>It can't invent a field.</em></h2>
-            <p>
-              The model scores four labels per unit. JavaScript picks from your
-              allowed actions and builds the object. Field names never come from
-              generated text.
-            </p>
-            <div class="guarantees">
-              <span>✓ Exact field names</span><span>✓ Allowed values only</span
-              ><span>✓ No generated JSON to parse</span>
-            </div>
-            <p class="muted">
-              An allowed action can still be wrong. Game rules can override it;
-              the cards show both decisions. Scores are relative preferences,
-              not calibrated confidence.
-            </p>
-            <button class="text-button" id="inject">
-              Try asking for a made-up “teleport” field ↗
-            </button>
-          </div>
-          <div class="output-panel">
-            <div class="panel-toolbar">
-              <strong>DECISION OUTPUT</strong
-              ><span id="contract-status" class="chip">SCHEMA LOCKED</span>
-            </div>
-            <pre id="output" aria-live="polite">
-{
-  "ember": "hold",
-  "moss": "hold",
-  "echo": "hold"
-}</pre
-            >
-            <div class="allowed">
-              <span>ALLOWED VALUES</span><code>recover</code><code>return</code
-              ><code>evade</code><code>hold</code>
-            </div>
-            <p id="output-note">
-              Initial game state. No model inference has run.
-            </p>
-          </div>
-        </section>
-        <details class="technical">
-          <summary>
-            What this experiment does — and what it doesn't <span>＋</span>
-          </summary>
-          <div>
-            <p>
-              Qwen reads symbolic game state, not screenshots. WebLLM scores
-              three independent field prompts sequentially in a Web Worker; the
-              main thread animates and applies game rules. Decisions run as fast
-              as your device completes them, separately from rendering. Paused
-              or reset missions discard in-flight results.
-            </p>
-            <p>
-              This WebGPU demo does not implement vLLM's prefix-cache
-              optimization. Its performance is measured on your device; the
-              repository's 10.3× CUDA result is a separate benchmark. No browser
-              speedup or gameplay-quality claim is made.
-            </p>
-            <p>
-              Weights and runtime files download from Hugging Face/CDNs.
-              Inference stays in the browser; game state is not sent to a model
-              server. Browser caches may be evicted. Use a desktop browser with
-              WebGPU and sufficient free memory.
-              <a href="https://github.com/kikoncuo/jevfire/tree/main/web"
-                >Implementation & model details ↗</a
+        <div class="under-the-hood">
+          <details class="technical">
+            <summary>
+              A model can make a bad decision. It cannot invent an action.<span
+                >＋</span
               >
-            </p>
-          </div>
-        </details>
+            </summary>
+            <div class="technical-columns">
+              <div>
+                <p>
+                  Each role has exactly three allowed actions. The model scores
+                  those choices; JavaScript selects a value and constructs the
+                  fixed fields. It cannot create a “teleport” field or grant
+                  unlimited food. An allowed choice can still get a villager
+                  killed.
+                </p>
+                <button class="text-button" id="inject">
+                  Test a made-up field ↗
+                </button>
+                <p class="fine-print">
+                  Candidate scores are relative preferences, not calibrated
+                  confidence. The browser evaluates one NPC at a time; this does
+                  not reproduce the CUDA service’s parallel scheduling.
+                </p>
+              </div>
+              <div class="output-panel">
+                <div class="output-heading">
+                  <span>LATEST CONTRACT</span
+                  ><span id="contract-status">SCHEMA LOCKED</span>
+                </div>
+                <pre id="output">{}</pre>
+                <p id="output-note">No model inference has run.</p>
+              </div>
+            </div>
+          </details>
+          <details class="technical">
+            <summary>How to read this experiment<span>＋</span></summary>
+            <div class="technical-columns">
+              <p>
+                The simulation advances independently of inference. AI ticks/sec
+                counts applied NPC decisions in a rolling ten-second window;
+                squad rounds/sec counts completed rounds in which every living
+                villager received a fresh decision. Render FPS only measures
+                drawing. Pausing, resetting, editing a prompt, or losing the
+                selected villager can make an in-flight decision stale, so the
+                game checks results before applying them.
+              </p>
+              <p>
+                WebLLM runs Qwen 3.5 0.8B on your browser GPU. The model and
+                runtime download from Hugging Face and public CDNs; decisions
+                then run on this device. This demo supplies symbolic world
+                state, not screenshots. Game art:
+                <a
+                  href="https://kaylousberg.itch.io/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Kay Lousberg</a
+                >
+                and
+                <a
+                  href="https://quaternius.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  >Quaternius</a
+                >, CC0.
+              </p>
+            </div>
+          </details>
+        </div>
       </main>
       <footer>
-        <span>JEVfire <b>↗</b> One context. Many decisions.</span
-        ><span>A small experiment. A concrete contract.</span>
+        <span>JEVfire — inspired by JEV.</span
+        ><span>WRITE BETTER ORDERS. KEEP THE HEARTH ALIVE.</span
+        ><a
+          href="https://github.com/kikoncuo/jevfire/blob/main/docs/guarantees.md"
+          >The structural guarantee ↗</a
+        >
       </footer>
     </div>
     <script type="module" src="/src/main.js"></script>

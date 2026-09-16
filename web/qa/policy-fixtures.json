@@ -1,0 +1,554 @@
+[
+  {
+    "name": "collector-urgent-hunger",
+    "unitId": "mira",
+    "context": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 3,
+        "starves_in_seconds": 4,
+        "home_walk_seconds": 0,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 8,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 8.8,
+          "bearing": "NW",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "east-garden",
+          "distance": 11.8,
+          "bearing": "NE",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 19
+        },
+        {
+          "id": "north-grove",
+          "distance": 15.5,
+          "bearing": "N",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 24
+        }
+      ]
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["relax"],
+    "reason": "Only relaxing consumes available food. This villager is at home and will starve in four seconds."
+  },
+  {
+    "name": "fighter-urgent-hunger",
+    "unitId": "aldric",
+    "context": {
+      "self": {
+        "id": "aldric",
+        "alive": true,
+        "role": "fighter",
+        "health": 130,
+        "max_health": 130,
+        "hunger": 3,
+        "starves_in_seconds": 4,
+        "home_walk_seconds": 0,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 8,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "allies_under_attack": [],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["relax"],
+    "reason": "Only relaxing consumes available food. This villager is at home and will starve in four seconds."
+  },
+  {
+    "name": "builder-urgent-hunger",
+    "unitId": "tomas",
+    "context": {
+      "self": {
+        "id": "tomas",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 3,
+        "starves_in_seconds": 4,
+        "home_walk_seconds": 0,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 8,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [],
+      "defense_sites_left": 4,
+      "towers_active": 0
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["relax"],
+    "reason": "Only relaxing consumes available food. This villager is at home and will starve in four seconds."
+  },
+  {
+    "name": "collector-normal-safe-foraging",
+    "unitId": "mira",
+    "context": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 95,
+        "starves_in_seconds": 135,
+        "home_walk_seconds": 2,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 8,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 7.8,
+          "bearing": "W",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 16
+        },
+        {
+          "id": "east-garden",
+          "distance": 10.9,
+          "bearing": "E",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 13.2,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 22
+        }
+      ]
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["forage_safe"],
+    "reason": "Healthy collector, ordinary food reserves, no urgent shortage. The default role policy prefers safe foraging."
+  },
+  {
+    "name": "collector-empty-pantry-clear-routes",
+    "unitId": "bram",
+    "context": {
+      "self": {
+        "id": "bram",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 90,
+        "starves_in_seconds": 128,
+        "home_walk_seconds": 2,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 0,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "east-garden",
+          "distance": 8.1,
+          "bearing": "E",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "west-garden",
+          "distance": 10.7,
+          "bearing": "W",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 14.7,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 23
+        }
+      ]
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["forage_bold"],
+    "reason": "No food, clear routes, healthy collector: the default policy calls for faster collection during a critical shortage."
+  },
+  {
+    "name": "collector-dangerous-short-route",
+    "unitId": "mira",
+    "context": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 95,
+        "starves_in_seconds": 135,
+        "home_walk_seconds": 2,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 7,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 6.3,
+          "bearing": "W",
+          "health": 84,
+          "level": 3,
+          "attacking": "none",
+          "reaches_me_seconds": 5
+        }
+      ],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 7.8,
+          "bearing": "W",
+          "food": 18,
+          "risk": "high",
+          "safe_round_trip_seconds": 16
+        },
+        {
+          "id": "east-garden",
+          "distance": 10.9,
+          "bearing": "E",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 13.2,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "medium",
+          "safe_round_trip_seconds": 22
+        }
+      ]
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["forage_safe"],
+    "reason": "An orc blocks the nearby western food route; alternative routes remain low risk. Cautious routing avoids that shortcut."
+  },
+  {
+    "name": "fighter-peacetime-training",
+    "unitId": "aldric",
+    "context": {
+      "self": {
+        "id": "aldric",
+        "alive": true,
+        "role": "fighter",
+        "health": 130,
+        "max_health": 130,
+        "hunger": 95,
+        "starves_in_seconds": 135,
+        "home_walk_seconds": 3,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "allies_under_attack": [],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["train"],
+    "reason": "No orcs or threatened villagers exist, and the fighter is healthy and fed. Training improves later-wave survival."
+  },
+  {
+    "name": "fighter-defend-attacked-collector",
+    "unitId": "sable",
+    "context": {
+      "self": {
+        "id": "sable",
+        "alive": true,
+        "role": "fighter",
+        "health": 130,
+        "max_health": 130,
+        "hunger": 90,
+        "starves_in_seconds": 128,
+        "home_walk_seconds": 5,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 1,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 2.8,
+          "bearing": "W",
+          "health": 70,
+          "level": 2,
+          "attacking": "mira",
+          "reaches_me_seconds": 2
+        }
+      ],
+      "allies_under_attack": [
+        {
+          "id": "mira",
+          "distance": 2.2,
+          "bearing": "NW",
+          "health": 30,
+          "role": "collector"
+        }
+      ],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["defend"],
+    "reason": "A healthy fighter can intercept and taunt the orc attacking a wounded collector. Training or resting abandons the ally."
+  },
+  {
+    "name": "fighter-defend-attacked-building",
+    "unitId": "aldric",
+    "context": {
+      "self": {
+        "id": "aldric",
+        "alive": true,
+        "role": "fighter",
+        "health": 130,
+        "max_health": 130,
+        "hunger": 90,
+        "starves_in_seconds": 128,
+        "home_walk_seconds": 3,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 1
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 2.5,
+          "bearing": "NW",
+          "health": 84,
+          "level": 3,
+          "attacking": "west-wall",
+          "reaches_me_seconds": 1
+        }
+      ],
+      "allies_under_attack": [],
+      "buildings_under_attack": [
+        {
+          "id": "west-wall",
+          "distance": 1.7,
+          "bearing": "NW"
+        }
+      ]
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["defend"],
+    "reason": "An orc is attacking a standing wall. The healthy fighter should protect the village, rather than continue training."
+  },
+  {
+    "name": "fighter-injured-at-home",
+    "unitId": "sable",
+    "context": {
+      "self": {
+        "id": "sable",
+        "alive": true,
+        "role": "fighter",
+        "health": 12,
+        "max_health": 130,
+        "hunger": 70,
+        "starves_in_seconds": 100,
+        "home_walk_seconds": 0,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 10,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "allies_under_attack": [],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["relax"],
+    "reason": "A badly wounded fighter has no active threats and food at home. Relaxation heals; training does not."
+  },
+  {
+    "name": "builder-critical-hall-repair",
+    "unitId": "tomas",
+    "context": {
+      "self": {
+        "id": "tomas",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 90,
+        "starves_in_seconds": 128,
+        "home_walk_seconds": 3,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 14,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [
+        {
+          "id": "hall",
+          "distance": 3.5,
+          "bearing": "E",
+          "health_percent": 14,
+          "under_attack": false
+        }
+      ],
+      "defense_sites_left": 4,
+      "towers_active": 0
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["repair"],
+    "reason": "The hall is at fourteen percent health. Repairing it takes priority over adding a new tower."
+  },
+  {
+    "name": "builder-healthy-village-build",
+    "unitId": "nell",
+    "context": {
+      "self": {
+        "id": "nell",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 90,
+        "starves_in_seconds": 128,
+        "home_walk_seconds": 2,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [],
+      "defense_sites_left": 4,
+      "towers_active": 0
+    },
+    "mission": "Keep every villager and the hall alive for as long as possible.",
+    "expected": ["build"],
+    "reason": "All standing buildings are healthy, four defense sites remain, and this builder is well fed. Build defenses now."
+  }
+]

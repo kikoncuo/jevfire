@@ -1,0 +1,119 @@
+{
+  "note": "Exploratory prompt variant, handcrafted scenes. Not deployed defaults. See QA README.",
+  "variant": "policy-prose",
+  "results": [
+    {
+      "name": "initial",
+      "passed": 7,
+      "total": 12,
+      "failures": [
+        {
+          "name": "collector-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 524.9000000357628,
+          "prompt_tokens": 521,
+          "logits": [23.638206481933594, 22.410724639892578, 23.41520118713379]
+        },
+        {
+          "name": "builder-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 304.5,
+          "prompt_tokens": 405,
+          "logits": [24.438390731811523, 23.002914428710938, 24.386695861816406]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 1043.9000000357628,
+          "prompt_tokens": 522,
+          "logits": [23.92717933654785, 22.745922088623047, 23.779850006103516]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 513.3999999761581,
+          "prompt_tokens": 424,
+          "logits": [23.639102935791016, 23.97810935974121, 24.011674880981445]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 618.6999999880791,
+          "prompt_tokens": 399,
+          "logits": [24.357990264892578, 23.007116317749023, 24.31250762939453]
+        }
+      ]
+    },
+    {
+      "name": "prioritized",
+      "passed": 6,
+      "total": 12,
+      "failures": [
+        {
+          "name": "collector-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 875.1999999880791,
+          "prompt_tokens": 560,
+          "logits": [23.7954158782959, 22.367345809936523, 23.26020050048828]
+        },
+        {
+          "name": "builder-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 488.69999998807907,
+          "prompt_tokens": 435,
+          "logits": [24.34628677368164, 22.575767517089844, 23.822582244873047]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 805,
+          "prompt_tokens": 561,
+          "logits": [23.94255828857422, 22.48373794555664, 23.532751083374023]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 472.19999998807907,
+          "prompt_tokens": 442,
+          "logits": [23.53298568725586, 22.985088348388672, 23.719406127929688]
+        },
+        {
+          "name": "fighter-defend-attacked-building",
+          "expected": ["defend"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 523.5999999642372,
+          "prompt_tokens": 482,
+          "logits": [23.535686492919922, 23.57114028930664, 23.66301918029785]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 469.7999999523163,
+          "prompt_tokens": 429,
+          "logits": [24.45500373840332, 22.689672470092773, 23.954940795898438]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "note": "Single development run, seed 7341, simulation speed 2x, real WebLLM initial JSON observations and default policy. Not a general survival benchmark.",
+  "result": {
+    "loaded": true,
+    "loading": false,
+    "busy": false,
+    "mode": "model",
+    "epoch": 5,
+    "rendererReady": true,
+    "running": false,
+    "over": true,
+    "ticks": 385,
+    "time": 190.98560000000955,
+    "food": 0,
+    "wave": 6,
+    "seed": 7341,
+    "units": [
+      {
+        "id": "mira",
+        "name": "Mira",
+        "role": "collector",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 44.36232000000277,
+        "alive": false,
+        "action": "relax",
+        "proposed": "relax",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 13.932084969822192,
+        "y": 20.990117463381083
+      },
+      {
+        "id": "bram",
+        "name": "Bram",
+        "role": "collector",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 45.52838000000273,
+        "alive": false,
+        "action": "relax",
+        "proposed": "relax",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 16.544698094380788,
+        "y": 20.910603811238428
+      },
+      {
+        "id": "aldric",
+        "name": "Aldric",
+        "role": "fighter",
+        "health": 0,
+        "maxHealth": 130,
+        "hunger": 0,
+        "alive": false,
+        "action": "defend",
+        "proposed": "defend",
+        "strength": 11,
+        "carrying": 0,
+        "targetId": null,
+        "x": 17.731074934064452,
+        "y": 13.834757328006315
+      },
+      {
+        "id": "sable",
+        "name": "Sable",
+        "role": "fighter",
+        "health": 0,
+        "maxHealth": 130,
+        "hunger": 9.480340000004151,
+        "alive": false,
+        "action": "defend",
+        "proposed": "defend",
+        "strength": 11,
+        "carrying": 0,
+        "targetId": null,
+        "x": 6.447234166922097,
+        "y": 16.402100185844336
+      },
+      {
+        "id": "tomas",
+        "name": "Tomas",
+        "role": "builder",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 0,
+        "alive": false,
+        "action": "repair",
+        "proposed": "repair",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 19.278133105330348,
+        "y": 17.777510511257596
+      },
+      {
+        "id": "nell",
+        "name": "Nell",
+        "role": "builder",
+        "health": 0,
+        "maxHealth": 85,
+        "hunger": 0,
+        "alive": false,
+        "action": "repair",
+        "proposed": "repair",
+        "strength": 2,
+        "carrying": 0,
+        "targetId": null,
+        "x": 19.508169934182824,
+        "y": 17.663998769389938
+      }
+    ],
+    "orcs": 9,
+    "buildings": [
+      {
+        "id": "hall",
+        "health": 44.000000000000234,
+        "maxHealth": 420,
+        "progress": 1
+      },
+      {
+        "id": "west-house",
+        "health": 14,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "east-house",
+        "health": 26,
+        "maxHealth": 170,
+        "progress": 1
+      },
+      {
+        "id": "west-wall",
+        "health": 0,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "east-wall",
+        "health": 0,
+        "maxHealth": 160,
+        "progress": 1
+      },
+      {
+        "id": "tower-1",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-2",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-3",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      },
+      {
+        "id": "tower-4",
+        "health": 0,
+        "maxHealth": 150,
+        "progress": 0
+      }
+    ],
+    "lastResult": {
+      "type": "decision",
+      "parsed_json": {
+        "mira": "relax"
+      },
+      "fields": {
+        "mira": {
+          "value": "relax",
+          "probabilities": [
+            0.4014350437134418, 0.15986084233047088, 0.4387041139560874
+          ],
+          "logits": [23.733463287353516, 22.812721252441406, 23.822242736816406]
+        }
+      },
+      "scores_are_calibrated": false,
+      "id": 706,
+      "epoch": 4,
+      "unitId": "mira",
+      "testOnly": false,
+      "elapsed_ms": 732.6000000238419,
+      "fields_scored": 1,
+      "backend_requests": 1,
+      "prompt_tokens": 550,
+      "scheduling": "round-robin",
+      "usage": {
+        "completion_tokens": 0,
+        "prompt_tokens": 550,
+        "total_tokens": 550,
+        "extra": {
+          "e2e_latency_s": 0.732,
+          "prefill_tokens_per_s": 750.9557619032007,
+          "decode_tokens_per_s": null,
+          "time_to_first_token_s": 0.7323999999761581,
+          "time_per_output_token_s": null
+        }
+      }
+    },
+    "roundTripMs": 733.8000000119209,
+    "metrics": {
+      "decisions_per_second": 0,
+      "rounds_per_second": 0,
+      "total_decisions": 385,
+      "completed_rounds": 95,
+      "mean_latency_ms": null,
+      "window_seconds": 10
+    },
+    "selectedContext": {
+      "self": {
+        "id": "mira",
+        "alive": false,
+        "role": "collector",
+        "health": 0,
+        "max_health": 85,
+        "hunger": 45,
+        "starves_in_seconds": 63,
+        "home_walk_seconds": 1,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 1
+      },
+      "village": {
+        "food": 0,
+        "alive": 0,
+        "wave": 6,
+        "hall_health_percent": 10,
+        "threatened_villagers": 0,
+        "threatened_buildings": 3
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-8",
+          "distance": 1.2,
+          "bearing": "N",
+          "health": 98,
+          "level": 4,
+          "attacking": "mira",
+          "reaches_me_seconds": 0
+        },
+        {
+          "id": "orc-9",
+          "distance": 2.8,
+          "bearing": "NW",
+          "health": 112,
+          "level": 5,
+          "attacking": "west-house",
+          "reaches_me_seconds": 2
+        }
+      ],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 8,
+          "bearing": "NW",
+          "food": 18,
+          "risk": "high",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "east-garden",
+          "distance": 12.1,
+          "bearing": "NE",
+          "food": 18,
+          "risk": "high",
+          "safe_round_trip_seconds": 19
+        },
+        {
+          "id": "north-grove",
+          "distance": 14.8,
+          "bearing": "N",
+          "food": 40,
+          "risk": "high",
+          "safe_round_trip_seconds": 23
+        }
+      ]
+    },
+    "policies": {
+      "collector": "Keep yourself and the village alive. Forage safely while food is needed. Use bold foraging only when food is critically low and the routes are not dangerous. Relax to walk home and eat before starvation, especially when weak or threatened. If you already carry food, either forage action returns it home. Relaxing also deposits food. Never remain relaxed with full hunger while the village runs out of food.",
+      "fighter": "Protect the villagers so the settlement survives. Defend when an orc is attacking or approaching an ally or a building; this draws nearby orcs onto you. Train when no one is threatened to raise your damage for later waves. Relax before starvation or to heal if badly injured. Defend again when recovered. Do not train while villagers are being attacked.",
+      "builder": "Keep the settlement alive. Repair damaged buildings, giving the hall and occupied defenses priority. Build towers when buildings are healthy; towers shoot orcs automatically. Relax before starvation or to heal if injured. Avoid working next to an orc that is attacking you. A destroyed hall cannot provide food or healing."
+    }
+  }
+}

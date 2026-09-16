@@ -1,0 +1,110 @@
+{
+  "note": "Exploratory Qwen3.5-2B-q4f16_1-MLC, revision dd74e9c8a20c4546df85c844103bff87b6dcacad, WebLLM0.2.85, not deployed defaults.",
+  "variant": "policy-2b-priority",
+  "results": [
+    {
+      "name": "initial",
+      "passed": 7,
+      "total": 12,
+      "failures": [
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 983.1000000238419,
+          "prompt_tokens": 500,
+          "logits": [23.206104278564453, 19.880517959594727, 23.472103118896484]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 850.9000000357628,
+          "prompt_tokens": 505,
+          "logits": [22.96790313720703, 19.982282638549805, 23.308183670043945]
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 908.5999999642372,
+          "prompt_tokens": 533,
+          "logits": [23.230680465698242, 20.870197296142578, 23.61617660522461]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 829.3000000119209,
+          "prompt_tokens": 411,
+          "logits": [19.72829818725586, 19.3205509185791, 24.35074234008789]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 728,
+          "prompt_tokens": 386,
+          "logits": [22.96055793762207, 22.17423439025879, 23.87963104248047]
+        }
+      ]
+    },
+    {
+      "name": "prioritized",
+      "passed": 7,
+      "total": 12,
+      "failures": [
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 965,
+          "prompt_tokens": 539,
+          "logits": [22.93804931640625, 19.468578338623047, 23.55430793762207]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 1171.6000000238419,
+          "prompt_tokens": 544,
+          "logits": [22.574161529541016, 19.630496978759766, 23.474151611328125]
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 1068.800000011921,
+          "prompt_tokens": 572,
+          "logits": [22.712064743041992, 20.865686416625977, 23.229061126708984]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 1162.9000000357628,
+          "prompt_tokens": 429,
+          "logits": [21.83047866821289, 18.289283752441406, 23.99618148803711]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 675.6999999880791,
+          "prompt_tokens": 416,
+          "logits": [22.413673400878906, 20.910926818847656, 23.642942428588867]
+        }
+      ]
+    }
+  ]
+}

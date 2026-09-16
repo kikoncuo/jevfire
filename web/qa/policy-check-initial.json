@@ -1,0 +1,248 @@
+{
+  "tested_at": "2026-09-16T15:55:45.767Z",
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "runtime": "WebLLM 0.2.85",
+  "kind": "hand-authored scenario checks; not a survival benchmark",
+  "variants": [
+    {
+      "name": "initial",
+      "policies": {
+        "collector": "Keep yourself and the village alive. Forage safely while food is needed. Use bold foraging only when food is critically low and the routes are not dangerous. Relax to walk home and eat before starvation, especially when weak or threatened. If you already carry food, either forage action returns it home. Relaxing also deposits food. Never remain relaxed with full hunger while the village runs out of food.",
+        "fighter": "Protect the villagers so the settlement survives. Defend when an orc is attacking or approaching an ally or a building; this draws nearby orcs onto you. Train when no one is threatened to raise your damage for later waves. Relax before starvation or to heal if badly injured. Defend again when recovered. Do not train while villagers are being attacked.",
+        "builder": "Keep the settlement alive. Repair damaged buildings, giving the hall and occupied defenses priority. Build towers when buildings are healthy; towers shoot orcs automatically. Relax before starvation or to heal if injured. Avoid working next to an orc that is attacking you. A destroyed hall cannot provide food or healing."
+      },
+      "passed": 7,
+      "total": 12,
+      "rows": [
+        {
+          "name": "collector-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 443.5,
+          "prompt_tokens": 471,
+          "logits": [23.999298095703125, 22.779052734375, 23.87762451171875]
+        },
+        {
+          "name": "fighter-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 270.60000002384186,
+          "prompt_tokens": 365,
+          "logits": [23.950191497802734, 24.037485122680664, 24.201725006103516]
+        },
+        {
+          "name": "builder-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 258.19999998807907,
+          "prompt_tokens": 348,
+          "logits": [24.328304290771484, 22.5195255279541, 23.892343521118164]
+        },
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 374.39999997615814,
+          "prompt_tokens": 474,
+          "logits": [23.954710006713867, 22.90166473388672, 23.86680030822754]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 505.69999998807907,
+          "prompt_tokens": 476,
+          "logits": [23.728374481201172, 22.767696380615234, 23.869693756103516]
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 605.6000000238419,
+          "prompt_tokens": 511,
+          "logits": [24.00153923034668, 22.690927505493164, 23.87140464782715]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 419.69999998807907,
+          "prompt_tokens": 368,
+          "logits": [23.893644332885742, 24.039648056030273, 24.13414764404297]
+        },
+        {
+          "name": "fighter-defend-attacked-collector",
+          "expected": ["defend"],
+          "choice": "defend",
+          "pass": true,
+          "elapsed_ms": 497.2999999523163,
+          "prompt_tokens": 428,
+          "logits": [23.708072662353516, 24.298158645629883, 24.18622589111328]
+        },
+        {
+          "name": "fighter-defend-attacked-building",
+          "expected": ["defend"],
+          "choice": "defend",
+          "pass": true,
+          "elapsed_ms": 441.69999998807907,
+          "prompt_tokens": 421,
+          "logits": [23.506328582763672, 24.173023223876953, 24.08221435546875]
+        },
+        {
+          "name": "fighter-injured-at-home",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 374.7000000476837,
+          "prompt_tokens": 368,
+          "logits": [24.064167022705078, 24.177921295166016, 24.216487884521484]
+        },
+        {
+          "name": "builder-critical-hall-repair",
+          "expected": ["repair"],
+          "choice": "repair",
+          "pass": true,
+          "elapsed_ms": 394.5,
+          "prompt_tokens": 375,
+          "logits": [24.592254638671875, 22.79212188720703, 24.237468719482422]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 461.7000000476837,
+          "prompt_tokens": 349,
+          "logits": [23.957595825195312, 22.345975875854492, 23.77492904663086]
+        }
+      ]
+    },
+    {
+      "name": "prioritized",
+      "policies": {
+        "collector": "Apply these priorities in order. If attacked_by > 0 or health < 35, relax at home. If hunger < 45 and village food > 0, relax to eat. If hunger < 20, relax unless the pantry is empty and you carry no food. If village food >= 18 and hunger < 75, relax. Otherwise collect food: choose forage_bold when village food <= 2 and every visible food route has low risk; choose forage_safe in all other cases. A full basket automatically returns home. Hunger 0 kills you.",
+        "fighter": "Apply these priorities in order. If hunger < 40 or health < 40, relax to eat and heal at home. Otherwise, if any villager or building is threatened, defend immediately. Also defend if an orc is within distance 12. Defending taunts orcs away from others. If there is no threat, train to increase your strength. Hunger 0 kills you. Do not train during an attack.",
+        "builder": "Apply these priorities in order. If hunger < 40 or health < 30 or attacked_by > 0, relax at home to eat and heal. Otherwise, if the repairs list contains any damaged building, repair. If there are no repairs and defense_sites_left > 0, build. If no construction or repair work remains, relax. Hunger 0 kills you. Never build a new tower while the hall needs urgent repair."
+      },
+      "passed": 5,
+      "total": 12,
+      "rows": [
+        {
+          "name": "collector-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 657.0999999642372,
+          "prompt_tokens": 510,
+          "logits": [23.880035400390625, 22.053207397460938, 23.19468879699707]
+        },
+        {
+          "name": "fighter-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 496.60000002384186,
+          "prompt_tokens": 383,
+          "logits": [23.816560745239258, 22.948253631591797, 23.86319351196289]
+        },
+        {
+          "name": "builder-urgent-hunger",
+          "expected": ["relax"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 398.5,
+          "prompt_tokens": 378,
+          "logits": [24.332748413085938, 22.27667999267578, 23.581459045410156]
+        },
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 554.3000000119209,
+          "prompt_tokens": 513,
+          "logits": [23.791057586669922, 22.041826248168945, 23.18329429626465]
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "forage_safe",
+          "pass": false,
+          "elapsed_ms": 610.1000000238419,
+          "prompt_tokens": 515,
+          "logits": [23.554340362548828, 22.24951934814453, 23.19696044921875]
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "forage_safe",
+          "pass": true,
+          "elapsed_ms": 703.6999999880791,
+          "prompt_tokens": 550,
+          "logits": [23.940738677978516, 22.181507110595703, 23.24483299255371]
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 510.80000001192093,
+          "prompt_tokens": 386,
+          "logits": [23.783061981201172, 22.98237419128418, 23.928136825561523]
+        },
+        {
+          "name": "fighter-defend-attacked-collector",
+          "expected": ["defend"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 528.2999999523163,
+          "prompt_tokens": 446,
+          "logits": [23.689022064208984, 23.464397430419922, 23.747276306152344]
+        },
+        {
+          "name": "fighter-defend-attacked-building",
+          "expected": ["defend"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 538.8000000119209,
+          "prompt_tokens": 439,
+          "logits": [23.402984619140625, 23.364986419677734, 23.682634353637695]
+        },
+        {
+          "name": "fighter-injured-at-home",
+          "expected": ["relax"],
+          "choice": "relax",
+          "pass": true,
+          "elapsed_ms": 390,
+          "prompt_tokens": 386,
+          "logits": [23.779762268066406, 23.28057861328125, 23.919025421142578]
+        },
+        {
+          "name": "builder-critical-hall-repair",
+          "expected": ["repair"],
+          "choice": "repair",
+          "pass": true,
+          "elapsed_ms": 417.80000001192093,
+          "prompt_tokens": 405,
+          "logits": [24.098133087158203, 22.060157775878906, 23.42777442932129]
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "repair",
+          "pass": false,
+          "elapsed_ms": 450.19999998807907,
+          "prompt_tokens": 379,
+          "logits": [23.704397201538086, 21.97382164001465, 23.317249298095703]
+        }
+      ]
+    }
+  ]
+}

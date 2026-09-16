@@ -1,0 +1,571 @@
+[
+  {
+    "name": "heldout-collector-moderate-stock",
+    "unitId": "bram",
+    "context": {
+      "self": {
+        "id": "bram",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 88,
+        "starves_in_seconds": 125,
+        "home_walk_seconds": 2,
+        "action": "forage_bold",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 10,
+        "alive": 6,
+        "wave": 2,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "east-garden",
+          "distance": 8.1,
+          "bearing": "E",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "west-garden",
+          "distance": 10.7,
+          "bearing": "W",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 14.7,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 23
+        }
+      ]
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["forage_safe"],
+    "reason": "Handcrafted regression scene, not a validation dataset: There is no critical food shortage or nearby threat. A well-fed collector should return to normal cautious collection."
+  },
+  {
+    "name": "heldout-collector-one-meal-left",
+    "unitId": "mira",
+    "context": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "health": 76,
+        "max_health": 85,
+        "hunger": 83,
+        "starves_in_seconds": 118,
+        "home_walk_seconds": 2,
+        "action": "forage_safe",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 1,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 7.8,
+          "bearing": "W",
+          "food": 9,
+          "risk": "low",
+          "safe_round_trip_seconds": 16
+        },
+        {
+          "id": "east-garden",
+          "distance": 10.9,
+          "bearing": "E",
+          "food": 11,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 13.2,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 22
+        }
+      ]
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["forage_bold"],
+    "reason": "Handcrafted regression scene, not a validation dataset: Only one stored meal remains for six villagers. The collector is fit, fed and has clear food routes, so the role policy calls for faster collection."
+  },
+  {
+    "name": "heldout-collector-starving-with-food",
+    "unitId": "bram",
+    "context": {
+      "self": {
+        "id": "bram",
+        "alive": true,
+        "role": "collector",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 9,
+        "starves_in_seconds": 12,
+        "home_walk_seconds": 0,
+        "action": "forage_safe",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 4,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 10.1,
+          "bearing": "NW",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "east-garden",
+          "distance": 10.5,
+          "bearing": "NE",
+          "food": 18,
+          "risk": "low",
+          "safe_round_trip_seconds": 18
+        },
+        {
+          "id": "north-grove",
+          "distance": 16.1,
+          "bearing": "NW",
+          "food": 40,
+          "risk": "low",
+          "safe_round_trip_seconds": 24
+        }
+      ]
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["relax"],
+    "reason": "Handcrafted regression scene, not a validation dataset: The collector has twelve seconds before starvation and food is already available at their feet. Leaving to collect delays the only action that eats."
+  },
+  {
+    "name": "heldout-fighter-train-between-waves",
+    "unitId": "sable",
+    "context": {
+      "self": {
+        "id": "sable",
+        "alive": true,
+        "role": "fighter",
+        "health": 130,
+        "max_health": 130,
+        "hunger": 86,
+        "starves_in_seconds": 122,
+        "home_walk_seconds": 3,
+        "action": "defend",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 19
+      },
+      "village": {
+        "food": 13,
+        "alive": 6,
+        "wave": 4,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "allies_under_attack": [],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["train"],
+    "reason": "Handcrafted regression scene, not a validation dataset: The previous wave is gone, no one is targeted and the fighter is healthy. More training improves damage before the next wave."
+  },
+  {
+    "name": "heldout-fighter-protect-builder",
+    "unitId": "aldric",
+    "context": {
+      "self": {
+        "id": "aldric",
+        "alive": true,
+        "role": "fighter",
+        "health": 119,
+        "max_health": 130,
+        "hunger": 78,
+        "starves_in_seconds": 111,
+        "home_walk_seconds": 3,
+        "action": "train",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 1,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 3.8,
+          "bearing": "NE",
+          "health": 98,
+          "level": 4,
+          "attacking": "nell",
+          "reaches_me_seconds": 2
+        }
+      ],
+      "allies_under_attack": [
+        {
+          "id": "nell",
+          "distance": 3.6,
+          "bearing": "NE",
+          "health": 43,
+          "role": "builder"
+        }
+      ],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["defend"],
+    "reason": "Handcrafted regression scene, not a validation dataset: A fit fighter is nearby while an orc attacks a builder. Interception and taunting can save that ally; continuing training cannot."
+  },
+  {
+    "name": "heldout-fighter-wounded-recovery",
+    "unitId": "aldric",
+    "context": {
+      "self": {
+        "id": "aldric",
+        "alive": true,
+        "role": "fighter",
+        "health": 22,
+        "max_health": 130,
+        "hunger": 58,
+        "starves_in_seconds": 82,
+        "home_walk_seconds": 0,
+        "action": "defend",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 9,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "allies_under_attack": [],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["relax"],
+    "reason": "Handcrafted regression scene, not a validation dataset: No enemy is present. The fighter has only seventeen percent health, and rest at the standing hall can heal them."
+  },
+  {
+    "name": "heldout-builder-damaged-house",
+    "unitId": "nell",
+    "context": {
+      "self": {
+        "id": "nell",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 82,
+        "starves_in_seconds": 117,
+        "home_walk_seconds": 2,
+        "action": "build",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [
+        {
+          "id": "east-house",
+          "distance": 1.6,
+          "bearing": "S",
+          "health_percent": 21,
+          "under_attack": false
+        }
+      ],
+      "defense_sites_left": 4,
+      "towers_active": 0
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["repair"],
+    "reason": "Handcrafted regression scene, not a validation dataset: A standing house is badly damaged and the hall remains healthy. Repairing current buildings takes priority over extra defenses."
+  },
+  {
+    "name": "heldout-builder-three-defense-sites",
+    "unitId": "tomas",
+    "context": {
+      "self": {
+        "id": "tomas",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 76,
+        "starves_in_seconds": 108,
+        "home_walk_seconds": 3,
+        "action": "repair",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 11,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [],
+      "defense_sites_left": 3,
+      "towers_active": 1
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["build"],
+    "reason": "Handcrafted regression scene, not a validation dataset: Every standing building is at full health, one tower operates and three unfinished sites remain. There are no repair jobs or survival emergencies."
+  },
+  {
+    "name": "heldout-builder-hungry-at-home",
+    "unitId": "nell",
+    "context": {
+      "self": {
+        "id": "nell",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 7,
+        "starves_in_seconds": 10,
+        "home_walk_seconds": 0,
+        "action": "build",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 12,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [],
+      "defense_sites_left": 4,
+      "towers_active": 0
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["relax"],
+    "reason": "Handcrafted regression scene, not a validation dataset: The builder will starve in ten seconds, is already at home and has stored food. Construction does not consume food or stop starvation."
+  },
+  {
+    "name": "heldout-fighter-starvation-before-interception",
+    "unitId": "sable",
+    "context": {
+      "self": {
+        "id": "sable",
+        "alive": true,
+        "role": "fighter",
+        "health": 125,
+        "max_health": 130,
+        "hunger": 5,
+        "starves_in_seconds": 6,
+        "home_walk_seconds": 0,
+        "action": "defend",
+        "carrying_food": 0,
+        "attacked_by": 0,
+        "strength": 11
+      },
+      "village": {
+        "food": 7,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 1,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 16.7,
+          "bearing": "NW",
+          "health": 56,
+          "level": 1,
+          "attacking": "bram",
+          "reaches_me_seconds": 14
+        }
+      ],
+      "allies_under_attack": [
+        {
+          "id": "bram",
+          "distance": 16.2,
+          "bearing": "NW",
+          "health": 78,
+          "role": "collector"
+        }
+      ],
+      "buildings_under_attack": []
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["relax"],
+    "reason": "Handcrafted regression scene, not a validation dataset: An ally is under attack, but this fighter has only six seconds before starvation and a long interception trip. Eating immediately is necessary to remain alive to defend afterward."
+  },
+  {
+    "name": "heldout-builder-repair-before-expansion",
+    "unitId": "tomas",
+    "context": {
+      "self": {
+        "id": "tomas",
+        "alive": true,
+        "role": "builder",
+        "health": 85,
+        "max_health": 85,
+        "hunger": 84,
+        "starves_in_seconds": 120,
+        "home_walk_seconds": 3,
+        "action": "relax",
+        "carrying_food": 0,
+        "attacked_by": 0
+      },
+      "village": {
+        "food": 6,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 23,
+        "threatened_villagers": 0,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [],
+      "repairs": [
+        {
+          "id": "west-house",
+          "distance": 1.6,
+          "bearing": "S",
+          "health_percent": 15,
+          "under_attack": false
+        },
+        {
+          "id": "hall",
+          "distance": 3.5,
+          "bearing": "E",
+          "health_percent": 23,
+          "under_attack": false
+        }
+      ],
+      "defense_sites_left": 3,
+      "towers_active": 1
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["repair"],
+    "reason": "Handcrafted regression scene, not a validation dataset: The healthy builder has several damaged buildings, including a hall at twenty-three percent health. Unfinished defense sites do not make expansion more urgent than repairing the hall."
+  },
+  {
+    "name": "heldout-collector-starvation-and-nearby-orc",
+    "unitId": "mira",
+    "context": {
+      "self": {
+        "id": "mira",
+        "alive": true,
+        "role": "collector",
+        "health": 64,
+        "max_health": 85,
+        "hunger": 7,
+        "starves_in_seconds": 9,
+        "home_walk_seconds": 0,
+        "action": "forage_bold",
+        "carrying_food": 0,
+        "attacked_by": 1
+      },
+      "village": {
+        "food": 9,
+        "alive": 6,
+        "wave": 0,
+        "hall_health_percent": 100,
+        "threatened_villagers": 1,
+        "threatened_buildings": 0
+      },
+      "nearest_orcs": [
+        {
+          "id": "orc-1",
+          "distance": 3,
+          "bearing": "W",
+          "health": 56,
+          "level": 1,
+          "attacking": "mira",
+          "reaches_me_seconds": 2
+        }
+      ],
+      "food_routes": [
+        {
+          "id": "west-garden",
+          "distance": 8.8,
+          "bearing": "NW",
+          "food": 18,
+          "risk": "high",
+          "safe_round_trip_seconds": 17
+        },
+        {
+          "id": "east-garden",
+          "distance": 11.8,
+          "bearing": "NE",
+          "food": 18,
+          "risk": "medium",
+          "safe_round_trip_seconds": 19
+        },
+        {
+          "id": "north-grove",
+          "distance": 15.5,
+          "bearing": "N",
+          "food": 40,
+          "risk": "high",
+          "safe_round_trip_seconds": 24
+        }
+      ]
+    },
+    "mission": "Keep the settlement alive. Preserve the villagers and protect the hall.",
+    "expected": ["relax"],
+    "reason": "Handcrafted regression scene, not a validation dataset: The collector faces both starvation and an approaching orc while already at a stocked hall. Eating immediately prevents certain starvation; setting out for another food patch cannot do that in time."
+  }
+]

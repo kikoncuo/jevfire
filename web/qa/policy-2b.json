@@ -1,0 +1,622 @@
+{
+  "note": "Exploratory Qwen3.5-2B-q4f16_1-MLC, revision dd74e9c8a20c4546df85c844103bff87b6dcacad, WebLLM0.2.85, not deployed defaults.",
+  "variant": "policy-2b",
+  "results": [
+    {
+      "file": "policy-fixtures.json",
+      "passed": 7,
+      "total": 12,
+      "failures": [
+        {
+          "name": "collector-normal-safe-foraging",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 961.3999999761581,
+          "prompt_tokens": 500,
+          "logits": [
+            23.206104278564453, 19.880517959594727, 23.472103118896484
+          ],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.472103118896484,
+                "token": "rest"
+              },
+              {
+                "id": 18112,
+                "score": 23.206104278564453,
+                "token": "safe"
+              },
+              {
+                "id": 14394,
+                "score": 19.880517959594727,
+                "token": "bold"
+              },
+              {
+                "id": 12060,
+                "score": 17.610828399658203,
+                "token": "Rest"
+              },
+              {
+                "id": 24845,
+                "score": 16.566621780395508,
+                "token": "Safe"
+              },
+              {
+                "id": 9071,
+                "score": 16.3880615234375,
+                "token": "fast"
+              },
+              {
+                "id": 15395,
+                "score": 16.336214065551758,
+                "token": "best"
+              },
+              {
+                "id": 265,
+                "score": 16.236183166503906,
+                "token": "re"
+              },
+              {
+                "id": 218940,
+                "score": 15.788921356201172,
+                "token": "saf"
+              },
+              {
+                "id": 82,
+                "score": 15.647859573364258,
+                "token": "s"
+              },
+              {
+                "id": 22033,
+                "score": 15.623726844787598,
+                "token": "rob"
+              },
+              {
+                "id": 13515,
+                "score": 15.393106460571289,
+                "token": "food"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "collector-empty-pantry-clear-routes",
+          "expected": ["forage_bold"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 808.1000000238419,
+          "prompt_tokens": 505,
+          "logits": [22.96790313720703, 19.982282638549805, 23.308183670043945],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.308183670043945,
+                "token": "rest"
+              },
+              {
+                "id": 18112,
+                "score": 22.96790313720703,
+                "token": "safe"
+              },
+              {
+                "id": 14394,
+                "score": 19.982282638549805,
+                "token": "bold"
+              },
+              {
+                "id": 12060,
+                "score": 17.239667892456055,
+                "token": "Rest"
+              },
+              {
+                "id": 9071,
+                "score": 16.747520446777344,
+                "token": "fast"
+              },
+              {
+                "id": 15395,
+                "score": 16.266460418701172,
+                "token": "best"
+              },
+              {
+                "id": 265,
+                "score": 16.255050659179688,
+                "token": "re"
+              },
+              {
+                "id": 24845,
+                "score": 16.119049072265625,
+                "token": "Safe"
+              },
+              {
+                "id": 218940,
+                "score": 15.430252075195312,
+                "token": "saf"
+              },
+              {
+                "id": 82,
+                "score": 15.42583179473877,
+                "token": "s"
+              },
+              {
+                "id": 22033,
+                "score": 15.390623092651367,
+                "token": "rob"
+              },
+              {
+                "id": 3621,
+                "score": 15.169254302978516,
+                "token": "rel"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "collector-dangerous-short-route",
+          "expected": ["forage_safe"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 795.6999999880791,
+          "prompt_tokens": 533,
+          "logits": [23.230680465698242, 20.870197296142578, 23.61617660522461],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.61617660522461,
+                "token": "rest"
+              },
+              {
+                "id": 18112,
+                "score": 23.230680465698242,
+                "token": "safe"
+              },
+              {
+                "id": 14394,
+                "score": 20.870197296142578,
+                "token": "bold"
+              },
+              {
+                "id": 12060,
+                "score": 17.592239379882812,
+                "token": "Rest"
+              },
+              {
+                "id": 24845,
+                "score": 16.63898468017578,
+                "token": "Safe"
+              },
+              {
+                "id": 22033,
+                "score": 16.456829071044922,
+                "token": "rob"
+              },
+              {
+                "id": 9071,
+                "score": 16.166919708251953,
+                "token": "fast"
+              },
+              {
+                "id": 15395,
+                "score": 16.10319709777832,
+                "token": "best"
+              },
+              {
+                "id": 265,
+                "score": 15.95003604888916,
+                "token": "re"
+              },
+              {
+                "id": 82,
+                "score": 15.700167655944824,
+                "token": "s"
+              },
+              {
+                "id": 218940,
+                "score": 15.518655776977539,
+                "token": "saf"
+              },
+              {
+                "id": 78151,
+                "score": 15.435433387756348,
+                "token": "risk"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "fighter-peacetime-training",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 605.8000000119209,
+          "prompt_tokens": 411,
+          "logits": [19.72829818725586, 19.3205509185791, 24.35074234008789],
+          "diagnostic": {
+            "ranks": [3, 4, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 24.35074234008789,
+                "token": "rest"
+              },
+              {
+                "id": 12060,
+                "score": 19.842470169067383,
+                "token": "Rest"
+              },
+              {
+                "id": 10087,
+                "score": 19.72829818725586,
+                "token": "train"
+              },
+              {
+                "id": 20494,
+                "score": 19.3205509185791,
+                "token": "fight"
+              },
+              {
+                "id": 63440,
+                "score": 16.51874542236328,
+                "token": "Fight"
+              },
+              {
+                "id": 248068,
+                "score": 16.457429885864258,
+                "token": "<think>"
+              },
+              {
+                "id": 5917,
+                "score": 15.78671646118164,
+                "token": "run"
+              },
+              {
+                "id": 265,
+                "score": 15.763071060180664,
+                "token": "re"
+              },
+              {
+                "id": 6078,
+                "score": 15.733548164367676,
+                "token": "fit"
+              },
+              {
+                "id": 3621,
+                "score": 15.644332885742188,
+                "token": "rel"
+              },
+              {
+                "id": 29797,
+                "score": 15.554207801818848,
+                "token": "restore"
+              },
+              {
+                "id": 33468,
+                "score": 15.537651062011719,
+                "token": "Train"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "builder-healthy-village-build",
+          "expected": ["build"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 632.1999999880791,
+          "prompt_tokens": 386,
+          "logits": [22.96055793762207, 22.17423439025879, 23.87963104248047],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.87963104248047,
+                "token": "rest"
+              },
+              {
+                "id": 5565,
+                "score": 22.96055793762207,
+                "token": "fix"
+              },
+              {
+                "id": 5653,
+                "score": 22.17423439025879,
+                "token": "build"
+              },
+              {
+                "id": 12060,
+                "score": 18.49623680114746,
+                "token": "Rest"
+              },
+              {
+                "id": 10743,
+                "score": 17.436901092529297,
+                "token": "Build"
+              },
+              {
+                "id": 25128,
+                "score": 17.425949096679688,
+                "token": "Fix"
+              },
+              {
+                "id": 265,
+                "score": 17.151697158813477,
+                "token": "re"
+              },
+              {
+                "id": 73825,
+                "score": 17.07898712158203,
+                "token": "repair"
+              },
+              {
+                "id": 29797,
+                "score": 16.983566284179688,
+                "token": "restore"
+              },
+              {
+                "id": 15395,
+                "score": 16.39175033569336,
+                "token": "best"
+              },
+              {
+                "id": 56928,
+                "score": 16.105663299560547,
+                "token": "stay"
+              },
+              {
+                "id": 248068,
+                "score": 16.084571838378906,
+                "token": "<think>"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        }
+      ]
+    },
+    {
+      "file": "policy-heldout-fixtures.json",
+      "passed": 9,
+      "total": 12,
+      "failures": [
+        {
+          "name": "heldout-collector-one-meal-left",
+          "expected": ["forage_bold"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 1078.5,
+          "prompt_tokens": 498,
+          "logits": [22.93722152709961, 20.310606002807617, 23.12960433959961],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.12960433959961,
+                "token": "rest"
+              },
+              {
+                "id": 18112,
+                "score": 22.93722152709961,
+                "token": "safe"
+              },
+              {
+                "id": 14394,
+                "score": 20.310606002807617,
+                "token": "bold"
+              },
+              {
+                "id": 12060,
+                "score": 17.01834487915039,
+                "token": "Rest"
+              },
+              {
+                "id": 9071,
+                "score": 16.39677619934082,
+                "token": "fast"
+              },
+              {
+                "id": 15395,
+                "score": 16.214914321899414,
+                "token": "best"
+              },
+              {
+                "id": 265,
+                "score": 16.19894790649414,
+                "token": "re"
+              },
+              {
+                "id": 24845,
+                "score": 16.02949333190918,
+                "token": "Safe"
+              },
+              {
+                "id": 13515,
+                "score": 15.96589183807373,
+                "token": "food"
+              },
+              {
+                "id": 92413,
+                "score": 15.873971939086914,
+                "token": "gather"
+              },
+              {
+                "id": 218940,
+                "score": 15.799867630004883,
+                "token": "saf"
+              },
+              {
+                "id": 22033,
+                "score": 15.763724327087402,
+                "token": "rob"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "heldout-fighter-train-between-waves",
+          "expected": ["train"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 947,
+          "prompt_tokens": 410,
+          "logits": [19.672409057617188, 21.382587432861328, 23.61556625366211],
+          "diagnostic": {
+            "ranks": [3, 2, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.61556625366211,
+                "token": "rest"
+              },
+              {
+                "id": 20494,
+                "score": 21.382587432861328,
+                "token": "fight"
+              },
+              {
+                "id": 10087,
+                "score": 19.672409057617188,
+                "token": "train"
+              },
+              {
+                "id": 12060,
+                "score": 19.182758331298828,
+                "token": "Rest"
+              },
+              {
+                "id": 63440,
+                "score": 18.173110961914062,
+                "token": "Fight"
+              },
+              {
+                "id": 4226,
+                "score": 16.696727752685547,
+                "token": " fight"
+              },
+              {
+                "id": 248068,
+                "score": 16.359113693237305,
+                "token": "<think>"
+              },
+              {
+                "id": 6078,
+                "score": 16.20279884338379,
+                "token": "fit"
+              },
+              {
+                "id": 69,
+                "score": 16.202526092529297,
+                "token": "f"
+              },
+              {
+                "id": 5917,
+                "score": 15.687775611877441,
+                "token": "run"
+              },
+              {
+                "id": 33468,
+                "score": 15.560262680053711,
+                "token": "Train"
+              },
+              {
+                "id": 265,
+                "score": 15.516825675964355,
+                "token": "re"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        },
+        {
+          "name": "heldout-builder-three-defense-sites",
+          "expected": ["build"],
+          "choice": "relax",
+          "pass": false,
+          "elapsed_ms": 710.9000000357628,
+          "prompt_tokens": 389,
+          "logits": [22.817644119262695, 22.15625, 23.773578643798828],
+          "diagnostic": {
+            "ranks": [2, 3, 1],
+            "top": [
+              {
+                "id": 3795,
+                "score": 23.773578643798828,
+                "token": "rest"
+              },
+              {
+                "id": 5565,
+                "score": 22.817644119262695,
+                "token": "fix"
+              },
+              {
+                "id": 5653,
+                "score": 22.15625,
+                "token": "build"
+              },
+              {
+                "id": 12060,
+                "score": 18.396289825439453,
+                "token": "Rest"
+              },
+              {
+                "id": 10743,
+                "score": 17.37521743774414,
+                "token": "Build"
+              },
+              {
+                "id": 73825,
+                "score": 17.05362319946289,
+                "token": "repair"
+              },
+              {
+                "id": 265,
+                "score": 17.025402069091797,
+                "token": "re"
+              },
+              {
+                "id": 25128,
+                "score": 17.011722564697266,
+                "token": "Fix"
+              },
+              {
+                "id": 29797,
+                "score": 17.005172729492188,
+                "token": "restore"
+              },
+              {
+                "id": 15395,
+                "score": 16.214012145996094,
+                "token": "best"
+              },
+              {
+                "id": 56928,
+                "score": 16.008203506469727,
+                "token": "stay"
+              },
+              {
+                "id": 248068,
+                "score": 15.913191795349121,
+                "token": "<think>"
+              }
+            ],
+            "sampled_text": "rest"
+          }
+        }
+      ]
+    }
+  ]
+}
