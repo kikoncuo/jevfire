@@ -1,0 +1,5 @@
+--- a/vllm/sampling_params.py
++++ b/vllm/sampling_params.py
+@@ -30,1 +30,1 @@
+-MAX_LOGPROB_TOKEN_IDS = 128
++MAX_LOGPROB_TOKEN_IDS = 256

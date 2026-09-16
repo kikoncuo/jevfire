@@ -1,0 +1,9 @@
+include CONTRIBUTING.md
+graft assets
+graft benchmarks
+graft docs
+graft examples
+graft patches
+graft scripts
+graft tests
+global-exclude __pycache__ *.py[cod] .DS_Store ._*

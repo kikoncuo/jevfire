@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="610" viewBox="0 0 1200 610" role="img" aria-labelledby="title desc">
+<title id="title">JEVfire versus constrained JSON: fresh-prefix latency</title>
+<desc id="desc">Median milliseconds from five trials per cell. Lower is better. Same 27B FP8 model and GPU. Data from benchmarks/results/benchmark.json.</desc>
+<rect width="1200" height="610" rx="22" fill="#111416"/>
+<style>text{font-family:ui-sans-serif,system-ui,Arial,sans-serif;fill:#f5f1e7}.muted{fill:#a5aaa9}.small{font-size:16px}.value{font-size:18px;font-weight:600}</style>
+<text x="44" y="49" font-size="13" fill="#f4aa42" letter-spacing="3">MEASURED ON CUDA</text>
+<text x="44" y="88" font-size="30" font-weight="750">More decisions. Less waiting.</text>
+<text x="44" y="119" class="muted small">Fresh-prefix median latency · lower is better · five trials per cell</text>
+<rect x="763" y="65" width="14" height="14" rx="3" fill="#737d88"/>
+<text x="787" y="78" class="small">Constrained JSON</text>
+<rect x="998" y="65" width="14" height="14" rx="3" fill="#f4aa42"/>
+<text x="1022" y="78" class="small">JEVfire</text>
+<text x="44" y="189" font-size="21" font-weight="650">04 fields</text>
+<text x="44" y="213" class="small muted">Short context</text>
+<rect x="225" y="170" width="103.70" height="22" rx="5" fill="#737d88"/>
+<text x="338.70" y="187" class="value">877.5 ms</text>
+<rect x="225" y="202" width="12.99" height="22" rx="5" fill="#f4aa42"/>
+<text x="247.99" y="219" class="value">109.9 ms</text>
+<text x="1070" y="200" text-anchor="middle" font-size="28" font-weight="750">7.98×</text>
+<text x="44" y="282" font-size="21" font-weight="650">12 fields</text>
+<text x="44" y="306" class="small muted">Short context</text>
+<rect x="225" y="263" width="264.66" height="22" rx="5" fill="#737d88"/>
+<text x="499.66" y="280" class="value">2,239.4 ms</text>
+<rect x="225" y="295" width="39.01" height="22" rx="5" fill="#f4aa42"/>
+<text x="274.01" y="312" class="value">330.1 ms</text>
+<text x="1070" y="293" text-anchor="middle" font-size="28" font-weight="750">6.78×</text>
+<text x="44" y="375" font-size="21" font-weight="650">28 fields</text>
+<text x="44" y="399" class="small muted">Short context</text>
+<rect x="225" y="356" width="604.28" height="22" rx="5" fill="#737d88"/>
+<text x="839.28" y="373" class="value">5,113.1 ms</text>
+<rect x="225" y="388" width="58.72" height="22" rx="5" fill="#f4aa42"/>
+<text x="293.72" y="405" class="value">496.9 ms</text>
+<text x="1070" y="386" text-anchor="middle" font-size="28" font-weight="750">10.29×</text>
+<text x="44" y="468" font-size="21" font-weight="650">12 fields</text>
+<text x="44" y="492" class="small muted">Long context</text>
+<rect x="225" y="449" width="348.76" height="22" rx="5" fill="#737d88"/>
+<text x="583.76" y="466" class="value">2,951.1 ms</text>
+<rect x="225" y="481" width="125.37" height="22" rx="5" fill="#f4aa42"/>
+<text x="360.37" y="498" class="value">1,060.8 ms</text>
+<text x="1070" y="479" text-anchor="middle" font-size="28" font-weight="750">2.78×</text>
+<path d="M44 557H1156" stroke="#303536"/>
+<text x="44" y="586" class="small muted">Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · synthetic fixtures</text>
+</svg>

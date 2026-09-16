@@ -1,0 +1,25 @@
+{
+  "case": "scale_28",
+  "requested_strategy": "auto",
+  "resolved_strategy": "aligned_prefill",
+  "correct": true,
+  "elapsed_ms": 507.43,
+  "usage": {
+    "prompt_tokens": 45080,
+    "completion_tokens": 28,
+    "total_tokens": 45108
+  },
+  "counters_before": {
+    "prefix_cache_queries_total": 5539002.0,
+    "prefix_cache_hits_total": 1861216.0
+  },
+  "counters_after": {
+    "prefix_cache_queries_total": 5584082.0,
+    "prefix_cache_hits_total": 1903552.0
+  },
+  "delta": {
+    "prefix_cache_queries_total": 45080.0,
+    "prefix_cache_hits_total": 42336.0
+  },
+  "note": "Global counters for this model; probe run between benchmark suites."
+}

@@ -1,0 +1,1379 @@
+{
+  "created_at": "2026-09-16T13:58:03.957352+00:00",
+  "model": "qwen3.8-27b",
+  "run_id": "257a6dac-2d83-40bf-a891-5f84a8dd8c83",
+  "repeats": 10,
+  "methodology": "Synthetic hand-labeled fixtures; same deployed FP8 model. Compact grammar-constrained JSON baseline, thinking disabled for all. Randomized method order. Fresh salts isolate prefix-cold trials without global cache reset. Warm-prefix trials primed per method. Single client; end-to-end wall latency. Not clinical validation or calibrated confidence.",
+  "cases": [
+    {
+      "id": "cardinality_255",
+      "context": "The approved inventory category is exactly CATALOG-173. Choose that exact category.",
+      "schema": {
+        "category": {
+          "type": "enum",
+          "description": "Select the approved inventory category explicitly named in the context.",
+          "choices": [
+            "CATALOG-000",
+            "CATALOG-001",
+            "CATALOG-002",
+            "CATALOG-003",
+            "CATALOG-004",
+            "CATALOG-005",
+            "CATALOG-006",
+            "CATALOG-007",
+            "CATALOG-008",
+            "CATALOG-009",
+            "CATALOG-010",
+            "CATALOG-011",
+            "CATALOG-012",
+            "CATALOG-013",
+            "CATALOG-014",
+            "CATALOG-015",
+            "CATALOG-016",
+            "CATALOG-017",
+            "CATALOG-018",
+            "CATALOG-019",
+            "CATALOG-020",
+            "CATALOG-021",
+            "CATALOG-022",
+            "CATALOG-023",
+            "CATALOG-024",
+            "CATALOG-025",
+            "CATALOG-026",
+            "CATALOG-027",
+            "CATALOG-028",
+            "CATALOG-029",
+            "CATALOG-030",
+            "CATALOG-031",
+            "CATALOG-032",
+            "CATALOG-033",
+            "CATALOG-034",
+            "CATALOG-035",
+            "CATALOG-036",
+            "CATALOG-037",
+            "CATALOG-038",
+            "CATALOG-039",
+            "CATALOG-040",
+            "CATALOG-041",
+            "CATALOG-042",
+            "CATALOG-043",
+            "CATALOG-044",
+            "CATALOG-045",
+            "CATALOG-046",
+            "CATALOG-047",
+            "CATALOG-048",
+            "CATALOG-049",
+            "CATALOG-050",
+            "CATALOG-051",
+            "CATALOG-052",
+            "CATALOG-053",
+            "CATALOG-054",
+            "CATALOG-055",
+            "CATALOG-056",
+            "CATALOG-057",
+            "CATALOG-058",
+            "CATALOG-059",
+            "CATALOG-060",
+            "CATALOG-061",
+            "CATALOG-062",
+            "CATALOG-063",
+            "CATALOG-064",
+            "CATALOG-065",
+            "CATALOG-066",
+            "CATALOG-067",
+            "CATALOG-068",
+            "CATALOG-069",
+            "CATALOG-070",
+            "CATALOG-071",
+            "CATALOG-072",
+            "CATALOG-073",
+            "CATALOG-074",
+            "CATALOG-075",
+            "CATALOG-076",
+            "CATALOG-077",
+            "CATALOG-078",
+            "CATALOG-079",
+            "CATALOG-080",
+            "CATALOG-081",
+            "CATALOG-082",
+            "CATALOG-083",
+            "CATALOG-084",
+            "CATALOG-085",
+            "CATALOG-086",
+            "CATALOG-087",
+            "CATALOG-088",
+            "CATALOG-089",
+            "CATALOG-090",
+            "CATALOG-091",
+            "CATALOG-092",
+            "CATALOG-093",
+            "CATALOG-094",
+            "CATALOG-095",
+            "CATALOG-096",
+            "CATALOG-097",
+            "CATALOG-098",
+            "CATALOG-099",
+            "CATALOG-100",
+            "CATALOG-101",
+            "CATALOG-102",
+            "CATALOG-103",
+            "CATALOG-104",
+            "CATALOG-105",
+            "CATALOG-106",
+            "CATALOG-107",
+            "CATALOG-108",
+            "CATALOG-109",
+            "CATALOG-110",
+            "CATALOG-111",
+            "CATALOG-112",
+            "CATALOG-113",
+            "CATALOG-114",
+            "CATALOG-115",
+            "CATALOG-116",
+            "CATALOG-117",
+            "CATALOG-118",
+            "CATALOG-119",
+            "CATALOG-120",
+            "CATALOG-121",
+            "CATALOG-122",
+            "CATALOG-123",
+            "CATALOG-124",
+            "CATALOG-125",
+            "CATALOG-126",
+            "CATALOG-127",
+            "CATALOG-128",
+            "CATALOG-129",
+            "CATALOG-130",
+            "CATALOG-131",
+            "CATALOG-132",
+            "CATALOG-133",
+            "CATALOG-134",
+            "CATALOG-135",
+            "CATALOG-136",
+            "CATALOG-137",
+            "CATALOG-138",
+            "CATALOG-139",
+            "CATALOG-140",
+            "CATALOG-141",
+            "CATALOG-142",
+            "CATALOG-143",
+            "CATALOG-144",
+            "CATALOG-145",
+            "CATALOG-146",
+            "CATALOG-147",
+            "CATALOG-148",
+            "CATALOG-149",
+            "CATALOG-150",
+            "CATALOG-151",
+            "CATALOG-152",
+            "CATALOG-153",
+            "CATALOG-154",
+            "CATALOG-155",
+            "CATALOG-156",
+            "CATALOG-157",
+            "CATALOG-158",
+            "CATALOG-159",
+            "CATALOG-160",
+            "CATALOG-161",
+            "CATALOG-162",
+            "CATALOG-163",
+            "CATALOG-164",
+            "CATALOG-165",
+            "CATALOG-166",
+            "CATALOG-167",
+            "CATALOG-168",
+            "CATALOG-169",
+            "CATALOG-170",
+            "CATALOG-171",
+            "CATALOG-172",
+            "CATALOG-173",
+            "CATALOG-174",
+            "CATALOG-175",
+            "CATALOG-176",
+            "CATALOG-177",
+            "CATALOG-178",
+            "CATALOG-179",
+            "CATALOG-180",
+            "CATALOG-181",
+            "CATALOG-182",
+            "CATALOG-183",
+            "CATALOG-184",
+            "CATALOG-185",
+            "CATALOG-186",
+            "CATALOG-187",
+            "CATALOG-188",
+            "CATALOG-189",
+            "CATALOG-190",
+            "CATALOG-191",
+            "CATALOG-192",
+            "CATALOG-193",
+            "CATALOG-194",
+            "CATALOG-195",
+            "CATALOG-196",
+            "CATALOG-197",
+            "CATALOG-198",
+            "CATALOG-199",
+            "CATALOG-200",
+            "CATALOG-201",
+            "CATALOG-202",
+            "CATALOG-203",
+            "CATALOG-204",
+            "CATALOG-205",
+            "CATALOG-206",
+            "CATALOG-207",
+            "CATALOG-208",
+            "CATALOG-209",
+            "CATALOG-210",
+            "CATALOG-211",
+            "CATALOG-212",
+            "CATALOG-213",
+            "CATALOG-214",
+            "CATALOG-215",
+            "CATALOG-216",
+            "CATALOG-217",
+            "CATALOG-218",
+            "CATALOG-219",
+            "CATALOG-220",
+            "CATALOG-221",
+            "CATALOG-222",
+            "CATALOG-223",
+            "CATALOG-224",
+            "CATALOG-225",
+            "CATALOG-226",
+            "CATALOG-227",
+            "CATALOG-228",
+            "CATALOG-229",
+            "CATALOG-230",
+            "CATALOG-231",
+            "CATALOG-232",
+            "CATALOG-233",
+            "CATALOG-234",
+            "CATALOG-235",
+            "CATALOG-236",
+            "CATALOG-237",
+            "CATALOG-238",
+            "CATALOG-239",
+            "CATALOG-240",
+            "CATALOG-241",
+            "CATALOG-242",
+            "CATALOG-243",
+            "CATALOG-244",
+            "CATALOG-245",
+            "CATALOG-246",
+            "CATALOG-247",
+            "CATALOG-248",
+            "CATALOG-249",
+            "CATALOG-250",
+            "CATALOG-251",
+            "CATALOG-252",
+            "CATALOG-253",
+            "CATALOG-254"
+          ]
+        }
+      },
+      "expected": {
+        "category": "CATALOG-173"
+      }
+    }
+  ],
+  "summary": [
+    {
+      "case": "cardinality_255",
+      "cache": "fresh_prefix",
+      "method": "auto",
+      "n": 10,
+      "field_count": 1,
+      "p50_ms": 338.07,
+      "p95_ms": 343.7,
+      "errors": 0,
+      "schema_valid": 10,
+      "exact_matches": 10,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 1
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "fresh_prefix",
+      "method": "json_schema",
+      "n": 10,
+      "field_count": 1,
+      "p50_ms": 493.59,
+      "p95_ms": 500.11,
+      "errors": 0,
+      "schema_valid": 10,
+      "exact_matches": 10,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 12
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "warm_prefix",
+      "method": "auto",
+      "n": 10,
+      "field_count": 1,
+      "p50_ms": 158.59,
+      "p95_ms": 165.76,
+      "errors": 0,
+      "schema_valid": 10,
+      "exact_matches": 10,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 1
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "warm_prefix",
+      "method": "json_schema",
+      "n": 10,
+      "field_count": 1,
+      "p50_ms": 313.31,
+      "p95_ms": 321.5,
+      "errors": 0,
+      "schema_valid": 10,
+      "exact_matches": 10,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 12
+    }
+  ],
+  "rows": [
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 340.83133400417864,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 494.4445800501853,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 492.7431968972087,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 338.2013961672783,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 336.31502208299935,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 499.2887929547578,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 344.1583481617272,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 498.5966889653355,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 496.12311203964055,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 343.1346050929278,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 336.99626196175814,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 500.78683299943805,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 491.39549606479704,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 337.93799695558846,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 331.2773259822279,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 490.8400848507881,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 339.6745268255472,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 487.2784879989922,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 330.5369848385453,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 482.83454892225564,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 312.9599988460541,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 156.43829805776477,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 312.0160261169076,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 156.07831184752285,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 312.02817894518375,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 158.30910298973322,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 313.6560150887817,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 155.28059913776815,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 312.1946358587593,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 157.83870895393193,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 312.7087610773742,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 166.38635098934174,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 158.8753331452608,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 317.2679638955742,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 321.3767202105373,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 162.92075696401298,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 159.79121695272624,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 321.5957412030548,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 164.9962649680674,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2680,
+        "completion_tokens": 1,
+        "total_tokens": 2681
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 1,
+      "error": null
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 316.5546420495957,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null
+    }
+  ]
+}

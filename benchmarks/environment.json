@@ -1,0 +1,53 @@
+{
+  "model": "Qwen/Qwen3.8-27B-FP8",
+  "served_model": "qwen3.8-27b",
+  "model_snapshot": "017b9c7af6b5689d5dd426a76e0bc077eb5ca20a",
+  "packages": {
+    "vllm": "0.29.0",
+    "torch": "2.13.0",
+    "transformers": "5.17.0",
+    "fastapi": "0.136.3",
+    "uvicorn": "0.53.0",
+    "pydantic": "2.13.5",
+    "httpx": "0.28.1"
+  },
+  "gpu": "NVIDIA RTX PRO 6000 Blackwell Workstation Edition (96 GB class)",
+  "vllm_args": [
+    "vllm",
+    "serve",
+    "Qwen/Qwen3.8-27B-FP8",
+    "--served-model-name",
+    "qwen3.8-27b",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8000",
+    "--tensor-parallel-size",
+    "1",
+    "--gpu-memory-utilization",
+    "0.45",
+    "--max-num-batched-tokens",
+    "2096",
+    "--max-num-seqs",
+    "64",
+    "--max-model-len",
+    "16384",
+    "--kv-cache-dtype",
+    "fp8",
+    "--reasoning-parser",
+    "qwen3",
+    "--enable-prefix-caching",
+    "--language-model-only"
+  ],
+  "shared_gpu": true,
+  "attention_cache_block_tokens": 1568,
+  "mamba_cache_mode": "align",
+  "driver": "595.84",
+  "export_note": "Portable export: host identifiers and absolute paths omitted; API port normalized to 8000. Core scoring logic, fixtures and measured request values are unchanged. Package names and documentation are renamed for publication.",
+  "batch_sweep_kv_cache_gib": {
+    "b2096-c128": 13.84,
+    "b4096-c128": 11.48,
+    "b8192-c128": 11.4,
+    "b2096-c128-recheck": 13.84
+  }
+}

@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+.env
+.env.*
+!.env.example
+*.egg-info/
+build/
+dist/
+results/
+!benchmarks/results/
+!benchmarks/results/**
+.DS_Store
+._*
+*.jevfire-backup

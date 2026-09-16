@@ -1,0 +1,3548 @@
+{
+  "created_at": "2026-09-16T13:57:48.806305+00:00",
+  "run_id": "e8d7f218-b362-4048-bf79-9750bf21a951",
+  "model": "qwen3.8-27b",
+  "requests_per_group": 32,
+  "concurrency": 4,
+  "methodology": "Closed-loop finite batches; one method at a time; per-case randomized method order. Fresh prefixes use unique salts per request; warm prefixes share a separately primed salt. End-to-end latency starts when a worker acquires its client slot. Throughput includes initial fill and final drain. Shared GPU, synthetic fixtures; not a sustained saturation or financial-cost estimate.",
+  "groups": [
+    {
+      "case": "cardinality_255",
+      "cache": "fresh_prefix",
+      "method": "auto",
+      "n": 32,
+      "field_count": 1,
+      "p50_ms": 1711.44,
+      "p95_ms": 1725.84,
+      "errors": 0,
+      "schema_valid": 32,
+      "exact_matches": 32,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 2,
+      "started_at": "2026-09-16T13:57:10.997086+00:00",
+      "ended_at": "2026-09-16T13:57:24.712436+00:00",
+      "concurrency": 4,
+      "wall_seconds": 13.715208268957213,
+      "completed_requests_per_second": 2.3331763814646767,
+      "correct_requests_per_second": 2.3331763814646767
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "fresh_prefix",
+      "method": "json_schema",
+      "n": 32,
+      "field_count": 1,
+      "p50_ms": 1175.09,
+      "p95_ms": 1398.97,
+      "errors": 0,
+      "schema_valid": 32,
+      "exact_matches": 32,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 12,
+      "started_at": "2026-09-16T13:57:25.198845+00:00",
+      "ended_at": "2026-09-16T13:57:34.731374+00:00",
+      "concurrency": 4,
+      "wall_seconds": 9.53227283898741,
+      "completed_requests_per_second": 3.3570167934260766,
+      "correct_requests_per_second": 3.3570167934260766
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "warm_prefix",
+      "method": "json_schema",
+      "n": 32,
+      "field_count": 1,
+      "p50_ms": 538.92,
+      "p95_ms": 727.16,
+      "errors": 0,
+      "schema_valid": 32,
+      "exact_matches": 32,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 14.25,
+      "started_at": "2026-09-16T13:57:35.221788+00:00",
+      "ended_at": "2026-09-16T13:57:40.019939+00:00",
+      "concurrency": 4,
+      "wall_seconds": 4.798077211016789,
+      "completed_requests_per_second": 6.669338277117614,
+      "correct_requests_per_second": 6.669338277117614
+    },
+    {
+      "case": "cardinality_255",
+      "cache": "warm_prefix",
+      "method": "auto",
+      "n": 32,
+      "field_count": 1,
+      "p50_ms": 1034.94,
+      "p95_ms": 1040.28,
+      "errors": 0,
+      "schema_valid": 32,
+      "exact_matches": 32,
+      "field_accuracy": 1.0,
+      "mean_completion_tokens": 2,
+      "started_at": "2026-09-16T13:57:40.490237+00:00",
+      "ended_at": "2026-09-16T13:57:48.805603+00:00",
+      "concurrency": 4,
+      "wall_seconds": 8.315144358901307,
+      "completed_requests_per_second": 3.8483998134974304,
+      "correct_requests_per_second": 3.8483998134974304
+    }
+  ],
+  "rows": [
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 1400.189985986799,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 1520.188655005768,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 1650.2309788484126,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 1796.3319779373705,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 1700.5326398648322,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 1711.430051829666,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 1706.870747031644,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 1699.712451081723,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 1709.3751549255103,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 1704.6735370531678,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 10,
+      "field_count": 1,
+      "latency_ms": 1703.8108920678496,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 11,
+      "field_count": 1,
+      "latency_ms": 1708.3867581095546,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 12,
+      "field_count": 1,
+      "latency_ms": 1710.9108010772616,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 13,
+      "field_count": 1,
+      "latency_ms": 1706.9407438393682,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 14,
+      "field_count": 1,
+      "latency_ms": 1706.412663916126,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 15,
+      "field_count": 1,
+      "latency_ms": 1713.407534873113,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 16,
+      "field_count": 1,
+      "latency_ms": 1711.449276888743,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 17,
+      "field_count": 1,
+      "latency_ms": 1713.152531068772,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 18,
+      "field_count": 1,
+      "latency_ms": 1715.8329060766846,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 19,
+      "field_count": 1,
+      "latency_ms": 1712.7488180994987,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 20,
+      "field_count": 1,
+      "latency_ms": 1713.4019581135362,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 21,
+      "field_count": 1,
+      "latency_ms": 1712.9471248481423,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 22,
+      "field_count": 1,
+      "latency_ms": 1716.3748540915549,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 23,
+      "field_count": 1,
+      "latency_ms": 1709.5521700102836,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 24,
+      "field_count": 1,
+      "latency_ms": 1714.9833380244672,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 25,
+      "field_count": 1,
+      "latency_ms": 1719.7460900060833,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 26,
+      "field_count": 1,
+      "latency_ms": 1716.1837059538811,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 27,
+      "field_count": 1,
+      "latency_ms": 1722.7061269804835,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 28,
+      "field_count": 1,
+      "latency_ms": 1729.3795000296086,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 29,
+      "field_count": 1,
+      "latency_ms": 1722.9522021953017,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 30,
+      "field_count": 1,
+      "latency_ms": 1719.9581090826541,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "fresh_prefix",
+      "repetition": 31,
+      "field_count": 1,
+      "latency_ms": 1648.6560050398111,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 1152.768347878009,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 1276.1152549646795,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 1531.3946611713618,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 1786.7644759826362,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 1172.2518189344555,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 1088.3994959294796,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 1075.7827069610357,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 1074.9423520173877,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 1185.963218100369,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 1276.0361938271672,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 10,
+      "field_count": 1,
+      "latency_ms": 1288.6388881597668,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 11,
+      "field_count": 1,
+      "latency_ms": 1290.61708599329,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 12,
+      "field_count": 1,
+      "latency_ms": 1173.5184909775853,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 13,
+      "field_count": 1,
+      "latency_ms": 1173.5810509417206,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 14,
+      "field_count": 1,
+      "latency_ms": 1173.974818084389,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 15,
+      "field_count": 1,
+      "latency_ms": 1174.2261610925198,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 16,
+      "field_count": 1,
+      "latency_ms": 1174.1681601852179,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 17,
+      "field_count": 1,
+      "latency_ms": 1175.3465218935162,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 18,
+      "field_count": 1,
+      "latency_ms": 1175.1392020378262,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 19,
+      "field_count": 1,
+      "latency_ms": 1175.909450976178,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 20,
+      "field_count": 1,
+      "latency_ms": 1175.0463501084596,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 21,
+      "field_count": 1,
+      "latency_ms": 1175.047808792442,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 22,
+      "field_count": 1,
+      "latency_ms": 1174.1066831164062,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 23,
+      "field_count": 1,
+      "latency_ms": 1176.1096890550107,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 24,
+      "field_count": 1,
+      "latency_ms": 1182.5859430246055,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 25,
+      "field_count": 1,
+      "latency_ms": 1187.1404061093926,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 26,
+      "field_count": 1,
+      "latency_ms": 1181.2973690684885,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 27,
+      "field_count": 1,
+      "latency_ms": 1186.1028058920056,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 28,
+      "field_count": 1,
+      "latency_ms": 1180.9846840333194,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 29,
+      "field_count": 1,
+      "latency_ms": 1093.3074299246073,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 30,
+      "field_count": 1,
+      "latency_ms": 879.1677081026137,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "fresh_prefix",
+      "repetition": 31,
+      "field_count": 1,
+      "latency_ms": 662.4706301372498,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 714.3451229203492,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 714.7577258292586,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 714.383214013651,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 543.7882340047508,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 539.0781809110194,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 668.6459688935429,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 668.9841370098293,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 668.70675701648,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 545.8128720056266,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 727.151843952015,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 10,
+      "field_count": 1,
+      "latency_ms": 727.4468620307744,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 11,
+      "field_count": 1,
+      "latency_ms": 727.1613120101392,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 12,
+      "field_count": 1,
+      "latency_ms": 353.2783000264317,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 13,
+      "field_count": 1,
+      "latency_ms": 538.7683778535575,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 14,
+      "field_count": 1,
+      "latency_ms": 666.4739779662341,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 15,
+      "field_count": 1,
+      "latency_ms": 666.8160550761968,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 16,
+      "field_count": 1,
+      "latency_ms": 666.5471540763974,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2190,
+        "completion_tokens": 18,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 17,
+      "field_count": 1,
+      "latency_ms": 527.7380847837776,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 18,
+      "field_count": 1,
+      "latency_ms": 533.3066619932652,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 19,
+      "field_count": 1,
+      "latency_ms": 533.4088120143861,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 20,
+      "field_count": 1,
+      "latency_ms": 550.8006119634956,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 21,
+      "field_count": 1,
+      "latency_ms": 536.7833799682558,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 22,
+      "field_count": 1,
+      "latency_ms": 537.9743489902467,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 23,
+      "field_count": 1,
+      "latency_ms": 538.083306979388,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 24,
+      "field_count": 1,
+      "latency_ms": 536.4233111031353,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 25,
+      "field_count": 1,
+      "latency_ms": 536.0905209090561,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 26,
+      "field_count": 1,
+      "latency_ms": 535.396764986217,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 27,
+      "field_count": 1,
+      "latency_ms": 534.7817409783602,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 28,
+      "field_count": 1,
+      "latency_ms": 535.7831530272961,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 29,
+      "field_count": 1,
+      "latency_ms": 475.38661397993565,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 30,
+      "field_count": 1,
+      "latency_ms": 411.5064109209925,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "json_schema",
+      "cache": "warm_prefix",
+      "repetition": 31,
+      "field_count": 1,
+      "latency_ms": 410.83533805795014,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 2172,
+        "total_tokens": 2184,
+        "completion_tokens": 12,
+        "prompt_tokens_details": null,
+        "completion_tokens_details": {
+          "reasoning_tokens": 0
+        }
+      },
+      "resolved_strategy": "json_schema",
+      "max_prompt_tokens": null,
+      "backend_requests": null,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 0,
+      "field_count": 1,
+      "latency_ms": 739.3380680587143,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 1,
+      "field_count": 1,
+      "latency_ms": 866.8030470144004,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 2,
+      "field_count": 1,
+      "latency_ms": 994.9359700549394,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 3,
+      "field_count": 1,
+      "latency_ms": 1123.3847350813448,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 4,
+      "field_count": 1,
+      "latency_ms": 1031.6080709453672,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 5,
+      "field_count": 1,
+      "latency_ms": 1034.1537741478533,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 6,
+      "field_count": 1,
+      "latency_ms": 1034.721934935078,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 7,
+      "field_count": 1,
+      "latency_ms": 1035.2475619874895,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 8,
+      "field_count": 1,
+      "latency_ms": 1032.9794820863754,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 9,
+      "field_count": 1,
+      "latency_ms": 1037.1659288648516,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 10,
+      "field_count": 1,
+      "latency_ms": 1035.745861940086,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 11,
+      "field_count": 1,
+      "latency_ms": 1035.9698459506035,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 12,
+      "field_count": 1,
+      "latency_ms": 1032.4587100185454,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 13,
+      "field_count": 1,
+      "latency_ms": 1032.1488899644464,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 14,
+      "field_count": 1,
+      "latency_ms": 1034.3635759782046,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 15,
+      "field_count": 1,
+      "latency_ms": 1033.7353888899088,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 16,
+      "field_count": 1,
+      "latency_ms": 1041.5182129945606,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 17,
+      "field_count": 1,
+      "latency_ms": 1035.8966670464724,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 18,
+      "field_count": 1,
+      "latency_ms": 1034.077876014635,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 19,
+      "field_count": 1,
+      "latency_ms": 1035.1490939501673,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 20,
+      "field_count": 1,
+      "latency_ms": 1035.6755841057748,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 21,
+      "field_count": 1,
+      "latency_ms": 1034.6283630933613,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 22,
+      "field_count": 1,
+      "latency_ms": 1036.4548380021006,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 23,
+      "field_count": 1,
+      "latency_ms": 1032.059855060652,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 24,
+      "field_count": 1,
+      "latency_ms": 1037.3227160889655,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 25,
+      "field_count": 1,
+      "latency_ms": 1037.1453589759767,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 26,
+      "field_count": 1,
+      "latency_ms": 1036.9765919167548,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 27,
+      "field_count": 1,
+      "latency_ms": 1039.2741821706295,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 28,
+      "field_count": 1,
+      "latency_ms": 1035.8113120310009,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 29,
+      "field_count": 1,
+      "latency_ms": 1037.297932896763,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 30,
+      "field_count": 1,
+      "latency_ms": 1029.8972139135003,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    },
+    {
+      "case": "cardinality_255",
+      "method": "auto",
+      "cache": "warm_prefix",
+      "repetition": 31,
+      "field_count": 1,
+      "latency_ms": 976.3413220643997,
+      "prediction": {
+        "category": "CATALOG-173"
+      },
+      "schema_valid": true,
+      "correct_fields": 1,
+      "total_fields": 1,
+      "exact_match": true,
+      "usage": {
+        "prompt_tokens": 5360,
+        "completion_tokens": 2,
+        "total_tokens": 5362
+      },
+      "resolved_strategy": "batch",
+      "max_prompt_tokens": 2680,
+      "backend_requests": 2,
+      "error": null,
+      "concurrency": 4
+    }
+  ]
+}

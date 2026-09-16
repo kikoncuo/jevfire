@@ -1,0 +1,3130 @@
+{
+  "mixed_batch": {
+    "model": "qwen3.8-27b",
+    "mode": "vllm_parallel_categorical_scoring",
+    "strategy": "batch",
+    "requested_strategy": "batch",
+    "parsed_json": {
+      "first": "CATALOG-254",
+      "second": "CATALOG-128",
+      "approved": true
+    },
+    "fields": {
+      "first": {
+        "value": "CATALOG-254",
+        "selected_value": "CATALOG-254",
+        "probability": 0.9987843479947128,
+        "abstained": false,
+        "candidate_probability_mass": 0.9992546223713248,
+        "candidates": [
+          {
+            "value": "CATALOG-000",
+            "label": "A",
+            "probability": 6.197893104614056e-05,
+            "logprob": -9.689461708068848
+          },
+          {
+            "value": "CATALOG-001",
+            "label": "B",
+            "probability": 4.259745481893733e-05,
+            "logprob": -10.064461708068848
+          },
+          {
+            "value": "CATALOG-002",
+            "label": "C",
+            "probability": 5.822381744396012e-05,
+            "logprob": -9.751961708068848
+          },
+          {
+            "value": "CATALOG-003",
+            "label": "D",
+            "probability": 6.136745209624947e-06,
+            "logprob": -12.001961708068848
+          },
+          {
+            "value": "CATALOG-004",
+            "label": "E",
+            "probability": 1.1464949429673361e-05,
+            "logprob": -11.376961708068848
+          },
+          {
+            "value": "CATALOG-005",
+            "label": "F",
+            "probability": 2.0121612888362555e-05,
+            "logprob": -10.814461708068848
+          },
+          {
+            "value": "CATALOG-006",
+            "label": "G",
+            "probability": 4.489738706225046e-06,
+            "logprob": -12.314461708068848
+          },
+          {
+            "value": "CATALOG-007",
+            "label": "H",
+            "probability": 3.4966120201940625e-06,
+            "logprob": -12.564461708068848
+          },
+          {
+            "value": "CATALOG-008",
+            "label": "I",
+            "probability": 8.38793618783192e-06,
+            "logprob": -11.689461708068848
+          },
+          {
+            "value": "CATALOG-009",
+            "label": "J",
+            "probability": 0.00029568494292470473,
+            "logprob": -8.126961708068848
+          },
+          {
+            "value": "CATALOG-010",
+            "label": "K",
+            "probability": 1.2991489710723764e-05,
+            "logprob": -11.251961708068848
+          },
+          {
+            "value": "CATALOG-011",
+            "label": "L",
+            "probability": 3.962180501657772e-06,
+            "logprob": -12.439461708068848
+          },
+          {
+            "value": "CATALOG-012",
+            "label": "M",
+            "probability": 1.2991489710723764e-05,
+            "logprob": -11.251961708068848
+          },
+          {
+            "value": "CATALOG-013",
+            "label": "N",
+            "probability": 7.402327704838907e-06,
+            "logprob": -11.814461708068848
+          },
+          {
+            "value": "CATALOG-014",
+            "label": "O",
+            "probability": 5.4156586394448686e-06,
+            "logprob": -12.126961708068848
+          },
+          {
+            "value": "CATALOG-015",
+            "label": "P",
+            "probability": 7.879736824895172e-06,
+            "logprob": -11.751961708068848
+          },
+          {
+            "value": "CATALOG-016",
+            "label": "Q",
+            "probability": 7.402327704838907e-06,
+            "logprob": -11.814461708068848
+          },
+          {
+            "value": "CATALOG-017",
+            "label": "R",
+            "probability": 1.1464949429673361e-05,
+            "logprob": -11.376961708068848
+          },
+          {
+            "value": "CATALOG-018",
+            "label": "S",
+            "probability": 1.1464949429673361e-05,
+            "logprob": -11.376961708068848
+          },
+          {
+            "value": "CATALOG-019",
+            "label": "T",
+            "probability": 4.534475461876266e-05,
+            "logprob": -10.001961708068848
+          },
+          {
+            "value": "CATALOG-020",
+            "label": "U",
+            "probability": 9.504776915664991e-06,
+            "logprob": -11.564461708068848
+          },
+          {
+            "value": "CATALOG-021",
+            "label": "V",
+            "probability": 3.962180501657772e-06,
+            "logprob": -12.439461708068848
+          },
+          {
+            "value": "CATALOG-022",
+            "label": "W",
+            "probability": 6.532531271436473e-06,
+            "logprob": -11.939461708068848
+          },
+          {
+            "value": "CATALOG-023",
+            "label": "X",
+            "probability": 4.217719189247082e-06,
+            "logprob": -12.376961708068848
+          },
+          {
+            "value": "CATALOG-024",
+            "label": "Y",
+            "probability": 2.4031839535710216e-06,
+            "logprob": -12.939461708068848
+          },
+          {
+            "value": "CATALOG-025",
+            "label": "Z",
+            "probability": 5.822381744396012e-05,
+            "logprob": -9.751961708068848
+          },
+          {
+            "value": "CATALOG-026",
+            "label": "AA",
+            "probability": 1.314070535294599e-07,
+            "logprob": -15.845711708068848
+          },
+          {
+            "value": "CATALOG-027",
+            "label": "AB",
+            "probability": 1.4576047487702463e-06,
+            "logprob": -13.439461708068848
+          },
+          {
+            "value": "CATALOG-028",
+            "label": "AC",
+            "probability": 6.88523730435534e-07,
+            "logprob": -14.189461708068848
+          },
+          {
+            "value": "CATALOG-029",
+            "label": "AD",
+            "probability": 6.076200594653497e-07,
+            "logprob": -14.314461708068848
+          },
+          {
+            "value": "CATALOG-030",
+            "label": "AE",
+            "probability": 3.884381378354706e-08,
+            "logprob": -17.064462661743164
+          },
+          {
+            "value": "CATALOG-031",
+            "label": "AF",
+            "probability": 1.6872999666387307e-07,
+            "logprob": -15.595711708068848
+          },
+          {
+            "value": "CATALOG-032",
+            "label": "AG",
+            "probability": 1.0664064150271554e-06,
+            "logprob": -13.751961708068848
+          },
+          {
+            "value": "CATALOG-033",
+            "label": "AH",
+            "probability": 4.834190731594611e-08,
+            "logprob": -16.845712661743164
+          },
+          {
+            "value": "CATALOG-034",
+            "label": "AI",
+            "probability": 1.1596631771751648e-07,
+            "logprob": -15.970711708068848
+          },
+          {
+            "value": "CATALOG-035",
+            "label": "AJ",
+            "probability": 4.176107524488678e-07,
+            "logprob": -14.689461708068848
+          },
+          {
+            "value": "CATALOG-036",
+            "label": "AK",
+            "probability": 9.318146520880965e-08,
+            "logprob": -16.189462661743164
+          },
+          {
+            "value": "CATALOG-037",
+            "label": "AL",
+            "probability": 9.919115338862518e-08,
+            "logprob": -16.126962661743164
+          },
+          {
+            "value": "CATALOG-038",
+            "label": "AM",
+            "probability": 2.870193928659376e-07,
+            "logprob": -15.064461708068848
+          },
+          {
+            "value": "CATALOG-039",
+            "label": "AN",
+            "probability": 4.4454433196633767e-07,
+            "logprob": -14.626961708068848
+          },
+          {
+            "value": "CATALOG-040",
+            "label": "AO",
+            "probability": 1.7783993848551912e-08,
+            "logprob": -17.845712661743164
+          },
+          {
+            "value": "CATALOG-041",
+            "label": "AP",
+            "probability": 6.88523730435534e-07,
+            "logprob": -14.189461708068848
+          },
+          {
+            "value": "CATALOG-042",
+            "label": "AQ",
+            "probability": 3.764871527282411e-08,
+            "logprob": -17.095712661743164
+          },
+          {
+            "value": "CATALOG-043",
+            "label": "AR",
+            "probability": 3.923089960218311e-07,
+            "logprob": -14.751961708068848
+          },
+          {
+            "value": "CATALOG-044",
+            "label": "AS",
+            "probability": 8.840819698718847e-07,
+            "logprob": -13.939461708068848
+          },
+          {
+            "value": "CATALOG-045",
+            "label": "AT",
+            "probability": 8.928911593703672e-06,
+            "logprob": -11.626961708068848
+          },
+          {
+            "value": "CATALOG-046",
+            "label": "AU",
+            "probability": 7.256979807236183e-08,
+            "logprob": -16.439462661743164
+          },
+          {
+            "value": "CATALOG-047",
+            "label": "AV",
+            "probability": 4.7321497812150793e-07,
+            "logprob": -14.564461708068848
+          },
+          {
+            "value": "CATALOG-048",
+            "label": "AW",
+            "probability": 9.613936243029635e-08,
+            "logprob": -16.158212661743164
+          },
+          {
+            "value": "CATALOG-049",
+            "label": "AX",
+            "probability": 1.0454670650558036e-08,
+            "logprob": -18.376962661743164
+          },
+          {
+            "value": "CATALOG-050",
+            "label": "AY",
+            "probability": 4.5413019213918105e-08,
+            "logprob": -16.908212661743164
+          },
+          {
+            "value": "CATALOG-051",
+            "label": "AZ",
+            "probability": 1.273640835253645e-07,
+            "logprob": -15.876961708068848
+          },
+          {
+            "value": "CATALOG-052",
+            "label": "BA",
+            "probability": 3.6854019552214807e-07,
+            "logprob": -14.814461708068848
+          },
+          {
+            "value": "CATALOG-053",
+            "label": "BB",
+            "probability": 3.322487461455662e-08,
+            "logprob": -17.220712661743164
+          },
+          {
+            "value": "CATALOG-054",
+            "label": "BC",
+            "probability": 2.235309279206714e-07,
+            "logprob": -15.314461708068848
+          },
+          {
+            "value": "CATALOG-055",
+            "label": "BD",
+            "probability": 2.430783753780216e-08,
+            "logprob": -17.533212661743164
+          },
+          {
+            "value": "CATALOG-056",
+            "label": "BE",
+            "probability": 8.484268956119436e-08,
+            "logprob": -16.283212661743164
+          },
+          {
+            "value": "CATALOG-057",
+            "label": "BF",
+            "probability": 2.754438850336025e-08,
+            "logprob": -17.408212661743164
+          },
+          {
+            "value": "CATALOG-058",
+            "label": "BG",
+            "probability": 3.322487461455662e-08,
+            "logprob": -17.220712661743164
+          },
+          {
+            "value": "CATALOG-059",
+            "label": "BH",
+            "probability": 1.013301425002527e-08,
+            "logprob": -18.408212661743164
+          },
+          {
+            "value": "CATALOG-060",
+            "label": "BI",
+            "probability": 2.754438850336025e-08,
+            "logprob": -17.408212661743164
+          },
+          {
+            "value": "CATALOG-061",
+            "label": "BJ",
+            "probability": 4.176107524488678e-07,
+            "logprob": -14.689461708068848
+          },
+          {
+            "value": "CATALOG-062",
+            "label": "BK",
+            "probability": 3.649038607775824e-08,
+            "logprob": -17.126962661743164
+          },
+          {
+            "value": "CATALOG-063",
+            "label": "BL",
+            "probability": 6.207223768483789e-08,
+            "logprob": -16.595712661743164
+          },
+          {
+            "value": "CATALOG-064",
+            "label": "BM",
+            "probability": 6.750042699821727e-09,
+            "logprob": -18.814462661743164
+          },
+          {
+            "value": "CATALOG-065",
+            "label": "BN",
+            "probability": 1.4743448737990658e-08,
+            "logprob": -18.033212661743164
+          },
+          {
+            "value": "CATALOG-066",
+            "label": "BO",
+            "probability": 3.2202652687737697e-08,
+            "logprob": -17.251962661743164
+          },
+          {
+            "value": "CATALOG-067",
+            "label": "BP",
+            "probability": 2.1451591335639966e-08,
+            "logprob": -17.658212661743164
+          },
+          {
+            "value": "CATALOG-068",
+            "label": "BR",
+            "probability": 1.19647483796994e-07,
+            "logprob": -15.939461708068848
+          },
+          {
+            "value": "CATALOG-069",
+            "label": "BS",
+            "probability": 6.207223768483789e-08,
+            "logprob": -16.595712661743164
+          },
+          {
+            "value": "CATALOG-070",
+            "label": "BT",
+            "probability": 5.822381744396012e-05,
+            "logprob": -9.751961708068848
+          },
+          {
+            "value": "CATALOG-071",
+            "label": "BU",
+            "probability": 6.404262202004885e-08,
+            "logprob": -16.564462661743164
+          },
+          {
+            "value": "CATALOG-072",
+            "label": "BV",
+            "probability": 1.8348518412248033e-08,
+            "logprob": -17.814462661743164
+          },
+          {
+            "value": "CATALOG-073",
+            "label": "BW",
+            "probability": 7.648800443438014e-09,
+            "logprob": -18.689462661743164
+          },
+          {
+            "value": "CATALOG-074",
+            "label": "BX",
+            "probability": 9.226214466659544e-09,
+            "logprob": -18.501962661743164
+          },
+          {
+            "value": "CATALOG-075",
+            "label": "BY",
+            "probability": 7.725014793281712e-08,
+            "logprob": -16.376962661743164
+          },
+          {
+            "value": "CATALOG-076",
+            "label": "CA",
+            "probability": 1.75820693966634e-06,
+            "logprob": -13.251961708068848
+          },
+          {
+            "value": "CATALOG-077",
+            "label": "CB",
+            "probability": 6.207223768483789e-08,
+            "logprob": -16.595712661743164
+          },
+          {
+            "value": "CATALOG-078",
+            "label": "CC",
+            "probability": 2.235309279206714e-07,
+            "logprob": -15.314461708068848
+          },
+          {
+            "value": "CATALOG-079",
+            "label": "CD",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-080",
+            "label": "CE",
+            "probability": 3.462114738453384e-07,
+            "logprob": -14.876961708068848
+          },
+          {
+            "value": "CATALOG-081",
+            "label": "CF",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-082",
+            "label": "CG",
+            "probability": 1.0894016981672126e-07,
+            "logprob": -16.033212661743164
+          },
+          {
+            "value": "CATALOG-083",
+            "label": "CH",
+            "probability": 2.870193928659376e-07,
+            "logprob": -15.064461708068848
+          },
+          {
+            "value": "CATALOG-084",
+            "label": "CI",
+            "probability": 1.0233981859094629e-07,
+            "logprob": -16.095712661743164
+          },
+          {
+            "value": "CATALOG-085",
+            "label": "CK",
+            "probability": 1.5211456039222826e-08,
+            "logprob": -18.001962661743164
+          },
+          {
+            "value": "CATALOG-086",
+            "label": "CL",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-087",
+            "label": "CM",
+            "probability": 8.753588562925522e-08,
+            "logprob": -16.251962661743164
+          },
+          {
+            "value": "CATALOG-088",
+            "label": "CN",
+            "probability": 9.03145729175795e-08,
+            "logprob": -16.220712661743164
+          },
+          {
+            "value": "CATALOG-089",
+            "label": "CO",
+            "probability": 1.4432241422304085e-07,
+            "logprob": -15.751961708068848
+          },
+          {
+            "value": "CATALOG-090",
+            "label": "CP",
+            "probability": 2.235309279206714e-07,
+            "logprob": -15.314461708068848
+          },
+          {
+            "value": "CATALOG-091",
+            "label": "CR",
+            "probability": 6.076200594653497e-07,
+            "logprob": -14.314461708068848
+          },
+          {
+            "value": "CATALOG-092",
+            "label": "CS",
+            "probability": 7.801996000428259e-07,
+            "logprob": -14.064461708068848
+          },
+          {
+            "value": "CATALOG-093",
+            "label": "CT",
+            "probability": 5.4156586394448686e-06,
+            "logprob": -12.126961708068848
+          },
+          {
+            "value": "CATALOG-094",
+            "label": "CU",
+            "probability": 7.033706011097042e-08,
+            "logprob": -16.470712661743164
+          },
+          {
+            "value": "CATALOG-095",
+            "label": "CV",
+            "probability": 5.8311470919199614e-08,
+            "logprob": -16.658212661743164
+          },
+          {
+            "value": "CATALOG-096",
+            "label": "CW",
+            "probability": 7.256979807236183e-08,
+            "logprob": -16.439462661743164
+          },
+          {
+            "value": "CATALOG-097",
+            "label": "CX",
+            "probability": 1.723683787973938e-08,
+            "logprob": -17.876962661743164
+          },
+          {
+            "value": "CATALOG-098",
+            "label": "CY",
+            "probability": 2.2835100111759103e-08,
+            "logprob": -17.595712661743164
+          },
+          {
+            "value": "CATALOG-099",
+            "label": "DA",
+            "probability": 3.923089960218311e-07,
+            "logprob": -14.751961708068848
+          },
+          {
+            "value": "CATALOG-100",
+            "label": "DB",
+            "probability": 1.0558843315586294e-07,
+            "logprob": -16.064462661743164
+          },
+          {
+            "value": "CATALOG-101",
+            "label": "DC",
+            "probability": 4.834190731594611e-08,
+            "logprob": -16.845712661743164
+          },
+          {
+            "value": "CATALOG-102",
+            "label": "DD",
+            "probability": 1.8348518412248033e-08,
+            "logprob": -17.814462661743164
+          },
+          {
+            "value": "CATALOG-103",
+            "label": "DE",
+            "probability": 1.7961214650192182e-07,
+            "logprob": -15.533211708068848
+          },
+          {
+            "value": "CATALOG-104",
+            "label": "DF",
+            "probability": 6.016247570245985e-08,
+            "logprob": -16.626962661743164
+          },
+          {
+            "value": "CATALOG-105",
+            "label": "DG",
+            "probability": 2.2132537940911404e-08,
+            "logprob": -17.626962661743164
+          },
+          {
+            "value": "CATALOG-106",
+            "label": "DH",
+            "probability": 3.0424826118104745e-09,
+            "logprob": -19.611337661743164
+          },
+          {
+            "value": "CATALOG-107",
+            "label": "DI",
+            "probability": 1.6192510665825307e-08,
+            "logprob": -17.939462661743164
+          },
+          {
+            "value": "CATALOG-108",
+            "label": "DJ",
+            "probability": 1.0233981859094629e-07,
+            "logprob": -16.095712661743164
+          },
+          {
+            "value": "CATALOG-109",
+            "label": "DK",
+            "probability": 5.773617482418093e-09,
+            "logprob": -18.970712661743164
+          },
+          {
+            "value": "CATALOG-110",
+            "label": "DL",
+            "probability": 1.5211456039222826e-08,
+            "logprob": -18.001962661743164
+          },
+          {
+            "value": "CATALOG-111",
+            "label": "DM",
+            "probability": 5.256938540386581e-09,
+            "logprob": -19.064462661743164
+          },
+          {
+            "value": "CATALOG-112",
+            "label": "DN",
+            "probability": 3.786430787926842e-09,
+            "logprob": -19.392587661743164
+          },
+          {
+            "value": "CATALOG-113",
+            "label": "DO",
+            "probability": 5.309319845924179e-08,
+            "logprob": -16.751962661743164
+          },
+          {
+            "value": "CATALOG-114",
+            "label": "DP",
+            "probability": 2.444703458646168e-09,
+            "logprob": -19.830087661743164
+          },
+          {
+            "value": "CATALOG-115",
+            "label": "DR",
+            "probability": 6.404262202004885e-08,
+            "logprob": -16.564462661743164
+          },
+          {
+            "value": "CATALOG-116",
+            "label": "DS",
+            "probability": 7.891599432793384e-09,
+            "logprob": -18.658212661743164
+          },
+          {
+            "value": "CATALOG-117",
+            "label": "DT",
+            "probability": 3.7221241204821614e-06,
+            "logprob": -12.501961708068848
+          },
+          {
+            "value": "CATALOG-118",
+            "label": "DU",
+            "probability": 1.5211456039222826e-08,
+            "logprob": -18.001962661743164
+          },
+          {
+            "value": "CATALOG-119",
+            "label": "DV",
+            "probability": 5.773617482418093e-09,
+            "logprob": -18.970712661743164
+          },
+          {
+            "value": "CATALOG-120",
+            "label": "DW",
+            "probability": 1.9039369679710073e-09,
+            "logprob": -20.080087661743164
+          },
+          {
+            "value": "CATALOG-121",
+            "label": "DX",
+            "probability": 2.903157189284901e-09,
+            "logprob": -19.658212661743164
+          },
+          {
+            "value": "CATALOG-122",
+            "label": "DY",
+            "probability": 2.903157189284901e-09,
+            "logprob": -19.658212661743164
+          },
+          {
+            "value": "CATALOG-123",
+            "label": "EA",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-124",
+            "label": "EB",
+            "probability": 1.6872999666387307e-07,
+            "logprob": -15.595711708068848
+          },
+          {
+            "value": "CATALOG-125",
+            "label": "EC",
+            "probability": 2.3794743416832212e-07,
+            "logprob": -15.251961708068848
+          },
+          {
+            "value": "CATALOG-126",
+            "label": "ED",
+            "probability": 3.2523558102621686e-07,
+            "logprob": -14.939461708068848
+          },
+          {
+            "value": "CATALOG-127",
+            "label": "EE",
+            "probability": 3.764871527282411e-08,
+            "logprob": -17.095712661743164
+          },
+          {
+            "value": "CATALOG-128",
+            "label": "EF",
+            "probability": 1.0017961165445988e-06,
+            "logprob": -13.814461708068848
+          },
+          {
+            "value": "CATALOG-129",
+            "label": "EG",
+            "probability": 3.2523558102621686e-07,
+            "logprob": -14.939461708068848
+          },
+          {
+            "value": "CATALOG-130",
+            "label": "EH",
+            "probability": 5.477855749336423e-08,
+            "logprob": -16.720712661743164
+          },
+          {
+            "value": "CATALOG-131",
+            "label": "EI",
+            "probability": 3.322487461455662e-08,
+            "logprob": -17.220712661743164
+          },
+          {
+            "value": "CATALOG-132",
+            "label": "EK",
+            "probability": 1.314070535294599e-07,
+            "logprob": -15.845711708068848
+          },
+          {
+            "value": "CATALOG-133",
+            "label": "EL",
+            "probability": 2.235309279206714e-07,
+            "logprob": -15.314461708068848
+          },
+          {
+            "value": "CATALOG-134",
+            "label": "EM",
+            "probability": 1.0894016981672126e-07,
+            "logprob": -16.033212661743164
+          },
+          {
+            "value": "CATALOG-135",
+            "label": "EN",
+            "probability": 1.6872999666387307e-07,
+            "logprob": -15.595711708068848
+          },
+          {
+            "value": "CATALOG-136",
+            "label": "EO",
+            "probability": 7.256979807236183e-08,
+            "logprob": -16.439462661743164
+          },
+          {
+            "value": "CATALOG-137",
+            "label": "EP",
+            "probability": 2.099878736314962e-07,
+            "logprob": -15.376961708068848
+          },
+          {
+            "value": "CATALOG-138",
+            "label": "EQ",
+            "probability": 7.256979807236183e-08,
+            "logprob": -16.439462661743164
+          },
+          {
+            "value": "CATALOG-139",
+            "label": "ER",
+            "probability": 1.123983020202349e-07,
+            "logprob": -16.001962661743164
+          },
+          {
+            "value": "CATALOG-140",
+            "label": "ES",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-141",
+            "label": "ET",
+            "probability": 1.8716015449057462e-06,
+            "logprob": -13.189461708068848
+          },
+          {
+            "value": "CATALOG-142",
+            "label": "EU",
+            "probability": 2.3794743416832212e-07,
+            "logprob": -15.251961708068848
+          },
+          {
+            "value": "CATALOG-143",
+            "label": "EV",
+            "probability": 9.318146520880965e-08,
+            "logprob": -16.189462661743164
+          },
+          {
+            "value": "CATALOG-144",
+            "label": "EW",
+            "probability": 3.427954534855309e-08,
+            "logprob": -17.189462661743164
+          },
+          {
+            "value": "CATALOG-145",
+            "label": "EX",
+            "probability": 9.613936243029635e-08,
+            "logprob": -16.158212661743164
+          },
+          {
+            "value": "CATALOG-146",
+            "label": "EZ",
+            "probability": 8.223235442506876e-08,
+            "logprob": -16.314462661743164
+          },
+          {
+            "value": "CATALOG-147",
+            "label": "FA",
+            "probability": 5.037347220872812e-07,
+            "logprob": -14.501961708068848
+          },
+          {
+            "value": "CATALOG-148",
+            "label": "FB",
+            "probability": 4.0076848793297455e-08,
+            "logprob": -17.033212661743164
+          },
+          {
+            "value": "CATALOG-149",
+            "label": "FC",
+            "probability": 1.2610739986436825e-08,
+            "logprob": -18.189462661743164
+          },
+          {
+            "value": "CATALOG-150",
+            "label": "FD",
+            "probability": 6.145983817945342e-09,
+            "logprob": -18.908212661743164
+          },
+          {
+            "value": "CATALOG-151",
+            "label": "FE",
+            "probability": 4.834190731594611e-08,
+            "logprob": -16.845712661743164
+          },
+          {
+            "value": "CATALOG-152",
+            "label": "FF",
+            "probability": 1.5850716295451657e-07,
+            "logprob": -15.658211708068848
+          },
+          {
+            "value": "CATALOG-153",
+            "label": "FG",
+            "probability": 5.651741556608912e-08,
+            "logprob": -16.689462661743164
+          },
+          {
+            "value": "CATALOG-154",
+            "label": "FH",
+            "probability": 3.025159259210627e-08,
+            "logprob": -17.314462661743164
+          },
+          {
+            "value": "CATALOG-155",
+            "label": "FI",
+            "probability": 1.893096290921281e-08,
+            "logprob": -17.783212661743164
+          },
+          {
+            "value": "CATALOG-156",
+            "label": "FK",
+            "probability": 7.648800443438014e-09,
+            "logprob": -18.689462661743164
+          },
+          {
+            "value": "CATALOG-157",
+            "label": "FL",
+            "probability": 9.613936243029635e-08,
+            "logprob": -16.158212661743164
+          },
+          {
+            "value": "CATALOG-158",
+            "label": "FM",
+            "probability": 1.428984050765886e-08,
+            "logprob": -18.064462661743164
+          },
+          {
+            "value": "CATALOG-159",
+            "label": "FN",
+            "probability": 3.427954534855309e-08,
+            "logprob": -17.189462661743164
+          },
+          {
+            "value": "CATALOG-160",
+            "label": "FO",
+            "probability": 7.970233085801449e-08,
+            "logprob": -16.345712661743164
+          },
+          {
+            "value": "CATALOG-161",
+            "label": "FP",
+            "probability": 1.148220942232024e-08,
+            "logprob": -18.283212661743164
+          },
+          {
+            "value": "CATALOG-162",
+            "label": "FR",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-163",
+            "label": "FS",
+            "probability": 3.884381378354706e-08,
+            "logprob": -17.064462661743164
+          },
+          {
+            "value": "CATALOG-164",
+            "label": "FT",
+            "probability": 1.668140298920659e-05,
+            "logprob": -11.001961708068848
+          },
+          {
+            "value": "CATALOG-165",
+            "label": "FU",
+            "probability": 2.430783753780216e-08,
+            "logprob": -17.533212661743164
+          },
+          {
+            "value": "CATALOG-166",
+            "label": "FW",
+            "probability": 7.48734107447004e-08,
+            "logprob": -16.408212661743164
+          },
+          {
+            "value": "CATALOG-167",
+            "label": "FX",
+            "probability": 3.764871527282411e-08,
+            "logprob": -17.095712661743164
+          },
+          {
+            "value": "CATALOG-168",
+            "label": "FY",
+            "probability": 7.970233085801449e-08,
+            "logprob": -16.345712661743164
+          },
+          {
+            "value": "CATALOG-169",
+            "label": "GA",
+            "probability": 1.9119613470563853e-07,
+            "logprob": -15.470711708068848
+          },
+          {
+            "value": "CATALOG-170",
+            "label": "GB",
+            "probability": 1.5211456039222826e-08,
+            "logprob": -18.001962661743164
+          },
+          {
+            "value": "CATALOG-171",
+            "label": "GC",
+            "probability": 9.519085952148832e-09,
+            "logprob": -18.470712661743164
+          },
+          {
+            "value": "CATALOG-172",
+            "label": "GD",
+            "probability": 4.134902453582301e-08,
+            "logprob": -17.001962661743164
+          },
+          {
+            "value": "CATALOG-173",
+            "label": "GE",
+            "probability": 2.430783753780216e-08,
+            "logprob": -17.533212661743164
+          },
+          {
+            "value": "CATALOG-174",
+            "label": "GF",
+            "probability": 2.2132537940911404e-08,
+            "logprob": -17.626962661743164
+          },
+          {
+            "value": "CATALOG-175",
+            "label": "GG",
+            "probability": 8.942353689492867e-09,
+            "logprob": -18.533212661743164
+          },
+          {
+            "value": "CATALOG-176",
+            "label": "GH",
+            "probability": 2.3559963999889478e-08,
+            "logprob": -17.564462661743164
+          },
+          {
+            "value": "CATALOG-177",
+            "label": "GI",
+            "probability": 7.648800443438014e-09,
+            "logprob": -18.689462661743164
+          },
+          {
+            "value": "CATALOG-178",
+            "label": "GL",
+            "probability": 1.1596631771751648e-07,
+            "logprob": -15.970711708068848
+          },
+          {
+            "value": "CATALOG-179",
+            "label": "GM",
+            "probability": 2.50794511301866e-08,
+            "logprob": -17.501962661743164
+          },
+          {
+            "value": "CATALOG-180",
+            "label": "GN",
+            "probability": 5.145969247134537e-08,
+            "logprob": -16.783212661743164
+          },
+          {
+            "value": "CATALOG-181",
+            "label": "GO",
+            "probability": 9.613936243029635e-08,
+            "logprob": -16.158212661743164
+          },
+          {
+            "value": "CATALOG-182",
+            "label": "GP",
+            "probability": 7.970233085801449e-08,
+            "logprob": -16.345712661743164
+          },
+          {
+            "value": "CATALOG-183",
+            "label": "GR",
+            "probability": 1.0558843315586294e-07,
+            "logprob": -16.064462661743164
+          },
+          {
+            "value": "CATALOG-184",
+            "label": "GS",
+            "probability": 3.427954534855309e-08,
+            "logprob": -17.189462661743164
+          },
+          {
+            "value": "CATALOG-185",
+            "label": "GT",
+            "probability": 4.826924003266287e-05,
+            "logprob": -9.939461708068848
+          },
+          {
+            "value": "CATALOG-186",
+            "label": "GU",
+            "probability": 8.753588562925522e-08,
+            "logprob": -16.251962661743164
+          },
+          {
+            "value": "CATALOG-187",
+            "label": "GV",
+            "probability": 1.8348518412248033e-08,
+            "logprob": -17.814462661743164
+          },
+          {
+            "value": "CATALOG-188",
+            "label": "GW",
+            "probability": 1.013301425002527e-08,
+            "logprob": -18.408212661743164
+          },
+          {
+            "value": "CATALOG-189",
+            "label": "GX",
+            "probability": 5.956891774906434e-09,
+            "logprob": -18.939462661743164
+          },
+          {
+            "value": "CATALOG-190",
+            "label": "GY",
+            "probability": 2.225927829598942e-09,
+            "logprob": -19.923837661743164
+          },
+          {
+            "value": "CATALOG-191",
+            "label": "HA",
+            "probability": 1.489036994289771e-07,
+            "logprob": -15.720711708068848
+          },
+          {
+            "value": "CATALOG-192",
+            "label": "HB",
+            "probability": 5.773617482418093e-09,
+            "logprob": -18.970712661743164
+          },
+          {
+            "value": "CATALOG-193",
+            "label": "HC",
+            "probability": 8.66722639029864e-09,
+            "logprob": -18.564462661743164
+          },
+          {
+            "value": "CATALOG-194",
+            "label": "HD",
+            "probability": 1.9039369679710073e-09,
+            "logprob": -20.080087661743164
+          },
+          {
+            "value": "CATALOG-195",
+            "label": "HE",
+            "probability": 2.2835100111759103e-08,
+            "logprob": -17.595712661743164
+          },
+          {
+            "value": "CATALOG-196",
+            "label": "HF",
+            "probability": 8.142105689408232e-09,
+            "logprob": -18.626962661743164
+          },
+          {
+            "value": "CATALOG-197",
+            "label": "HG",
+            "probability": 2.8418741251936012e-08,
+            "logprob": -17.376962661743164
+          },
+          {
+            "value": "CATALOG-198",
+            "label": "HH",
+            "probability": 2.369487840559131e-09,
+            "logprob": -19.861337661743164
+          },
+          {
+            "value": "CATALOG-199",
+            "label": "HI",
+            "probability": 7.891599432793384e-09,
+            "logprob": -18.658212661743164
+          },
+          {
+            "value": "CATALOG-200",
+            "label": "HK",
+            "probability": 7.4134715936575204e-09,
+            "logprob": -18.720712661743164
+          },
+          {
+            "value": "CATALOG-201",
+            "label": "HL",
+            "probability": 6.5423657188016465e-09,
+            "logprob": -18.845712661743164
+          },
+          {
+            "value": "CATALOG-202",
+            "label": "HM",
+            "probability": 2.26098109239446e-09,
+            "logprob": -19.908212661743164
+          },
+          {
+            "value": "CATALOG-203",
+            "label": "HN",
+            "probability": 8.942353689492867e-09,
+            "logprob": -18.533212661743164
+          },
+          {
+            "value": "CATALOG-204",
+            "label": "HO",
+            "probability": 1.9531896179190352e-08,
+            "logprob": -17.751962661743164
+          },
+          {
+            "value": "CATALOG-205",
+            "label": "HP",
+            "probability": 6.750042699821727e-09,
+            "logprob": -18.814462661743164
+          },
+          {
+            "value": "CATALOG-206",
+            "label": "HQ",
+            "probability": 3.427954534855309e-08,
+            "logprob": -17.189462661743164
+          },
+          {
+            "value": "CATALOG-207",
+            "label": "HR",
+            "probability": 5.309319845924179e-08,
+            "logprob": -16.751962661743164
+          },
+          {
+            "value": "CATALOG-208",
+            "label": "HS",
+            "probability": 7.891599432793384e-09,
+            "logprob": -18.658212661743164
+          },
+          {
+            "value": "CATALOG-209",
+            "label": "HT",
+            "probability": 6.532531271436473e-06,
+            "logprob": -11.939461708068848
+          },
+          {
+            "value": "CATALOG-210",
+            "label": "HU",
+            "probability": 1.3011047844691518e-08,
+            "logprob": -18.158212661743164
+          },
+          {
+            "value": "CATALOG-211",
+            "label": "HV",
+            "probability": 1.148220942232024e-08,
+            "logprob": -18.283212661743164
+          },
+          {
+            "value": "CATALOG-212",
+            "label": "HW",
+            "probability": 2.296586363757494e-09,
+            "logprob": -19.892587661743164
+          },
+          {
+            "value": "CATALOG-213",
+            "label": "HX",
+            "probability": 2.813836432763857e-09,
+            "logprob": -19.689462661743164
+          },
+          {
+            "value": "CATALOG-214",
+            "label": "HY",
+            "probability": 4.6392319789687416e-09,
+            "logprob": -19.189462661743164
+          },
+          {
+            "value": "CATALOG-215",
+            "label": "HZ",
+            "probability": 3.557022543617598e-09,
+            "logprob": -19.455087661743164
+          },
+          {
+            "value": "CATALOG-216",
+            "label": "IA",
+            "probability": 1.9726535152185294e-07,
+            "logprob": -15.439461708068848
+          },
+          {
+            "value": "CATALOG-217",
+            "label": "IB",
+            "probability": 2.8418741251936012e-08,
+            "logprob": -17.376962661743164
+          },
+          {
+            "value": "CATALOG-218",
+            "label": "IC",
+            "probability": 9.318146520880965e-08,
+            "logprob": -16.189462661743164
+          },
+          {
+            "value": "CATALOG-219",
+            "label": "ID",
+            "probability": 1.8531364806012084e-07,
+            "logprob": -15.501961708068848
+          },
+          {
+            "value": "CATALOG-220",
+            "label": "IE",
+            "probability": 2.015190511883656e-08,
+            "logprob": -17.720712661743164
+          },
+          {
+            "value": "CATALOG-221",
+            "label": "IF",
+            "probability": 1.489036994289771e-07,
+            "logprob": -15.720711708068848
+          },
+          {
+            "value": "CATALOG-222",
+            "label": "IG",
+            "probability": 5.145969247134537e-08,
+            "logprob": -16.783212661743164
+          },
+          {
+            "value": "CATALOG-223",
+            "label": "IH",
+            "probability": 2.50794511301866e-08,
+            "logprob": -17.501962661743164
+          },
+          {
+            "value": "CATALOG-224",
+            "label": "II",
+            "probability": 4.834190731594611e-08,
+            "logprob": -16.845712661743164
+          },
+          {
+            "value": "CATALOG-225",
+            "label": "IJ",
+            "probability": 2.696297669390547e-07,
+            "logprob": -15.126961708068848
+          },
+          {
+            "value": "CATALOG-226",
+            "label": "IK",
+            "probability": 1.5694319486930562e-08,
+            "logprob": -17.970712661743164
+          },
+          {
+            "value": "CATALOG-227",
+            "label": "IL",
+            "probability": 3.884381378354706e-08,
+            "logprob": -17.064462661743164
+          },
+          {
+            "value": "CATALOG-228",
+            "label": "IM",
+            "probability": 1.123983020202349e-07,
+            "logprob": -16.001962661743164
+          },
+          {
+            "value": "CATALOG-229",
+            "label": "IN",
+            "probability": 2.235309279206714e-07,
+            "logprob": -15.314461708068848
+          },
+          {
+            "value": "CATALOG-230",
+            "label": "IO",
+            "probability": 2.015190511883656e-08,
+            "logprob": -17.720712661743164
+          },
+          {
+            "value": "CATALOG-231",
+            "label": "IP",
+            "probability": 1.19647483796994e-07,
+            "logprob": -15.939461708068848
+          },
+          {
+            "value": "CATALOG-232",
+            "label": "IQ",
+            "probability": 2.015190511883656e-08,
+            "logprob": -17.720712661743164
+          },
+          {
+            "value": "CATALOG-233",
+            "label": "IR",
+            "probability": 7.033706011097042e-08,
+            "logprob": -16.470712661743164
+          },
+          {
+            "value": "CATALOG-234",
+            "label": "IS",
+            "probability": 1.9726535152185294e-07,
+            "logprob": -15.439461708068848
+          },
+          {
+            "value": "CATALOG-235",
+            "label": "IT",
+            "probability": 0.0001087764115659502,
+            "logprob": -9.126961708068848
+          },
+          {
+            "value": "CATALOG-236",
+            "label": "IU",
+            "probability": 9.318146520880965e-08,
+            "logprob": -16.189462661743164
+          },
+          {
+            "value": "CATALOG-237",
+            "label": "IV",
+            "probability": 1.7961214650192182e-07,
+            "logprob": -15.533211708068848
+          },
+          {
+            "value": "CATALOG-238",
+            "label": "IW",
+            "probability": 4.5413019213918105e-08,
+            "logprob": -16.908212661743164
+          },
+          {
+            "value": "CATALOG-239",
+            "label": "IX",
+            "probability": 7.725014793281712e-08,
+            "logprob": -16.376962661743164
+          },
+          {
+            "value": "CATALOG-240",
+            "label": "IZ",
+            "probability": 4.834190731594611e-08,
+            "logprob": -16.845712661743164
+          },
+          {
+            "value": "CATALOG-241",
+            "label": "JA",
+            "probability": 1.8902505992203777e-05,
+            "logprob": -10.876961708068848
+          },
+          {
+            "value": "CATALOG-242",
+            "label": "JB",
+            "probability": 6.136745209624947e-06,
+            "logprob": -12.001961708068848
+          },
+          {
+            "value": "CATALOG-243",
+            "label": "JC",
+            "probability": 1.668140298920659e-05,
+            "logprob": -11.001961708068848
+          },
+          {
+            "value": "CATALOG-244",
+            "label": "JD",
+            "probability": 2.1419345424152124e-05,
+            "logprob": -10.751961708068848
+          },
+          {
+            "value": "CATALOG-245",
+            "label": "JE",
+            "probability": 5.4156586394448686e-06,
+            "logprob": -12.126961708068848
+          },
+          {
+            "value": "CATALOG-246",
+            "label": "JI",
+            "probability": 2.257582398328351e-06,
+            "logprob": -13.001961708068848
+          },
+          {
+            "value": "CATALOG-247",
+            "label": "JJ",
+            "probability": 3.4966120201940625e-06,
+            "logprob": -12.564461708068848
+          },
+          {
+            "value": "CATALOG-248",
+            "label": "JK",
+            "probability": 3.962180501657772e-06,
+            "logprob": -12.439461708068848
+          },
+          {
+            "value": "CATALOG-249",
+            "label": "JM",
+            "probability": 4.489738706225046e-06,
+            "logprob": -12.314461708068848
+          },
+          {
+            "value": "CATALOG-250",
+            "label": "JO",
+            "probability": 7.402327704838907e-06,
+            "logprob": -11.814461708068848
+          },
+          {
+            "value": "CATALOG-251",
+            "label": "JP",
+            "probability": 2.5836662373409158e-05,
+            "logprob": -10.564461708068848
+          },
+          {
+            "value": "CATALOG-252",
+            "label": "JR",
+            "probability": 1.5670727874116432e-05,
+            "logprob": -11.064461708068848
+          },
+          {
+            "value": "CATALOG-253",
+            "label": "JS",
+            "probability": 7.476086145463188e-05,
+            "logprob": -9.501961708068848
+          },
+          {
+            "value": "CATALOG-254",
+            "label": "JT",
+            "probability": 0.9987843479947128,
+            "logprob": -0.0019620470702648163
+          }
+        ]
+      },
+      "second": {
+        "value": "CATALOG-128",
+        "selected_value": "CATALOG-128",
+        "probability": 0.993242600941034,
+        "abstained": false,
+        "candidate_probability_mass": 0.996987654196745,
+        "candidates": [
+          {
+            "value": "CATALOG-000",
+            "label": "A",
+            "probability": 0.0001304813564051253,
+            "logprob": -8.947297096252441
+          },
+          {
+            "value": "CATALOG-001",
+            "label": "B",
+            "probability": 0.0007053755484092487,
+            "logprob": -7.259797096252441
+          },
+          {
+            "value": "CATALOG-002",
+            "label": "C",
+            "probability": 0.000484797051942979,
+            "logprob": -7.634797096252441
+          },
+          {
+            "value": "CATALOG-003",
+            "label": "D",
+            "probability": 0.0001675413780280727,
+            "logprob": -8.697297096252441
+          },
+          {
+            "value": "CATALOG-004",
+            "label": "E",
+            "probability": 0.0003130085022035706,
+            "logprob": -8.072297096252441
+          },
+          {
+            "value": "CATALOG-005",
+            "label": "F",
+            "probability": 0.00018984925333719496,
+            "logprob": -8.572297096252441
+          },
+          {
+            "value": "CATALOG-006",
+            "label": "G",
+            "probability": 8.967843733934637e-05,
+            "logprob": -9.322297096252441
+          },
+          {
+            "value": "CATALOG-007",
+            "label": "H",
+            "probability": 4.236109430118814e-05,
+            "logprob": -10.072297096252441
+          },
+          {
+            "value": "CATALOG-008",
+            "label": "I",
+            "probability": 0.00014785474716452895,
+            "logprob": -8.822297096252441
+          },
+          {
+            "value": "CATALOG-009",
+            "label": "J",
+            "probability": 0.0009057201324675296,
+            "logprob": -7.009797096252441
+          },
+          {
+            "value": "CATALOG-010",
+            "label": "K",
+            "probability": 6.163502852206076e-05,
+            "logprob": -9.697297096252441
+          },
+          {
+            "value": "CATALOG-011",
+            "label": "L",
+            "probability": 1.2136656717537264e-05,
+            "logprob": -11.322297096252441
+          },
+          {
+            "value": "CATALOG-012",
+            "label": "M",
+            "probability": 5.7900750920505035e-05,
+            "logprob": -9.759797096252441
+          },
+          {
+            "value": "CATALOG-013",
+            "label": "N",
+            "probability": 0.00010161898254453066,
+            "logprob": -9.197297096252441
+          },
+          {
+            "value": "CATALOG-014",
+            "label": "O",
+            "probability": 1.87976216482432e-05,
+            "logprob": -10.884797096252441
+          },
+          {
+            "value": "CATALOG-015",
+            "label": "P",
+            "probability": 6.163502852206076e-05,
+            "logprob": -9.697297096252441
+          },
+          {
+            "value": "CATALOG-016",
+            "label": "Q",
+            "probability": 0.00010161898254453066,
+            "logprob": -9.197297096252441
+          },
+          {
+            "value": "CATALOG-017",
+            "label": "R",
+            "probability": 3.299085341352695e-05,
+            "logprob": -10.322297096252441
+          },
+          {
+            "value": "CATALOG-018",
+            "label": "S",
+            "probability": 2.267425984928162e-05,
+            "logprob": -10.697297096252441
+          },
+          {
+            "value": "CATALOG-019",
+            "label": "T",
+            "probability": 0.00012257589066059547,
+            "logprob": -9.009797096252441
+          },
+          {
+            "value": "CATALOG-020",
+            "label": "U",
+            "probability": 1.3752633784880456e-05,
+            "logprob": -11.197297096252441
+          },
+          {
+            "value": "CATALOG-021",
+            "label": "V",
+            "probability": 5.385608771784629e-06,
+            "logprob": -12.134797096252441
+          },
+          {
+            "value": "CATALOG-022",
+            "label": "W",
+            "probability": 1.765873132618504e-05,
+            "logprob": -10.947297096252441
+          },
+          {
+            "value": "CATALOG-023",
+            "label": "X",
+            "probability": 8.87936773771051e-06,
+            "logprob": -11.634797096252441
+          },
+          {
+            "value": "CATALOG-024",
+            "label": "Y",
+            "probability": 9.452037755486848e-06,
+            "logprob": -11.572297096252441
+          },
+          {
+            "value": "CATALOG-025",
+            "label": "Z",
+            "probability": 3.9794565341609625e-05,
+            "logprob": -10.134797096252441
+          },
+          {
+            "value": "CATALOG-026",
+            "label": "AA",
+            "probability": 1.4639602459531795e-05,
+            "logprob": -11.134797096252441
+          },
+          {
+            "value": "CATALOG-027",
+            "label": "AB",
+            "probability": 1.006164181619815e-05,
+            "logprob": -11.509797096252441
+          },
+          {
+            "value": "CATALOG-028",
+            "label": "AC",
+            "probability": 1.87976216482432e-05,
+            "logprob": -10.884797096252441
+          },
+          {
+            "value": "CATALOG-029",
+            "label": "AD",
+            "probability": 7.361254405593641e-06,
+            "logprob": -11.822297096252441
+          },
+          {
+            "value": "CATALOG-030",
+            "label": "AE",
+            "probability": 6.102694248570883e-06,
+            "logprob": -12.009797096252441
+          },
+          {
+            "value": "CATALOG-031",
+            "label": "AF",
+            "probability": 7.434603582723461e-05,
+            "logprob": -9.509797096252441
+          },
+          {
+            "value": "CATALOG-032",
+            "label": "AG",
+            "probability": 1.0710561960959159e-05,
+            "logprob": -11.447297096252441
+          },
+          {
+            "value": "CATALOG-033",
+            "label": "AH",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-034",
+            "label": "AI",
+            "probability": 1.2016917477450928e-06,
+            "logprob": -13.634797096252441
+          },
+          {
+            "value": "CATALOG-035",
+            "label": "AJ",
+            "probability": 3.2665368413046766e-06,
+            "logprob": -12.634797096252441
+          },
+          {
+            "value": "CATALOG-036",
+            "label": "AK",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-037",
+            "label": "AL",
+            "probability": 2.3898494056284975e-06,
+            "logprob": -12.947297096252441
+          },
+          {
+            "value": "CATALOG-038",
+            "label": "AM",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-039",
+            "label": "AN",
+            "probability": 3.940195548829762e-06,
+            "logprob": -12.447297096252441
+          },
+          {
+            "value": "CATALOG-040",
+            "label": "AO",
+            "probability": 4.659460114063791e-08,
+            "logprob": -16.884798049926758
+          },
+          {
+            "value": "CATALOG-041",
+            "label": "AP",
+            "probability": 6.915258547307914e-06,
+            "logprob": -11.884797096252441
+          },
+          {
+            "value": "CATALOG-042",
+            "label": "AQ",
+            "probability": 1.2016917477450928e-06,
+            "logprob": -13.634797096252441
+          },
+          {
+            "value": "CATALOG-043",
+            "label": "AR",
+            "probability": 1.4495169366096976e-06,
+            "logprob": -13.447297096252441
+          },
+          {
+            "value": "CATALOG-044",
+            "label": "AS",
+            "probability": 7.361254405593641e-06,
+            "logprob": -11.822297096252441
+          },
+          {
+            "value": "CATALOG-045",
+            "label": "AT",
+            "probability": 3.511858065367079e-05,
+            "logprob": -10.259797096252441
+          },
+          {
+            "value": "CATALOG-046",
+            "label": "AU",
+            "probability": 1.9617078517234058e-07,
+            "logprob": -15.447297096252441
+          },
+          {
+            "value": "CATALOG-047",
+            "label": "AV",
+            "probability": 1.5430027471286133e-06,
+            "logprob": -13.384797096252441
+          },
+          {
+            "value": "CATALOG-048",
+            "label": "AW",
+            "probability": 3.4772103674198755e-06,
+            "logprob": -12.572297096252441
+          },
+          {
+            "value": "CATALOG-049",
+            "label": "AX",
+            "probability": 2.5188827417287604e-07,
+            "logprob": -15.197297096252441
+          },
+          {
+            "value": "CATALOG-050",
+            "label": "AY",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-051",
+            "label": "AZ",
+            "probability": 1.7484511759866512e-06,
+            "logprob": -13.259797096252441
+          },
+          {
+            "value": "CATALOG-052",
+            "label": "BA",
+            "probability": 8.341394042329794e-06,
+            "logprob": -11.697297096252441
+          },
+          {
+            "value": "CATALOG-053",
+            "label": "BB",
+            "probability": 2.7080541570506064e-06,
+            "logprob": -12.822297096252441
+          },
+          {
+            "value": "CATALOG-054",
+            "label": "BC",
+            "probability": 1.5583775698931862e-05,
+            "logprob": -11.072297096252441
+          },
+          {
+            "value": "CATALOG-055",
+            "label": "BD",
+            "probability": 7.758705061521774e-07,
+            "logprob": -14.072297096252441
+          },
+          {
+            "value": "CATALOG-056",
+            "label": "BE",
+            "probability": 5.05931123141732e-06,
+            "logprob": -12.197297096252441
+          },
+          {
+            "value": "CATALOG-057",
+            "label": "BF",
+            "probability": 3.738353451089249e-05,
+            "logprob": -10.197297096252441
+          },
+          {
+            "value": "CATALOG-058",
+            "label": "BG",
+            "probability": 2.882708644629845e-06,
+            "logprob": -12.759797096252441
+          },
+          {
+            "value": "CATALOG-059",
+            "label": "BH",
+            "probability": 3.90132190909612e-07,
+            "logprob": -14.759797096252441
+          },
+          {
+            "value": "CATALOG-060",
+            "label": "BI",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-061",
+            "label": "BJ",
+            "probability": 4.194316328782096e-06,
+            "logprob": -12.384797096252441
+          },
+          {
+            "value": "CATALOG-062",
+            "label": "BK",
+            "probability": 1.435216123748185e-07,
+            "logprob": -15.759797096252441
+          },
+          {
+            "value": "CATALOG-063",
+            "label": "BL",
+            "probability": 2.1090346981107855e-06,
+            "logprob": -13.072297096252441
+          },
+          {
+            "value": "CATALOG-064",
+            "label": "BM",
+            "probability": 2.5188827417287604e-07,
+            "logprob": -15.197297096252441
+          },
+          {
+            "value": "CATALOG-065",
+            "label": "BN",
+            "probability": 5.332474806085165e-07,
+            "logprob": -14.447297096252441
+          },
+          {
+            "value": "CATALOG-066",
+            "label": "BO",
+            "probability": 3.0383525578176863e-07,
+            "logprob": -15.009797096252441
+          },
+          {
+            "value": "CATALOG-067",
+            "label": "BP",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-068",
+            "label": "BR",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-069",
+            "label": "BS",
+            "probability": 9.358784741543234e-07,
+            "logprob": -13.884797096252441
+          },
+          {
+            "value": "CATALOG-070",
+            "label": "BT",
+            "probability": 3.299085341352695e-05,
+            "logprob": -10.322297096252441
+          },
+          {
+            "value": "CATALOG-071",
+            "label": "BU",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-072",
+            "label": "BV",
+            "probability": 1.1177463750852744e-07,
+            "logprob": -16.009798049926758
+          },
+          {
+            "value": "CATALOG-073",
+            "label": "BW",
+            "probability": 1.3910591657930543e-07,
+            "logprob": -15.791047096252441
+          },
+          {
+            "value": "CATALOG-074",
+            "label": "BX",
+            "probability": 1.0177196559101164e-07,
+            "logprob": -16.103548049926758
+          },
+          {
+            "value": "CATALOG-075",
+            "label": "BY",
+            "probability": 2.1090346981107855e-06,
+            "logprob": -13.072297096252441
+          },
+          {
+            "value": "CATALOG-076",
+            "label": "CA",
+            "probability": 1.658884288053176e-05,
+            "logprob": -11.009797096252441
+          },
+          {
+            "value": "CATALOG-077",
+            "label": "CB",
+            "probability": 1.9812547453321475e-06,
+            "logprob": -13.134797096252441
+          },
+          {
+            "value": "CATALOG-078",
+            "label": "CC",
+            "probability": 1.3752633784880456e-05,
+            "logprob": -11.197297096252441
+          },
+          {
+            "value": "CATALOG-079",
+            "label": "CD",
+            "probability": 2.4136623969623983e-05,
+            "logprob": -10.634797096252441
+          },
+          {
+            "value": "CATALOG-080",
+            "label": "CE",
+            "probability": 1.87976216482432e-05,
+            "logprob": -10.884797096252441
+          },
+          {
+            "value": "CATALOG-081",
+            "label": "CF",
+            "probability": 0.00025949316256479405,
+            "logprob": -8.259797096252441
+          },
+          {
+            "value": "CATALOG-082",
+            "label": "CG",
+            "probability": 1.0710561960959159e-05,
+            "logprob": -11.447297096252441
+          },
+          {
+            "value": "CATALOG-083",
+            "label": "CH",
+            "probability": 4.4648264909372404e-06,
+            "logprob": -12.322297096252441
+          },
+          {
+            "value": "CATALOG-084",
+            "label": "CI",
+            "probability": 1.3752633784880456e-05,
+            "logprob": -11.197297096252441
+          },
+          {
+            "value": "CATALOG-085",
+            "label": "CK",
+            "probability": 3.4429045007627464e-07,
+            "logprob": -14.884797096252441
+          },
+          {
+            "value": "CATALOG-086",
+            "label": "CL",
+            "probability": 1.4639602459531795e-05,
+            "logprob": -11.134797096252441
+          },
+          {
+            "value": "CATALOG-087",
+            "label": "CM",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-088",
+            "label": "CN",
+            "probability": 4.4648264909372404e-06,
+            "logprob": -12.322297096252441
+          },
+          {
+            "value": "CATALOG-089",
+            "label": "CO",
+            "probability": 3.940195548829762e-06,
+            "logprob": -12.447297096252441
+          },
+          {
+            "value": "CATALOG-090",
+            "label": "CP",
+            "probability": 5.385608771784629e-06,
+            "logprob": -12.134797096252441
+          },
+          {
+            "value": "CATALOG-091",
+            "label": "CR",
+            "probability": 2.0009964085389284e-05,
+            "logprob": -10.822297096252441
+          },
+          {
+            "value": "CATALOG-092",
+            "label": "CS",
+            "probability": 9.452037755486848e-06,
+            "logprob": -11.572297096252441
+          },
+          {
+            "value": "CATALOG-093",
+            "label": "CT",
+            "probability": 0.0001675413780280727,
+            "logprob": -8.697297096252441
+          },
+          {
+            "value": "CATALOG-094",
+            "label": "CU",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-095",
+            "label": "CV",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-096",
+            "label": "CW",
+            "probability": 1.3616951450205229e-06,
+            "logprob": -13.509797096252441
+          },
+          {
+            "value": "CATALOG-097",
+            "label": "CX",
+            "probability": 7.758705061521774e-07,
+            "logprob": -14.072297096252441
+          },
+          {
+            "value": "CATALOG-098",
+            "label": "CY",
+            "probability": 6.102694248570883e-06,
+            "logprob": -12.009797096252441
+          },
+          {
+            "value": "CATALOG-099",
+            "label": "DA",
+            "probability": 4.4648264909372404e-06,
+            "logprob": -12.322297096252441
+          },
+          {
+            "value": "CATALOG-100",
+            "label": "DB",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-101",
+            "label": "DC",
+            "probability": 1.4495169366096976e-06,
+            "logprob": -13.447297096252441
+          },
+          {
+            "value": "CATALOG-102",
+            "label": "DD",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-103",
+            "label": "DE",
+            "probability": 2.5439814499396755e-06,
+            "logprob": -12.884797096252441
+          },
+          {
+            "value": "CATALOG-104",
+            "label": "DF",
+            "probability": 1.2919403825606634e-05,
+            "logprob": -11.259797096252441
+          },
+          {
+            "value": "CATALOG-105",
+            "label": "DG",
+            "probability": 2.2450557498044316e-06,
+            "logprob": -13.009797096252441
+          },
+          {
+            "value": "CATALOG-106",
+            "label": "DH",
+            "probability": 3.234309462035832e-07,
+            "logprob": -14.947297096252441
+          },
+          {
+            "value": "CATALOG-107",
+            "label": "DI",
+            "probability": 7.288628885310586e-07,
+            "logprob": -14.134797096252441
+          },
+          {
+            "value": "CATALOG-108",
+            "label": "DJ",
+            "probability": 9.962374499577784e-07,
+            "logprob": -13.822297096252441
+          },
+          {
+            "value": "CATALOG-109",
+            "label": "DK",
+            "probability": 5.798791803286491e-08,
+            "logprob": -16.666048049926758
+          },
+          {
+            "value": "CATALOG-110",
+            "label": "DL",
+            "probability": 2.854268082246671e-07,
+            "logprob": -15.072297096252441
+          },
+          {
+            "value": "CATALOG-111",
+            "label": "DM",
+            "probability": 6.172781743016773e-08,
+            "logprob": -16.603548049926758
+          },
+          {
+            "value": "CATALOG-112",
+            "label": "DN",
+            "probability": 2.2229062175494246e-07,
+            "logprob": -15.322297096252441
+          },
+          {
+            "value": "CATALOG-113",
+            "label": "DO",
+            "probability": 6.432192415375205e-07,
+            "logprob": -14.259797096252441
+          },
+          {
+            "value": "CATALOG-114",
+            "label": "DP",
+            "probability": 3.664952763645303e-07,
+            "logprob": -14.822297096252441
+          },
+          {
+            "value": "CATALOG-115",
+            "label": "DR",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-116",
+            "label": "DS",
+            "probability": 4.420776886207986e-07,
+            "logprob": -14.634797096252441
+          },
+          {
+            "value": "CATALOG-117",
+            "label": "DT",
+            "probability": 1.5583775698931862e-05,
+            "logprob": -11.072297096252441
+          },
+          {
+            "value": "CATALOG-118",
+            "label": "DU",
+            "probability": 3.234309462035832e-07,
+            "logprob": -14.947297096252441
+          },
+          {
+            "value": "CATALOG-119",
+            "label": "DV",
+            "probability": 6.172781743016773e-08,
+            "logprob": -16.603548049926758
+          },
+          {
+            "value": "CATALOG-120",
+            "label": "DW",
+            "probability": 5.798791803286491e-08,
+            "logprob": -16.666048049926758
+          },
+          {
+            "value": "CATALOG-121",
+            "label": "DX",
+            "probability": 2.854268082246671e-07,
+            "logprob": -15.072297096252441
+          },
+          {
+            "value": "CATALOG-122",
+            "label": "DY",
+            "probability": 3.664952763645303e-07,
+            "logprob": -14.822297096252441
+          },
+          {
+            "value": "CATALOG-123",
+            "label": "EA",
+            "probability": 1.5583775698931862e-05,
+            "logprob": -11.072297096252441
+          },
+          {
+            "value": "CATALOG-124",
+            "label": "EB",
+            "probability": 2.1300495892042266e-05,
+            "logprob": -10.759797096252441
+          },
+          {
+            "value": "CATALOG-125",
+            "label": "EC",
+            "probability": 3.511858065367079e-05,
+            "logprob": -10.259797096252441
+          },
+          {
+            "value": "CATALOG-126",
+            "label": "ED",
+            "probability": 1.5583775698931862e-05,
+            "logprob": -11.072297096252441
+          },
+          {
+            "value": "CATALOG-127",
+            "label": "EE",
+            "probability": 0.00018984925333719496,
+            "logprob": -8.572297096252441
+          },
+          {
+            "value": "CATALOG-128",
+            "label": "EF",
+            "probability": 0.993242600941034,
+            "logprob": -0.009797225706279278
+          },
+          {
+            "value": "CATALOG-129",
+            "label": "EG",
+            "probability": 0.00025949316256479405,
+            "logprob": -8.259797096252441
+          },
+          {
+            "value": "CATALOG-130",
+            "label": "EH",
+            "probability": 3.099203865003176e-05,
+            "logprob": -10.384797096252441
+          },
+          {
+            "value": "CATALOG-131",
+            "label": "EI",
+            "probability": 3.2665368413046766e-06,
+            "logprob": -12.634797096252441
+          },
+          {
+            "value": "CATALOG-132",
+            "label": "EK",
+            "probability": 7.836014525439112e-06,
+            "logprob": -11.759797096252441
+          },
+          {
+            "value": "CATALOG-133",
+            "label": "EL",
+            "probability": 1.0710561960959159e-05,
+            "logprob": -11.447297096252441
+          },
+          {
+            "value": "CATALOG-134",
+            "label": "EM",
+            "probability": 6.102694248570883e-06,
+            "logprob": -12.009797096252441
+          },
+          {
+            "value": "CATALOG-135",
+            "label": "EN",
+            "probability": 7.361254405593641e-06,
+            "logprob": -11.822297096252441
+          },
+          {
+            "value": "CATALOG-136",
+            "label": "EO",
+            "probability": 3.4772103674198755e-06,
+            "logprob": -12.572297096252441
+          },
+          {
+            "value": "CATALOG-137",
+            "label": "EP",
+            "probability": 1.1401333859337428e-05,
+            "logprob": -11.384797096252441
+          },
+          {
+            "value": "CATALOG-138",
+            "label": "EQ",
+            "probability": 6.915258547307914e-06,
+            "logprob": -11.884797096252441
+          },
+          {
+            "value": "CATALOG-139",
+            "label": "ER",
+            "probability": 9.452037755486848e-06,
+            "logprob": -11.572297096252441
+          },
+          {
+            "value": "CATALOG-140",
+            "label": "ES",
+            "probability": 1.5583775698931862e-05,
+            "logprob": -11.072297096252441
+          },
+          {
+            "value": "CATALOG-141",
+            "label": "ET",
+            "probability": 6.984163722450287e-05,
+            "logprob": -9.572297096252441
+          },
+          {
+            "value": "CATALOG-142",
+            "label": "EU",
+            "probability": 6.102694248570883e-06,
+            "logprob": -12.009797096252441
+          },
+          {
+            "value": "CATALOG-143",
+            "label": "EV",
+            "probability": 5.05931123141732e-06,
+            "logprob": -12.197297096252441
+          },
+          {
+            "value": "CATALOG-144",
+            "label": "EW",
+            "probability": 8.341394042329794e-06,
+            "logprob": -11.697297096252441
+          },
+          {
+            "value": "CATALOG-145",
+            "label": "EX",
+            "probability": 4.4648264909372404e-06,
+            "logprob": -12.322297096252441
+          },
+          {
+            "value": "CATALOG-146",
+            "label": "EZ",
+            "probability": 2.5439814499396755e-06,
+            "logprob": -12.884797096252441
+          },
+          {
+            "value": "CATALOG-147",
+            "label": "FA",
+            "probability": 8.341394042329794e-06,
+            "logprob": -11.697297096252441
+          },
+          {
+            "value": "CATALOG-148",
+            "label": "FB",
+            "probability": 5.676389883396746e-07,
+            "logprob": -14.384797096252441
+          },
+          {
+            "value": "CATALOG-149",
+            "label": "FC",
+            "probability": 1.7484511759866512e-06,
+            "logprob": -13.259797096252441
+          },
+          {
+            "value": "CATALOG-150",
+            "label": "FD",
+            "probability": 3.4429045007627464e-07,
+            "logprob": -14.884797096252441
+          },
+          {
+            "value": "CATALOG-151",
+            "label": "FE",
+            "probability": 6.102694248570883e-06,
+            "logprob": -12.009797096252441
+          },
+          {
+            "value": "CATALOG-152",
+            "label": "FF",
+            "probability": 2.7350378113435098e-05,
+            "logprob": -10.509797096252441
+          },
+          {
+            "value": "CATALOG-153",
+            "label": "FG",
+            "probability": 6.496284212073595e-06,
+            "logprob": -11.947297096252441
+          },
+          {
+            "value": "CATALOG-154",
+            "label": "FH",
+            "probability": 5.009396489960161e-07,
+            "logprob": -14.509797096252441
+          },
+          {
+            "value": "CATALOG-155",
+            "label": "FI",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-156",
+            "label": "FK",
+            "probability": 1.1532285535541792e-07,
+            "logprob": -15.978547096252441
+          },
+          {
+            "value": "CATALOG-157",
+            "label": "FL",
+            "probability": 2.3898494056284975e-06,
+            "logprob": -12.947297096252441
+          },
+          {
+            "value": "CATALOG-158",
+            "label": "FM",
+            "probability": 3.90132190909612e-07,
+            "logprob": -14.759797096252441
+          },
+          {
+            "value": "CATALOG-159",
+            "label": "FN",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-160",
+            "label": "FO",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-161",
+            "label": "FP",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-162",
+            "label": "FR",
+            "probability": 1.9812547453321475e-06,
+            "logprob": -13.134797096252441
+          },
+          {
+            "value": "CATALOG-163",
+            "label": "FS",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-164",
+            "label": "FT",
+            "probability": 8.341394042329794e-06,
+            "logprob": -11.697297096252441
+          },
+          {
+            "value": "CATALOG-165",
+            "label": "FU",
+            "probability": 5.676389883396746e-07,
+            "logprob": -14.384797096252441
+          },
+          {
+            "value": "CATALOG-166",
+            "label": "FW",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-167",
+            "label": "FX",
+            "probability": 8.791764638265153e-07,
+            "logprob": -13.947297096252441
+          },
+          {
+            "value": "CATALOG-168",
+            "label": "FY",
+            "probability": 1.3616951450205229e-06,
+            "logprob": -13.509797096252441
+          },
+          {
+            "value": "CATALOG-169",
+            "label": "GA",
+            "probability": 1.2016917477450928e-06,
+            "logprob": -13.634797096252441
+          },
+          {
+            "value": "CATALOG-170",
+            "label": "GB",
+            "probability": 3.4429045007627464e-07,
+            "logprob": -14.884797096252441
+          },
+          {
+            "value": "CATALOG-171",
+            "label": "GC",
+            "probability": 4.705892499480549e-07,
+            "logprob": -14.572297096252441
+          },
+          {
+            "value": "CATALOG-172",
+            "label": "GD",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-173",
+            "label": "GE",
+            "probability": 2.2450557498044316e-06,
+            "logprob": -13.009797096252441
+          },
+          {
+            "value": "CATALOG-174",
+            "label": "GF",
+            "probability": 3.099203865003176e-05,
+            "logprob": -10.384797096252441
+          },
+          {
+            "value": "CATALOG-175",
+            "label": "GG",
+            "probability": 1.3616951450205229e-06,
+            "logprob": -13.509797096252441
+          },
+          {
+            "value": "CATALOG-176",
+            "label": "GH",
+            "probability": 4.4648264909372404e-06,
+            "logprob": -12.322297096252441
+          },
+          {
+            "value": "CATALOG-177",
+            "label": "GI",
+            "probability": 4.420776886207986e-07,
+            "logprob": -14.634797096252441
+          },
+          {
+            "value": "CATALOG-178",
+            "label": "GL",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-179",
+            "label": "GM",
+            "probability": 2.3662713512754202e-07,
+            "logprob": -15.259797096252441
+          },
+          {
+            "value": "CATALOG-180",
+            "label": "GN",
+            "probability": 8.791764638265153e-07,
+            "logprob": -13.947297096252441
+          },
+          {
+            "value": "CATALOG-181",
+            "label": "GO",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-182",
+            "label": "GP",
+            "probability": 4.1529355546876644e-07,
+            "logprob": -14.697297096252441
+          },
+          {
+            "value": "CATALOG-183",
+            "label": "GR",
+            "probability": 5.676389883396746e-07,
+            "logprob": -14.384797096252441
+          },
+          {
+            "value": "CATALOG-184",
+            "label": "GS",
+            "probability": 4.1529355546876644e-07,
+            "logprob": -14.697297096252441
+          },
+          {
+            "value": "CATALOG-185",
+            "label": "GT",
+            "probability": 2.267425984928162e-05,
+            "logprob": -10.697297096252441
+          },
+          {
+            "value": "CATALOG-186",
+            "label": "GU",
+            "probability": 7.288628885310586e-07,
+            "logprob": -14.134797096252441
+          },
+          {
+            "value": "CATALOG-187",
+            "label": "GV",
+            "probability": 1.5762765418428295e-07,
+            "logprob": -15.666047096252441
+          },
+          {
+            "value": "CATALOG-188",
+            "label": "GW",
+            "probability": 2.3662713512754202e-07,
+            "logprob": -15.259797096252441
+          },
+          {
+            "value": "CATALOG-189",
+            "label": "GX",
+            "probability": 1.0833569344481094e-07,
+            "logprob": -16.041048049926758
+          },
+          {
+            "value": "CATALOG-190",
+            "label": "GY",
+            "probability": 6.994678083218603e-08,
+            "logprob": -16.478548049926758
+          },
+          {
+            "value": "CATALOG-191",
+            "label": "HA",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-192",
+            "label": "HB",
+            "probability": 5.117415805133269e-08,
+            "logprob": -16.791048049926758
+          },
+          {
+            "value": "CATALOG-193",
+            "label": "HC",
+            "probability": 4.1529355546876644e-07,
+            "logprob": -14.697297096252441
+          },
+          {
+            "value": "CATALOG-194",
+            "label": "HD",
+            "probability": 9.26644291686284e-08,
+            "logprob": -16.197298049926758
+          },
+          {
+            "value": "CATALOG-195",
+            "label": "HE",
+            "probability": 2.5439814499396755e-06,
+            "logprob": -12.884797096252441
+          },
+          {
+            "value": "CATALOG-196",
+            "label": "HF",
+            "probability": 2.4136623969623983e-05,
+            "logprob": -10.634797096252441
+          },
+          {
+            "value": "CATALOG-197",
+            "label": "HG",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-198",
+            "label": "HH",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-199",
+            "label": "HI",
+            "probability": 7.288628885310586e-07,
+            "logprob": -14.134797096252441
+          },
+          {
+            "value": "CATALOG-200",
+            "label": "HK",
+            "probability": 3.664952763645303e-07,
+            "logprob": -14.822297096252441
+          },
+          {
+            "value": "CATALOG-201",
+            "label": "HL",
+            "probability": 2.854268082246671e-07,
+            "logprob": -15.072297096252441
+          },
+          {
+            "value": "CATALOG-202",
+            "label": "HM",
+            "probability": 3.0383525578176863e-07,
+            "logprob": -15.009797096252441
+          },
+          {
+            "value": "CATALOG-203",
+            "label": "HN",
+            "probability": 1.9617078517234058e-07,
+            "logprob": -15.447297096252441
+          },
+          {
+            "value": "CATALOG-204",
+            "label": "HO",
+            "probability": 1.1177463750852744e-07,
+            "logprob": -16.009798049926758
+          },
+          {
+            "value": "CATALOG-205",
+            "label": "HP",
+            "probability": 3.234309462035832e-07,
+            "logprob": -14.947297096252441
+          },
+          {
+            "value": "CATALOG-206",
+            "label": "HQ",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-207",
+            "label": "HR",
+            "probability": 1.2016917477450928e-06,
+            "logprob": -13.634797096252441
+          },
+          {
+            "value": "CATALOG-208",
+            "label": "HS",
+            "probability": 2.5188827417287604e-07,
+            "logprob": -15.197297096252441
+          },
+          {
+            "value": "CATALOG-209",
+            "label": "HT",
+            "probability": 1.0710561960959159e-05,
+            "logprob": -11.447297096252441
+          },
+          {
+            "value": "CATALOG-210",
+            "label": "HU",
+            "probability": 3.234309462035832e-07,
+            "logprob": -14.947297096252441
+          },
+          {
+            "value": "CATALOG-211",
+            "label": "HV",
+            "probability": 2.3662713512754202e-07,
+            "logprob": -15.259797096252441
+          },
+          {
+            "value": "CATALOG-212",
+            "label": "HW",
+            "probability": 1.4807747740136063e-07,
+            "logprob": -15.728547096252441
+          },
+          {
+            "value": "CATALOG-213",
+            "label": "HX",
+            "probability": 1.1532285535541792e-07,
+            "logprob": -15.978547096252441
+          },
+          {
+            "value": "CATALOG-214",
+            "label": "HY",
+            "probability": 3.4429045007627464e-07,
+            "logprob": -14.884797096252441
+          },
+          {
+            "value": "CATALOG-215",
+            "label": "HZ",
+            "probability": 3.4429045007627464e-07,
+            "logprob": -14.884797096252441
+          },
+          {
+            "value": "CATALOG-216",
+            "label": "IA",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-217",
+            "label": "IB",
+            "probability": 3.90132190909612e-07,
+            "logprob": -14.759797096252441
+          },
+          {
+            "value": "CATALOG-218",
+            "label": "IC",
+            "probability": 3.4772103674198755e-06,
+            "logprob": -12.572297096252441
+          },
+          {
+            "value": "CATALOG-219",
+            "label": "ID",
+            "probability": 1.9812547453321475e-06,
+            "logprob": -13.134797096252441
+          },
+          {
+            "value": "CATALOG-220",
+            "label": "IE",
+            "probability": 5.385608771784629e-06,
+            "logprob": -12.134797096252441
+          },
+          {
+            "value": "CATALOG-221",
+            "label": "IF",
+            "probability": 4.509315015731169e-05,
+            "logprob": -10.009797096252441
+          },
+          {
+            "value": "CATALOG-222",
+            "label": "IG",
+            "probability": 3.7014711686101916e-06,
+            "logprob": -12.509797096252441
+          },
+          {
+            "value": "CATALOG-223",
+            "label": "IH",
+            "probability": 6.847033184860387e-07,
+            "logprob": -14.197297096252441
+          },
+          {
+            "value": "CATALOG-224",
+            "label": "II",
+            "probability": 3.068627378883083e-06,
+            "logprob": -12.697297096252441
+          },
+          {
+            "value": "CATALOG-225",
+            "label": "IJ",
+            "probability": 1.2919403825606634e-05,
+            "logprob": -11.259797096252441
+          },
+          {
+            "value": "CATALOG-226",
+            "label": "IK",
+            "probability": 4.420776886207986e-07,
+            "logprob": -14.634797096252441
+          },
+          {
+            "value": "CATALOG-227",
+            "label": "IL",
+            "probability": 6.04248557753323e-07,
+            "logprob": -14.322297096252441
+          },
+          {
+            "value": "CATALOG-228",
+            "label": "IM",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-229",
+            "label": "IN",
+            "probability": 3.2665368413046766e-06,
+            "logprob": -12.634797096252441
+          },
+          {
+            "value": "CATALOG-230",
+            "label": "IO",
+            "probability": 2.854268082246671e-07,
+            "logprob": -15.072297096252441
+          },
+          {
+            "value": "CATALOG-231",
+            "label": "IP",
+            "probability": 1.8612165885262056e-06,
+            "logprob": -13.197297096252441
+          },
+          {
+            "value": "CATALOG-232",
+            "label": "IQ",
+            "probability": 5.009396489960161e-07,
+            "logprob": -14.509797096252441
+          },
+          {
+            "value": "CATALOG-233",
+            "label": "IR",
+            "probability": 8.259098546367878e-07,
+            "logprob": -14.009797096252441
+          },
+          {
+            "value": "CATALOG-234",
+            "label": "IS",
+            "probability": 1.6425178744134438e-06,
+            "logprob": -13.322297096252441
+          },
+          {
+            "value": "CATALOG-235",
+            "label": "IT",
+            "probability": 3.299085341352695e-05,
+            "logprob": -10.322297096252441
+          },
+          {
+            "value": "CATALOG-236",
+            "label": "IU",
+            "probability": 2.3662713512754202e-07,
+            "logprob": -15.259797096252441
+          },
+          {
+            "value": "CATALOG-237",
+            "label": "IV",
+            "probability": 1.1288849253068963e-06,
+            "logprob": -13.697297096252441
+          },
+          {
+            "value": "CATALOG-238",
+            "label": "IW",
+            "probability": 1.5277796110795118e-07,
+            "logprob": -15.697297096252441
+          },
+          {
+            "value": "CATALOG-239",
+            "label": "IX",
+            "probability": 5.676389883396746e-07,
+            "logprob": -14.384797096252441
+          },
+          {
+            "value": "CATALOG-240",
+            "label": "IZ",
+            "probability": 1.0604892452465134e-06,
+            "logprob": -13.759797096252441
+          },
+          {
+            "value": "CATALOG-241",
+            "label": "JA",
+            "probability": 2.4136623969623983e-05,
+            "logprob": -10.634797096252441
+          },
+          {
+            "value": "CATALOG-242",
+            "label": "JB",
+            "probability": 3.2665368413046766e-06,
+            "logprob": -12.634797096252441
+          },
+          {
+            "value": "CATALOG-243",
+            "label": "JC",
+            "probability": 1.3752633784880456e-05,
+            "logprob": -11.197297096252441
+          },
+          {
+            "value": "CATALOG-244",
+            "label": "JD",
+            "probability": 1.765873132618504e-05,
+            "logprob": -10.947297096252441
+          },
+          {
+            "value": "CATALOG-245",
+            "label": "JE",
+            "probability": 7.91409431805999e-05,
+            "logprob": -9.447297096252441
+          },
+          {
+            "value": "CATALOG-246",
+            "label": "JI",
+            "probability": 4.194316328782096e-06,
+            "logprob": -12.384797096252441
+          },
+          {
+            "value": "CATALOG-247",
+            "label": "JJ",
+            "probability": 7.836014525439112e-06,
+            "logprob": -11.759797096252441
+          },
+          {
+            "value": "CATALOG-248",
+            "label": "JK",
+            "probability": 7.361254405593641e-06,
+            "logprob": -11.822297096252441
+          },
+          {
+            "value": "CATALOG-249",
+            "label": "JM",
+            "probability": 5.732950695464157e-06,
+            "logprob": -12.072297096252441
+          },
+          {
+            "value": "CATALOG-250",
+            "label": "JO",
+            "probability": 2.1090346981107855e-06,
+            "logprob": -13.072297096252441
+          },
+          {
+            "value": "CATALOG-251",
+            "label": "JP",
+            "probability": 1.2919403825606634e-05,
+            "logprob": -11.259797096252441
+          },
+          {
+            "value": "CATALOG-252",
+            "label": "JR",
+            "probability": 5.05931123141732e-06,
+            "logprob": -12.197297096252441
+          },
+          {
+            "value": "CATALOG-253",
+            "label": "JS",
+            "probability": 3.9794565341609625e-05,
+            "logprob": -10.134797096252441
+          },
+          {
+            "value": "CATALOG-254",
+            "label": "JT",
+            "probability": 0.0006224917366300722,
+            "logprob": -7.384797096252441
+          }
+        ]
+      },
+      "approved": {
+        "value": true,
+        "selected_value": true,
+        "probability": 0.9924227582979293,
+        "abstained": false,
+        "candidate_probability_mass": 0.9927744984517862,
+        "candidates": [
+          {
+            "value": true,
+            "label": "A",
+            "probability": 0.9924227582979293,
+            "logprob": -0.014857826754450798
+          },
+          {
+            "value": false,
+            "label": "B",
+            "probability": 0.007577241702070652,
+            "logprob": -4.889857769012451
+          }
+        ]
+      }
+    },
+    "scores_are_calibrated": false,
+    "abstained_fields": [],
+    "elapsed_ms": 636.389,
+    "backend_requests": 1,
+    "scored_fields": 3,
+    "max_prompt_tokens": 2691,
+    "cache_block_tokens": null,
+    "usage": {
+      "prompt_tokens": 5528,
+      "completion_tokens": 3,
+      "total_tokens": 5531
+    }
+  },
+  "raw_boundaries": {
+    "256": 200,
+    "257": 400
+  }
+}

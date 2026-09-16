@@ -1,0 +1,14 @@
+{
+  "context": "Simulated race: tight bend ahead, low grip, lane clear, boost charged.",
+  "schema": {
+    "maneuver": {
+      "type": "enum",
+      "description": "Choose the maneuver. Brake for tight bends with low grip.",
+      "choices": ["brake", "coast", "accelerate"]
+    },
+    "boost": {
+      "type": "boolean",
+      "description": "Activate boost only on a clear straight with good grip."
+    }
+  }
+}
