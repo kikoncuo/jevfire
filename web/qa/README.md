@@ -431,3 +431,34 @@ No page errors were observed. The final worker SHA-256 is
 `c565357429924f047d5925b46c46e3611fd68d7a5066f4978411b92e09854476`.
 All 135 browser CPU tests, formatting and the production build passed; 42 Python
 tests passed and seven opt-in CUDA integration tests were skipped.
+
+## Continuous Mario: persistent cache and maneuver controls
+
+[Full research and methodology](../../docs/mario-realtime.md) ·
+[Derived measurements](mario-fast-results.json) · [Paired cache results](mario-cache-ablation-result.json).
+
+Run `mario-live-run.js` through the browser harness on `/mario.html` with the
+model loaded. It restores the default maneuver policy, runs normal UI controls
+at continuous 1× and records every accepted real-model decision, frame snapshots,
+physics-guard counts and completion. The final four attempts all cleared in
+37.01–39.94 simulated seconds. These are Qwen plus a predictive physics guard,
+not unaided LLM wins. Full logs: [run1](mario-fast-run-1.json.gz),
+[run2](mario-fast-run-2.json.gz), [run3](mario-fast-run-3.json.gz),
+[run4](mario-fast-run-4.json.gz). The files are losslessly compressed JSON.
+
+`mario-cache-ablation.js` embeds [recorded fixtures](mario-cache-fixtures.json).
+Six raw observations compare independent, shared and layered caching with
+rotating order and excluded primers that force a new observation. Twelve
+maneuver forecasts compare cache-off/on in alternating order. Paired inputs
+and full prompt text are retained; different interfaces use different fixture
+sets and must not be treated as a pure cache-only comparison. A preliminary
+[ablation](mario-cache-ablation-preliminary.json.gz) is retained separately: its
+uncached path still split at an unnecessary prefix boundary, fixed before the
+final benchmark. The final uncached maneuver path uses one forward per probe.
+
+`python3 qa/summarize-mario-fast.py` derives the aggregate from saved results.
+[UI checks](mario-fast-ui-result.json) cover terminal-probe rejection, pause,
+reset, keyboard control, raw mode and 390 px mobile layout. A [development win](mario-fast-development-run.json.gz)
+precedes final validation and is excluded from the four-run total. CPU tests
+also demonstrate that a forecast-greedy rule baseline can clear the course;
+completion does not establish an advantage for Qwen over that planner.

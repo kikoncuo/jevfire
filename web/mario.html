@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#efe9dc" />
     <meta
       name="description"
-      content="World 1-1, played by a small local Qwen model. Three typed controls, one shared context. An interactive JEVfire WebGPU experiment."
+      content="World 1-1, played by a small local Qwen model. One cached maneuver decision at a time. Continuous Qwen play with a visible physics guard. An interactive JEVfire WebGPU experiment."
     />
     <title>World 1-1 · JEVfire</title>
     <link
@@ -27,7 +27,7 @@
       <main>
         <div class="intro">
           <div>
-            <p class="eyebrow">EXPERIMENT 04 / THREE BUTTONS, ONE BRAIN</p>
+            <p class="eyebrow">EXPERIMENT 04 / ONE MOVE AT A TIME</p>
             <h1>World <span>1—1</span></h1>
           </div>
           <p>
@@ -47,10 +47,17 @@
           <button id="run" disabled>Start level</button
           ><button id="reset" class="quiet">↺ Restart</button>
           <label
+            >AI controller
+            <select id="control-mode">
+              <option value="maneuvers">Fast maneuvers + physics guard</option>
+              <option value="raw">Raw buttons · experimental</option>
+            </select></label
+          >
+          <label
             >AI timing
-            <select id="timing">
-              <option value="step">Decision steps</option>
-              <option value="live">Live · harder</option>
+            <select id="timing" disabled>
+              <option value="live">Continuous · 1×</option>
+              <option value="step">Decision steps · raw only</option>
             </select></label
           >
         </section>
@@ -86,7 +93,7 @@
               <div class="cabinet-foot">
                 <span id="state">SELECT A CONTROLLER</span
                 ><span id="timing-status"
-                  >Decision steps · the world waits while Qwen thinks</span
+                  >Continuous · the world moves during inference</span
                 >
               </div>
             </section>
@@ -115,7 +122,7 @@
               </div>
               <div>
                 <strong id="latency">—</strong
-                ><span>Mean 3-field inference</span>
+                ><span id="latency-label">Mean maneuver inference</span>
               </div>
               <div>
                 <strong id="cache">—</strong><span>Prompt work reused</span>
@@ -127,26 +134,29 @@
               Qwen to try the same level with local AI.
             </p>
             <details class="explanation">
-              <summary>One observation. Three independent choices.</summary>
+              <summary>
+                Fast inference. Continuous play. Visible assistance.
+              </summary>
               <p>
-                The SDK reads the same player position, nearby blocks, pits and
-                enemies for movement, jump and speed. It keeps the attention and
-                recurrent state after that shared prefix, then restores it for
-                each short field suffix. Code assembles the three allowed values
-                into a control object.
+                Qwen chooses one complete maneuver from typed options. Its
+                instructions stay cached across updates; only the small,
+                changing option table is processed. Each model update scores one
+                field. Jump press, hold and release are executed by the maneuver
+                controller.
               </p>
               <p>
-                One control update contains three field assignments. Their
-                scores run sequentially on one WebLLM engine; this is
-                shared-context inference, not three simultaneous GPU requests.
-                “Prompt work reused” counts token evaluations avoided, not a
-                claimed latency speedup.
+                The physics guard simulates short trajectories, filters unsafe
+                maneuvers and rechecks an answer when it arrives. It can brake
+                while waiting. This is a hybrid controller: Qwen chooses, local
+                physics handles feasibility and timing. The game and enemies
+                keep moving during inference. There is no stored route or
+                scripted jump fallback.
               </p>
               <p>
-                Decision steps give the model a fresh observation every 0.30
-                seconds of game time and wait for its answer before advancing.
-                Live mode keeps the world moving during inference. Render FPS
-                and AI updates measure different things.
+                Raw buttons preserves the original three-field experiment
+                without a physics guard. Decision steps is available only there.
+                Prompt work reused means avoided token evaluations, not a
+                claimed latency multiplier.
               </p>
               <p>
                 This is a playable recreation of the first Super Mario Bros.
@@ -177,6 +187,7 @@
               </div>
               <p id="choice-age" class="fine">No AI decision yet.</p>
               <div id="scores"></div>
+              <p id="guard" class="fine"></p>
             </section>
             <section class="policy">
               <label for="policy">Player instructions</label
@@ -204,7 +215,7 @@
               </ol>
             </section>
             <details>
-              <summary>What Qwen saw</summary>
+              <summary>What Qwen was offered</summary>
               <pre id="observation">
 The next accepted AI update will save its observation here.</pre
               >

@@ -1,0 +1,325 @@
+{
+  "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+  "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+  "runtime": "WebLLM 0.2.85",
+  "environment": {
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36",
+    "hardwareConcurrency": 16,
+    "gpu": {
+      "vendor": "apple",
+      "architecture": "metal-3",
+      "device": "",
+      "description": ""
+    },
+    "shader_f16": true
+  },
+  "note": "Qwen selects physics-filtered maneuvers; these are hybrid-controller results on one authored level, not unaided model skill or a general success guarantee.",
+  "worker_sha256": "dcec81709f718e8e03aace2acc0d82fb54e131211158ca187cb0271a073e28a3",
+  "ablation": {
+    "raw": {
+      "independent": {
+        "worker_ms": {
+          "count": 6,
+          "mean": 1425.316666662693,
+          "median": 1414.2499999701977,
+          "p95": 1621.8999999761581,
+          "max": 1621.8999999761581
+        },
+        "input_tokens": 8601,
+        "processed_tokens": 8601,
+        "cached_tokens": 0,
+        "forward_calls": 76
+      },
+      "shared": {
+        "worker_ms": {
+          "count": 6,
+          "mean": 615.183333337307,
+          "median": 630.3000000119209,
+          "p95": 696.3999999761581,
+          "max": 696.3999999761581
+        },
+        "input_tokens": 8601,
+        "processed_tokens": 3513,
+        "cached_tokens": 5088,
+        "forward_calls": 40
+      },
+      "layered": {
+        "worker_ms": {
+          "count": 6,
+          "mean": 471.7333333492279,
+          "median": 465.5000000298023,
+          "p95": 597.6999999880791,
+          "max": 597.6999999880791
+        },
+        "input_tokens": 8601,
+        "processed_tokens": 2457,
+        "cached_tokens": 6144,
+        "forward_calls": 33
+      }
+    },
+    "maneuvers": {
+      "uncached": {
+        "worker_ms": {
+          "count": 12,
+          "mean": 140.16666666666666,
+          "median": 136.55000001192093,
+          "p95": 166.10000002384186,
+          "max": 166.10000002384186
+        },
+        "input_tokens": 1869,
+        "processed_tokens": 1869,
+        "cached_tokens": 0,
+        "forward_calls": 12
+      },
+      "cached": {
+        "worker_ms": {
+          "count": 12,
+          "mean": 67.31666665772597,
+          "median": 67.5499999821186,
+          "p95": 83.29999995231628,
+          "max": 83.29999995231628
+        },
+        "input_tokens": 1869,
+        "processed_tokens": 717,
+        "cached_tokens": 1152,
+        "forward_calls": 12
+      }
+    },
+    "raw_agreement": 6,
+    "maneuver_agreement": 12
+  },
+  "runs": [
+    {
+      "run": 1,
+      "won": true,
+      "sim_seconds": 37.88333333333183,
+      "wall_seconds": 38.128,
+      "accepted_choices": 462,
+      "choices_per_wall_second": 12.117079311791858,
+      "worker_ms": {
+        "count": 462,
+        "mean": 75.7995670978383,
+        "median": 74.19999998807907,
+        "p95": 97.19999998807907,
+        "max": 201.39999997615814
+      },
+      "roundtrip_ms": {
+        "count": 462,
+        "mean": 77.81601731575928,
+        "median": 76.05000001192093,
+        "p95": 101,
+        "max": 202.0999999642372
+      },
+      "cold_first_choice_ms": 201.39999997615814,
+      "guard": {
+        "maneuver": "run",
+        "acceptedSelections": 462,
+        "rejectedSelections": 3,
+        "safetyInterventions": 0,
+        "forcedSelections": 26,
+        "waitingStops": 0,
+        "lastReason": ""
+      },
+      "planning": {
+        "total_ms": 1184.1000002026558,
+        "count": 473,
+        "mean_ms": 2.503382664276228
+      },
+      "inference": {
+        "mean_ms": 75.7995670978383,
+        "scored_positions": 462,
+        "cached_tokens": 44256,
+        "input_tokens": 71746
+      },
+      "fps_snapshots": {
+        "count": 132,
+        "mean": 55.31855707039493,
+        "median": 55.2,
+        "p95": 57.6,
+        "max": 57.8
+      },
+      "worst_frame_ms": 50.099999999998545,
+      "raw": "mario-fast-run-1.json.gz"
+    },
+    {
+      "run": 2,
+      "won": true,
+      "sim_seconds": 37.008333333331876,
+      "wall_seconds": 37.121,
+      "accepted_choices": 465,
+      "choices_per_wall_second": 12.526602192828856,
+      "worker_ms": {
+        "count": 465,
+        "mean": 73.5836559140554,
+        "median": 73.30000001192093,
+        "p95": 93.69999998807907,
+        "max": 112.09999996423721
+      },
+      "roundtrip_ms": {
+        "count": 465,
+        "mean": 75.58430107396136,
+        "median": 74.89999997615814,
+        "p95": 100.19999998807907,
+        "max": 137.80000001192093
+      },
+      "cold_first_choice_ms": null,
+      "guard": {
+        "maneuver": "run",
+        "acceptedSelections": 465,
+        "rejectedSelections": 1,
+        "safetyInterventions": 0,
+        "forcedSelections": 31,
+        "waitingStops": 0,
+        "lastReason": ""
+      },
+      "planning": {
+        "total_ms": 1282.5000002384186,
+        "count": 480,
+        "mean_ms": 2.6718750004967053
+      },
+      "inference": {
+        "mean_ms": 73.5836559140554,
+        "scored_positions": 465,
+        "cached_tokens": 44640,
+        "input_tokens": 71947
+      },
+      "fps_snapshots": {
+        "count": 131,
+        "mean": 55.45343511450382,
+        "median": 55.8,
+        "p95": 56.8,
+        "max": 57.4
+      },
+      "worst_frame_ms": 50.90000000000873,
+      "raw": "mario-fast-run-2.json.gz"
+    },
+    {
+      "run": 3,
+      "won": true,
+      "sim_seconds": 38.224999999998474,
+      "wall_seconds": 38.325,
+      "accepted_choices": 498,
+      "choices_per_wall_second": 12.994129158512719,
+      "worker_ms": {
+        "count": 498,
+        "mean": 70.82108433873778,
+        "median": 70.19999998807907,
+        "p95": 91.69999998807907,
+        "max": 115.19999998807907
+      },
+      "roundtrip_ms": {
+        "count": 498,
+        "mean": 72.85883534122183,
+        "median": 72.0,
+        "p95": 98.5,
+        "max": 148.30000001192093
+      },
+      "cold_first_choice_ms": null,
+      "guard": {
+        "maneuver": "run",
+        "acceptedSelections": 498,
+        "rejectedSelections": 3,
+        "safetyInterventions": 0,
+        "forcedSelections": 21,
+        "waitingStops": 0,
+        "lastReason": ""
+      },
+      "planning": {
+        "total_ms": 1170.0000012516975,
+        "count": 526,
+        "mean_ms": 2.2243346031401092
+      },
+      "inference": {
+        "mean_ms": 70.82108433873778,
+        "scored_positions": 498,
+        "cached_tokens": 47808,
+        "input_tokens": 77612
+      },
+      "fps_snapshots": {
+        "count": 134,
+        "mean": 55.1089552238806,
+        "median": 54.8,
+        "p95": 57,
+        "max": 57.4
+      },
+      "worst_frame_ms": 83.39999999999418,
+      "raw": "mario-fast-run-3.json.gz"
+    },
+    {
+      "run": 4,
+      "won": true,
+      "sim_seconds": 39.94166666666504,
+      "wall_seconds": 40.122,
+      "accepted_choices": 511,
+      "choices_per_wall_second": 12.736154728079358,
+      "worker_ms": {
+        "count": 511,
+        "mean": 71.25694716151679,
+        "median": 69.19999998807907,
+        "p95": 93.60000002384186,
+        "max": 192.80000001192093
+      },
+      "roundtrip_ms": {
+        "count": 511,
+        "mean": 73.26692759279169,
+        "median": 70.60000002384186,
+        "p95": 98.80000001192093,
+        "max": 193.69999998807907
+      },
+      "cold_first_choice_ms": 192.80000001192093,
+      "guard": {
+        "maneuver": "run",
+        "acceptedSelections": 511,
+        "rejectedSelections": 7,
+        "safetyInterventions": 0,
+        "forcedSelections": 19,
+        "waitingStops": 0,
+        "lastReason": ""
+      },
+      "planning": {
+        "total_ms": 1416.1000002026558,
+        "count": 528,
+        "mean_ms": 2.6820075761413937
+      },
+      "inference": {
+        "mean_ms": 71.25694716151679,
+        "scored_positions": 511,
+        "cached_tokens": 48960,
+        "input_tokens": 78900
+      },
+      "fps_snapshots": {
+        "count": 139,
+        "mean": 55.33818374852626,
+        "median": 55.4,
+        "p95": 57.4,
+        "max": 57.6
+      },
+      "worst_frame_ms": 50.400000000001455,
+      "raw": "mario-fast-run-4.json.gz"
+    }
+  ],
+  "totals": {
+    "completions": 4,
+    "attempts": 4,
+    "accepted_choices": 1936,
+    "worker_ms": {
+      "count": 1936,
+      "mean": 72.78770661129316,
+      "median": 71.79999995231628,
+      "p95": 94.5,
+      "max": 201.39999997615814
+    },
+    "roundtrip_ms": {
+      "count": 1936,
+      "mean": 74.8041322309493,
+      "median": 73.19999998807907,
+      "p95": 99.80000001192093,
+      "max": 202.0999999642372
+    },
+    "choices_per_wall_second": 12.596293982927337,
+    "mean_completion_sim_seconds": 38.26458333333181,
+    "single_option_selections": 97,
+    "stale_rejections": 14,
+    "waiting_stops": 0
+  }
+}

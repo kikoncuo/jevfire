@@ -1,6 +1,6 @@
 # Browser decision SDK
 
-The browser SDK assigns declared fields from finite, typed options. It does not generate or parse JSON text. All three browser demos use the same inference worker. Last Hearth and Slipstream cache unchanged actor instructions across updates; World 1-1 reuses one observation across movement, jump and speed fields. Uncached observations, field suffixes and any prefix beyond the configured cache cap are still processed.
+The browser SDK assigns declared fields from finite, typed options. It does not generate or parse JSON text. All three browser demos use the same inference worker. Last Hearth and Slipstream cache unchanged actor instructions across updates; World 1-1 caches its policy across compact maneuver decisions; its advanced raw-button mode also shares each observation across movement, jump and speed fields. Uncached observations, field suffixes and any prefix beyond the configured cache cap are still processed.
 
 There are two useful forms of reuse:
 
@@ -77,6 +77,22 @@ const result = await decisions.score({
 
 The entire prompt is tokenized first. Only an exact token prefix is reused, so a token spanning the instruction/observation boundary cannot corrupt the context. Cache keys partition actors; exact token content, rather than the key alone, determines a hit. Requests are serialized to prevent concurrent callers from mixing model state. `clear()` evicts all checkpoints. Abort discards partial work, but a GPU call already running must finish first.
 
+### Two cache levels for changing observations
+
+`scoreFields({ stablePrefix: instructions, sharedPrompt: instructions + observation,
+fields, cacheKey })` keeps a stable instruction checkpoint and a separate current
+observation checkpoint. A changed observation restores the instructions before
+processing fresh facts; later fields reuse the current observation. `stablePrefix`
+is optional and must exactly prefix `sharedPrompt`. Both caches are token-verified,
+aligned, capped and included in the same bounded LRU. Two slots are needed; fewer
+slots retain ordinary shared-context behavior. Policy edits invalidate old state.
+
+Usage adds `layered_prefix_cache`, `stable_prefix_cached_tokens` and
+`shared_prefix_cached_tokens`; the last two sum to `cached_prefix_tokens`.
+With `useCache: false`, no token work is credited as cached. The fast Mario
+interface instead uses one field with a persistent instruction prefix because its
+changing option table is small. [Measured comparison](mario-realtime.md).
+
 ### Driving prompt fidelity
 
 Slipstream keeps the published prompt text unchanged and checkpoints its system
@@ -96,9 +112,9 @@ The optimized adapter is version-gated to WebLLM **0.2.85**. It uses private pip
 
 Unsupported adapters use independent prefills through WebLLM's public API and report zero cache hits. Check the worker's `sdk_backend`, `prefix_cache_slots` and `cache_fallback_reason` readiness fields. Runtime GPU/state errors fail the request instead of returning stale scores. Use one SDK owner per engine; do not call engine generation/reset methods concurrently with it. Dispose the SDK before unloading or replacing the model.
 
-The game worker stores up to six checkpoints, each capped at 512 tokens. The shipped Mario prompt fits its shared observation within this cap; longer edited prompts may only be partly reused. Generic callers can configure up to eight checkpoints and 1,024 cached tokens per prefix; longer prefixes are only partly cached. Additional checkpoints consume GPU memory, especially recurrent state. Input is limited to 1,800 tokens by default to leave room inside the games' 2,048-token model context. Raising the input limit does not make inference faster.
+The game worker stores up to six checkpoints, each capped at 512 tokens. The default fast Mario instruction prefix fits this cap; longer policies and raw observations may be only partly reused. Generic callers can configure up to eight checkpoints and 1,024 cached tokens per prefix; longer prefixes are only partly cached. Additional checkpoints consume GPU memory, especially recurrent state. Input is limited to 1,800 tokens by default to leave room inside the games' 2,048-token model context. Raising the input limit does not make inference faster.
 
-Rendering continues independently of decision frequency. World 1-1 intentionally pauses physics at action boundaries in Decision steps mode; its Live mode and the other games continue physics during inference. Keep chunk/yield limits suitable for the GPU: bigger chunks can improve inference throughput while increasing contention with rendering. No network inference is used after the model loads.
+Rendering continues independently of decision frequency. World 1-1's default maneuver controller keeps physics moving during inference. Its advanced raw-button controller also offers Decision steps, which intentionally pauses physics at action boundaries for comparison. Keep chunk/yield limits suitable for the GPU: bigger chunks can improve inference throughput while increasing contention with rendering. No network inference is used after the model loads.
 
 ## Validation
 
@@ -122,7 +138,7 @@ The four village fixtures were **1.37–1.67×** faster warm than the original w
 
 Cold/warm SDK timings use three pairs per fixture; the original worker uses two runs per fixture. The GPU was not isolated from other browser activity, and the driving prompt fixtures predate later prompt edits. Treat the numbers as local diagnostic measurements. The raw data includes score differences and original-worker samples, rather than implying bit-identical equivalence.
 
-### World 1-1 integration check
+### Original three-field World 1-1 integration check
 
 The production game scored movement, jump and speed on five paired frozen
 observations, with a fresh shared prefix for each pair. Mean whole-request time

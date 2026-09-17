@@ -41,6 +41,9 @@ async function marioCheck(page) {
   )
     throw new Error('Mobile horizontal overflow');
   await page.setViewportSize({ width: 1440, height: 1000 });
+  if (await page.locator('#control-mode').count())
+    await page.locator('#control-mode').selectOption('raw');
+  await page.locator('#timing').selectOption('step');
   await page.locator('#load').click();
   await page.waitForFunction(
     () => window.marioDiagnostics().loaded,
@@ -48,7 +51,9 @@ async function marioCheck(page) {
     { timeout: 120000 },
   );
   await page.screenshot({ path: 'last-hearth-qa-mario-loaded.png' });
-  report.warmup = await page.evaluate(() => window.marioProbe({ cache: true }));
+  report.warmup = await page.evaluate(() =>
+    window.marioProbe({ cache: true, controller: 'raw', layeredCache: false }),
+  );
   // Alternating order; each new snapshot must be prefetched once even with cache.
   for (let trial = 0; trial < 5; trial++) {
     const pair = { trial };
@@ -61,7 +66,12 @@ async function marioCheck(page) {
       : ['independent', 'shared'])
       pair[mode] = await page.evaluate(
         (options) => window.marioProbe(options),
-        { cache: mode === 'shared', context },
+        {
+          cache: mode === 'shared',
+          context,
+          controller: 'raw',
+          layeredCache: false,
+        },
       );
     pair.same_controls =
       JSON.stringify(pair.shared.parsed_json) ===

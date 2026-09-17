@@ -1,111 +1,85 @@
-# World 1-1: three controls, one shared context
+# World 1-1: continuous local Qwen play
 
-[Play World 1-1](https://kikoncuo.github.io/jevfire/mario.html)
+[Play World 1-1](https://kikoncuo.github.io/jevfire/mario.html) ·
+[Speed research, controller design and measurements](mario-realtime.md)
 
-This is a playable recreation of the first Super Mario Bros. course, using original
-JavaScript physics and Canvas2D artwork. It includes question blocks, coins,
-mushrooms, Goombas, pipes, the three pits, stairs, a flag and a castle. The geometry
-is recognizable, but this is not a ROM emulator or a pixel/physics-exact port. The
-underground bonus room is not included. No Nintendo sprites, music, ROM or other
-extracted game files are distributed.
+This playable recreation uses original JavaScript physics and Canvas2D artwork.
+It includes question blocks, coins, mushrooms, Goombas, pipes, three pits, stairs,
+a flag and a castle. It is not a ROM emulator or an exact physics/pixel port;
+the underground bonus room is not included. No extracted Nintendo assets are distributed.
 
-## Three ways to play
+## Choose a controller
 
-- **Play yourself:** left/right arrows move, Space jumps, and Shift runs. Hold
-  jump to rise higher; release before the next jump. Touch buttons also work.
-- **Watch scripted:** an explicit geometric rule controller. It does not run the
-  model, read the editable prompt or increment AI counters.
-- **Load Qwen:** downloads the pinned Qwen3.5 0.8B model (~450 MB) and runs it
-  through WebLLM on the browser's WebGPU device. No inference server is involved.
+- **Load Qwen:** the default is **Fast maneuvers + physics guard**, running locally
+  through WebLLM/WebGPU. Qwen selects a collision-checked maneuver while the world
+  continues at 1×. The pinned Qwen3.5 0.8B model downloads about 450 MB once.
+- **Play yourself:** arrows move, Space jumps, Shift runs; touch buttons also work.
+- **Watch scripted:** a separate geometric rule controller. It does not read the
+  policy, use the model or increment AI counters.
+- **Raw buttons · experimental:** the advanced original three-field controller,
+  without a physics guard. Continuous mode is available; optional Decision steps
+  waits at action boundaries for debugging. This mode is much less reliable.
 
-Qwen chooses three independently scored fields:
+## What the fast model controls
+
+```json
+{ "maneuver": "jump" }
+```
+
+The finite library contains `run`, `walk`, `hop`, `jump`, `jump_walk`, `brake`
+and `retreat`. CPU physics predicts each option through a 1.6-second horizon after
+an estimated inference delay. Qwen receives offered option IDs and predicted
+forward gains, alongside the editable policy. It scores one verified label;
+JavaScript assembles the declared maneuver value. The inspector shows those
+model-visible options. Full forecasts are retained in diagnostics for QA.
+
+The executor handles jump press/hold/release and maneuver expiry. The guard
+rechecks the selected maneuver against the latest state; an outdated choice is
+rejected while a committed maneuver continues. Without an active maneuver,
+Mario brakes while enemies and physics still advance. There is no stored level
+route and no hidden call to the scripted controller. This is explicitly a hybrid
+Qwen-and-physics system, not an unaided LLM playing from pixels.
+
+The policy prefix stays cached across decisions. Only the compact option table
+is processed again, with one scored position per update. The next request starts
+immediately after the previous result. [SDK details](browser-sdk.md).
+
+| Display | Meaning |
+| --- | --- |
+| AI updates/sec | Accepted real-model maneuver choices per wall second |
+| Fields/sec | One scored field per fast update; three per raw-button update |
+| Mean inference | Worker latency for the complete chosen interface |
+| Prompt work reused | Avoided input-token evaluations / logical input-token evaluations |
+| Render FPS | Canvas frame submissions per wall second |
+| Guard counts | Rejected stale choices, waiting stops and single-option selections |
+
+A single-option menu still incurs scoring, but gives Qwen no strategic choice;
+those selections are reported separately. Forecasting and button execution never
+increment AI counters. A finite horizon cannot guarantee safety on every device.
+
+## Raw-button comparison
+
+The original interface independently selects:
 
 ```json
 { "direction": "right", "jump": true, "speed": "run" }
 ```
 
-`direction` is `left`, `still` or `right`; `jump` is a boolean; `speed` is `walk`
-or `run`. JavaScript supplies these keys and values, scores single-token labels,
-and assembles the result. A model response cannot add fields or select an
-undeclared control. Valid controls can still miss a jump or run into an enemy.
-
-## Give a small model usable state
-
-The observation contains the player's position, velocity, grounded state and
-held jump button; distance to the flag; relative solid bounds; the next obstacle
-and its top height; the next pit's distance and width; nearby enemy positions and
-velocities; and reachable items. Coordinates are in tiles, with x increasing
-rightward, y increasing upward, and positions at each entity's bottom-left corner.
-The inspector records the actual observation used for each accepted AI decision.
-
-These are geometric facts, not a hidden planner's recommended action. Each of the
-three field suffixes sees the same snapshot and player instructions. Later fields
-do not see earlier answers. Pause, restart, policy changes and controller changes
-invalidate pending results, so an old instruction cannot act in a new run.
-
-**Decision steps** advance 0.30 seconds of simulated play per AI control update,
-then wait for the model before advancing again. The canvas continues rendering
-while inference runs. This deliberately gives the small model a chance to react;
-it is not a claim of real-time platforming speed. **Live** mode keeps physics
-running while Qwen thinks and is harder when inference is slow.
-
-## How the SDK reduces prompt work
-
-The game calls `FiniteDecisions.scoreFields()` once per update. It prefills the
-common instructions and observation, saves the attention **and recurrent** state,
-then restores that checkpoint for each field's short suffix. Only the first field
-needs the full shared prefix on a new snapshot. The other two reuse it. Each final
-hidden state still passes through the pretrained language-model head; the SDK
-reads the allowed label scores, applies restricted softmax and maps winners back
-to typed values.
-
-```js
-const result = await decisions.scoreFields({
-  sharedPrompt: instructions + currentObservation,
-  cacheKey: 'mario:controls',
-  fields: [
-    { key: 'direction', suffix: directionQuestion, choices: directionLabels },
-    { key: 'jump', suffix: jumpQuestion, choices: jumpLabels },
-    { key: 'speed', suffix: speedQuestion, choices: speedLabels },
-  ],
-  chunkSize: 128,
-  yieldMs: 0,
-});
-applyControl(result.parsed_json);
-```
-
-This WebLLM build runs the field suffixes **sequentially** on one engine; it does
-not expose multi-sequence GPU batching. Cache reuse removes repeated prompt work,
-not all prompt computation or the field forwards. The private optimized adapter
-is pinned and validated; unsupported runtimes use independent prefills and report
-zero cache savings. [SDK API, runtime limits and verification](browser-sdk.md).
-
-| Display | Meaning |
-| --- | --- |
-| AI updates/sec | Applied three-field control objects per wall-clock second |
-| Fields/sec | Three assignments per accepted control update |
-| Mean 3-field inference | Mean worker latency for the entire three-field request |
-| Prompt work reused | Cached input-token evaluations / total logical input-token evaluations |
-| Render FPS | Actual render submissions per second; independent of inference |
-
-Rates use rolling wall-time windows. Mean inference and cache savings cover the
-current run and remain visible after pausing. Scripted/manual play never counts
-as AI inference. Token savings are not a measured latency multiplier.
+It sees player state, relative blocks, pits and enemies in tiles. It must learn
+when to press and release jump itself. The SDK now supports two cache levels:
+stable instructions across updates and the current observation across its three
+fields. Field answers remain independent; earlier answers are not fed to later
+fields. Only this advanced mode offers physics-pausing Decision steps.
 
 ## Verify locally
 
-Run `cd web && npm ci && npm run dev`, then open `/mario.html`.
-`npm test` covers collision, jumping, pits, blocks, enemies, power-ups, typed
-controls, observations, cache isolation and scripted course completion. The
-paused-only `window.marioProbe({cache: true|false})` runs real model scoring on a
-snapshot without applying controls or adding throughput samples.
+Run `cd web && npm ci && npm run dev`, then open `/mario.html`. `npm test` checks
+physics, jump timing, clone isolation, stale choices, cache isolation and prompt
+contracts. `qa/mario-live-run.js` records real Qwen through the normal UI at 1×;
+`qa/mario-cache-ablation.js` compares cache strategies on paired frozen inputs.
+The paused-only `window.marioProbe()` reports scores without applying controls.
 
-The source is split into `web/src/mario/level.js`, `game.js`, `renderer.js`,
-`contract.js`, `prompt.js` and `main.js`. The renderer uses original pixel drawing
-commands and requires no external art downloads. The shared inference worker and
-SDK also serve the village and driving experiments.
-
-## Recorded local check
+## Original raw-button check (previous release)
 
 The first production-build check used the real pinned model, five paired frozen
 observations and alternating baseline/optimized order. Each pair used identical

@@ -2,6 +2,8 @@ import './style.css';
 import { MarioGame } from './game.js';
 import { MarioRenderer } from './renderer.js';
 import { DEFAULT_POLICY, validateControl } from './contract.js';
+import { DEFAULT_MANEUVER_POLICY } from './maneuver-prompt.js';
+import { ManeuverExecutor, planManeuvers } from './maneuvers.js';
 import { DecisionTelemetry, FrameTelemetry } from '../controller.js';
 
 const $ = (id) => document.getElementById(id);
@@ -9,6 +11,13 @@ const text = (id, value) => {
   if ($(id).textContent !== String(value)) $(id).textContent = value;
 };
 const game = new MarioGame();
+const executor = new ManeuverExecutor();
+const fastMode = () => $('control-mode').value === 'maneuvers';
+let latencyEstimate = 0.15,
+  latestPlan = null,
+  planningMs = 0,
+  planCount = 0,
+  scoredPositions = 0;
 const renderer = new MarioRenderer($('world'), game);
 const telemetry = new DecisionTelemetry(),
   frames = new FrameTelemetry();
@@ -36,9 +45,9 @@ let lastDecision = null,
 let inferenceTotal = 0,
   inputTotal = 0,
   cachedTotal = 0;
-let policy = DEFAULT_POLICY;
+let policy = DEFAULT_MANEUVER_POLICY;
 try {
-  const saved = localStorage.getItem('jevfire-mario-policy');
+  const saved = localStorage.getItem('jevfire-mario-maneuver-policy');
   if (saved?.trim() && saved.length <= 700) policy = saved;
 } catch {
   /* Storage is optional. */
@@ -46,7 +55,7 @@ try {
 $('policy').value = policy;
 const sourceLabel = {
   idle: 'NO CONTROLLER',
-  model: 'LOCAL QWEN',
+  model: 'QWEN + PHYSICS GUARD',
   manual: 'YOU',
   scripted: 'SCRIPTED',
 };
@@ -71,6 +80,9 @@ function stop(message = 'Paused. Any pending answer is discarded.') {
 function reset() {
   stop('Level reset. Your player instructions are retained.');
   game.reset();
+  executor.reset();
+  latestPlan = null;
+  planningMs = planCount = scoredPositions = 0;
   inferenceTotal = inputTotal = cachedTotal = 0;
   telemetry.reset();
   decisions = [];
@@ -101,7 +113,9 @@ function start() {
   text(
     'status',
     mode === 'model'
-      ? 'Qwen is choosing three controls from one shared observation.'
+      ? fastMode()
+        ? 'Live Qwen maneuvers · cached instructions · local physics guard.'
+        : 'Qwen is choosing three raw controls. No physics guard.'
       : mode === 'manual'
         ? 'Arrow keys move · Space jumps · hold Shift to run.'
         : 'Scripted baseline. These rules do not use your prompt or count as AI decisions.',
@@ -118,7 +132,10 @@ function updateUI(now = performance.now()) {
     'distance',
     `${Math.min(100, Math.max(0, Math.round((game.player.x / game.level.goal.flagX) * 100)))}%`,
   );
-  text('source', sourceLabel[mode]);
+  text(
+    'source',
+    mode === 'model' && !fastMode() ? 'QWEN RAW BUTTONS' : sourceLabel[mode],
+  );
   text(
     'state',
     game.won
@@ -149,7 +166,9 @@ function updateUI(now = performance.now()) {
   );
   text(
     'field-rate',
-    mode === 'model' ? (metrics.decisions_per_second * 3).toFixed(2) : '—',
+    mode === 'model'
+      ? (metrics.decisions_per_second * (fastMode() ? 1 : 3)).toFixed(2)
+      : '—',
   );
   text(
     'latency',
@@ -162,6 +181,17 @@ function updateUI(now = performance.now()) {
     inputTotal ? `${Math.round((cachedTotal / inputTotal) * 100)}%` : '—',
   );
   text('fps', Math.round(frames.snapshot(now).fps));
+  text(
+    'latency-label',
+    fastMode() ? 'Mean maneuver inference' : 'Mean 3-field inference',
+  );
+  const guard = executor.snapshot();
+  text(
+    'guard',
+    mode === 'model' && fastMode()
+      ? `Physics guard · ${guard.rejectedSelections} stale choices blocked · ${guard.waitingStops} waiting stops · ${guard.forcedSelections} single-option selections`
+      : 'Physics guard off',
+  );
   const control = game.control;
   text('control-direction', control?.direction || 'still');
   text('control-jump', control?.jump ? 'YES' : 'NO');
@@ -169,7 +199,7 @@ function updateUI(now = performance.now()) {
   text(
     'choice-age',
     lastDecision
-      ? `Update #${lastDecision.number} · ${Math.max(0, (now - lastDecision.acceptedAt) / 1000).toFixed(1)}s ago · ${Math.round(lastDecision.elapsed_ms)} ms · 3 fields`
+      ? `Update #${lastDecision.number} · ${Math.max(0, (now - lastDecision.acceptedAt) / 1000).toFixed(1)}s ago · ${Math.round(lastDecision.elapsed_ms)} ms · ${lastDecision.fields_scored} scored field${lastDecision.fields_scored === 1 ? '' : 's'}`
       : 'No AI decision yet.',
   );
   const events = game.events
@@ -278,7 +308,7 @@ function createWorker() {
       }
       return;
     }
-    if (data.type !== 'marioDecision') return;
+    if (!['marioDecision', 'marioManeuver'].includes(data.type)) return;
     clearTimeout(watchdog);
     const sent = pending;
     pending = null;
@@ -290,7 +320,7 @@ function createWorker() {
       try {
         if (!sent || data.epoch !== epoch || running)
           throw new Error('Probe superseded');
-        validateControl(data.parsed_json);
+        if (!sent.maneuver) validateControl(data.parsed_json);
         active.resolve({ ...data, observedContext: sent.context });
       } catch (error) {
         active.reject(error);
@@ -309,11 +339,36 @@ function createWorker() {
       return;
     }
     try {
-      validateControl(data.parsed_json);
-      game.applyControl(data.parsed_json, 'model');
       const now = performance.now();
+      latencyEstimate = Math.max(
+        0.04,
+        Math.min(
+          0.4,
+          0.7 * latencyEstimate + (0.3 * (now - sent.sentAt)) / 1000,
+        ),
+      );
+      if (sent.maneuver) {
+        const id = data.parsed_json?.maneuver;
+        if (
+          Object.keys(data.parsed_json ?? {}).length !== 1 ||
+          !sent.context.options.some((option) => option.id === id)
+        )
+          throw new Error('Unexpected maneuver');
+        const accepted = executor.choose(id, game, {
+          forced: sent.context.forced,
+        });
+        if (!accepted.accepted) {
+          discarded++;
+          requestDecision();
+          return;
+        }
+      } else {
+        validateControl(data.parsed_json);
+        game.applyControl(data.parsed_json, 'model');
+      }
       telemetry.record(now, 'mario', ['mario'], data.elapsed_ms);
       inferenceTotal += data.elapsed_ms;
+      scoredPositions += data.fields_scored;
       inputTotal += data.usage.input_tokens;
       cachedTotal += data.usage.cached_prefix_tokens;
       lastDecision = {
@@ -326,10 +381,27 @@ function createWorker() {
       };
       decisions.push(lastDecision);
       if (decisions.length > 200) decisions.shift();
-      actionRemaining = 0.3;
+      actionRemaining =
+        $('timing').value === 'step' && !sent.maneuver ? 0.3 : 0;
       renderScores(data);
-      text('observation', JSON.stringify(sent.context, null, 2));
+      text(
+        'observation',
+        JSON.stringify(
+          sent.maneuver
+            ? {
+                policy: sent.policy,
+                options: sent.context.options.map(({ id, progress }) => ({
+                  id,
+                  gain: Number(progress.toFixed(1)),
+                })),
+              }
+            : sent.context,
+          null,
+          2,
+        ),
+      );
       updateUI(now);
+      if (sent.maneuver || $('timing').value === 'live') requestDecision();
     } catch (error) {
       stop('Invalid control rejected.');
       showError(error.message);
@@ -341,21 +413,45 @@ function createWorker() {
 }
 function requestDecision(options = {}) {
   if (!loaded || busy || (!running && !options.probe)) return;
-  const context = options.context ?? game.observe();
+  const maneuver = options.controller
+    ? options.controller === 'maneuvers'
+    : fastMode();
+  let context = options.context;
+  if (!context && maneuver) {
+    const began = performance.now();
+    latestPlan = planManeuvers(game, {
+      latencySeconds: latencyEstimate,
+      executor,
+    });
+    planningMs += performance.now() - began;
+    planCount++;
+    context = latestPlan;
+    if (!context.options.length) {
+      if (options.probe)
+        throw new Error(
+          'No feasible maneuvers here. Restart the level before probing.',
+        );
+      return;
+    }
+  }
+  context ??= game.observe();
+  const requestPolicy = options.policy ?? policy;
   pending = {
     id: ++sequence,
     epoch,
     context,
-    policy,
+    policy: requestPolicy,
+    maneuver,
     sentAt: performance.now(),
   };
   busy = true;
   worker.postMessage({
-    type: 'decideMario',
+    type: maneuver ? 'decideMarioManeuver' : 'decideMario',
     id: pending.id,
     epoch,
     context,
-    rolePrompt: policy,
+    rolePrompt: requestPolicy,
+    layeredCache: options.layeredCache !== false,
     cache: options.cache !== false,
     pace: 'fast',
     testOnly: options.probe === true,
@@ -407,13 +503,28 @@ $('scripted').onclick = () => {
 };
 $('run').onclick = () => (running ? stop() : start());
 $('reset').onclick = reset;
+$('control-mode').onchange = () => {
+  stop('Controller changed. Start a new run to compare it.');
+  executor.reset();
+  if (fastMode()) $('timing').value = 'live';
+  $('timing').disabled = fastMode();
+  policy = fastMode() ? DEFAULT_MANEUVER_POLICY : DEFAULT_POLICY;
+  $('policy').value = policy;
+  reset();
+};
 $('timing').onchange = () => {
   epoch++;
   actionRemaining = 0;
   updateUI();
 };
 function applyPolicy(restore = false) {
-  const value = (restore ? DEFAULT_POLICY : $('policy').value).trim();
+  const value = (
+    restore
+      ? fastMode()
+        ? DEFAULT_MANEUVER_POLICY
+        : DEFAULT_POLICY
+      : $('policy').value
+  ).trim();
   if (!value || value.length > 700) {
     text('policy-status', 'Use between 1 and 700 characters.');
     return;
@@ -423,7 +534,10 @@ function applyPolicy(restore = false) {
   epoch++;
   actionRemaining = 0;
   try {
-    localStorage.setItem('jevfire-mario-policy', policy);
+    localStorage.setItem(
+      fastMode() ? 'jevfire-mario-maneuver-policy' : 'jevfire-mario-policy',
+      policy,
+    );
   } catch {
     /* Session-only is fine. */
   }
@@ -508,7 +622,8 @@ function frame(now) {
         },
         'manual',
       );
-    const stepMode = mode === 'model' && $('timing').value === 'step';
+    const stepMode =
+      mode === 'model' && !fastMode() && $('timing').value === 'step';
     game.running = !stepMode || actionRemaining > 0;
     if (game.running) {
       const delta = stepMode ? Math.min(dt, actionRemaining) : dt;
@@ -518,6 +633,13 @@ function frame(now) {
           game.applyControl(game.scriptedAction(), 'scripted');
           game.update(1 / 60);
           scriptedRemainder -= 1 / 60;
+        }
+      } else if (mode === 'model' && fastMode()) {
+        scriptedRemainder += delta;
+        while (scriptedRemainder >= 1 / 120 && !game.over) {
+          game.applyControl(executor.control(game, 1 / 120), 'model-maneuver');
+          game.update(1 / 120);
+          scriptedRemainder -= 1 / 120;
         }
       } else game.update(delta);
       actionRemaining = Math.max(0, actionRemaining - delta);
@@ -555,6 +677,20 @@ window.marioDiagnostics = () => ({
   epoch,
   discarded,
   timing: $('timing').value,
+  controller: $('control-mode').value,
+  executor: executor.snapshot(),
+  latestPlan,
+  planning: {
+    total_ms: planningMs,
+    count: planCount,
+    mean_ms: planCount ? planningMs / planCount : 0,
+  },
+  inference: {
+    mean_ms: telemetry.total ? inferenceTotal / telemetry.total : 0,
+    scored_positions: scoredPositions,
+    cached_tokens: cachedTotal,
+    input_tokens: inputTotal,
+  },
   time: game.time,
   player: { ...game.player },
   control: { ...game.control },

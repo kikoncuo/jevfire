@@ -276,3 +276,280 @@ test('page alignment leaves the remainder to be recomputed without changing inpu
   assert.equal(warm.usage.cached_prefix_tokens, 12);
   assert.equal(warm.usage.processed_tokens, 10);
 });
+
+const layered = (overrides = {}) => ({
+  sharedPrompt: 'Policy. World:1|',
+  stablePrefix: 'Policy.',
+  cacheKey: 'player',
+  fields: ['direction', 'jump', 'speed'].map((key, index) => ({
+    key,
+    suffix: `Field${index}?`,
+    choices: [
+      { label: 'A', value: false },
+      { label: 'B', value: true },
+    ],
+  })),
+  chunkSize: 4,
+  yieldMs: 0,
+  ...overrides,
+});
+
+test('layered fields reuse instructions across observations and the shared state within each request', async () => {
+  const { sdk } = setup();
+  const cold = await sdk.scoreFields(layered());
+  assert.equal(cold.usage.layered_prefix_cache, true);
+  assert.equal(cold.usage.stable_prefix_cached_tokens, 0);
+  assert.equal(
+    cold.usage.shared_prefix_cached_tokens,
+    2 * layered().sharedPrompt.length,
+  );
+  const next = layered({ sharedPrompt: 'Policy. World:2|' });
+  const warm = await sdk.scoreFields(next);
+  const fresh = await sdk.scoreFields({ ...next, useCache: false });
+  assert.deepEqual(warm.fields, fresh.fields);
+  assert.equal(warm.usage.cache_hits, 3);
+  assert.equal(
+    warm.usage.stable_prefix_cached_tokens,
+    next.stablePrefix.length,
+  );
+  assert.equal(
+    warm.usage.shared_prefix_cached_tokens,
+    2 * next.sharedPrompt.length,
+  );
+  assert.equal(
+    warm.usage.cached_prefix_tokens,
+    warm.usage.stable_prefix_cached_tokens +
+      warm.usage.shared_prefix_cached_tokens,
+  );
+  assert.equal(
+    warm.usage.input_tokens,
+    warm.usage.processed_tokens + warm.usage.cached_prefix_tokens,
+  );
+  assert.equal(fresh.usage.cache_hits, 0);
+  assert.equal(fresh.usage.layered_prefix_cache, false);
+  assert.equal(fresh.usage.processed_tokens, fresh.usage.input_tokens);
+  const repeated = await sdk.scoreFields(next);
+  assert.equal(repeated.usage.stable_prefix_cached_tokens, 0);
+  assert.equal(
+    repeated.usage.shared_prefix_cached_tokens,
+    3 * next.sharedPrompt.length,
+  );
+});
+
+test('editing a stable policy invalidates both layers without leaking another actor state', async () => {
+  const { sdk } = setup(4);
+  await sdk.scoreFields(layered());
+  await sdk.scoreFields(layered({ cacheKey: 'other' }));
+  const next = layered({
+    stablePrefix: 'Changed.',
+    sharedPrompt: 'Changed. World:2|',
+  });
+  const edited = await sdk.scoreFields(next);
+  assert.equal(edited.usage.stable_prefix_cached_tokens, 0);
+  assert.equal(edited.usage.cache_hits, 2);
+  assert.deepEqual(
+    edited.fields,
+    (await sdk.scoreFields({ ...next, useCache: false })).fields,
+  );
+  const other = await sdk.scoreFields(
+    layered({ cacheKey: 'other', sharedPrompt: 'Policy. World:3|' }),
+  );
+  assert.equal(other.usage.stable_prefix_cached_tokens, 'Policy.'.length);
+});
+
+test('layered checkpoints obey LRU bounds, cannot collide with public keys, and clear releases both layers', async () => {
+  const { sdk, backend } = setup();
+  for (const key of ['player', 'stable prefix', 'player']) {
+    const q = layered({ cacheKey: key });
+    const result = await sdk.scoreFields(q);
+    assert.equal(backend.states.size, 2);
+    assert.ok([...backend.states.keys()].every((slot) => slot <= 2));
+    assert.equal(result.usage.stable_prefix_cached_tokens, 0);
+    assert.deepEqual(
+      result.fields,
+      (await sdk.scoreFields({ ...q, useCache: false })).fields,
+    );
+  }
+  await sdk.clear();
+  assert.equal(sdk.prefixes.size, 0);
+  assert.equal(backend.states.size, 0);
+});
+
+test('small cache capacity falls back to ordinary shared caching or independent prefill', async () => {
+  for (const slots of [0, 1]) {
+    const { sdk, backend } = setup(slots);
+    await sdk.scoreFields(layered());
+    const q = layered({ sharedPrompt: 'Policy. World:2|' });
+    const result = await sdk.scoreFields(q);
+    assert.equal(result.usage.layered_prefix_cache, false);
+    assert.equal(result.usage.stable_prefix_cached_tokens, 0);
+    assert.equal(result.usage.cache_hits, slots ? 2 : 0);
+    assert.ok(backend.states.size <= slots);
+    assert.deepEqual(
+      result.fields,
+      (await sdk.scoreFields({ ...q, useCache: false })).fields,
+    );
+  }
+});
+
+test('an empty cache key disables both layers and reports independent execution', async () => {
+  const { sdk, backend } = setup();
+  const result = await sdk.scoreFields(layered({ cacheKey: '' }));
+  assert.equal(result.usage.execution, 'independent-prefills');
+  assert.equal(result.usage.layered_prefix_cache, false);
+  assert.equal(result.usage.cache_hits, 0);
+  assert.equal(result.usage.cached_prefix_tokens, 0);
+  assert.equal(result.usage.processed_tokens, result.usage.input_tokens);
+  assert.equal(backend.states.size, 0);
+});
+
+test('both prefix boundaries are derived from full tokenization, including boundary merges', async () => {
+  const merged = {
+    encode(s) {
+      const result = [];
+      for (let i = 0; i < s.length; i++) {
+        const pair = s.slice(i, i + 2);
+        if (pair === 'bc' || pair === 'YZ') {
+          result.push(pair === 'bc' ? 900 : 901);
+          i++;
+        } else result.push(s.charCodeAt(i));
+      }
+      return result;
+    },
+    decode: tokenizer.decode,
+  };
+  const { sdk } = setup(2, merged);
+  const q = layered({
+    stablePrefix: 'ab',
+    sharedPrompt: 'abcQY',
+    fields: layered().fields.map((field) => ({
+      ...field,
+      suffix: 'Z' + field.suffix,
+    })),
+  });
+  await sdk.scoreFields(q);
+  const next = { ...q, sharedPrompt: 'abcRY' };
+  const result = await sdk.scoreFields(next);
+  assert.equal(result.usage.stable_prefix_cached_tokens, 1);
+  assert.equal(result.usage.shared_prefix_cached_tokens, 2 * 3);
+  assert.deepEqual(
+    result.fields,
+    (await sdk.scoreFields({ ...next, useCache: false })).fields,
+  );
+});
+
+test('layered prefixes honor page alignment and caps, merging identical capped layers', async () => {
+  for (const cap of [8, 12]) {
+    const { sdk, backend } = setup();
+    backend.prefixAlignment = 4;
+    backend.maxPrefixTokens = cap;
+    const q = layered({
+      stablePrefix: 'Policy123.',
+      sharedPrompt: 'Policy123. AAA',
+    });
+    await sdk.scoreFields(q);
+    const next = { ...q, sharedPrompt: 'Policy123. BBB' };
+    const result = await sdk.scoreFields(next);
+    assert.equal(result.usage.layered_prefix_cache, cap > 8);
+    assert.equal(result.usage.stable_prefix_cached_tokens, cap > 8 ? 8 : 0);
+    for (const state of backend.states.values()) {
+      assert.equal(state.length % 4, 0);
+      assert.ok(state.length <= cap);
+    }
+    assert.deepEqual(
+      result.fields,
+      (await sdk.scoreFields({ ...next, useCache: false })).fields,
+    );
+  }
+});
+
+test('stable prefixes must be textual prefixes even when caching is disabled', async () => {
+  const { sdk, backend } = setup();
+  for (const stablePrefix of [
+    null,
+    12,
+    'Different instructions',
+    'Policy. World:1|too long',
+  ])
+    await assert.rejects(
+      sdk.scoreFields(layered({ stablePrefix, useCache: false })),
+      /Stable prefix/,
+    );
+  assert.equal(backend.calls.length, 0);
+  for (const stablePrefix of ['', layered().sharedPrompt]) {
+    const result = await sdk.scoreFields(layered({ stablePrefix }));
+    assert.equal(result.usage.layered_prefix_cache, false);
+  }
+});
+
+test('abort during layered prefill clears working state while valid stable checkpoints remain reusable', async () => {
+  for (const abortOnCall of [2, 3, 5]) {
+    const { sdk, backend } = setup();
+    const controller = new AbortController();
+    const forward = backend.forward.bind(backend);
+    let calls = 0;
+    backend.forward = async (...args) => {
+      const result = await forward(...args);
+      if (++calls === abortOnCall) controller.abort();
+      return result;
+    };
+    await assert.rejects(
+      sdk.scoreFields(layered({ signal: controller.signal })),
+      { name: 'AbortError' },
+    );
+    assert.equal(backend.working.length, 0);
+    assert.ok(backend.states.size <= 2);
+    const next = layered({ sharedPrompt: 'Policy. World:2|' });
+    const result = await sdk.scoreFields(next);
+    assert.deepEqual(
+      result.fields,
+      (await sdk.scoreFields({ ...next, useCache: false })).fields,
+    );
+  }
+});
+
+test('omitting stablePrefix retains the existing response fields and shared-cache behavior', async () => {
+  const { sdk } = setup();
+  const { stablePrefix, ...q } = layered();
+  const result = await sdk.scoreFields(q);
+  assert.equal('layered_prefix_cache' in result.usage, false);
+  assert.equal('stable_prefix_cached_tokens' in result.usage, false);
+  assert.equal('shared_prefix_cached_tokens' in result.usage, false);
+  assert.equal(result.usage.cache_hits, 2);
+});
+
+test('uncached prefill uses one fitting chunk; only a real cold checkpoint introduces a split', async () => {
+  const { sdk, backend } = setup();
+  const q = request({ chunkSize: 256 });
+  const uncached = await sdk.score({ ...q, useCache: false });
+  assert.equal(uncached.usage.forward_calls, 1);
+  assert.deepEqual(backend.calls, [tokenizer.encode(q.prompt)]);
+  assert.equal(uncached.usage.processed_tokens, q.prompt.length);
+  assert.equal(uncached.usage.cached_prefix_tokens, 0);
+  assert.equal(backend.states.size, 0);
+
+  backend.calls = [];
+  const cold = await sdk.score(q);
+  assert.equal(cold.usage.forward_calls, 2);
+  assert.deepEqual(backend.calls, [
+    tokenizer.encode(q.prefix),
+    tokenizer.encode(q.prompt.slice(q.prefix.length)),
+  ]);
+  assert.deepEqual(cold.logits, uncached.logits);
+
+  backend.calls = [];
+  const warm = await sdk.score(q);
+  assert.equal(warm.usage.forward_calls, 1);
+  assert.deepEqual(backend.calls, [
+    tokenizer.encode(q.prompt.slice(q.prefix.length)),
+  ]);
+  assert.equal(warm.usage.cached_prefix_tokens, q.prefix.length);
+  assert.deepEqual(warm.logits, uncached.logits);
+
+  const fallback = setup(0);
+  assert.equal((await fallback.sdk.score(q)).usage.forward_calls, 1);
+  assert.equal(
+    (await sdk.score({ ...q, cacheKey: '' })).usage.forward_calls,
+    1,
+  );
+});

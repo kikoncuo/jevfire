@@ -90,7 +90,7 @@ export class FiniteDecisions {
     this.freeSlots.push(entry.slot);
   }
 
-  async cache(key, tokens) {
+  async cache(key, tokens, metadata = {}) {
     if (!this.capacity || !tokens.length || !key) return null;
     if (this.prefixes.has(key)) await this.evict(key);
     if (this.prefixes.size >= this.capacity)
@@ -102,7 +102,7 @@ export class FiniteDecisions {
       this.freeSlots.push(slot);
       throw error;
     }
-    const entry = { slot, tokens: [...tokens] };
+    const entry = { ...metadata, slot, tokens: [...tokens] };
     this.prefixes.set(key, entry);
     return entry;
   }
@@ -128,18 +128,21 @@ export class FiniteDecisions {
     return this.exclusive(() => this.scoreUnlocked(snapshot));
   }
 
-  async scoreUnlocked({
-    prompt,
-    prefix = '',
-    cacheKey = '',
-    candidateTokenIds,
-    chunkSize = 32,
-    yieldMs = 16,
-    signal,
-    returnVocab = false,
-    useCache = true,
-    prefixTokens: explicitPrefix,
-  }) {
+  async scoreUnlocked(
+    {
+      prompt,
+      prefix = '',
+      cacheKey = '',
+      candidateTokenIds,
+      chunkSize = 32,
+      yieldMs = 16,
+      signal,
+      returnVocab = false,
+      useCache = true,
+      prefixTokens: explicitPrefix,
+    },
+    stable = null,
+  ) {
     aborted(signal);
     this.validateIds(candidateTokenIds);
     positive(chunkSize, 'chunk size');
@@ -171,29 +174,49 @@ export class FiniteDecisions {
       cache_hit: false,
       backend: this.backend.name,
     };
-    let entry = cacheEnabled ? this.prefixes.get(cacheKey) : null;
-    if (entry && !same(entry.tokens, prefixTokens)) {
-      await this.evict(cacheKey);
-      entry = null;
-    }
-    if (entry) {
-      await this.backend.restorePrefix(entry.slot, entry.tokens.length);
-      this.prefixes.delete(cacheKey);
-      this.prefixes.set(cacheKey, entry);
-      usage.cached_prefix_tokens = entry.tokens.length;
-      usage.cache_hit = true;
-    } else await this.backend.resetWorking();
-    let offset = entry?.tokens.length || 0;
+    let entry,
+      stableEntry,
+      offset = 0;
     let scores, vocabulary;
     try {
+      entry = cacheEnabled ? this.prefixes.get(cacheKey) : null;
+      if (entry && !same(entry.tokens, prefixTokens)) {
+        await this.evict(cacheKey);
+        entry = null;
+      }
+      stableEntry = stable ? this.prefixes.get(stable.key) : null;
+      if (stableEntry && !same(stableEntry.tokens, stable.tokens)) {
+        await this.evict(stable.key);
+        stableEntry = null;
+      }
+      // Touch both layers as one active request. A newly saved shared prefix
+      // must evict an unrelated LRU entry before its own stable ancestor.
+      if (stableEntry) {
+        this.prefixes.delete(stable.key);
+        this.prefixes.set(stable.key, stableEntry);
+      }
+      const restored = entry || stableEntry;
+      if (restored) {
+        await this.backend.restorePrefix(restored.slot, restored.tokens.length);
+        if (entry) {
+          this.prefixes.delete(cacheKey);
+          this.prefixes.set(cacheKey, entry);
+        }
+        offset = restored.tokens.length;
+        usage.cached_prefix_tokens = offset;
+        usage.cache_hit = true;
+        if (!entry) usage.stable_prefix_cached_tokens = offset;
+      } else await this.backend.resetWorking();
       while (offset < tokens.length) {
         aborted(signal);
         // Cold prefix is checkpointed exactly at its boundary, never by popping
         // a recurrent state back after processing a suffix.
-        const boundary =
-          !entry && offset < prefixTokens.length
+        let boundary =
+          cacheEnabled && !entry && offset < prefixTokens.length
             ? prefixTokens.length
             : tokens.length;
+        if (stable && !stableEntry && offset < stable.tokens.length)
+          boundary = Math.min(boundary, stable.tokens.length);
         const end = Math.min(offset + chunkSize, boundary);
         const final = end === tokens.length;
         const result = await this.backend.forward(
@@ -204,6 +227,10 @@ export class FiniteDecisions {
         usage.processed_tokens += end - offset;
         usage.forward_calls++;
         offset = end;
+        if (stable && !stableEntry && offset === stable.tokens.length)
+          stableEntry = await this.cache(stable.key, stable.tokens, {
+            stableFor: cacheKey,
+          });
         if (cacheEnabled && !entry && offset === prefixTokens.length)
           entry = await this.cache(cacheKey, prefixTokens);
         if (final) {
@@ -231,7 +258,16 @@ export class FiniteDecisions {
     }
   }
 
-  scoreFields({ sharedPrompt, fields, cacheKey = 'shared', ...options }) {
+  // Optional stablePrefix keeps instructions across observations while the
+  // sharedPrompt checkpoint is reused across fields. Two cache slots are needed;
+  // otherwise ordinary shared-prefix caching remains available unchanged.
+  scoreFields({
+    sharedPrompt,
+    stablePrefix,
+    fields,
+    cacheKey = 'shared',
+    ...options
+  }) {
     if (!Array.isArray(fields) || !fields.length || fields.length > 64)
       return Promise.reject(new Error('Provide 1–64 fields'));
     const requests = fields.map((field) => ({
@@ -241,6 +277,12 @@ export class FiniteDecisions {
     return this.exclusive(async () => {
       if (typeof sharedPrompt !== 'string' || !sharedPrompt.length)
         throw new Error('Shared prompt is empty');
+      if (
+        stablePrefix !== undefined &&
+        (typeof stablePrefix !== 'string' ||
+          !sharedPrompt.startsWith(stablePrefix))
+      )
+        throw new Error('Stable prefix must be an exact shared prompt prefix');
       const names = new Set();
       const jobs = requests.map((field) => {
         if (
@@ -284,6 +326,10 @@ export class FiniteDecisions {
           ids,
           prompt,
           prefix: this.prefixTokens(sharedPrompt, prompt, tokens),
+          stable:
+            stablePrefix === undefined
+              ? null
+              : this.prefixTokens(stablePrefix, prompt, tokens),
         };
       });
       // One exact-token prefix must work for every suffix, including BPE merges.
@@ -298,17 +344,52 @@ export class FiniteDecisions {
           i++;
         common = common.slice(0, i);
       }
+      let stable = null;
+      if (
+        stablePrefix !== undefined &&
+        options.useCache !== false &&
+        this.capacity >= 2 &&
+        typeof cacheKey === 'string' &&
+        cacheKey
+      ) {
+        let tokens = jobs[0].stable;
+        for (const prefix of [
+          ...jobs.slice(1).map((job) => job.stable),
+          common,
+        ]) {
+          let i = 0;
+          while (
+            i < tokens.length &&
+            i < prefix.length &&
+            tokens[i] === prefix[i]
+          )
+            i++;
+          i -= i % (this.backend.prefixAlignment ?? 1);
+          tokens = tokens.slice(0, i);
+        }
+        if (tokens.length && tokens.length < common.length) {
+          // Symbols cannot collide with public string cache keys. Find the
+          // bounded LRU entry instead of retaining an unbounded key registry.
+          const existing = [...this.prefixes].find(
+            ([, entry]) => entry.stableFor === cacheKey,
+          );
+          stable = { key: existing?.[0] ?? Symbol('stable prefix'), tokens };
+        }
+      }
       const values = [],
         details = [],
         results = [];
       for (const job of jobs) {
-        const result = await this.scoreUnlocked({
-          ...options,
-          prompt: job.prompt,
-          prefixTokens: common,
-          cacheKey,
-          candidateTokenIds: job.ids,
-        });
+        const result = await this.scoreUnlocked(
+          {
+            ...options,
+            prompt: job.prompt,
+            prefixTokens: common,
+            cacheKey,
+            candidateTokenIds: job.ids,
+          },
+          stable,
+        );
         const scores = probabilities(result.logits);
         const index = scores.indexOf(Math.max(...scores));
         values.push([job.key, job.choices[index].value]);
@@ -346,8 +427,28 @@ export class FiniteDecisions {
           ),
           scored_positions: jobs.length,
           cache_hits: results.filter((result) => result.usage.cache_hit).length,
+          ...(stablePrefix !== undefined
+            ? {
+                layered_prefix_cache: Boolean(stable),
+                stable_prefix_cached_tokens: results.reduce(
+                  (sum, result) =>
+                    sum + (result.usage.stable_prefix_cached_tokens || 0),
+                  0,
+                ),
+                shared_prefix_cached_tokens: results.reduce(
+                  (sum, result) =>
+                    sum +
+                    result.usage.cached_prefix_tokens -
+                    (result.usage.stable_prefix_cached_tokens || 0),
+                  0,
+                ),
+              }
+            : {}),
           execution:
-            this.capacity && options.useCache !== false && common.length
+            this.capacity &&
+            options.useCache !== false &&
+            cacheKey &&
+            common.length
               ? 'shared-prefix-sequential-suffixes'
               : 'independent-prefills',
         },

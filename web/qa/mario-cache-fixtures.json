@@ -1,0 +1,2194 @@
+{
+  "raw": [
+    {
+      "level": "1-1",
+      "status": "ready",
+      "timeRemaining": 400,
+      "coins": 0,
+      "self": {
+        "x": 3,
+        "y": 1,
+        "vx": 0,
+        "vy": 0,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": true,
+        "power": "small",
+        "jumpHeld": false,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 195
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": null,
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": null
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 13,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 399.7,
+      "coins": 0,
+      "self": {
+        "x": 3.98,
+        "y": 4.39,
+        "vx": 4.5,
+        "vy": 7.5,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": false,
+        "power": "small",
+        "jumpHeld": true,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "walk"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 194.02
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": {
+          "type": "question",
+          "dx": 11.3,
+          "width": 1,
+          "topY": 5,
+          "heightAboveFeet": 0.61
+        },
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": null
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 12.02,
+            "dy": -0.39,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 399.4,
+      "coins": 0,
+      "self": {
+        "x": 6.2,
+        "y": 5.43,
+        "vx": 8.4,
+        "vy": -0.3,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": false,
+        "power": "small",
+        "jumpHeld": true,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "run"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 191.8
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": null,
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": {
+          "dx": 14.27,
+          "dy": -4.43,
+          "vx": -1.35
+        }
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 9.8,
+            "dy": -1.43,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-20-4",
+            "type": "brick",
+            "dx": 13.8,
+            "dy": -1.43,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-4",
+            "type": "brick",
+            "dx": 15.8,
+            "dy": -1.43,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-21-4",
+            "type": "question",
+            "dx": 14.8,
+            "dy": -1.43,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-8",
+            "type": "question",
+            "dx": 15.8,
+            "dy": 2.57,
+            "w": 1,
+            "h": 1,
+            "topY": 9,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [
+          {
+            "id": "goomba-1",
+            "type": "goomba",
+            "dx": 14.99,
+            "dy": -4.43,
+            "vx": -1.35,
+            "w": 0.8,
+            "h": 0.8
+          }
+        ],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 399.1,
+      "coins": 0,
+      "self": {
+        "x": 8.72,
+        "y": 4.14,
+        "vx": 8.4,
+        "vy": -8.1,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": false,
+        "power": "small",
+        "jumpHeld": true,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "run"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 189.28
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": {
+          "type": "question",
+          "dx": 6.56,
+          "width": 1,
+          "topY": 5,
+          "heightAboveFeet": 0.86
+        },
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": {
+          "dx": 11.35,
+          "dy": -3.14,
+          "vx": -1.35
+        }
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 7.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-20-4",
+            "type": "brick",
+            "dx": 11.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-4",
+            "type": "brick",
+            "dx": 13.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-24-4",
+            "type": "brick",
+            "dx": 15.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-21-4",
+            "type": "question",
+            "dx": 12.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-23-4",
+            "type": "question",
+            "dx": 14.28,
+            "dy": -0.14,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-8",
+            "type": "question",
+            "dx": 13.28,
+            "dy": 3.86,
+            "w": 1,
+            "h": 1,
+            "topY": 9,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [
+          {
+            "id": "goomba-1",
+            "type": "goomba",
+            "dx": 12.07,
+            "dy": -3.14,
+            "vx": -1.35,
+            "w": 0.8,
+            "h": 0.8
+          }
+        ],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 398.8,
+      "coins": 0,
+      "self": {
+        "x": 11.24,
+        "y": 1,
+        "vx": 8.4,
+        "vy": 0,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": true,
+        "power": "small",
+        "jumpHeld": true,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "run"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 186.76
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": null,
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": {
+          "dx": 8.42,
+          "dy": 0,
+          "vx": -1.35
+        }
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 4.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-20-4",
+            "type": "brick",
+            "dx": 8.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-4",
+            "type": "brick",
+            "dx": 10.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-24-4",
+            "type": "brick",
+            "dx": 12.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-21-4",
+            "type": "question",
+            "dx": 9.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-23-4",
+            "type": "question",
+            "dx": 11.76,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-8",
+            "type": "question",
+            "dx": 10.76,
+            "dy": 7,
+            "w": 1,
+            "h": 1,
+            "topY": 9,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [
+          {
+            "id": "goomba-1",
+            "type": "goomba",
+            "dx": 9.14,
+            "dy": 0,
+            "vx": -1.35,
+            "w": 0.8,
+            "h": 0.8
+          }
+        ],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 398.5,
+      "coins": 0,
+      "self": {
+        "x": 13.76,
+        "y": 1,
+        "vx": 8.4,
+        "vy": 0,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": true,
+        "power": "small",
+        "jumpHeld": true,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "run"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 184.24
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": {
+          "type": "pipe",
+          "dx": 13.52,
+          "width": 2,
+          "topY": 3,
+          "heightAboveFeet": 2
+        },
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": {
+          "dx": 5.5,
+          "dy": 0,
+          "vx": -1.35
+        }
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 2.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-20-4",
+            "type": "brick",
+            "dx": 6.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-4",
+            "type": "brick",
+            "dx": 8.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-24-4",
+            "type": "brick",
+            "dx": 10.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-21-4",
+            "type": "question",
+            "dx": 7.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-23-4",
+            "type": "question",
+            "dx": 9.24,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          },
+          {
+            "id": "block-22-8",
+            "type": "question",
+            "dx": 8.24,
+            "dy": 7,
+            "w": 1,
+            "h": 1,
+            "topY": 9,
+            "used": false
+          },
+          {
+            "id": "pipe-28",
+            "type": "pipe",
+            "dx": 14.24,
+            "dy": 0,
+            "w": 2,
+            "h": 2,
+            "topY": 3,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [
+          {
+            "id": "goomba-1",
+            "type": "goomba",
+            "dx": 6.22,
+            "dy": 0,
+            "vx": -1.35,
+            "w": 0.8,
+            "h": 0.8
+          }
+        ],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    }
+  ],
+  "maneuvers": [
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 2.1,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 5.1,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.31,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 4.31,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": true,
+          "reason": "",
+          "progress": 4.9,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 7.9,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "jump",
+          "safe": true,
+          "reason": "",
+          "progress": 9.1,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 12.1,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": true,
+          "reason": "",
+          "progress": 5.08,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 8.08,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 3,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 2.1,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 5.1,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.31,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 4.31,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": true,
+          "reason": "",
+          "progress": 4.9,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 7.9,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "jump",
+          "safe": true,
+          "reason": "",
+          "progress": 9.1,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 12.1,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": true,
+          "reason": "",
+          "progress": 5.08,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 8.08,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 3,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.23,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 1.77,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.15,
+      "actor": {
+        "x": 3,
+        "y": 1,
+        "vx": 0,
+        "vy": 0,
+        "grounded": true
+      },
+      "projected": {
+        "x": 3,
+        "y": 1,
+        "grounded": true,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.81,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 29.1,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.39,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 28.67,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 27.28,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.24,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 26.04,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.81,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 29.1,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.39,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 28.67,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 27.28,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.24,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 26.04,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.07571238917174697,
+      "actor": {
+        "x": 27.28,
+        "y": 2.18,
+        "vx": 0,
+        "vy": 13.13,
+        "grounded": false
+      },
+      "projected": {
+        "x": 27.28,
+        "y": 3.17,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.59,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 46.87,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.27,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 46.55,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 45.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.24,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 44.04,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.59,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 46.87,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.27,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 46.55,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 45.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.24,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 44.04,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.08242135864599556,
+      "actor": {
+        "x": 45.28,
+        "y": 4.62,
+        "vx": 0,
+        "vy": 6.63,
+        "grounded": false
+      },
+      "projected": {
+        "x": 45.28,
+        "y": 5.07,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 3.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 78.83,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 2.05,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 77.45,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 1.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 76.83,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 1.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 76.83,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 3.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 78.83,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 2.05,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 77.45,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 1.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 76.83,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 1.43,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 76.83,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.08744399858558877,
+      "actor": {
+        "x": 74.63,
+        "y": 2.53,
+        "vx": 8.4,
+        "vy": 3.85,
+        "grounded": false
+      },
+      "projected": {
+        "x": 75.4,
+        "y": 2.76,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 85.3,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.27,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 84.03,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": false,
+          "reason": "Fell into a pit",
+          "progress": 1.71,
+          "duration": 0.84,
+          "landing": false,
+          "landingX": 87.01,
+          "landingY": -3.02,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": false,
+          "reason": "Fell into a pit",
+          "progress": 1.35,
+          "duration": 0.84,
+          "landing": false,
+          "landingX": 86.65,
+          "landingY": -3.02,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 85.3,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.27,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 84.03,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.061286851929416596,
+      "actor": {
+        "x": 85.3,
+        "y": 5.31,
+        "vx": 0,
+        "vy": 2.73,
+        "grounded": false
+      },
+      "projected": {
+        "x": 85.3,
+        "y": 5.42,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 3.67,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 96.06,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 2.05,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 94.44,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 3.67,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 96.06,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 2.05,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 94.44,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": false,
+          "reason": "Touched a Goomba from the side",
+          "progress": 1.43,
+          "duration": 0.59,
+          "landing": true,
+          "landingX": 93.82,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": false,
+          "reason": "Touched a Goomba from the side",
+          "progress": 1.43,
+          "duration": 0.59,
+          "landing": true,
+          "landingX": 93.82,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.07414224225561863,
+      "actor": {
+        "x": 91.76,
+        "y": 2.5,
+        "vx": 8.4,
+        "vy": 4.07,
+        "grounded": false
+      },
+      "projected": {
+        "x": 92.39,
+        "y": 2.72,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.52,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 118.5,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.54,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 117.52,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.31,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 117.29,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": false,
+          "reason": "Touched a Goomba from the side",
+          "progress": 2.65,
+          "duration": 0.9,
+          "landing": true,
+          "landingX": 119.62,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.52,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 118.5,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.54,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 117.52,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.31,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 117.29,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.06869504012271836,
+      "actor": {
+        "x": 116.53,
+        "y": 2.38,
+        "vx": 7,
+        "vy": -1.35,
+        "grounded": false
+      },
+      "projected": {
+        "x": 116.98,
+        "y": 2.2,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 136.28,
+          "landingY": 4,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 136.28,
+          "landingY": 4,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.12,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 135.27,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -0.65,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 134.5,
+          "landingY": 3,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 1.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 136.28,
+          "landingY": 4,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 136.28,
+          "landingY": 4,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.12,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 135.27,
+          "landingY": 3,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -0.65,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 134.5,
+          "landingY": 3,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.08388250713706744,
+      "actor": {
+        "x": 135.01,
+        "y": 3,
+        "vx": 0.13,
+        "vy": 0,
+        "grounded": true
+      },
+      "projected": {
+        "x": 135.15,
+        "y": 4.22,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 152.18,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.04,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 151.14,
+          "landingY": 5,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": false,
+          "reason": "Fell into a pit",
+          "progress": 1.86,
+          "duration": 1.03,
+          "landing": false,
+          "landingX": 154.05,
+          "landingY": -3.06,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": false,
+          "reason": "Fell into a pit",
+          "progress": 1.35,
+          "duration": 1.05,
+          "landing": false,
+          "landingX": 153.53,
+          "landingY": -3.06,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 152.18,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": -1.04,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 151.14,
+          "landingY": 5,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.07259727290229094,
+      "actor": {
+        "x": 152.18,
+        "y": 8.4,
+        "vx": 0,
+        "vy": -7.23,
+        "grounded": false
+      },
+      "projected": {
+        "x": 152.18,
+        "y": 7.78,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.74,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 169.73,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.42,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 168.42,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.22,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 168.21,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": false,
+          "reason": "Touched a Goomba from the side",
+          "progress": 3.18,
+          "duration": 0.82,
+          "landing": true,
+          "landingX": 171.18,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 1.74,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 169.73,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.42,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 168.42,
+          "landingY": 1,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.22,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 168.21,
+          "landingY": 1,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.07687954288914706,
+      "actor": {
+        "x": 167.54,
+        "y": 1.93,
+        "vx": 6.6,
+        "vy": 5.15,
+        "grounded": false
+      },
+      "projected": {
+        "x": 167.99,
+        "y": 2.26,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 0.79,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 186.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 0.79,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 186.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.38,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 185.86,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 185.61,
+          "landingY": 5,
+          "won": false
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 0.79,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 186.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 0.79,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 186.28,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.38,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 185.86,
+          "landingY": 5,
+          "won": false
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.13,
+          "duration": 1.6,
+          "landing": true,
+          "landingX": 185.61,
+          "landingY": 5,
+          "won": false
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.08215347628735996,
+      "actor": {
+        "x": 185.2,
+        "y": 5.18,
+        "vx": 2.35,
+        "vy": 13.13,
+        "grounded": false
+      },
+      "projected": {
+        "x": 185.49,
+        "y": 5.56,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    },
+    {
+      "options": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.33,
+          "landingY": 9.44,
+          "won": true
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        }
+      ],
+      "candidates": [
+        {
+          "id": "run",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.33,
+          "landingY": 9.44,
+          "won": true
+        },
+        {
+          "id": "walk",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        },
+        {
+          "id": "hop",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "jump_walk",
+          "safe": false,
+          "reason": "jump requires takeoff support",
+          "progress": 0,
+          "duration": 0,
+          "landing": false
+        },
+        {
+          "id": "brake",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        },
+        {
+          "id": "retreat",
+          "safe": true,
+          "reason": "",
+          "progress": 0.56,
+          "duration": 0.07,
+          "landing": true,
+          "landingX": 197.32,
+          "landingY": 9.37,
+          "won": true
+        }
+      ],
+      "forced": false,
+      "latencySeconds": 0.07935183922572991,
+      "actor": {
+        "x": 196.07,
+        "y": 10.41,
+        "vx": 8.4,
+        "vy": -4.38,
+        "grounded": false
+      },
+      "projected": {
+        "x": 196.77,
+        "y": 9.94,
+        "grounded": false,
+        "dead": false
+      },
+      "horizonSeconds": 1.6
+    }
+  ],
+  "rawPolicy": "Reach the flag alive. Move right and use the actual obstacle, enemy and gap distances. Jump early enough to clear tall pipes and pits. Hold jump while rising for a high jump, then release it before the next takeoff. Prefer walking near a poorly timed obstacle; running travels farther during each decision. Land on enemies from above, avoid their sides, and collect useful mushrooms when reachable.",
+  "maneuverPolicy": "Reach the flag alive. Prefer the safe maneuver with the greatest forward progress. Keep moving right; jump over obstacles and pits. Avoid waiting when a safe forward route is available.",
+  "source": "Raw six observations from previousfailedrun; 12 evenlyspacedobservations from first final continuousrun. These measurecompute, notheldoutpolicyaccuracy."
+}

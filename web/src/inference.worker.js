@@ -19,6 +19,7 @@ import {
 import { buildDrivingPromptParts } from './driving/prompt.js';
 import { buildMarioPromptParts } from './mario/prompt.js';
 import { validateControl } from './mario/contract.js';
+import { buildMarioManeuverPrompt } from './mario/maneuver-prompt.js';
 
 const MODEL = 'Qwen3.5-0.8B-q4f16_1-MLC';
 const REVISION = '0ec138972555613c1d7812a821778ad0398c8790';
@@ -534,6 +535,8 @@ async function decideMario(message) {
   try {
     result = await scorer.scoreFields({
       ...prepared,
+      stablePrefix:
+        message.layeredCache === false ? undefined : prepared.stablePrefix,
       cacheKey: 'mario:controls',
       useCache: message.cache !== false,
       chunkSize: throughput ? 128 : 32,
@@ -574,6 +577,47 @@ async function decideMario(message) {
   });
 }
 
+async function decideMarioManeuver(message) {
+  if (!engine) throw new Error('Load the model first');
+  const leadingSpace = 'ABCDEFGHIJKL'
+    .split('')
+    .every((label) => singleTokenId(` ${label}`) !== null);
+  const prepared = buildMarioManeuverPrompt(
+    message.context,
+    message.rolePrompt,
+    { leadingSpace },
+  );
+  const start = performance.now();
+  const result = await scorer.scoreFields({
+    ...prepared,
+    cacheKey: 'mario:persistent-policy',
+    useCache: message.cache !== false,
+    chunkSize: 256,
+    yieldMs: 0,
+  });
+  send('marioManeuver', {
+    ...result,
+    id: message.id,
+    epoch: message.epoch,
+    scenario: 'mario',
+    model: MODEL,
+    model_revision: REVISION,
+    testOnly: message.testOnly === true,
+    elapsed_ms: performance.now() - start,
+    fields_scored: 1,
+    execution: 'one-maneuver-persistent-prefix',
+    gpu_batch_size: 1,
+    sdk_backend: backend.name,
+    cache_fallback_reason: backend.reason ?? null,
+    ...(message.testOnly
+      ? {
+          shared_prompt: prepared.sharedPrompt,
+          field_suffixes: { maneuver: prepared.fields[0].suffix },
+        }
+      : {}),
+  });
+}
+
 // FIFO snapshots protect the one engine owner. Every request either responds or
 // reports its own id/epoch; requests arriving during a batch are never dropped.
 export function createWorkerQueue(handle, reportError) {
@@ -600,6 +644,8 @@ const enqueue = createWorkerQueue(
     else if (data.type === 'decide') await decide(data);
     else if (data.type === 'decideDrivingBatch') await decideDrivingBatch(data);
     else if (data.type === 'decideMario') await decideMario(data);
+    else if (data.type === 'decideMarioManeuver')
+      await decideMarioManeuver(data);
     else throw new Error('Unknown worker operation');
   },
   (error, data) => {

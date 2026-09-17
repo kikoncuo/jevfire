@@ -71,10 +71,13 @@ All fixtures and individual timings are [published](benchmarks/results/benchmark
 
 [**World 1-1**](https://kikoncuo.github.io/jevfire/mario.html) recreates the first
 Mario course with original drawn artwork. Play yourself, watch an explicit scripted
-controller, or let Qwen choose movement, jumping and running speed. The new
-[browser SDK](docs/browser-sdk.md) prefills one shared observation and restores
-its cached attention/recurrent state for each typed field, avoiding repeated
-prompt processing. [How the game works →](docs/mario-demo.md)
+controller, or let local Qwen select collision-checked maneuvers in continuous
+play. The [browser SDK](docs/browser-sdk.md) retains instruction state across
+updates and scores one finite maneuver. An explicit physics guard predicts
+hazards and handles jump timing. In four recorded continuous runs it cleared
+the level every time, averaging **73 ms per decision** and **12.6 decisions/sec**
+on the tested Apple WebGPU device. This is a hybrid Qwen-and-physics result.
+[Speed research and completion results →](docs/mario-realtime.md) [How the game works →](docs/mario-demo.md)
 
 [**Slipstream**](https://kikoncuo.github.io/jevfire/driving.html) gives four cars
 separate prompts and submits all eligible cars together, with cached policies and

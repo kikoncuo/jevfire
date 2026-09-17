@@ -1,0 +1,318 @@
+{
+  "tested_at": "2026-09-17T17:32:36.111Z",
+  "errors": [],
+  "terminal_probe": {
+    "rejected": true,
+    "message": "No feasible maneuvers here. Restart the level before probing."
+  },
+  "pause": {
+    "before": 0,
+    "after": 0
+  },
+  "mobile": {
+    "content": 390,
+    "viewport": 390
+  },
+  "manual": {
+    "mode": "manual",
+    "loaded": true,
+    "loading": false,
+    "busy": false,
+    "running": false,
+    "epoch": 12,
+    "discarded": 0,
+    "timing": "live",
+    "controller": "maneuvers",
+    "executor": {
+      "maneuver": "waiting",
+      "acceptedSelections": 0,
+      "rejectedSelections": 0,
+      "safetyInterventions": 0,
+      "forcedSelections": 0,
+      "waitingStops": 0,
+      "lastReason": ""
+    },
+    "latestPlan": null,
+    "planning": {
+      "total_ms": 0,
+      "count": 0,
+      "mean_ms": 0
+    },
+    "inference": {
+      "mean_ms": 0,
+      "scored_positions": 0,
+      "cached_tokens": 0,
+      "input_tokens": 0
+    },
+    "time": 0.275,
+    "player": {
+      "x": 3.848958333333334,
+      "y": 4.119583333333333,
+      "w": 0.72,
+      "h": 0.94,
+      "vx": 3.6999999999999993,
+      "vy": 5.1499999999999995,
+      "onGround": false,
+      "coyote": 0,
+      "power": "small",
+      "facing": 1,
+      "invincible": 0,
+      "dead": false,
+      "animation": "jump"
+    },
+    "control": {
+      "direction": "still",
+      "jump": false,
+      "speed": "walk"
+    },
+    "won": false,
+    "dead": false,
+    "over": false,
+    "coins": 0,
+    "score": 0,
+    "lastDecision": null,
+    "decisions": [],
+    "events": [
+      {
+        "id": 1,
+        "type": "control",
+        "message": "right \u00b7 jump held \u00b7 walk",
+        "time": 0,
+        "control": {
+          "direction": "right",
+          "jump": true,
+          "speed": "walk"
+        },
+        "source": "manual"
+      },
+      {
+        "id": 2,
+        "type": "jump",
+        "message": "Jumped",
+        "time": 0.008333333333333333,
+        "x": 3,
+        "y": 1
+      },
+      {
+        "id": 3,
+        "type": "control",
+        "message": "still \u00b7 jump held \u00b7 walk",
+        "time": 0.24166666666666664,
+        "control": {
+          "direction": "still",
+          "jump": true,
+          "speed": "walk"
+        },
+        "source": "manual"
+      },
+      {
+        "id": 4,
+        "type": "control",
+        "message": "still \u00b7 jump released \u00b7 walk",
+        "time": 0.24999999999999997,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        },
+        "source": "manual"
+      }
+    ],
+    "observation": {
+      "level": "1-1",
+      "status": "playing",
+      "timeRemaining": 399.73,
+      "coins": 0,
+      "self": {
+        "x": 3.85,
+        "y": 4.12,
+        "vx": 3.7,
+        "vy": 5.15,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": false,
+        "power": "small",
+        "jumpHeld": false,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 194.15
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": {
+          "type": "question",
+          "dx": 11.43,
+          "width": 1,
+          "topY": 5,
+          "heightAboveFeet": 0.88
+        },
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": null
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 12.15,
+            "dy": -0.12,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    },
+    "metrics": {
+      "decisions_per_second": 0,
+      "rounds_per_second": 0,
+      "total_decisions": 0,
+      "completed_rounds": 0,
+      "mean_latency_ms": null,
+      "window_seconds": 1
+    },
+    "frames": {
+      "fps": 55.6,
+      "frame_p99_ms": 9.39999999999418,
+      "frame_max_ms": 9.5,
+      "slow_frames": 0
+    }
+  },
+  "raw_probe": {
+    "type": "marioDecision",
+    "parsed_json": {
+      "direction": "right",
+      "jump": true,
+      "speed": "walk"
+    },
+    "fields": {
+      "direction": {
+        "value": "right",
+        "probabilities": [
+          0.06630822584236487, 0.08168879666909089, 0.8520029774885443
+        ],
+        "logits": [17.387081146240234, 17.595684051513672, 19.940357208251953],
+        "options": ["left", "still", "right"]
+      },
+      "jump": {
+        "value": true,
+        "probabilities": [0.36747773882122425, 0.6325222611787759],
+        "logits": [16.850528717041016, 17.39358139038086],
+        "options": [false, true]
+      },
+      "speed": {
+        "value": "walk",
+        "probabilities": [0.5732053263221022, 0.42679467367789786],
+        "logits": [16.983280181884766, 16.688339233398438],
+        "options": ["walk", "run"]
+      }
+    },
+    "scores_are_calibrated": false,
+    "usage": {
+      "input_tokens": 1146,
+      "processed_tokens": 298,
+      "cached_prefix_tokens": 848,
+      "forward_calls": 5,
+      "scored_positions": 3,
+      "cache_hits": 3,
+      "layered_prefix_cache": true,
+      "stable_prefix_cached_tokens": 176,
+      "shared_prefix_cached_tokens": 672,
+      "execution": "shared-prefix-sequential-suffixes"
+    },
+    "elapsed_ms": 305.4000000357628,
+    "id": 581,
+    "epoch": 16,
+    "scenario": "mario",
+    "model": "Qwen3.5-0.8B-q4f16_1-MLC",
+    "model_revision": "0ec138972555613c1d7812a821778ad0398c8790",
+    "testOnly": true,
+    "fields_scored": 3,
+    "per_field_elapsed_ms": {
+      "direction": 209.4000000357628,
+      "jump": 44.299999952316284,
+      "speed": 51.700000047683716
+    },
+    "execution": "shared-prefix-sequential-suffixes",
+    "gpu_batch_size": 1,
+    "sdk_backend": "webllm-0.2.85-forked-state",
+    "cache_fallback_reason": null,
+    "shared_prompt": "<|im_start|>system\nControl a platform game character using the observed geometry. Follow the policy to reach the flag alive. Units are tiles; x right, y up, positions are bottom-left corners. Jump begins on a new press while grounded; hold extends the jump, release after the apex before the next jump. A full jump reaches about 4.5 tiles high. Return only the requested control label.\nPolicy: Reach the flag alive. Move right and use the actual obstacle, enemy and gap distances. Jump early enough to clear tall pipes and pits. Hold jump while rising for a high jump, then release it before the next takeoff. Prefer walking near a poorly timed obstacle; running travels farther during each decision. Land on enemies from above, avoid their sides, and collect useful mushrooms when reachable.<|im_end|>\n<|im_start|>user\nMission: Reach the flag; avoid pits and enemies.\nPosition x=3, feet y=1; velocity x=0, y=0 tiles/s; grounded=true; jump-held=false.\nFlag 195 tiles right; time left 400s; coins 0.\nNext obstacle/gap/enemy distances start at your right edge. Other dx/dy start at your bottom-left; top is absolute world y.\nNext obstacle: none in view.\nNext gap: none in view.\nNearest enemy: none in view.\nOverhead block: none.\nVisible solid bounds dx/dy/width/height: 13/3/1/1.\nOther gaps dx/width: none. Enemies dx/dy/vx: none.\nItems dx/dy: none.",
+    "field_suffixes": {
+      "direction": "\nChoose direction independently for this same observation.\nA: move left\nB: no horizontal movement\nC: move right toward the flag\nReturn one direction label.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+      "jump": "\nChoose jump independently for this same observation.\nA: release jump\nB: press or hold jump\nReturn one jump label.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:",
+      "speed": "\nChoose speed independently for this same observation.\nA: walk, up to 4.5 tiles/s\nB: run, up to 8.4 tiles/s\nReturn one speed label.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\nAction:"
+    },
+    "observedContext": {
+      "level": "1-1",
+      "status": "ready",
+      "timeRemaining": 400,
+      "coins": 0,
+      "self": {
+        "x": 3,
+        "y": 1,
+        "vx": 0,
+        "vy": 0,
+        "w": 0.72,
+        "h": 0.94,
+        "onGround": true,
+        "power": "small",
+        "jumpHeld": false,
+        "control": {
+          "direction": "still",
+          "jump": false,
+          "speed": "walk"
+        }
+      },
+      "goal": {
+        "flagX": 198,
+        "distanceX": 195
+      },
+      "geometry": {
+        "groundTopY": 1,
+        "nextObstacle": null,
+        "overheadBlock": null,
+        "nextGap": null,
+        "nearestEnemy": null
+      },
+      "nearby": {
+        "solids": [
+          {
+            "id": "block-16-4",
+            "type": "question",
+            "dx": 13,
+            "dy": 3,
+            "w": 1,
+            "h": 1,
+            "topY": 5,
+            "used": false
+          }
+        ],
+        "gaps": [],
+        "enemies": [],
+        "items": []
+      },
+      "units": {
+        "position": "tiles; x right, y up; entity origin bottom-left",
+        "velocity": "tiles/second",
+        "time": "seconds"
+      }
+    }
+  }
+}

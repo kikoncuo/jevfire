@@ -2,7 +2,7 @@
 
 [World 1-1](https://kikoncuo.github.io/jevfire/mario.html) adds a third game: original
 Canvas2D art, playable keyboard/touch controls, a scripted baseline and local Qwen
-choosing three typed controls with shared-context SDK reuse. [Game notes](../docs/mario-demo.md).
+choosing finite maneuvers with persistent instruction caching and an explicit physics guard. The world keeps moving during inference; raw three-field controls remain an advanced comparison. [Game notes](../docs/mario-demo.md).
 
 **[Slipstream: four racing strategies →](https://kikoncuo.github.io/jevfire/driving.html)** ·
 **[Last Hearth: six villagers →](https://kikoncuo.github.io/jevfire/)**
@@ -195,9 +195,10 @@ with 16 ms yields and a 200 ms inter-decision pause; Maximum uses 128-token chun
 with no artificial in-worker yields and a 30 ms UI pause. **Slipstream** instead
 scores an entire fleet snapshot with 128-token submissions and immediately starts
 the next fleet request: no inter-request pause. Its per-driver policies are cached.
-**World 1-1** reuses one observation across movement, jump and speed suffixes,
-using 128-token submissions and no artificial in-worker yields. Its default
-Decision steps mode explicitly waits at each action boundary; Live mode does not.
+**World 1-1** defaults to continuous maneuver selection with persistent policy caching,
+256-token submissions, no artificial yields or post-answer delay, and local physics
+forecasts. Advanced raw buttons uses three fields and two cache levels. Only its
+optional Decision steps mode waits at action boundaries. [Measured design](../docs/mario-realtime.md).
 
 This browser runtime scores independent suffixes sequentially. It does not expose
 simultaneous multi-sequence GPU execution. Higher throughput can compete with

@@ -105,7 +105,8 @@ export function buildMarioPromptParts(
   const prefix = format.assistantPrefix ?? 'Action:\n';
   if (!['Action:', 'Action:\n'].includes(prefix))
     throw new Error('Invalid platform assistant prefix');
-  const sharedPrompt = `<|im_start|>system\nControl a platform game character using the observed geometry. Follow the policy to reach the flag alive. Units are tiles; x right, y up, positions are bottom-left corners. Jump begins on a new press while grounded; hold extends the jump, release after the apex before the next jump. A full jump reaches about 4.5 tiles high. Return only the requested control label.\nPolicy: ${policy}<|im_end|>\n<|im_start|>user\nMission: ${mission || 'Reach the flag; avoid pits and enemies.'}\n${describe(context)}`;
+  const stablePrefix = `<|im_start|>system\nControl a platform game character using the observed geometry. Follow the policy to reach the flag alive. Units are tiles; x right, y up, positions are bottom-left corners. Jump begins on a new press while grounded; hold extends the jump, release after the apex before the next jump. A full jump reaches about 4.5 tiles high. Return only the requested control label.\nPolicy: ${policy}<|im_end|>\n<|im_start|>user\nMission: ${mission || 'Reach the flag; avoid pits and enemies.'}\n`;
+  const sharedPrompt = stablePrefix + describe(context);
   const fields = Object.entries(CONTROL_SCHEMA).map(([key, values]) => ({
     key,
     choices: values.map((value, index) => ({
@@ -114,5 +115,5 @@ export function buildMarioPromptParts(
     })),
     suffix: `\nChoose ${key} independently for this same observation.\n${values.map((_, index) => `${labels[index]}: ${MEANINGS[key][index]}`).join('\n')}\nReturn one ${key} label.<|im_end|>\n<|im_start|>assistant\n<think>\n\n</think>\n\n${prefix}`,
   }));
-  return { sharedPrompt, fields };
+  return { sharedPrompt, stablePrefix, fields };
 }
