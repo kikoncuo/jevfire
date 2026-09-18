@@ -137,6 +137,17 @@ savings percentage is a token-work measurement, not a latency multiplier.
 
 ## Measurements
 
+**71 ms per action on an M4 Max** is the rounded headline for the final-build
+run: **71.26 ms mean worker inference**, **511 accepted choices**, and **40.12 s
+wall-clock completion**. The device owner identified the hardware as an M4 Max;
+the saved WebGPU telemetry itself records only Apple / Metal 3, not the chip SKU.
+This hardware attribution does not change the original measurement files.
+The figure excludes model download and CPU forecasting, and is not the full
+observation-to-action latency. [Visual explanation and receipts](https://kikoncuo.github.io/jevfire/learn.html#results).
+
+The four-run mean below remains **72.79 ms**. A final-build run and an aggregate
+are different statistics; the 71 ms headline is not a replacement for that mean.
+
 The hybrid controller completed **4 of 4 recorded continuous runs**, with
 **12.60 accepted AI updates per wall second** across 1,936 accepted choices.
 These are local results on one authored level, not a general success-rate

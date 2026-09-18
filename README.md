@@ -16,13 +16,23 @@ labels, maps the winners to allowed values, and assembles JSON in code.
   <img src="https://img.shields.io/badge/weights-no%20retraining-f4aa42?style=flat-square" alt="No retraining">
 </p>
 
-<h2 align="center">28 decisions. 497 milliseconds. Same 27B model.</h2>
+<h2 align="center">Super Mario. In your browser. 71 ms per action.</h2>
+
+<p align="center"><strong>Qwen3.5 0.8B · Apple M4 Max · WebLLM / WebGPU.</strong><br>
+Our World 1-1 recreation, played by local Qwen plus an explicit physics guard.<br>
+Final-build run: 71.26 ms mean worker inference · 511 accepted choices · level cleared in 40.12 s.<br>
+Excludes model download and CPU forecasting. M4 Max identified by the device owner.<br>
+<a href="https://kikoncuo.github.io/jevfire/learn.html"><strong>Explore the visual guide ↗</strong></a> ·
+<a href="docs/mario-realtime.md#measurements">Measurement receipt</a></p>
+
+<h3 align="center">On CUDA: 28 decisions. 497 milliseconds. Same 27B model.</h3>
 
 <p align="center"><strong>10.3× faster than generating the equivalent constrained JSON.</strong><br>
 Measured median on a synthetic 28-field task with a fresh prefix.<br>
 Qwen3.8-27B-FP8 · RTX PRO 6000 Blackwell · vLLM 0.29.0 · five trials per cell.</p>
 
 <p align="center">
+  <a href="https://kikoncuo.github.io/jevfire/learn.html"><strong>How it works, visually ↗</strong></a> ·
   <a href="https://kikoncuo.github.io/jevfire/driving.html"><strong>Race four prompts ↗</strong></a> ·
   <a href="https://kikoncuo.github.io/jevfire/mario.html"><strong>Play World 1-1 ↗</strong></a> ·
   <a href="https://kikoncuo.github.io/jevfire/">Village demo</a> ·
@@ -76,7 +86,11 @@ play. The [browser SDK](docs/browser-sdk.md) retains instruction state across
 updates and scores one finite maneuver. An explicit physics guard predicts
 hazards and handles jump timing. In four recorded continuous runs it cleared
 the level every time, averaging **73 ms per decision** and **12.6 decisions/sec**
-on the tested Apple WebGPU device. This is a hybrid Qwen-and-physics result.
+across all four runs. The final-build run averaged **71.26 ms per action decision**
+(rounded to **71 ms**), with **511 accepted choices** and **12.74 accepted choices/sec**
+on the device identified by its owner as an **M4 Max**. Worker inference latency
+excludes CPU forecasting and model download; it is not the whole control-loop latency.
+This is a hybrid Qwen-and-physics result on one authored level.
 [Speed research and completion results →](docs/mario-realtime.md) [How the game works →](docs/mario-demo.md)
 
 [**Slipstream**](https://kikoncuo.github.io/jevfire/driving.html) gives four cars
@@ -94,6 +108,10 @@ locally through WebLLM/WebGPU. Browser field work is sequential with context reu
 the CUDA/vLLM server's parallel batching and headline benchmarks are separate.
 
 ## Why it works
+
+**[Read the interactive field guide →](https://kikoncuo.github.io/jevfire/learn.html)**
+Walk through a decision, animate the probability rescaling, inspect cache reuse,
+and compare frozen-model scoring with constrained decoding and trained classifiers.
 
 Traditional structured generation emits keys, punctuation, and values token by
 token. JEVfire maps each field's options to verified single-token labels,
@@ -129,6 +147,27 @@ position. Engine scheduling can still require multiple batches and forward passe
 | Model changes | No training required | **No training required** |
 | Failure handling | Validate generated output | Reject incomplete/nonfinite scores; no silent default |
 | Performance sweet spot | Flexible generative content | **Many independent decisions sharing context** |
+
+### What RLCD means—and what we actually implement
+
+In TypeSafe's terminology, **RLCD means Reinforcement Learning for Calibrated
+Decisions**. JEVfire uses pretrained weights and their existing tokenizer;
+we have not reproduced Jev's training or architecture. We read scores for verified
+token labels, restrict them to the allowed menu, and normalize them. A distribution
+summing to 100% expresses relative preference among those choices, not calibrated
+confidence that the winner is correct.
+
+**Constrained decoding is another option:** a grammar filters legal next tokens
+while the model generates the output. It supports richer nested schemas and free
+text where the backend permits. Both approaches can reuse context; neither
+guarantees factual correctness. Training can be combined with either approach.
+
+Some open projects really train: **AlexWortega/openjev** fine-tunes Qwen3.5-4B as
+an NLI classifier; **Verdict** trains a 151M ModernBERT candidate scorer with
+cross-entropy and Brier loss; **RLCR** uses actual reinforcement learning to reward
+answer correctness and calibrated confidence. The first two are supervised
+methods, despite similar branding. [Verified recipes, model examples, sources,
+and limitations →](docs/decision-models.md)
 
 ## Give your game an action layer
 

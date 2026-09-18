@@ -6,6 +6,7 @@ export default defineConfig({
     target: 'es2022',
     rolldownOptions: {
       input: {
+        learn: 'learn.html',
         village: 'index.html',
         driving: 'driving.html',
         mario: 'mario.html',

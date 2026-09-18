@@ -85,6 +85,17 @@ See [guarantees and limits](guarantees.md).
 
 ## Relationship to JEV / RLCD
 
+**Naming matters:** the source comparison below refers to the community
+`harshatheg/Qwen-2.5-1B-RLCD` demo, not TypeSafe's proprietary Jev model.
+TypeSafe expands RLCD as **Reinforcement Learning for Calibrated Decisions**.
+JEVfire does not implement that training. Some similarly named open models use
+supervised fine-tuning; the related RLCR research actually uses reinforcement
+learning. [Model examples and training recipes](decision-models.md).
+
+[The interactive field guide](https://kikoncuo.github.io/jevfire/learn.html)
+animates score normalization, cache reuse, and constrained decoding as an
+alternative. Restricting tokens and training a model are separate choices.
+
 The shared objective is to score finite fields using common context and assemble
 structured output without autoregressively spelling out the whole JSON object.
 Both implementations use an existing pretrained model and its language-model

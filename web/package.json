@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test test/*.test.js",
-    "format": "prettier --write src test qa index.html driving.html mario.html vite.config.js package.json",
-    "format:check": "prettier --check src test qa index.html driving.html mario.html vite.config.js package.json"
+    "format": "prettier --write src test qa index.html driving.html mario.html learn.html vite.config.js package.json",
+    "format:check": "prettier --check src test qa index.html driving.html mario.html learn.html vite.config.js package.json"
   },
   "dependencies": {
     "@mlc-ai/web-llm": "0.2.85",

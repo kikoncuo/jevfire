@@ -1,5 +1,13 @@
 # JEVfire browser demos
 
+**[Start with the visual field guide →](https://kikoncuo.github.io/jevfire/learn.html)**
+The new `learn.html` page explains token scoring, caching, constrained decoding,
+calibration, and open training recipes with interactive diagrams. It does not
+load a model. It also links to the measurement receipts behind **71 ms per action
+on M4 Max**: 71.26 ms mean worker inference in the final-build Mario run, with
+511 accepted choices. The hardware name is owner-supplied; saved browser telemetry
+records Apple / Metal 3. See [full methodology](../docs/mario-realtime.md#measurements).
+
 [World 1-1](https://kikoncuo.github.io/jevfire/mario.html) adds a third game: original
 Canvas2D art, playable keyboard/touch controls, a scripted baseline and local Qwen
 choosing finite maneuvers with persistent instruction caching and an explicit physics guard. The world keeps moving during inference; raw three-field controls remain an advanced comparison. [Game notes](../docs/mario-demo.md).

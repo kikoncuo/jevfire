@@ -1,5 +1,18 @@
 # Read the numbers, rerun the experiment
 
+## Browser result: 71 ms per action on M4 Max
+
+The World 1-1 final-build run completed in 40.12 seconds with 511 accepted choices,
+averaging **71.26 ms worker inference** per accepted maneuver (rounded to 71 ms).
+Qwen3.5 0.8B runs locally through WebLLM/WebGPU with a physics guard. The device
+owner identified M4 Max; the original telemetry records Apple / Metal 3. Model
+download and CPU forecasting are excluded. Across all four recorded runs the
+mean was 72.79 ms, with 4/4 completions on this one level.
+[Methodology and raw traces](../docs/mario-realtime.md#measurements) ·
+[Visual field guide](https://kikoncuo.github.io/jevfire/learn.html#results).
+
+## CUDA result: 28 independent fields
+
 The headline is **10.29× lower median latency** for a 28-field synthetic task:
 5,113.1 ms constrained JSON versus 496.9 ms automatic scoring, fresh prefix,
 five measured requests per method. The headline experiment used the stock

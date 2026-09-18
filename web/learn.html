@@ -1,0 +1,714 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3efe5" />
+    <meta
+      name="description"
+      content="A local Qwen model plays World 1-1 at 71 ms per action on an M4 Max. Explore how JEVfire scores choices, reuses context, and builds typed decisions—with interactive diagrams and open training recipes."
+    />
+    <meta property="og:title" content="JEVfire — 71 ms. One move ahead." />
+    <meta
+      property="og:description"
+      content="Browser-local Qwen + a physics guard. See the measurements, explore the mechanics, and play the demos."
+    />
+    <meta property="og:type" content="website" />
+    <title>JEVfire — Decisions, explained.</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23c3452c'/%3E%3Cpath d='M20 6v14q0 7-8 7H7v-5h5q3 0 3-3V6z' fill='%23f3efe5'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="page">
+      <header class="masthead">
+        <a class="brand" href="./learn.html" aria-label="JEVfire explained"
+          >JEV<span>fire</span><small>THE FIELD GUIDE</small></a
+        >
+        <nav aria-label="Main navigation">
+          <a href="#mechanics">How it works</a><a href="#training">Training</a
+          ><a href="#results">Evidence</a
+          ><a href="https://github.com/kikoncuo/jevfire">GitHub ↗</a>
+        </nav>
+      </header>
+      <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">LOCAL MODELS / REAL-TIME DECISIONS</p>
+            <h1 id="hero-title">One move<br /><em>ahead.</em></h1>
+            <p class="lead">
+              A small language model plays our recreation of Super Mario’s World
+              1-1. Entirely in your browser.
+            </p>
+            <div class="actions">
+              <a class="button primary" href="./mario.html"
+                >Watch Qwen play ↗</a
+              ><a class="text-link" href="#mechanics">Show me how ↓</a>
+            </div>
+            <p class="fine">
+              Qwen3.5 0.8B + an explicit physics guard.<br />WebLLM · WebGPU ·
+              no inference server.
+            </p>
+          </div>
+          <div class="hero-result">
+            <div class="result-top">
+              <span>APPLE M4 MAX</span><span>RECORDED RUN 04</span>
+            </div>
+            <div class="big-number">71<span>ms</span></div>
+            <h2>per action decision.</h2>
+            <div class="result-strip">
+              <div><strong>511</strong><span>accepted choices</span></div>
+              <div><strong>40.12 s</strong><span>level completion</span></div>
+            </div>
+            <div class="action-ticket">
+              <span>QWEN → CODE → GAME</span><code>{ "maneuver": "jump" }</code>
+            </div>
+            <p class="fine">
+              Rounded from 71.26 ms mean worker inference in the final-build
+              run. Model download and CPU forecasting excluded. M4 Max
+              identification supplied by the device owner.
+            </p>
+            <a class="text-link" href="#results"
+              >Read the measurement receipt ↗</a
+            >
+          </div>
+        </section>
+        <div class="opening">
+          <p>
+            <strong>Most software needs a choice, not a paragraph.</strong>
+            JEVfire asks a pretrained model to score a menu of allowed values,
+            then constructs the JSON in code. Inspired by Jev’s decision-first
+            idea; implemented with existing models and no retraining.
+          </p>
+          <span class="edition">01 / THE IDEA</span>
+        </div>
+
+        <section
+          class="chapter"
+          id="mechanics"
+          aria-labelledby="mechanics-title"
+        >
+          <div class="chapter-heading">
+            <p class="eyebrow">01 / FOLLOW A DECISION</p>
+            <h2 id="mechanics-title">Same model.<br />A different way out.</h2>
+            <p>
+              We keep the tokenizer and model weights. Existing token labels—A,
+              B, C—stand for full, typed choices. One scored output position
+              still runs the model’s decoder stack, not just one layer.
+            </p>
+          </div>
+          <div class="lab">
+            <label for="path">Choose an inference approach</label>
+            <select id="path">
+              <option value="finite">JEVfire: finite choices</option>
+              <option value="grammar">Constrained JSON decoding</option>
+              <option value="classifier">Trained classification head</option>
+            </select>
+            <ol class="pipeline" id="pipeline">
+              <li>
+                <b>Read the context</b
+                ><span>Reuse an exact cached prefix.</span>
+              </li>
+              <li>
+                <b>Score the vocabulary</b
+                ><span>Same model, same tokenizer.</span>
+              </li>
+              <li>
+                <b>Keep A / B / C</b
+                ><span>Choose the highest-scoring label.</span>
+              </li>
+              <li>
+                <b>Build JSON in code</b
+                ><span>Map A to the typed value jump.</span>
+              </li>
+            </ol>
+            <div class="output">
+              <span>OUTPUT</span
+              ><code id="path-output">{ "maneuver": "jump" }</code>
+            </div>
+            <div class="lab-controls">
+              <button id="animate-path" type="button">
+                Trace one decision →</button
+              ><span id="path-state" role="status">Ready</span>
+            </div>
+            <p class="fine" id="path-note">
+              Independent fields can be batched on CUDA. Browser fields run
+              sequentially with shared context.
+            </p>
+          </div>
+        </section>
+        <div class="aside-note">
+          <span>THE GUARANTEE</span>
+          <p>
+            <strong>No invented fields. No undeclared values.</strong>
+            Successful JEVfire responses are assembled from your declared keys
+            and choices. A valid choice can still be a bad choice. Independent
+            fields can also disagree; dependent decisions need staged requests
+            or application checks.
+          </p>
+        </div>
+
+        <section
+          class="chapter"
+          id="probabilities"
+          aria-labelledby="probability-title"
+        >
+          <div class="chapter-heading">
+            <p class="eyebrow">02 / THE 100% QUESTION</p>
+            <h2 id="probability-title">
+              A smaller menu.<br />Not more certainty.
+            </h2>
+            <p>
+              The model can give high scores to tokens outside our menu. We
+              ignore those scores and rescale the allowed choices to sum to
+              100%. That does not measure how likely the decision is to be
+              correct.
+            </p>
+            <p>
+              Here, A has 10%, B has 5%, and everything else has 85%. Within A
+              and B, the share becomes <strong>10 ÷ 15 = 66.7%</strong> and
+              <strong>5 ÷ 15 = 33.3%</strong>. The winner stays the same.
+            </p>
+          </div>
+          <div class="lab probability-lab">
+            <div class="lab-caption">
+              <strong>Where does the other 85% go?</strong
+              ><span>ILLUSTRATIVE VALUES</span>
+            </div>
+            <div class="legend">
+              <span class="a-label">■ A · jump</span
+              ><span class="b-label">■ B · wait</span
+              ><span>▧ other tokens</span>
+            </div>
+            <div class="bar-label">
+              <span>Full vocabulary</span><span>100%</span>
+            </div>
+            <div
+              class="stack"
+              role="img"
+              aria-label="Full vocabulary: A 10%, B 5%, other tokens 85%"
+            >
+              <span class="a" style="width: 10%"></span
+              ><span class="b" style="width: 5%"></span
+              ><span class="other" style="width: 85%"></span>
+            </div>
+            <div class="bar-values">A 10% · B 5% · other 85%</div>
+            <div class="down-arrow" aria-hidden="true">↓</div>
+            <div class="bar-label">
+              <span>Allowed choices</span
+              ><span id="retained">15% retained</span>
+            </div>
+            <div
+              class="stack"
+              id="restricted"
+              role="img"
+              aria-label="Retained mass: A 10%, B 5%"
+            >
+              <span class="a" style="width: 10%"></span
+              ><span class="b" style="width: 5%"></span>
+            </div>
+            <div class="bar-values" id="restricted-values">A 10% · B 5%</div>
+            <button type="button" id="normalize">Rescale to 100% →</button>
+            <p class="fine" id="probability-status" role="status">
+              No weights changed. No tokenizer changed.
+            </p>
+          </div>
+        </section>
+
+        <section class="cache-section" id="cache" aria-labelledby="cache-title">
+          <div class="chapter-heading">
+            <p class="eyebrow">03 / REUSE THE WORK</p>
+            <h2 id="cache-title">
+              Read the rules once.<br />Read the world again.
+            </h2>
+            <p>
+              Instructions stay put. The world changes. We retain the exact
+              instruction prefix’s attention and recurrent state, then process
+              fresh observations and candidate choices. A changed prefix needs
+              fresh computation.
+            </p>
+          </div>
+          <div class="cache-layout">
+            <div class="cache-diagram">
+              <div class="cache-prefix">
+                <span>REUSABLE PREFIX</span
+                ><strong>“Keep moving. Avoid damage.”</strong>
+              </div>
+              <div class="cache-branches">
+                <div><span>TICK 1</span><code>gap ahead → jump</code></div>
+                <div><span>TICK 2</span><code>landing → run</code></div>
+                <div><span>TICK 3</span><code>enemy → hop</code></div>
+              </div>
+              <p class="fine">
+                Schematic observations. Each changing suffix still runs through
+                the model. A downloaded model cache is different from a
+                prompt-state cache.
+              </p>
+            </div>
+            <div class="cache-measurement">
+              <span class="eyebrow">SAME-PROMPT CACHE ABLATION</span>
+              <div class="latency-row">
+                <div><span>Cache off</span><strong>140.17 ms</strong></div>
+                <div class="latency-bar"><span style="width: 100%"></span></div>
+              </div>
+              <div class="latency-row">
+                <div><span>Cache on</span><strong>67.32 ms</strong></div>
+                <div class="latency-bar cached">
+                  <span style="width: 48.025%"></span>
+                </div>
+              </div>
+              <p>
+                <strong>2.08× faster</strong> across 12 paired maneuver prompts.
+                All 12 choices matched. This isolates caching; changing the
+                entire controller is a different experiment.
+              </p>
+              <a
+                href="https://github.com/kikoncuo/jevfire/blob/main/web/qa/mario-cache-ablation-result.json"
+                >Inspect the paired data ↗</a
+              >
+            </div>
+          </div>
+        </section>
+
+        <section class="chapter" id="training" aria-labelledby="training-title">
+          <div class="chapter-heading">
+            <p class="eyebrow">04 / LEARNING TO KNOW</p>
+            <h2 id="training-title">Confidence has<br />to earn its name.</h2>
+            <p>
+              In Jev’s terminology,
+              <strong
+                >RLCD means Reinforcement Learning for Calibrated
+                Decisions</strong
+              >. Calibration means predictions assigned 70% confidence should be
+              right about 70% of the time across comparable cases.
+            </p>
+            <p>
+              Our wrapper doesn’t train the model. Other projects do: supervised
+              learning uses labeled examples; reinforcement learning rewards
+              outcomes. Either can train probability estimates, and either still
+              needs independent evaluation.
+            </p>
+            <a href="https://typesafe.ai/">Jev’s original direction ↗</a>
+          </div>
+          <div class="lab calibration-lab">
+            <div class="lab-caption">
+              <strong>Being confidently wrong costs more.</strong
+              ><span>TEACHING EXAMPLE</span>
+            </div>
+            <div class="training-loop">
+              <span>Examples</span><span>→ Predict</span><span>→ Grade</span
+              ><span>→ Update weights ↺</span>
+            </div>
+            <div class="outcome-label">
+              100 predictions: <b>70 correct</b>, 30 wrong
+            </div>
+            <div
+              class="outcome-grid"
+              id="outcomes"
+              role="img"
+              aria-label="70 correct and 30 incorrect illustrative predictions"
+            ></div>
+            <label for="confidence"
+              >Reported confidence
+              <output id="confidence-value">95%</output></label
+            ><input
+              type="range"
+              id="confidence"
+              min="0"
+              max="100"
+              value="95"
+            /><svg
+              id="calibration-chart"
+              role="img"
+              aria-label="Average binary Brier penalty is minimized at 70% confidence for this example"
+            ></svg>
+            <div class="chart-key">
+              <span>● Current confidence</span><span>◆ Minimum at 70%</span>
+            </div>
+            <div class="lab-controls">
+              <button id="learn-confidence" type="button">
+                Animate learning →</button
+              ><span id="penalty" role="status">Penalty: 0.273</span>
+            </div>
+            <p class="fine">
+              Synthetic illustration, not a training run. Binary Brier penalty;
+              lower is better. Real models learn different confidence for
+              different inputs.
+            </p>
+          </div>
+        </section>
+
+        <section class="research" id="recipes" aria-labelledby="research-title">
+          <div class="section-line">
+            <p class="eyebrow">05 / OPEN TRAINING RECIPES</p>
+            <span>CHECKED SEPTEMBER 2026</span>
+          </div>
+          <h2 id="research-title">
+            Some projects really train.<br />They don’t all do RL.
+          </h2>
+          <p class="section-intro">
+            Three useful examples, with different objectives. These are
+            source-reviewed recipes and author-reported results, not training
+            runs we reproduced.
+          </p>
+          <div class="research-grid">
+            <article>
+              <span class="method-tag">SUPERVISED CLASSIFICATION</span>
+              <h3>OpenJev<br /><span>Qwen3.5 · 4B</span></h3>
+              <p>
+                Train a new classification head to decide whether a candidate is
+                supported, contradicted, or neutral given the context. Scores
+                come from this head, rather than vocabulary generation.
+              </p>
+              <details>
+                <summary>The recipe</summary>
+                <p>
+                  120,000 SNLI/MNLI examples; 2,000 validation examples; one
+                  epoch; batch 32; maximum length 256; learning rate 2e-5.
+                  Fine-tune the text backbone and head; freeze the vision tower.
+                  The released run uses no LoRA.
+                </p>
+                <p>
+                  Recorded NLI validation accuracy: 89.85%. This is not a Mario
+                  score or a calibration result.
+                </p>
+                <a
+                  href="https://huggingface.co/AlexWortega/openjev/blob/main/code/train.py"
+                  >Training code ↗</a
+                >
+              </details>
+              <a
+                class="research-source"
+                href="https://huggingface.co/AlexWortega/openjev"
+                >AlexWortega/openjev ↗</a
+              >
+            </article>
+            <article>
+              <span class="method-tag">SUPERVISED + CALIBRATION</span>
+              <h3>Verdict<br /><span>ModernBERT · 151M</span></h3>
+              <p>
+                A small candidate scorer trained with cross-entropy plus a
+                penalty for probability errors. A separate calibration step
+                adjusts how sharp its probabilities are.
+              </p>
+              <details>
+                <summary>The recipe</summary>
+                <p>
+                  Start with GLiClass/ModernBERT. 2,300 training examples; three
+                  epochs; batch 8, accumulation 4; backbone/head learning rates
+                  2e-5/1e-4. Select by validation NLL. Fit temperature on 500
+                  separate calibration examples; evaluate on 1,000 test
+                  examples.
+                </p>
+                <p>
+                  The v2 test report keeps 95% accuracy, but calibration error
+                  worsens from 1.13% to 3.35% after temperature scaling. Calling
+                  a step “calibration” does not guarantee improvement.
+                </p>
+                <a
+                  href="https://github.com/Heman10x-NGU/Verdict-open-jev/blob/main/reports/v2/evaluation_report_v2.json"
+                  >Evaluation receipt ↗</a
+                >
+              </details>
+              <a
+                class="research-source"
+                href="https://github.com/Heman10x-NGU/Verdict-open-jev"
+                >Verdict source &amp; weights ↗</a
+              >
+            </article>
+            <article>
+              <span class="method-tag">REINFORCEMENT LEARNING</span>
+              <h3>RLCR<br /><span>Qwen2.5 · 7B</span></h3>
+              <p>
+                Generate reasoning, an answer, and confidence. Grade correctness
+                and confidence together, then update the model with GRPO. Actual
+                RL; a different method from Jev’s unreproduced recipe.
+              </p>
+              <details>
+                <summary>The recipe</summary>
+                <p>
+                  Hotpot QA; 32 sampled completions per prompt; temperature 0.7;
+                  one epoch; learning rate 1e-6; BF16. The authors document four
+                  A100 GPUs for Hotpot training.
+                </p>
+                <p>
+                  Example checkpoint:
+                  <code>mehuldamani/hotpot-v2-brier-7b-no-split</code>. These
+                  models still generate reasoning text; their confidence
+                  training does not automatically transfer to our A/B/C token
+                  scores.
+                </p>
+                <a
+                  href="https://github.com/damanimehul/RLCR/blob/main/configs/Qwen-7B/hotpot/RLCR.yaml"
+                  >Training configuration ↗</a
+                >
+              </details>
+              <a
+                class="research-source"
+                href="https://github.com/damanimehul/RLCR"
+                >RLCR paper, code &amp; models ↗</a
+              >
+            </article>
+          </div>
+          <p class="research-foot">
+            A naming trap: Meta’s older
+            <a href="https://github.com/facebookresearch/RLCD">RLCD</a> means
+            <em>Reinforcement Learning from Contrastive Distillation</em>—a
+            different training objective.
+            <a
+              href="https://github.com/kikoncuo/jevfire/blob/main/docs/decision-models.md"
+              >Full recipes, commands &amp; source notes ↗</a
+            >
+          </p>
+        </section>
+
+        <section
+          id="alternatives"
+          class="alternatives"
+          aria-labelledby="alternatives-title"
+        >
+          <p class="eyebrow">06 / CHOOSE THE RIGHT TOOL</p>
+          <h2 id="alternatives-title">
+            Constrained decoding<br />belongs in the toolbox.
+          </h2>
+          <div class="alternatives-grid">
+            <div>
+              <h3>Finite-choice scoring</h3>
+              <p>
+                Best fit: small action menus, routing, flags, and independent
+                typed decisions. Code owns the keys and maps each selected label
+                to its value. Our current API accepts flat finite fields; code
+                can compose larger objects.
+              </p>
+            </div>
+            <div>
+              <h3>Constrained JSON generation</h3>
+              <p>
+                Best fit: nested objects, dynamic arrays, and free-text strings
+                inside a schema. A grammar masks tokens that cannot legally come
+                next; the model continues generating. Later fields can condition
+                on earlier values.
+              </p>
+            </div>
+            <div>
+              <h3>Trained decision models</h3>
+              <p>
+                Best fit: repeated tasks with representative training data.
+                Learn better choices or probability estimates, then use code
+                assembly or constrained decoding. Training and output
+                constraints can be combined.
+              </p>
+            </div>
+          </div>
+          <p class="fine">
+            Successful constrained generation enforces supported schema rules,
+            not factual truth. Prefix caching can help both approaches; some
+            engines skip forced text. See
+            <a
+              href="https://xgrammar.mlc.ai/docs/latest/api/python/grammar_matcher.html"
+              >XGrammar</a
+            >
+            and
+            <a
+              href="https://docs.vllm.ai/en/latest/features/structured_outputs/"
+              >vLLM structured outputs</a
+            >.
+          </p>
+        </section>
+
+        <section id="results" class="results" aria-labelledby="results-title">
+          <div class="section-line">
+            <p class="eyebrow">07 / THE MEASUREMENT RECEIPTS</p>
+            <span>DIFFERENT WORKLOADS. SEPARATE RESULTS.</span>
+          </div>
+          <h2 id="results-title">
+            Fast is a measurement.<br />Good is another one.
+          </h2>
+          <div class="receipt-grid">
+            <article class="receipt">
+              <div class="receipt-heading">
+                <span>BROWSER / M4 MAX</span><b>World 1-1</b>
+              </div>
+              <dl>
+                <div>
+                  <dt>Final-build run mean</dt>
+                  <dd>71.26 ms</dd>
+                </div>
+                <div>
+                  <dt>Accepted choices</dt>
+                  <dd>511</dd>
+                </div>
+                <div>
+                  <dt>Accepted choices / second</dt>
+                  <dd>12.74</dd>
+                </div>
+                <div>
+                  <dt>Request round-trip mean</dt>
+                  <dd>73.27 ms</dd>
+                </div>
+                <div>
+                  <dt>CPU forecasting mean</dt>
+                  <dd>2.68 ms</dd>
+                </div>
+                <div>
+                  <dt>Level completed in</dt>
+                  <dd>40.12 s</dd>
+                </div>
+              </dl>
+              <p>
+                One continuous run on the shipping build; worker latency counts
+                accepted choices. Qwen3.5-0.8B-q4f16_1, WebLLM 0.2.85, Chrome
+                152. Excludes download; first cold-policy choice: 192.80 ms.
+              </p>
+              <p>
+                Across all four recorded runs: <strong>4/4 completions</strong>,
+                72.79 ms mean inference, 12.60 accepted choices/sec. One
+                authored level, with a physics guard—not a general success
+                guarantee. Device owner identified M4 Max; browser telemetry
+                records Apple / Metal 3.
+              </p>
+              <a
+                href="https://github.com/kikoncuo/jevfire/blob/main/docs/mario-realtime.md#measurements"
+                >Runs, methodology &amp; raw traces ↗</a
+              >
+            </article>
+            <article class="receipt">
+              <div class="receipt-heading">
+                <span>CUDA / RTX PRO 6000</span><b>28 typed fields</b>
+              </div>
+              <dl>
+                <div>
+                  <dt>Constrained JSON median</dt>
+                  <dd>5,113.1 ms</dd>
+                </div>
+                <div>
+                  <dt>JEVfire median</dt>
+                  <dd>496.9 ms</dd>
+                </div>
+                <div>
+                  <dt>Fresh-prefix speedup</dt>
+                  <dd>10.29×</dd>
+                </div>
+                <div>
+                  <dt>Model</dt>
+                  <dd>Qwen3.8 27B</dd>
+                </div>
+                <div>
+                  <dt>Runtime</dt>
+                  <dd>vLLM 0.29.0</dd>
+                </div>
+                <div>
+                  <dt>Samples per cell</dt>
+                  <dd>5</dd>
+                </div>
+              </dl>
+              <p>
+                Synthetic, independent boolean/enum fields. Same FP8 weights and
+                thinking setting; compact grammar-constrained JSON baseline.
+                Model and kernels already warm; fresh prefix-cache salt.
+              </p>
+              <p>
+                This is a server latency comparison. It is not a browser
+                speedup, a general accuracy benchmark, or a promise that every
+                workload is faster.
+              </p>
+              <a
+                href="https://github.com/kikoncuo/jevfire/blob/main/benchmarks/README.md"
+                >Full benchmark methodology ↗</a
+              >
+            </article>
+          </div>
+        </section>
+
+        <section class="games" aria-labelledby="games-title">
+          <p class="eyebrow">08 / PUT IT IN MOTION</p>
+          <h2 id="games-title">Three worlds.<br />Your prompts.</h2>
+          <div class="game-links">
+            <a href="./mario.html"
+              ><span>01 / PLATFORMER</span><strong>World 1-1 ↗</strong>
+              <p>
+                A cached maneuver picker, a physics guard, and a finish line.
+              </p></a
+            ><a href="./driving.html"
+              ><span>02 / RACING</span><strong>Slipstream ↗</strong>
+              <p>
+                Four drivers. Different strategies. Risk, traffic, tyres, and
+                pit stops.
+              </p></a
+            ><a href="./"
+              ><span>03 / SURVIVAL</span><strong>Last Hearth ↗</strong>
+              <p>
+                Six villagers balancing food, repairs, training, and orcs.
+              </p></a
+            >
+          </div>
+        </section>
+        <section class="questions" aria-label="Common questions">
+          <details>
+            <summary>
+              Are we changing the tokenizer or looking at token distributions?
+            </summary>
+            <p>
+              The tokenizer and vocabulary stay unchanged. We verify
+              single-token labels and read their scores from the existing
+              language-model head. The browser uses raw logits; the vLLM path
+              requests label log probabilities. Restricting and normalizing
+              those scores gives a distribution over the menu—not a measured
+              correctness probability.
+            </p>
+          </details>
+          <details>
+            <summary>Can it take images as context?</summary>
+            <p>
+              The CUDA image-context path can pass images to a compatible
+              vision-language model. Image encoding still costs time, and
+              model/backend support is required. The browser Mario demo uses
+              textual state summaries and CPU forecasts, not screen pixels.
+              <a
+                href="https://github.com/kikoncuo/jevfire/blob/main/docs/image-context.md"
+                >Image-context example ↗</a
+              >
+            </p>
+          </details>
+          <details>
+            <summary>Does the game pause while the model thinks?</summary>
+            <p>
+              Live mode keeps the world and maneuver executor moving while a
+              worker scores the next choice. There is one request outstanding;
+              stale answers are checked against the new state. The physics guard
+              forecasts candidates before inference and validates the chosen
+              maneuver afterwards. Raw-control Decision steps is a separate
+              diagnostic mode.
+            </p>
+          </details>
+          <details>
+            <summary>Did we reproduce Jev’s RLCD training?</summary>
+            <p>
+              No. JEVfire was inspired by the community
+              <a href="https://huggingface.co/harshatheg/Qwen-2.5-1B-RLCD"
+                >Qwen RLCD demo</a
+              >
+              and Jev’s typed-decision direction. We use frozen pretrained
+              weights and inference-engine caching. The name RLCD on a
+              repository does not establish that its authors used reinforcement
+              learning.
+            </p>
+          </details>
+        </section>
+      </main>
+      <footer>
+        <a class="brand" href="./learn.html">JEV<span>fire</span></a>
+        <p>
+          Inspired by Jev. Built in the open.<br />Understand the tradeoffs.
+          Inspect the evidence. Play.
+        </p>
+        <a href="https://github.com/kikoncuo/jevfire"
+          >Source &amp; MIT license ↗</a
+        >
+      </footer>
+    </div>
+    <script type="module" src="./src/learn/main.js"></script>
+  </body>
+</html>
